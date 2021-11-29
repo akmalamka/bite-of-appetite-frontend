@@ -22,25 +22,25 @@ const NavItem = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openedPopoverId, setOpenedPopoverId] = useState(null);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const [openedPopoverId, setOpenedPopoverId] = useState(null);
 
-  const handleClick = (event, popoverId) => {
-    setAnchorEl(event.target);
-    setOpenedPopoverId(popoverId);
-  };
+  // const handleClick = (event, popoverId) => {
+  //   setAnchorEl(event.target);
+  //   setOpenedPopoverId(popoverId);
+  // };
 
-  const handleClose = (): void => {
-    setAnchorEl(null);
-    setOpenedPopoverId(null);
-  };
+  // const handleClose = (): void => {
+  //   setAnchorEl(null);
+  //   setOpenedPopoverId(null);
+  // };
 
-  const [activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
+  // const [activeLink, setActiveLink] = useState('');
+  // useEffect(() => {
+  //   setActiveLink(window && window.location ? window.location.pathname : '');
+  // }, []);
 
-  const hasActiveLink = () => items.find((i) => i.href === activeLink);
+  // const hasActiveLink = () => items.find((i) => i.href === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (
@@ -50,15 +50,17 @@ const NavItem = ({
         alignItems={'center'}
         aria-describedby={id}
         sx={{ cursor: 'pointer' }}
-        onClick={(e) => handleClick(e, id)}
+        // onClick={(e) => handleClick(e, id)}
       >
         <Typography
-          fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
+          fontWeight={400}
+          // color={'text.primary'}
+          // fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
           color={linkColor}
         >
           {title}
         </Typography>
-        <ExpandMoreIcon
+        {/* <ExpandMoreIcon
           sx={{
             marginLeft: theme.spacing(1 / 4),
             width: 16,
@@ -66,9 +68,9 @@ const NavItem = ({
             transform: openedPopoverId === id ? 'rotate(180deg)' : 'none',
             color: linkColor,
           }}
-        />
+        /> */}
       </Box>
-      <Popover
+      {/* <Popover
         elevation={3}
         id={id}
         open={openedPopoverId === id}
@@ -136,7 +138,7 @@ const NavItem = ({
             </Grid>
           ))}
         </Grid>
-      </Popover>
+      </Popover> */}
     </Box>
   );
 };

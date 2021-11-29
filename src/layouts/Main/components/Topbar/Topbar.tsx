@@ -64,7 +64,7 @@ const Topbar = ({
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box>
           <NavItem
-            title={'Landings'}
+            title={'recipes'}
             id={'landing-pages'}
             items={landingPages}
             colorInvert={colorInvert}
@@ -72,7 +72,7 @@ const Topbar = ({
         </Box>
         <Box marginLeft={4}>
           <NavItem
-            title={'Company'}
+            title={'food for thought'}
             id={'company-pages'}
             items={companyPages}
             colorInvert={colorInvert}
@@ -80,13 +80,13 @@ const Topbar = ({
         </Box>
         <Box marginLeft={4}>
           <NavItem
-            title={'Account'}
+            title={'about'}
             id={'account-pages'}
             items={accountPages}
             colorInvert={colorInvert}
           />
         </Box>
-        <Box marginLeft={4}>
+        {/* <Box marginLeft={4}>
           <NavItem
             title={'Pages'}
             id={'secondary-pages'}
@@ -121,7 +121,7 @@ const Topbar = ({
           >
             Buy now
           </Button>
-        </Box>
+        </Box> */}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button
