@@ -53,6 +53,9 @@ import {
   AccountSecurity as AccountSecurityView,
   NotFound as NotFoundView,
   NotFoundCover as NotFoundCoverView,
+  AboutBiteOfAppetite as AboutBiteOfAppetiteView,
+  FoodForThought as FoodForThoughtView,
+  Recipes as RecipesView,
 } from 'views';
 
 const routes = [
@@ -279,6 +282,20 @@ const routes = [
   {
     path: '/not-found-cover',
     renderer: (params = {}): JSX.Element => <NotFoundCoverView {...params} />,
+  },
+  {
+    path: '/recipes',
+    renderer: (params = {}): JSX.Element => <RecipesView {...params} />,
+  },
+  {
+    path: '/food-for-thought',
+    renderer: (params = {}): JSX.Element => <FoodForThoughtView {...params} />,
+  },
+  {
+    path: '/about-bite-of-appetite',
+    renderer: (params = {}): JSX.Element => (
+      <AboutBiteOfAppetiteView {...params} />
+    ),
   },
 ];
 

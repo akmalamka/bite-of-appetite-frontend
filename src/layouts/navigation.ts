@@ -14,7 +14,7 @@ const pages = {
   about: [
     {
       title: 'About',
-      href: '/about',
+      href: '/about-bite-of-appetite',
     },
   ],
 };
