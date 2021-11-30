@@ -43,7 +43,6 @@ const NavItem = ({
   const hasActiveLink = () => items.find((i) => i.href === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
-  console.log(items[0].title);
   return (
     <Box>
       <Box
@@ -53,7 +52,7 @@ const NavItem = ({
         sx={{ cursor: 'pointer' }}
         // onClick={(e) => handleClick(e, id)}
       >
-        <Button
+        {/* <Button
           component={'a'}
           href={items[0].href}
           fullWidth
@@ -71,16 +70,16 @@ const NavItem = ({
           }}
         >
           {items[0].title}
-        </Button>
-        {/* <Typography
+        </Button> */}
+        <Typography
           fontWeight={400}
-          href={items.href}
+          // href={items[0].href}
           // color={'text.primary'}
           // fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
           color={linkColor}
         >
-          {title}
-        </Typography> */}
+          {items[0].title}
+        </Typography>
         {/* <ExpandMoreIcon
           sx={{
             marginLeft: theme.spacing(1 / 4),

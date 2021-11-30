@@ -7,7 +7,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import { ThemeModeToggler } from '../../components';
 import { SocialIcon } from 'react-social-icons';
-import { ReactComponent as InstagramLogo } from './components/Icons/instagram.svg';
+// import { ReactComponent as InstagramLogo } from './components/Icons/instagram.svg';
+import { InstagramButton } from './components/';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -32,7 +33,8 @@ const Topbar = ({
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
-
+  console.log('aaa');
+  console.log(colorInvert);
   return (
     <Box
       display={'flex'}
@@ -94,38 +96,10 @@ const Topbar = ({
         <Box>
           <ThemeModeToggler />
         </Box>
-        {/* Jangan lupa diubah warnanya kalo ada perubahan */}
-        <Box
-          marginLeft={4}
-          // sx={{
-          //   minWidth: 'auto',
-          //   border: 1,
-          //   borderColor: mode === 'light' ? 'primary' : 'secondary',
-          // }}
-        >
-          <IconButton
-            sx={{
-              bgcolor: 'background.paper',
-              boxShadow: 1,
-              borderRadius: 1,
-              p: 2,
-              minWidth: 300,
-            }}
-          >
-            {/* AAA */}
-            <InstagramLogo />
-          </IconButton>
-          {/* <SocialIcon
-            url="https://www.instagram.com/akmalm_20/"
-            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
-            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
-            style={{
-              minWidth: 'auto',
-              border: 1,
-              borderColor: mode === 'light' ? 'primary' : 'secondary',
-            }}
-          /> */}
+        <Box>
+          <InstagramButton colorInvert={colorInvert} />
         </Box>
+        {/* Jangan lupa diubah warnanya kalo ada perubahan */}
         <Box marginLeft={4}>
           <SocialIcon
             url="https://soundcloud.com/muhammad-akmal-517836705"
