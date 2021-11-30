@@ -9,7 +9,7 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: 'Poppins, sans-serif',
         button: {
           textTransform: 'none',
           fontWeight: 'medium' as React.CSSProperties['fontWeight'],
@@ -20,6 +20,16 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
+        MuiCssBaseline: {
+          styleOverrides: `
+            @font-face {
+              font-family: 'HVCocktail';
+              font-style: normal;
+              font-display: swap;
+              src: local('HVCokctailRegular'), url(../fonts/HVCocktailRegular.ttf) format('truetype');
+            }
+          `,
+        },
         MuiButton: {
           styleOverrides: {
             root: {

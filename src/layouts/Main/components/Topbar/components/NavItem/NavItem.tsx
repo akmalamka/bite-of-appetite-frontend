@@ -35,14 +35,15 @@ const NavItem = ({
   //   setOpenedPopoverId(null);
   // };
 
-  // const [activeLink, setActiveLink] = useState('');
-  // useEffect(() => {
-  //   setActiveLink(window && window.location ? window.location.pathname : '');
-  // }, []);
+  const [activeLink, setActiveLink] = useState('');
+  useEffect(() => {
+    setActiveLink(window && window.location ? window.location.pathname : '');
+  }, []);
 
-  // const hasActiveLink = () => items.find((i) => i.href === activeLink);
+  const hasActiveLink = () => items.find((i) => i.href === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
+  console.log(items[0].title);
   return (
     <Box>
       <Box
@@ -52,14 +53,34 @@ const NavItem = ({
         sx={{ cursor: 'pointer' }}
         // onClick={(e) => handleClick(e, id)}
       >
-        <Typography
+        <Button
+          component={'a'}
+          href={items['href']}
+          fullWidth
+          sx={{
+            justifyContent: 'flex-start',
+            color:
+              activeLink === items['href']
+                ? theme.palette.primary.main
+                : theme.palette.text.primary,
+            backgroundColor:
+              activeLink === items['href']
+                ? alpha(theme.palette.primary.main, 0.1)
+                : 'transparent',
+            fontWeight: activeLink === items['href'] ? 600 : 400,
+          }}
+        >
+          {items[0].title}
+        </Button>
+        {/* <Typography
           fontWeight={400}
+          href={items.href}
           // color={'text.primary'}
           // fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
           color={linkColor}
         >
           {title}
-        </Typography>
+        </Typography> */}
         {/* <ExpandMoreIcon
           sx={{
             marginLeft: theme.spacing(1 / 4),

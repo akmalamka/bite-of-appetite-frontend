@@ -10,12 +10,9 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   onSidebarOpen: () => void;
   pages: {
-    landings: Array<PageItem>;
-    company: Array<PageItem>;
-    account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    recipes: Array<PageItem>;
+    foodforthought: Array<PageItem>;
+    about: Array<PageItem>;
   };
   colorInvert?: boolean;
 }
@@ -28,12 +25,9 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
-    landings: landingPages,
-    secondary: secondaryPages,
-    company: companyPages,
-    account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
+    recipes: recipePages,
+    foodforthought: foodForThoughtPages,
+    about: aboutPages,
   } = pages;
 
   return (
@@ -65,24 +59,32 @@ const Topbar = ({
         <Box>
           <NavItem
             title={'recipes'}
-            id={'landing-pages'}
-            items={landingPages}
+            id={'recipes-pages'}
+            items={recipePages}
             colorInvert={colorInvert}
           />
         </Box>
         <Box marginLeft={4}>
           <NavItem
             title={'food for thought'}
-            id={'company-pages'}
-            items={companyPages}
+            id={'food-for-thought-pages'}
+            items={foodForThoughtPages}
             colorInvert={colorInvert}
           />
         </Box>
+        {/* <Box
+          marginLeft={4}
+          sx={{
+            fontFamily: 'HVCocktail',
+          }}
+        >
+          Raleway
+        </Box> */}
         <Box marginLeft={4}>
           <NavItem
             title={'about'}
-            id={'account-pages'}
-            items={accountPages}
+            id={'about-pages'}
+            items={aboutPages}
             colorInvert={colorInvert}
           />
         </Box>
