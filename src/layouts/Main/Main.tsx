@@ -48,7 +48,7 @@ const Main = ({
 
   return (
     <Box>
-      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
+      {/* <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
         <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
           <Box
             display={'flex'}
@@ -95,7 +95,7 @@ const Main = ({
             </Box>
           </Box>
         </Container>
-      </Box>
+      </Box> */}
       <AppBar
         position={'sticky'}
         sx={{
@@ -110,6 +110,9 @@ const Main = ({
             pages={pages}
             colorInvert={trigger ? false : colorInvert}
           />
+          {/* <Box>
+            <ThemeModeToggler />
+          </Box> */}
         </Container>
       </AppBar>
       {/* <Sidebar

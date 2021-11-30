@@ -20,6 +20,7 @@ const ThemeModeToggler = (): JSX.Element => {
         borderColor: alpha(theme.palette.divider, 0.2),
       }}
     >
+      
       {mode === 'light' ? (
         <svg
           width={20}

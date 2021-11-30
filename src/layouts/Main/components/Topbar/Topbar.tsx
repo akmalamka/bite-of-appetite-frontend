@@ -1,10 +1,13 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import { NavItem } from './components';
+import { ThemeModeToggler } from '../../components';
+import { SocialIcon } from 'react-social-icons';
+import { ReactComponent as InstagramLogo } from './components/Icons/instagram.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -86,6 +89,69 @@ const Topbar = ({
             id={'about-pages'}
             items={aboutPages}
             colorInvert={colorInvert}
+          />
+        </Box>
+        <Box>
+          <ThemeModeToggler />
+        </Box>
+        {/* Jangan lupa diubah warnanya kalo ada perubahan */}
+        <Box
+          marginLeft={4}
+          // sx={{
+          //   minWidth: 'auto',
+          //   border: 1,
+          //   borderColor: mode === 'light' ? 'primary' : 'secondary',
+          // }}
+        >
+          <IconButton
+            sx={{
+              bgcolor: 'background.paper',
+              boxShadow: 1,
+              borderRadius: 1,
+              p: 2,
+              minWidth: 300,
+            }}
+          >
+            {/* AAA */}
+            <InstagramLogo />
+          </IconButton>
+          {/* <SocialIcon
+            url="https://www.instagram.com/akmalm_20/"
+            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
+            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
+            style={{
+              minWidth: 'auto',
+              border: 1,
+              borderColor: mode === 'light' ? 'primary' : 'secondary',
+            }}
+          /> */}
+        </Box>
+        <Box marginLeft={4}>
+          <SocialIcon
+            url="https://soundcloud.com/muhammad-akmal-517836705"
+            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
+            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
+          />
+        </Box>
+        <Box marginLeft={4}>
+          <SocialIcon
+            url="https://www.linkedin.com/in/akmalamka/"
+            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
+            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
+          />
+        </Box>
+        <Box marginLeft={4}>
+          <SocialIcon
+            url="https://akmalamka.medium.com"
+            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
+            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
+          />
+        </Box>
+        <Box marginLeft={4}>
+          <SocialIcon
+            url="https://www.youtube.com/channel/UCf_Xgfe_7eH3Yms9x7GlmqA"
+            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
+            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
           />
         </Box>
         {/* <Box marginLeft={4}>
