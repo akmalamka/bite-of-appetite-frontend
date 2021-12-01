@@ -1,12 +1,14 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import { ThemeModeToggler } from '../../components';
-import { SocialIcon } from 'react-social-icons';
+import { SocialIcon } from 'react-social-icons'; // remove aja yaaa di packagenya
 import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from './components/Icons/page-title-white.svg';
 import {
   InstagramButton,
   SoundcloudButton,
@@ -37,6 +39,7 @@ const Topbar = ({
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
+  const pagesArray = [recipePages, foodForThoughtPages, aboutPages];
   return (
     <Box
       display={'flex'}
@@ -55,55 +58,40 @@ const Topbar = ({
         // height={1}
         // width={1}
         />
-        <PageTitle />
+        {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box mx={{ md: 4, lg: 8 }} flexDirection="row" display="flex">
-          <Box
-            marginLeft={4}
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <NavItem
-              title={'recipes'}
-              id={'recipes-pages'}
-              items={recipePages}
-              colorInvert={colorInvert}
-            />
-          </Box>
-          <Box
-            marginLeft={4}
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <NavItem
-              title={'food for thought'}
-              id={'food-for-thought-pages'}
-              items={foodForThoughtPages}
-              colorInvert={colorInvert}
-            />
-          </Box>
-          <Box
-            marginLeft={4}
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <NavItem
-              title={'about'}
-              id={'about-pages'}
-              items={aboutPages}
-              colorInvert={colorInvert}
-            />
-          </Box>
+          {pagesArray.map((p, index) => (
+            <Box
+              key={index}
+              marginLeft={4}
+              sx={{
+                '&:hover': {
+                  opacity: [0.9, 0.8, 0.7],
+                },
+              }}
+            >
+              <Button
+                component={'a'}
+                href={p[0].href}
+                fullWidth
+                sx={{
+                  justifyContent: 'flex-start',
+                  color:
+                    mode === 'light' && !colorInvert
+                      ? theme.palette.common.white
+                      : theme.palette.text.primary,
+                }}
+              >
+                <Typography
+                  color={colorInvert ? 'common.white' : 'text.primary'}
+                >
+                  {p[0].title}
+                </Typography>
+              </Button>
+            </Box>
+          ))}
         </Box>
         <Box
           m={2}

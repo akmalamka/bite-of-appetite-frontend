@@ -48,54 +48,6 @@ const Main = ({
 
   return (
     <Box>
-      {/* <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}>
-        <Container paddingTop={'8px !important'} paddingBottom={'0 !important'}>
-          <Box
-            display={'flex'}
-            justifyContent={'flex-end'}
-            alignItems={'center'}
-          >
-            <Box marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="/blocks"
-                color={colorInvert ? 'common.white' : 'text.primary'}
-                sx={{ display: 'flex', alignItems: 'center' }}
-              >
-                Components
-                <Box
-                  padding={0.5}
-                  display={'inline-flex'}
-                  borderRadius={1}
-                  bgcolor={'primary.main'}
-                  marginLeft={1}
-                >
-                  <Typography
-                    variant={'caption'}
-                    sx={{ color: 'common.white', lineHeight: 1 }}
-                  >
-                    new
-                  </Typography>
-                </Box>
-              </Link>
-            </Box>
-            <Box marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="/docs/introduction"
-                color={colorInvert ? 'common.white' : 'text.primary'}
-              >
-                Docs
-              </Link>
-            </Box>
-            <Box>
-              <ThemeModeToggler />
-            </Box>
-          </Box>
-        </Container>
-      </Box> */}
       <AppBar
         position={'sticky'}
         sx={{
@@ -110,9 +62,6 @@ const Main = ({
             pages={pages}
             colorInvert={trigger ? false : colorInvert}
           />
-          {/* <Box>
-            <ThemeModeToggler />
-          </Box> */}
         </Container>
       </AppBar>
       {/* <Sidebar
