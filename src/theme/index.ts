@@ -20,16 +20,6 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
-        MuiCssBaseline: {
-          styleOverrides: `
-            @font-face {
-              font-family: 'HVCocktail';
-              font-style: normal;
-              font-display: swap;
-              src: local('HVCokctailRegular'), url(../fonts/HVCocktailRegular.ttf) format('truetype');
-            }
-          `,
-        },
         MuiButton: {
           styleOverrides: {
             root: {

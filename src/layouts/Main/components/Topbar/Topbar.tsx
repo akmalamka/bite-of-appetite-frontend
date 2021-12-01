@@ -1,14 +1,18 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import { ThemeModeToggler } from '../../components';
 import { SocialIcon } from 'react-social-icons';
-// import { ReactComponent as InstagramLogo } from './components/Icons/instagram.svg';
-import { InstagramButton } from './components/';
+import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
+import {
+  InstagramButton,
+  SoundcloudButton,
+  MediumButton,
+  SpotifyButton,
+} from './components/';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -33,8 +37,6 @@ const Topbar = ({
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
-  console.log('aaa');
-  console.log(colorInvert);
   return (
     <Box
       display={'flex'}
@@ -42,117 +44,122 @@ const Topbar = ({
       alignItems={'center'}
       width={1}
     >
-      <Box
-        display={'flex'}
-        component="a"
-        href="/"
-        title="theFront"
-        width={{ xs: 100, md: 120 }}
-      >
+      <Box display={'flex'} component="a" href="/" width={{ xs: 100, md: 180 }}>
         <Box
-          component={'img'}
-          src={
-            mode === 'light' && !colorInvert
-              ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-          }
-          height={1}
-          width={1}
+        // component={'img'}
+        // src={
+        //   mode === 'light' && !colorInvert
+        //     ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
+        //     : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+        // }
+        // height={1}
+        // width={1}
         />
+        <PageTitle />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box>
-          <NavItem
-            title={'recipes'}
-            id={'recipes-pages'}
-            items={recipePages}
-            colorInvert={colorInvert}
-          />
+        <Box mx={{ md: 4, lg: 8 }} flexDirection="row" display="flex">
+          <Box
+            marginLeft={4}
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <NavItem
+              title={'recipes'}
+              id={'recipes-pages'}
+              items={recipePages}
+              colorInvert={colorInvert}
+            />
+          </Box>
+          <Box
+            marginLeft={4}
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <NavItem
+              title={'food for thought'}
+              id={'food-for-thought-pages'}
+              items={foodForThoughtPages}
+              colorInvert={colorInvert}
+            />
+          </Box>
+          <Box
+            marginLeft={4}
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <NavItem
+              title={'about'}
+              id={'about-pages'}
+              items={aboutPages}
+              colorInvert={colorInvert}
+            />
+          </Box>
         </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'food for thought'}
-            id={'food-for-thought-pages'}
-            items={foodForThoughtPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        {/* <Box
-          marginLeft={4}
-          sx={{
-            fontFamily: 'HVCocktail',
-          }}
+        <Box
+          m={2}
+          flexDirection="row"
+          display="flex"
+          justifyContent="space-evenly"
         >
-          Raleway
-        </Box> */}
-        <Box marginLeft={4}>
-          <NavItem
-            title={'about'}
-            id={'about-pages'}
-            items={aboutPages}
-            colorInvert={colorInvert}
-          />
+          <Box
+            marginLeft={1}
+            title="Instagram"
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <InstagramButton colorInvert={colorInvert} />
+          </Box>
+          <Box
+            marginLeft={1}
+            title="Medium"
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <MediumButton colorInvert={colorInvert} />
+          </Box>
+          <Box
+            marginLeft={1}
+            title="Soundcloud"
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <SoundcloudButton colorInvert={colorInvert} />
+          </Box>
+          <Box
+            marginLeft={1}
+            title="Spotify"
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
+          >
+            <SpotifyButton colorInvert={colorInvert} />
+          </Box>
         </Box>
         <Box>
           <ThemeModeToggler />
         </Box>
-        <Box>
-          <InstagramButton colorInvert={colorInvert} />
-        </Box>
-        {/* Jangan lupa diubah warnanya kalo ada perubahan */}
-        <Box marginLeft={4}>
-          <SocialIcon
-            url="https://soundcloud.com/muhammad-akmal-517836705"
-            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
-            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <SocialIcon
-            url="https://www.linkedin.com/in/akmalamka/"
-            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
-            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <SocialIcon
-            url="https://akmalamka.medium.com"
-            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
-            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <SocialIcon
-            url="https://www.youtube.com/channel/UCf_Xgfe_7eH3Yms9x7GlmqA"
-            bgColor={mode === 'light' ? '#ffffff' : '#222B45'}
-            fgColor={mode === 'light' ? '#000000' : '#ffffff'}
-          />
-        </Box>
         {/* <Box marginLeft={4}>
-          <NavItem
-            title={'Pages'}
-            id={'secondary-pages'}
-            items={secondaryPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Blog'}
-            id={'blog-pages'}
-            items={blogPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Portfolio'}
-            id={'portfolio-pages'}
-            items={portfolioPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
           <Button
             variant="contained"
             color="primary"
