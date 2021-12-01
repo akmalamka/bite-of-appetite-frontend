@@ -9,12 +9,9 @@ interface Props {
   open: boolean;
   variant: 'permanent' | 'persistent' | 'temporary' | undefined;
   pages: {
-    landings: Array<PageItem>;
-    company: Array<PageItem>;
-    account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    recipes: Array<PageItem>;
+    foodforthought: Array<PageItem>;
+    about: Array<PageItem>;
   };
 }
 
@@ -28,7 +25,7 @@ const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
       sx={{
         '& .MuiPaper-root': {
           width: '100%',
-          maxWidth: 280,
+          // maxWidth: 280,
         },
       }}
     >

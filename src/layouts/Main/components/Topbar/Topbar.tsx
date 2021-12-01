@@ -48,16 +48,16 @@ const Topbar = ({
       width={1}
     >
       <Box display={'flex'} component="a" href="/" width={{ xs: 100, md: 180 }}>
-        <Box
-        // component={'img'}
-        // src={
-        //   mode === 'light' && !colorInvert
-        //     ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-        //     : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-        // }
-        // height={1}
-        // width={1}
-        />
+        {/* <Box
+        component={'img'}
+        src={
+          mode === 'light' && !colorInvert
+            ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
+            : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
+        }
+        height={1}
+        width={1}
+        /> */}
         {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
@@ -147,18 +147,6 @@ const Topbar = ({
         <Box>
           <ThemeModeToggler />
         </Box>
-        {/* <Box marginLeft={4}>
-          <Button
-            variant="contained"
-            color="primary"
-            component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
-            size="large"
-          >
-            Buy now
-          </Button>
-        </Box> */}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button
@@ -174,6 +162,9 @@ const Topbar = ({
         >
           <MenuIcon />
         </Button>
+        <Box marginLeft={4}>
+          <ThemeModeToggler />
+        </Box>
       </Box>
     </Box>
   );
