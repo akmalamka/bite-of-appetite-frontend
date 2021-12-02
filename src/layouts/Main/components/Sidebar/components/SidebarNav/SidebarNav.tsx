@@ -7,6 +7,7 @@ import NavItem from './components/NavItem';
 import { ReactComponent as PageTitle } from '../../../Topbar/components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from '../../../Topbar/components/Icons/page-title-white.svg';
 import CloseIcon from '@mui/icons-material/Close';
+import { IconList } from '../../../Topbar/components';
 
 interface Props {
   pages: {
@@ -14,12 +15,12 @@ interface Props {
     foodforthought: Array<PageItem>;
     about: Array<PageItem>;
   };
+  onClose: () => void;
 }
 
-const SidebarNav = ({ pages }: Props): JSX.Element => {
+const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
   const {
     recipes: recipePages,
     foodforthought: foodForThoughtPages,
@@ -63,7 +64,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
           {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
         </Box>
         <Box>
-          <CloseIcon fontSize="large" />
+          <CloseIcon fontSize="large" onClick={() => onClose()} />
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>
@@ -96,6 +97,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
             </Button>
           </Box>
         ))}
+        <IconList />
       </Box>
     </Box>
   );

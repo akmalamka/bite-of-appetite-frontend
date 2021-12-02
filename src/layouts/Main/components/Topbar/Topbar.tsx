@@ -9,12 +9,7 @@ import { ThemeModeToggler } from '../../components';
 import { SocialIcon } from 'react-social-icons'; // remove aja yaaa di packagenya
 import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from './components/Icons/page-title-white.svg';
-import {
-  InstagramButton,
-  SoundcloudButton,
-  MediumButton,
-  SpotifyButton,
-} from './components/';
+import { IconList } from './components/';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -96,57 +91,7 @@ const Topbar = ({
         <Box>
           <ThemeModeToggler />
         </Box>
-        <Box
-          m={2}
-          flexDirection="row"
-          display="flex"
-          justifyContent="space-evenly"
-        >
-          <Box
-            marginLeft={1}
-            title="Instagram"
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <InstagramButton colorInvert={colorInvert} />
-          </Box>
-          <Box
-            marginLeft={1}
-            title="Medium"
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <MediumButton colorInvert={colorInvert} />
-          </Box>
-          <Box
-            marginLeft={1}
-            title="Soundcloud"
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <SoundcloudButton colorInvert={colorInvert} />
-          </Box>
-          <Box
-            marginLeft={1}
-            title="Spotify"
-            sx={{
-              '&:hover': {
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-          >
-            <SpotifyButton colorInvert={colorInvert} />
-          </Box>
-        </Box>
+        <IconList />
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Box>

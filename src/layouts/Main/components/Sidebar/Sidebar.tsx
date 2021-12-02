@@ -36,7 +36,7 @@ const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
           padding: 1,
         }}
       >
-        <SidebarNav pages={pages} />
+        <SidebarNav pages={pages} onClose={() => onClose()} />
       </Box>
     </Drawer>
   );
