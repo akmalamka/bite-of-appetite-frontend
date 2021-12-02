@@ -80,6 +80,10 @@ const Topbar = ({
                 }}
               >
                 <Typography
+                  variant="h6"
+                  sx={{
+                    textTransform: 'lowercase',
+                  }}
                   color={colorInvert ? 'common.white' : 'text.primary'}
                 >
                   {p[0].title}

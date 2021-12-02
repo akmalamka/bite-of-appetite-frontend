@@ -106,9 +106,9 @@ const Hero = (): JSX.Element => {
                 fontWeight: 700,
               }}
             >
-              Turn your ideas
+              Welcome to my
               <br />
-              into{' '}
+              food{' '}
               <Typography
                 color={'primary'}
                 component={'span'}
@@ -121,7 +121,7 @@ const Hero = (): JSX.Element => {
                 }}
               >
                 <Typed
-                  strings={['startup.', 'future.', 'success.']}
+                  strings={['heaven.', 'repertoire.', 'wonderland.']}
                   typeSpeed={80}
                   loop={true}
                 />
