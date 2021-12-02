@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import NavItem from './components/NavItem';
 import { ReactComponent as PageTitle } from '../../../Topbar/components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from '../../../Topbar/components/Icons/page-title-white.svg';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface Props {
   pages: {
@@ -27,13 +28,24 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
   const pagesArray = [recipePages, foodForThoughtPages, aboutPages];
   return (
     <Box>
-      <Box width={1} paddingX={2} paddingY={1}>
+      <Box
+        paddingX={2}
+        paddingY={1}
+        display={'flex'}
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Box
           display={'flex'}
           component="a"
           href="/"
+          paddingX={2}
+          paddingY={1}
           title="Bite of Appetite"
-          width={{ xs: 100, md: 180 }}
+          // width={{ xs: 100, md: 180 }}
           sx={{
             justifyContent: 'center',
           }}
@@ -49,6 +61,9 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
             width={1}
           /> */}
           {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
+        </Box>
+        <Box>
+          <CloseIcon fontSize="large" />
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>

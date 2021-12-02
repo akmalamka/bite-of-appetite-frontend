@@ -21,8 +21,8 @@ const SoundcloudButton = ({ colorInvert = false }: Props): JSX.Element => {
       }}
     >
       <svg
-        width={20}
-        height={20}
+        width={24}
+        height={24}
         xmlns="http://www.w3.org/2000/svg"
         fill={
           colorInvert ? theme.palette.common.white : theme.palette.text.primary

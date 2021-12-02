@@ -93,6 +93,9 @@ const Topbar = ({
             </Box>
           ))}
         </Box>
+        <Box>
+          <ThemeModeToggler />
+        </Box>
         <Box
           m={2}
           flexDirection="row"
@@ -144,16 +147,17 @@ const Topbar = ({
             <SpotifyButton colorInvert={colorInvert} />
           </Box>
         </Box>
+      </Box>
+      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Box>
           <ThemeModeToggler />
         </Box>
-      </Box>
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button
           onClick={() => onSidebarOpen()}
           aria-label="Menu"
           variant={'outlined'}
           sx={{
+            marginLeft: 2,
             borderRadius: 2,
             minWidth: 'auto',
             padding: 1,
@@ -162,9 +166,6 @@ const Topbar = ({
         >
           <MenuIcon />
         </Button>
-        <Box marginLeft={4}>
-          <ThemeModeToggler />
-        </Box>
       </Box>
     </Box>
   );

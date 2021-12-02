@@ -18,13 +18,14 @@ interface Props {
 const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
   return (
     <Drawer
-      anchor="left"
+      anchor="top"
       onClose={() => onClose()}
       open={open}
       variant={variant}
       sx={{
         '& .MuiPaper-root': {
           width: '100%',
+          height: '100%',
           // maxWidth: 280,
         },
       }}
