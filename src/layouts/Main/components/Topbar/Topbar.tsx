@@ -42,7 +42,7 @@ const Topbar = ({
       alignItems={'center'}
       width={1}
     >
-      <Box display={'flex'} component="a" href="/" width={{ xs: 100, md: 180 }}>
+      <Box display={'flex'} component="a" href="/" width={0.3}>
         {/* <Box
         component={'img'}
         src={

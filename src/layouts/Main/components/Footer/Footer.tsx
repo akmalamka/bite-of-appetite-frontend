@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-
+import { ReactComponent as PageTitle } from '../Topbar/components/Icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from '../Topbar/components/Icons/page-title-white.svg';
 const Footer = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -24,10 +25,12 @@ const Footer = (): JSX.Element => {
             display={'flex'}
             component="a"
             href="/"
-            title="theFront"
-            width={80}
+            title="Bite of Appetite"
+            width={0.3}
+            justifyContent={{ xs: 'center', sm: 'flex-start' }}
+            marginBottom={{ xs: 2, sm: 0 }}
           >
-            <Box
+            {/* <Box
               component={'img'}
               src={
                 mode === 'light'
@@ -36,10 +39,11 @@ const Footer = (): JSX.Element => {
               }
               height={1}
               width={1}
-            />
+            /> */}
+            {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
           </Box>
           <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
-            <Box marginTop={1} marginRight={2}>
+            <Box marginTop={1} marginRight={4}>
               <Link
                 underline="none"
                 component="a"
@@ -50,28 +54,38 @@ const Footer = (): JSX.Element => {
                 Home
               </Link>
             </Box>
-            <Box marginTop={1} marginRight={2}>
+            <Box marginTop={1} marginRight={4}>
               <Link
                 underline="none"
                 component="a"
-                href="/docs/introduction"
+                href="/recipes"
                 color="text.primary"
                 variant={'subtitle2'}
               >
-                Documentation
+                Recipes
               </Link>
             </Box>
-            <Box marginTop={1}>
-              <Button
-                variant="outlined"
-                color="primary"
+            <Box marginTop={1} marginRight={4}>
+              <Link
+                underline="none"
                 component="a"
-                target="blank"
-                href="https://mui.com/store/items/the-front-landing-page/"
-                size="small"
+                href="/food-for-thought"
+                color="text.primary"
+                variant={'subtitle2'}
               >
-                Purchase now
-              </Button>
+                Food for Thought
+              </Link>
+            </Box>
+            <Box marginTop={1} marginRight={4}>
+              <Link
+                underline="none"
+                component="a"
+                href="/about-bite-of-appetite"
+                color="text.primary"
+                variant={'subtitle2'}
+              >
+                About
+              </Link>
             </Box>
           </Box>
         </Box>
@@ -83,9 +97,17 @@ const Footer = (): JSX.Element => {
           color="text.secondary"
           gutterBottom
         >
-          &copy; theFront. 2021, Maccarian. All rights reserved
+          Made with love in Bogor, Indonesia
         </Typography>
         <Typography
+          align={'center'}
+          variant={'subtitle2'}
+          color="text.secondary"
+          gutterBottom
+        >
+          &copy; Bite of Appetite. 2021, Muhammad Akmal. All rights reserved
+        </Typography>
+        {/* <Typography
           align={'center'}
           variant={'caption'}
           color="text.secondary"
@@ -95,7 +117,7 @@ const Footer = (): JSX.Element => {
           our authorised service providers may use cookies for storing
           information to help provide you with a better, faster and safer
           experience and for marketing purposes.
-        </Typography>
+        </Typography> */}
       </Grid>
     </Grid>
   );
