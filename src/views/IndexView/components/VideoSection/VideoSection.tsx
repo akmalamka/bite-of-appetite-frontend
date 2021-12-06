@@ -20,7 +20,7 @@ const VideoSection = (): JSX.Element => {
           width: 1,
           height: 1,
           zIndex: 3,
-          background: theme.palette.primary.main,
+          // background: theme.palette.primary.main,
           opacity: 0.2,
         },
       }}
@@ -33,15 +33,18 @@ const VideoSection = (): JSX.Element => {
         loop={true}
       >
         <source
-          src="https://assets.maccarianagency.com/videos/video.mp4"
+          // src="https://assets.maccarianagency.com/videos/video.mp4"
+          src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/mp4"
         />
         <source
-          src="https://assets.maccarianagency.com/videos/video.mp4"
+          // src="https://assets.maccarianagency.com/videos/video.mp4"
+          src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/webm"
         />
         <source
-          src="https://assets.maccarianagency.com/videos/video.mp4"
+          // src="https://assets.maccarianagency.com/videos/video.mp4"
+          src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/ogg"
         />
         Your browser do not support HTML5 video.

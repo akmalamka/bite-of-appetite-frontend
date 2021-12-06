@@ -10,75 +10,6 @@ import { VideoSection } from '../index';
 
 import Container from 'components/Container';
 
-const images = [
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img1--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img4--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img13--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img10--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img7--dark.png',
-      },
-    ],
-  },
-  {
-    group: [
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img6--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img24--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img17--dark.png',
-      },
-      {
-        cover:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12.png',
-        coverDark:
-          'https://assets.maccarianagency.com/screenshots/the-front/img12--dark.png',
-      },
-    ],
-  },
-];
-
 const Hero = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -97,14 +28,18 @@ const Hero = (): JSX.Element => {
       }}
     >
       <Box
-        paddingY={{ xs: 0, sm: '4rem', md: '8rem' }}
+        paddingY={{ xs: 0, sm: '2rem', md: '4rem' }}
         display={'flex'}
         flexDirection="column"
         justifyContent="space-between"
       >
         <Container>
-          <Box display={'flex'}>
-            <Box maxWidth={{ xs: 1, sm: '50%' }}>
+          <Box
+            display={'flex'}
+            alignItems="center"
+            flexDirection={{ xs: 'column', lg: 'row' }}
+          >
+            <Box maxWidth={{ xs: 1, sm: 1, md: 1, lg: '55%' }} m={4}>
               <Typography
                 variant="h2"
                 color="text.primary"
@@ -113,9 +48,8 @@ const Hero = (): JSX.Element => {
                   fontWeight: 700,
                 }}
               >
-                Welcome to my
-                <br />
-                food{' '}
+                Welcome to my food
+                <br />{' '}
                 <Typography
                   color={'primary'}
                   component={'span'}
@@ -147,14 +81,15 @@ const Hero = (): JSX.Element => {
               </Typography>
             </Box>
             <Box
-              maxWidth={{ xs: 'none', sm: '50%' }}
-              sx={{
-                display: { xs: 'none', sm: 'block' },
-              }}
+              maxWidth={{ xs: 1, sm: 1, md: 1, lg: '45%' }}
+              // sx={{
+              //   display: { xs: 'none', md: 'block' },
+              // }}
             >
               <Box
                 display={'flex'}
-                width={'40rem'}
+                // width={'30rem'}
+                // height={'35rem'}
                 // left={'50%'}
                 // top={0}
                 m={4}
@@ -164,23 +99,6 @@ const Hero = (): JSX.Element => {
             </Box>
           </Box>
         </Container>
-        {/* <Box
-          sx={{
-            // transform: 'rotate(-20deg)',
-            display: { xs: 'none', sm: 'block' },
-          }}
-        >
-          <Box
-            display={'flex'}
-            width={'40rem'}
-            // left={'50%'}
-            // top={0}
-            // position={'absolute'}
-            m={4}
-          >
-            <VideoSection />
-          </Box>
-        </Box> */}
       </Box>
       <Box
         component={'svg'}
