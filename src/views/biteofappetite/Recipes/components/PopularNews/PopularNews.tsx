@@ -136,7 +136,7 @@ const PopularNews = (): JSX.Element => {
                     borderRadius: 2,
                     filter:
                       theme.palette.mode === 'dark'
-                        ? 'brightness(0.7)'
+                        ? 'brightness(0.8)'
                         : 'none',
                   }}
                 />
@@ -144,100 +144,104 @@ const PopularNews = (): JSX.Element => {
               <CardContent
                 sx={{
                   paddingX: { xs: 1, sm: 2, md: 4 },
-                  paddingY: { xs: 2, sm: 4 },
+                  // paddingY: { xs: 2, sm: 4 },
                   width: { xs: 1, md: '50%' },
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignContent: 'space-evenly',
                 }}
               >
                 <Box
+                  height={1}
                   sx={{
                     display: 'flex',
-                    justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
                   }}
                 >
-                  {item.tags.map((item) => (
-                    <Chip
-                      key={item}
-                      label={item}
-                      component="a"
-                      // href=""
-                      // clickable
-                      size={'medium'}
-                      variant={'outlined'}
-                      // color={'primary'}
-                      sx={{
-                        marginRight: i % 2 === 0 ? 1 : 0,
-                        marginLeft: i % 2 === 0 ? 0 : 1,
-                        color:
-                          mode === 'light'
-                            ? theme.palette.text.primary
-                            : theme.palette.common.white,
-                      }}
-                    />
-                  ))}
-                </Box>
-                <Typography
-                  variant={'h4'}
-                  fontWeight={700}
-                  sx={{ marginY: 2 }}
-                  // textAlign=(i % 2 === 0 ? 'flex-start' : 'flex-end'}
-                  align={i % 2 === 0 ? 'left' : 'right'}
-                >
-                  {item.title}
-                </Typography>
-                {/* <Box marginY={1}>
-                  <Typography
-                    variant={'caption'}
-                    color={'text.secondary'}
-                    component={'i'}
-                  >
-                    {item.author.name} - {item.date}
-                  </Typography>
-                </Box> */}
-                <Typography
-                  variant="subtitle1"
-                  color="text.secondary"
-                  fontWeight={500}
-                  align={i % 2 === 0 ? 'left' : 'right'}
-                >
-                  {item.description}
-                </Typography>
-                <Box
-                  marginTop={2}
-                  display={'flex'}
-                  justifyContent={i % 2 === 0 ? 'flex-start' : 'flex-end'}
-                >
-                  <Button
-                    variant="outlined"
-                    color="primary"
+                  <Box
                     sx={{
-                      borderRadius: 30,
-                      border: 2,
-                      borderColor: 'primary.main',
-                      my: 1,
-                      px: 2,
-                      '&:hover': {
-                        border: 2,
-                      },
+                      display: 'flex',
+                      justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
                     }}
                   >
-                    <Typography
-                      variant="button"
-                      color="text.primary"
+                    {item.tags.map((item) => (
+                      <Chip
+                        key={item}
+                        label={item}
+                        component="a"
+                        // href=""
+                        // clickable
+                        size={'medium'}
+                        variant={'outlined'}
+                        // color={'primary'}
+                        sx={{
+                          marginRight: i % 2 === 0 ? 1 : 0,
+                          marginLeft: i % 2 === 0 ? 0 : 1,
+                          color:
+                            mode === 'light'
+                              ? theme.palette.text.primary
+                              : theme.palette.common.white,
+                        }}
+                      />
+                    ))}
+                  </Box>
+                  <Typography
+                    variant={'h4'}
+                    fontWeight={700}
+                    sx={{ marginY: 2 }}
+                    // textAlign=(i % 2 === 0 ? 'flex-start' : 'flex-end'}
+                    align={i % 2 === 0 ? 'left' : 'right'}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    fontWeight={500}
+                    align={i % 2 === 0 ? 'left' : 'right'}
+                  >
+                    {item.description}
+                  </Typography>
+                  <Box
+                    marginTop={2}
+                    display={'flex'}
+                    justifyContent={i % 2 === 0 ? 'flex-start' : 'flex-end'}
+                  >
+                    <Button
+                      variant="outlined"
+                      color="primary"
                       sx={{
-                        textTransform: 'uppercase',
-                        letterSpacing: 1.2,
-                        fontWeight: 400,
+                        borderRadius: 30,
+                        border: 2,
+                        borderColor: 'primary.main',
+                        my: 1,
+                        px: 2,
+                        '&:hover': {
+                          border: 2,
+                        },
                       }}
                     >
-                      View Recipe
-                    </Typography>
-                  </Button>
+                      <Typography
+                        variant="button"
+                        color="text.primary"
+                        sx={{
+                          textTransform: 'uppercase',
+                          letterSpacing: 1.2,
+                          fontWeight: 400,
+                        }}
+                      >
+                        View Recipe
+                      </Typography>
+                    </Button>
+                  </Box>
                 </Box>
-                {/* <Divider variant="middle" orientation="horizontal" /> */}
+                <Box>
+                  <Divider
+                    orientation="horizontal"
+                    variant="middle"
+                    sx={{ border: '1px solid' }}
+                  />
+                </Box>
               </CardContent>
             </Box>
           </Grid>
