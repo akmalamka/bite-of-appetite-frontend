@@ -3,132 +3,165 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Container from 'components/Container';
+import './placeholder.css';
 
 const Hero = (): JSX.Element => {
   const theme = useTheme();
+  const { mode } = theme.palette;
   return (
     <Box
       position={'relative'}
-      sx={{
-        backgroundImage:
-          'url("https://assets.maccarianagency.com/backgrounds/img52.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        marginTop: -13,
-        paddingTop: 13,
-        '&:after': {
-          position: 'absolute',
-          content: '" "',
-          width: '100%',
-          height: '100%',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          zIndex: 1,
-          background: '#161c2d',
-          opacity: 0.6,
-        },
-      }}
+      // sx={{
+      //   backgroundImage:
+      //     'url("https://assets.maccarianagency.com/backgrounds/img52.jpg")',
+      //   backgroundSize: 'cover',
+      //   backgroundPosition: 'center',
+      //   marginTop: -13,
+      //   paddingTop: 13,
+      //   '&:after': {
+      //     position: 'absolute',
+      //     content: '" "',
+      //     width: '100%',
+      //     height: '100%',
+      //     top: 0,
+      //     right: 0,
+      //     bottom: 0,
+      //     left: 0,
+      //     zIndex: 1,
+      //     background: '#161c2d',
+      //     opacity: 0.6,
+      //   },
+      // }}
     >
       <Container
         zIndex={3}
         position={'relative'}
-        minHeight={{ xs: 300, sm: 400, md: 600 }}
-        maxHeight={600}
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent={'center'}
+        minHeight={{ xs: 150, sm: 200, md: 400 }}
+        maxHeight={400}
+        // display={'flex'}
+        // alignItems={'center'}
+        // justifyContent={'center'}
       >
-        <Box width={1}>
-          <Box marginBottom={2}>
+        <Box
+          width={1}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            // alignItems: 'center',
+          }}
+        >
+          <Box
+            marginBottom={2}
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
             <Typography
               variant="h2"
-              align={'center'}
               sx={{
                 fontWeight: 700,
-                color: theme.palette.common.white,
+                color: 'text.primary',
               }}
             >
-              Newsroom
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              variant="h6"
-              align={'center'}
-              sx={{
-                color: theme.palette.common.white,
-              }}
-            >
-              Latest updates and Hand-picked resources.
+              recipes
             </Typography>
           </Box>
           <Box
             padding={2}
-            width={1}
-            component={Card}
-            boxShadow={4}
+            sx={{ display: 'flex', justifyContent: 'center' }}
             marginTop={4}
           >
-            <form noValidate autoComplete="off">
-              <Box display="flex" alignItems={'center'}>
-                <Box width={1} marginRight={1}>
-                  <TextField
-                    sx={{
-                      height: 54,
-                      '& .MuiOutlinedInput-notchedOutline': {
-                        border: '0 !important',
+            <Box
+              width={{ xs: 0.9, md: 0.6 }}
+              sx={{
+                display: 'flex',
+                border: '3px solid',
+                boxShadow: 2,
+                borderRadius: 6,
+                borderColor:
+                  mode === 'light'
+                    ? theme.palette.primary.light
+                    : theme.palette.common.white,
+              }}
+            >
+              <Box width={1} marginRight={1}>
+                <TextField
+                  sx={{
+                    height: 54,
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      border: '0 !important',
+                    },
+                    input: {
+                      '&::placeholder': {
+                        fontSize: {
+                          xs: '14px',
+                          md: '16px',
+                        },
+                        color:
+                          mode === 'light'
+                            ? theme.palette.text.primary
+                            : theme.palette.common.white,
                       },
-                    }}
-                    variant="outlined"
-                    color="primary"
-                    size="medium"
-                    placeholder="Search an article"
-                    fullWidth
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Box
-                            component={'svg'}
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            width={24}
-                            height={24}
-                            color={'primary.main'}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
-                          </Box>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Button
-                    sx={{ height: 54, minWidth: 100, whiteSpace: 'nowrap' }}
-                    variant="contained"
-                    color="primary"
-                    size="medium"
-                    fullWidth
-                  >
-                    Search
-                  </Button>
-                </Box>
+                    },
+                  }}
+                  variant="outlined"
+                  // color="primary"
+                  size="medium"
+                  placeholder="Search Nasi Goreng"
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                          sx={{
+                            color:
+                              mode === 'light'
+                                ? theme.palette.primary.light
+                                : theme.palette.common.white,
+                          }}
+                          // color={'primary.main'}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </Box>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               </Box>
-            </form>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <IconButton
+                  sx={{
+                    mx: 2,
+                    color:
+                      mode === 'light'
+                        ? theme.palette.primary.light
+                        : theme.palette.common.white,
+                  }}
+                  color="primary"
+                  size="medium"
+                >
+                  <FilterListIcon />
+                </IconButton>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Container>

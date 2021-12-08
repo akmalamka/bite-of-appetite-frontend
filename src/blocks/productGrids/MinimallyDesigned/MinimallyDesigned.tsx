@@ -91,14 +91,12 @@ const WithCtaButton = (): JSX.Element => {
       </Box>
       <Carousel
         showDots={true}
-        // centerMode={true}
         responsive={responsive}
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
-        // renderDotsOutside={true}
       >
         {mock.map((item, i) => (
           <Box
