@@ -28,7 +28,7 @@ const Hero = (): JSX.Element => {
       }}
     >
       <Box
-        paddingY={{ xs: 0, sm: '2rem', md: '4rem' }}
+        // paddingY={{ xs: 0, sm: '2rem', md: '4rem' }}
         display={'flex'}
         flexDirection="column"
         justifyContent="space-between"

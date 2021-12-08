@@ -54,7 +54,7 @@ const mock = [
   {
     title: 'Documentation for everything',
     subtitle:
-      'We\'ve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
+      'Weve written extensive documentation for components and tools, so you never have to reverse engineer anything.',
     icon: (
       <svg
         height={24}
@@ -90,7 +90,7 @@ const Services = (): JSX.Element => {
               fontWeight: 700,
             }}
           >
-            Build accessible React apps with speed
+            Try this recent recipes!
           </Typography>
           <Typography
             variant="h6"

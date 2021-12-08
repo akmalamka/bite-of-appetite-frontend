@@ -12,6 +12,7 @@ import {
   Hero,
   VideoSection,
 } from './components';
+import { MinimallyDesigned } from 'blocks/productGrids';
 
 const IndexView = (): JSX.Element => {
   const theme = useTheme();
@@ -19,10 +20,11 @@ const IndexView = (): JSX.Element => {
     <Box sx={{ overflowX: 'hidden' }}>
       <Main bgcolor={'background.paper'}>
         <Hero />
-        {/* <Container>
-          <Services />
+        <Container>
+          {/* <Services /> */}
+          <MinimallyDesigned />
         </Container>
-        <Box
+        {/* <Box
           sx={{
             backgroundImage: `linear-gradient(to bottom, ${alpha(
               theme.palette.background.paper,
@@ -58,8 +60,8 @@ const IndexView = (): JSX.Element => {
               d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
             ></path>
           </Box>
-        </Box>
-        <Container>
+        </Box> */}
+        {/* <Container>
           <GetStarted />
         </Container> */}
       </Main>
