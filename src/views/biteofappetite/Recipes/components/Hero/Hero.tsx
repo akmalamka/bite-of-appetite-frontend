@@ -8,6 +8,9 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 
 import Container from 'components/Container';
 import './placeholder.css';
@@ -15,6 +18,11 @@ import './placeholder.css';
 const Hero = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+
+  const handleChangeFilter = (e) => {
+    setExpanded(!expanded);
+  };
   return (
     <Box
       position={'relative'}
@@ -73,93 +81,105 @@ const Hero = (): JSX.Element => {
             sx={{ display: 'flex', justifyContent: 'center' }}
             marginTop={4}
           >
-            <Box
-              width={{ xs: 0.9, md: 0.6 }}
-              sx={{
-                display: 'flex',
-                border: '3px solid',
-                boxShadow: 2,
-                borderRadius: 6,
-                borderColor:
-                  mode === 'light'
-                    ? theme.palette.primary.light
-                    : theme.palette.common.white,
-              }}
-            >
-              <Box width={1} marginRight={1}>
-                <TextField
-                  sx={{
-                    height: 54,
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      border: '0 !important',
-                    },
-                    input: {
-                      '&::placeholder': {
-                        fontSize: {
-                          xs: '14px',
-                          md: '16px',
-                        },
-                        color:
-                          mode === 'light'
-                            ? theme.palette.text.primary
-                            : theme.palette.common.white,
+            <Accordion expanded={expanded}>
+              <Box
+                // width={{ xs: 0.9, md: 0.6 }}
+                width={1}
+                sx={{
+                  display: 'flex',
+                  border: '3px solid',
+                  boxShadow: 2,
+                  borderRadius: 6,
+                  borderColor:
+                    mode === 'light'
+                      ? theme.palette.primary.light
+                      : theme.palette.common.white,
+                }}
+              >
+                <Box width={1} marginRight={1}>
+                  <TextField
+                    sx={{
+                      height: 54,
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        border: '0 !important',
                       },
-                    },
-                  }}
-                  variant="outlined"
-                  size="medium"
-                  placeholder="Search Nasi Goreng"
-                  fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Box
-                          component={'svg'}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          width={24}
-                          height={24}
-                          sx={{
-                            color:
-                              mode === 'light'
-                                ? theme.palette.primary.light
-                                : theme.palette.common.white,
-                          }}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                          />
-                        </Box>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                      input: {
+                        '&::placeholder': {
+                          fontSize: {
+                            xs: '14px',
+                            md: '16px',
+                          },
+                          color:
+                            mode === 'light'
+                              ? theme.palette.text.primary
+                              : theme.palette.common.white,
+                        },
+                      },
+                    }}
+                    variant="outlined"
+                    size="medium"
+                    placeholder="Search Nasi Goreng"
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Box
+                            component={'svg'}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            width={24}
+                            height={24}
+                            sx={{
+                              color:
+                                mode === 'light'
+                                  ? theme.palette.primary.light
+                                  : theme.palette.common.white,
+                            }}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                          </Box>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  {/* <div onClick={() => handleChangeFilter()}> */}
+                  <IconButton
+                    onClick={handleChangeFilter}
+                    sx={{
+                      mx: 2,
+                      color:
+                        mode === 'light'
+                          ? theme.palette.primary.light
+                          : theme.palette.common.white,
+                    }}
+                    color="primary"
+                    size="medium"
+                  >
+                    <FilterListIcon />
+                  </IconButton>
+                  {/* <div> */}
+                </Box>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton
-                  sx={{
-                    mx: 2,
-                    color:
-                      mode === 'light'
-                        ? theme.palette.primary.light
-                        : theme.palette.common.white,
-                  }}
-                  color="primary"
-                  size="medium"
-                >
-                  <FilterListIcon />
-                </IconButton>
-              </Box>
-            </Box>
+              <AccordionDetails>
+                <Typography>
+                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
+                  feugiat. Aliquam eget maximus est, id dignissim quam.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
           </Box>
         </Box>
       </Container>
-      <Box
+      {/* <Box
         component={'svg'}
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +196,7 @@ const Hero = (): JSX.Element => {
           fill={theme.palette.background.paper}
           d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
         ></path>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

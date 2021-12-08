@@ -12,6 +12,7 @@ import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Pagination from '@mui/material/Pagination';
+
 import usePagination from './Pagination';
 
 const mock = [
@@ -75,6 +76,7 @@ const mock = [
 
 const PopularNews = (): JSX.Element => {
   const theme = useTheme();
+
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -87,10 +89,11 @@ const PopularNews = (): JSX.Element => {
   const count = Math.ceil(dummy.length / PER_PAGE);
   const _DATA = usePagination(dummy, PER_PAGE);
 
-  const handleChange = (e, p) => {
+  const handleChangePage = (e, p) => {
     setPage(p);
     _DATA.jump(p);
   };
+
   return (
     <Box>
       <Grid container spacing={4}>
@@ -266,9 +269,7 @@ const PopularNews = (): JSX.Element => {
       <Pagination
         count={count}
         size="large"
-        // shape="rounded"
         boundaryCount={0}
-        // showFirstButton={true}
         siblingCount={isMd ? 1 : 0}
         page={page}
         sx={{
@@ -276,7 +277,7 @@ const PopularNews = (): JSX.Element => {
           display: 'flex',
           justifyContent: 'center',
         }}
-        onChange={handleChange}
+        onChange={handleChangePage}
       />
     </Box>
   );
