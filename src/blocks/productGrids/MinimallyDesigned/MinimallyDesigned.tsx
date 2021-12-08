@@ -4,17 +4,19 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import { alpha, useTheme, makeStyles } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import { alpha, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/system';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import './dotClass.css';
 
 import Container from 'components/Container';
 
-// const useStyles = makeStyles({
-//   'react-multi-carousel-dot-list': {
+// const Carousel = styled('button')((props) => ({
+//   backgroundColor: props.myBackgroundColor,
+// }));
 
-//   }
-// });
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 900 },
@@ -94,11 +96,17 @@ const WithCtaButton = (): JSX.Element => {
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}
-        transitionDuration={500}
+        transitionDuration={600}
+        containerClass="react-multi-carousel-list"
         // renderDotsOutside={true}
       >
         {mock.map((item, i) => (
-          <Box key={i} display="flex" justifyContent="center">
+          <Box
+            key={i}
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
             <Card
               sx={{
                 // width: { xs: 0.5, sm: 0.9 },
@@ -141,6 +149,34 @@ const WithCtaButton = (): JSX.Element => {
           </Box>
         ))}
       </Carousel>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{
+            borderRadius: 10,
+            border: 2,
+            borderColor: 'primary.main',
+            m: 2,
+            p: 2,
+            '&:hover': {
+              border: 2,
+            },
+          }}
+        >
+          <Typography
+            variant="button"
+            color="text.primary"
+            sx={{
+              textTransform: 'uppercase',
+              letterSpacing: 1.2,
+              fontWeight: 400,
+            }}
+          >
+            View All Recipes
+          </Typography>
+        </Button>
+      </Box>
     </Container>
   );
 };
