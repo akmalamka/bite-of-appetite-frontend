@@ -266,8 +266,16 @@ const PopularNews = (): JSX.Element => {
       <Pagination
         count={count}
         size="large"
+        // shape="rounded"
+        boundaryCount={0}
+        // showFirstButton={true}
+        siblingCount={isMd ? 1 : 0}
         page={page}
-        sx={{ marginY: 4, display: 'flex', justifyContent: 'center' }}
+        sx={{
+          marginY: 4,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
         onChange={handleChange}
       />
     </Box>
