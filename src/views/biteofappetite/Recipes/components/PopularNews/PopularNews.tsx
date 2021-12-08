@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -10,6 +11,8 @@ import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import Pagination from '@mui/material/Pagination';
+import usePagination from './Pagination';
 
 const mock = [
   {
@@ -65,41 +68,33 @@ const mock = [
       'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
     description:
       'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
-    title: 'White Pesto Pasta',
+    title: 'Hore Hore Hore',
     tags: ['Pasta', 'Fast', 'Easy', 'Western'],
   },
 ];
 
 const PopularNews = (): JSX.Element => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const { mode } = theme.palette;
+  const [page, setPage] = React.useState(1);
+  const PER_PAGE = 2;
+
+  const dummy = mock.concat(mock);
+
+  const count = Math.ceil(dummy.length / PER_PAGE);
+  const _DATA = usePagination(dummy, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
   return (
     <Box>
-      {/* <Box marginBottom={4}>
-        <Typography
-          variant="h4"
-          data-aos={'fade-up'}
-          align={'center'}
-          gutterBottom
-          sx={{
-            fontWeight: 700,
-          }}
-        >
-          The most popular news
-        </Typography>
-        <Typography
-          variant="h6"
-          color={'text.secondary'}
-          align={'center'}
-          data-aos={'fade-up'}
-        >
-          Keep up to date with what we're working on!
-          <br />
-          theFront is an ever evolving theme with regular updates.
-        </Typography>
-      </Box> */}
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {dummy.slice(PER_PAGE * (page - 1), PER_PAGE * page).map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -161,7 +156,11 @@ const PopularNews = (): JSX.Element => {
                   <Box
                     sx={{
                       display: 'flex',
-                      justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      justifyContent: {
+                        xs: 'center',
+                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      },
+                      marginY: { xs: 1, md: 0 },
                     }}
                   >
                     {item.tags.map((item) => (
@@ -188,24 +187,41 @@ const PopularNews = (): JSX.Element => {
                   <Typography
                     variant={'h4'}
                     fontWeight={700}
-                    sx={{ marginY: 2 }}
-                    // textAlign=(i % 2 === 0 ? 'flex-start' : 'flex-end'}
-                    align={i % 2 === 0 ? 'left' : 'right'}
+                    sx={{
+                      marginY: 2,
+                      display: 'flex',
+                      justifyContent: {
+                        xs: 'center',
+                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      },
+                    }}
                   >
                     {item.title}
                   </Typography>
                   <Typography
-                    variant="subtitle1"
+                    variant={'subtitle1'}
                     color="text.secondary"
                     fontWeight={500}
-                    align={i % 2 === 0 ? 'left' : 'right'}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: {
+                        xs: 'center',
+                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      },
+                    }}
+                    align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
                     {item.description}
                   </Typography>
                   <Box
                     marginTop={2}
-                    display={'flex'}
-                    justifyContent={i % 2 === 0 ? 'flex-start' : 'flex-end'}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: {
+                        xs: 'center',
+                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      },
+                    }}
                   >
                     <Button
                       variant="outlined"
@@ -235,18 +251,25 @@ const PopularNews = (): JSX.Element => {
                     </Button>
                   </Box>
                 </Box>
-                <Box>
+                {/* <Box>
                   <Divider
                     orientation="horizontal"
                     variant="middle"
                     sx={{ border: '1px solid' }}
                   />
-                </Box>
+                </Box> */}
               </CardContent>
             </Box>
           </Grid>
         ))}
       </Grid>
+      <Pagination
+        count={count}
+        size="large"
+        page={page}
+        sx={{ marginY: 4, display: 'flex', justifyContent: 'center' }}
+        onChange={handleChange}
+      />
     </Box>
   );
 };
