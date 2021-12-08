@@ -28,10 +28,12 @@ const Recipes = (): JSX.Element => {
   return (
     <Main colorInvert={true}>
       <Hero />
-      <Container>
-        <PopularNews />
-      </Container>
       <Box bgcolor={'alternate.main'}>
+        <Container>
+          <PopularNews />
+        </Container>
+      </Box>
+      {/* <Box bgcolor={'alternate.main'}>
         <Container>
           <FeaturedArticles />
         </Container>
@@ -68,7 +70,7 @@ const Recipes = (): JSX.Element => {
       </Container>
       <Container>
         <FooterNewsletter />
-      </Container>
+      </Container> */}
     </Main>
   );
 };

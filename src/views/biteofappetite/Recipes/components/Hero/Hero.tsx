@@ -45,9 +45,6 @@ const Hero = (): JSX.Element => {
         position={'relative'}
         minHeight={{ xs: 150, sm: 200, md: 400 }}
         maxHeight={400}
-        // display={'flex'}
-        // alignItems={'center'}
-        // justifyContent={'center'}
       >
         <Box
           width={1}
@@ -55,7 +52,6 @@ const Hero = (): JSX.Element => {
             display: 'flex',
             justifyContent: 'center',
             flexDirection: 'column',
-            // alignItems: 'center',
           }}
         >
           <Box
@@ -111,7 +107,6 @@ const Hero = (): JSX.Element => {
                     },
                   }}
                   variant="outlined"
-                  // color="primary"
                   size="medium"
                   placeholder="Search Nasi Goreng"
                   fullWidth
@@ -132,7 +127,6 @@ const Hero = (): JSX.Element => {
                                 ? theme.palette.primary.light
                                 : theme.palette.common.white,
                           }}
-                          // color={'primary.main'}
                         >
                           <path
                             strokeLinecap="round"

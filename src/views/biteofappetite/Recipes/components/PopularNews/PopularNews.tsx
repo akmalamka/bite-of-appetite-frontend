@@ -9,39 +9,73 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
 const mock = [
   {
-    image: 'https://assets.maccarianagency.com/backgrounds/img3.jpg',
+    image:
+      'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Lorem ipsum dolor sit amet',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Clara Bertoletti',
-      avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
-    },
-    date: '04 Aug',
+      'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
+    title: 'White Pesto Pasta',
+    tags: ['Pasta', 'Fast', 'Easy', 'Western'],
   },
   {
-    image: 'https://assets.maccarianagency.com/backgrounds/img25.jpg',
+    image:
+      'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    title: 'Consectetur adipiscing elit',
-    tags: ['UX', 'Design', 'Themes', 'Photography'],
-    author: {
-      name: 'Jhon Anderson',
-      avatar: 'https://assets.maccarianagency.com/avatars/img5.jpg',
-    },
-    date: '12 Sep',
+      'It only takes a handful of ingredients to bring this dazzling South Asian snack to life in your kitchen. These particular jalebi strike the perfect balance between crispy, chewy, and sweet.',
+    title: 'Jalebi',
+    tags: ['Pasta', 'Fast', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/57ace5141b334044149752d7/1:1/w_2240,c_limit/pavlovas-with-fresh-berries.jpg',
+    description:
+      'Velvety dollops of whipped cream top an extra-crisp, delicate meringue shell for the perfect range of textures.',
+    title: 'Pavlovas With Fresh Berries',
+    tags: ['Fast', 'Easy', 'Western'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/57ad371b53e63daf11a4dcfc/1:1/w_2240,c_limit/banana-bread-1-of-1.jpg',
+    description:
+      'Dark brown sugar is key and a dollop of mascarpone makes for superior tenderness. Walnuts optional but encouraged. ',
+    title: 'Banana Bread',
+    tags: ['Pasta', 'Fast', 'Western'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg',
+    description:
+      'It only takes a handful of ingredients to bring this dazzling South Asian snack to life in your kitchen. These particular jalebi strike the perfect balance between crispy, chewy, and sweet.',
+    title: 'Jalebi',
+    tags: ['Pasta', 'Fast', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/57ad371b53e63daf11a4dcfc/1:1/w_2240,c_limit/banana-bread-1-of-1.jpg',
+    description:
+      'Dark brown sugar is key and a dollop of mascarpone makes for superior tenderness. Walnuts optional but encouraged. ',
+    title: 'Banana Bread',
+    tags: ['Pasta', 'Fast', 'Western'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
+    description:
+      'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
+    title: 'White Pesto Pasta',
+    tags: ['Pasta', 'Fast', 'Easy', 'Western'],
   },
 ];
 
 const PopularNews = (): JSX.Element => {
   const theme = useTheme();
+  const { mode } = theme.palette;
   return (
     <Box>
-      <Box marginBottom={4}>
+      {/* <Box marginBottom={4}>
         <Typography
           variant="h4"
           data-aos={'fade-up'}
@@ -63,7 +97,7 @@ const PopularNews = (): JSX.Element => {
           <br />
           theFront is an ever evolving theme with regular updates.
         </Typography>
-      </Box>
+      </Box> */}
       <Grid container spacing={4}>
         {mock.map((item, i) => (
           <Grid key={i} item xs={12}>
@@ -82,7 +116,7 @@ const PopularNews = (): JSX.Element => {
             >
               <Box
                 sx={{
-                  width: { xs: 1, md: '50%' },
+                  width: { xs: 1, md: '75%' },
                   '& .lazy-load-image-loaded': {
                     height: 1,
                     display: 'flex !important',
@@ -98,7 +132,7 @@ const PopularNews = (): JSX.Element => {
                   effect="blur"
                   sx={{
                     objectFit: 'cover',
-                    maxHeight: 360,
+                    maxHeight: 530,
                     borderRadius: 2,
                     filter:
                       theme.palette.mode === 'dark'
@@ -115,30 +149,46 @@ const PopularNews = (): JSX.Element => {
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
+                  alignContent: 'space-evenly',
                 }}
               >
-                <Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                  }}
+                >
                   {item.tags.map((item) => (
                     <Chip
                       key={item}
                       label={item}
                       component="a"
-                      href=""
-                      clickable
-                      size={'small'}
-                      color={'primary'}
-                      sx={{ marginBottom: 1, marginRight: 1 }}
+                      // href=""
+                      // clickable
+                      size={'medium'}
+                      variant={'outlined'}
+                      // color={'primary'}
+                      sx={{
+                        marginRight: i % 2 === 0 ? 1 : 0,
+                        marginLeft: i % 2 === 0 ? 0 : 1,
+                        color:
+                          mode === 'light'
+                            ? theme.palette.text.primary
+                            : theme.palette.common.white,
+                      }}
                     />
                   ))}
                 </Box>
                 <Typography
-                  variant={'h6'}
+                  variant={'h4'}
                   fontWeight={700}
-                  sx={{ textTransform: 'uppercase' }}
+                  sx={{ marginY: 2 }}
+                  // textAlign=(i % 2 === 0 ? 'flex-start' : 'flex-end'}
+                  align={i % 2 === 0 ? 'left' : 'right'}
                 >
                   {item.title}
                 </Typography>
-                <Box marginY={1}>
+                {/* <Box marginY={1}>
                   <Typography
                     variant={'caption'}
                     color={'text.secondary'}
@@ -146,34 +196,48 @@ const PopularNews = (): JSX.Element => {
                   >
                     {item.author.name} - {item.date}
                   </Typography>
-                </Box>
-                <Typography color="text.secondary">
+                </Box> */}
+                <Typography
+                  variant="subtitle1"
+                  color="text.secondary"
+                  fontWeight={500}
+                  align={i % 2 === 0 ? 'left' : 'right'}
+                >
                   {item.description}
                 </Typography>
-                <Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
+                <Box
+                  marginTop={2}
+                  display={'flex'}
+                  justifyContent={i % 2 === 0 ? 'flex-start' : 'flex-end'}
+                >
                   <Button
-                    endIcon={
-                      <Box
-                        component={'svg'}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        width={24}
-                        height={24}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </Box>
-                    }
+                    variant="outlined"
+                    color="primary"
+                    sx={{
+                      borderRadius: 30,
+                      border: 2,
+                      borderColor: 'primary.main',
+                      my: 1,
+                      px: 2,
+                      '&:hover': {
+                        border: 2,
+                      },
+                    }}
                   >
-                    Read More
+                    <Typography
+                      variant="button"
+                      color="text.primary"
+                      sx={{
+                        textTransform: 'uppercase',
+                        letterSpacing: 1.2,
+                        fontWeight: 400,
+                      }}
+                    >
+                      View Recipe
+                    </Typography>
                   </Button>
                 </Box>
+                {/* <Divider variant="middle" orientation="horizontal" /> */}
               </CardContent>
             </Box>
           </Grid>

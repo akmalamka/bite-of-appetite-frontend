@@ -78,6 +78,7 @@ const WithCtaButton = (): JSX.Element => {
       <Box marginBottom={4}>
         <Typography
           variant="h4"
+          data-aos={'fade-up'}
           color="text.primary"
           align={'center'}
           gutterBottom
@@ -155,12 +156,13 @@ const WithCtaButton = (): JSX.Element => {
             borderRadius: 10,
             border: 2,
             borderColor: 'primary.main',
-            m: 2,
-            p: 2,
+            my: 2,
+            px: 2,
             '&:hover': {
               border: 2,
             },
           }}
+          href="/recipes"
         >
           <Typography
             variant="button"
