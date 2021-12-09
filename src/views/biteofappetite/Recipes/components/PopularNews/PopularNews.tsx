@@ -14,8 +14,9 @@ import Divider from '@mui/material/Divider';
 import Pagination from '@mui/material/Pagination';
 
 import usePagination from './Pagination';
+import Fuse from 'fuse.js';
 
-const mock = [
+export const mock = [
   {
     image:
       'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
@@ -74,7 +75,12 @@ const mock = [
   },
 ];
 
-const PopularNews = (): JSX.Element => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  keyword: string;
+}
+
+const PopularNews = ({ keyword }: Props): JSX.Element => {
   const theme = useTheme();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -86,8 +92,17 @@ const PopularNews = (): JSX.Element => {
 
   const dummy = mock.concat(mock);
 
-  const count = Math.ceil(dummy.length / PER_PAGE);
-  const _DATA = usePagination(dummy, PER_PAGE);
+  const options = {
+    threshold: 0.05,
+    // Search in 'title' array
+    keys: ['title'],
+  };
+
+  const fuse = new Fuse(dummy, options);
+
+  const result = keyword === '' ? dummy : fuse.search(keyword);
+  const count = Math.ceil(result.length / PER_PAGE);
+  const _DATA = usePagination(result, PER_PAGE);
 
   const handleChangePage = (e, p) => {
     setPage(p);
@@ -97,7 +112,7 @@ const PopularNews = (): JSX.Element => {
   return (
     <Box>
       <Grid container spacing={4}>
-        {dummy.slice(PER_PAGE * (page - 1), PER_PAGE * page).map((item, i) => (
+        {result.slice(PER_PAGE * (page - 1), PER_PAGE * page).map((item, i) => (
           <Grid key={i} item xs={12}>
             <Box
               component={Card}
@@ -125,7 +140,7 @@ const PopularNews = (): JSX.Element => {
                   component={LazyLoadImage}
                   height={1}
                   width={1}
-                  src={item.image}
+                  src={keyword === '' ? item.image : item.item.image}
                   alt="..."
                   effect="blur"
                   sx={{
@@ -166,7 +181,7 @@ const PopularNews = (): JSX.Element => {
                       marginY: { xs: 1, md: 0 },
                     }}
                   >
-                    {item.tags.map((item) => (
+                    {(keyword === '' ? item : item.item).tags.map((item) => (
                       <Chip
                         key={item}
                         label={item}
@@ -199,7 +214,7 @@ const PopularNews = (): JSX.Element => {
                       },
                     }}
                   >
-                    {item.title}
+                    {keyword === '' ? item.title : item.item.title}
                   </Typography>
                   <Typography
                     variant={'subtitle1'}
@@ -214,7 +229,7 @@ const PopularNews = (): JSX.Element => {
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
-                    {item.description}
+                    {keyword === '' ? item.description : item.item.description}
                   </Typography>
                   <Box
                     marginTop={2}

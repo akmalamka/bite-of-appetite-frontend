@@ -21,16 +21,21 @@ import {
 
 const Recipes = (): JSX.Element => {
   const theme = useTheme();
+  const [keyword, setKeyword] = React.useState<string>('');
+
+  const handleChangeKeyword = (word) => {
+    setKeyword(word);
+  };
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
   return (
     <Main colorInvert={true}>
-      <Hero />
+      <Hero keyword={keyword} onChangeKeyword={handleChangeKeyword} />
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <PopularNews />
+          <PopularNews keyword={keyword} />
         </Container>
       </Box>
       {/* <Box bgcolor={'alternate.main'}>

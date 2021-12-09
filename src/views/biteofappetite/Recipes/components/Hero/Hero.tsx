@@ -7,22 +7,33 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 import Container from 'components/Container';
 import './placeholder.css';
 
-const Hero = (): JSX.Element => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  keyword: string;
+  onChangeKeyword: (keyword) => void;
+}
+
+const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const [expanded, setExpanded] = React.useState<boolean>(false);
+  // const [keyword, setKeyword] = React.useState<string>('');
 
-  const handleChangeFilter = (e) => {
+  const handleChangeFilter = () => {
     setExpanded(!expanded);
   };
+
+  // const handleChangeKeyword = (word) => {
+  //   setKeyword(word);
+  // };
   return (
     <Box
       position={'relative'}
@@ -120,6 +131,8 @@ const Hero = (): JSX.Element => {
                     size="medium"
                     placeholder="Search Nasi Goreng"
                     fullWidth
+                    value={keyword}
+                    onChange={(event) => onChangeKeyword(event.target.value)}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
