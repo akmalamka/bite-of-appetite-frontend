@@ -16,7 +16,7 @@ import Pagination from '@mui/material/Pagination';
 import usePagination from './Pagination';
 import Fuse from 'fuse.js';
 
-export const mock = [
+const mock = [
   {
     image:
       'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
