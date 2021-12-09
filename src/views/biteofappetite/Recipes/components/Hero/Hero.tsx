@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
@@ -10,12 +9,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -46,33 +43,45 @@ const mock = [
 
 const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
   const theme = useTheme();
+  const { mode } = theme.palette;
+
   const menuMap = (item) => {
     return item;
   };
   const menuItems2D = [].concat(
     mock.map((i) => i.choice.map((item) => menuMap(item))),
   );
-  const menuIndex = menuItems2D.map((item) => item.length);
-  // console.log(menuIndex);
   const menuItems1D = [].concat(...menuItems2D);
-  // console.log(menuItems);
+  const menuIndex = menuItems2D.map((item, i) => item.length);
 
-  const { mode } = theme.palette;
+  const [isChecked, setIsChecked] = React.useState(
+    menuItems1D.slice().fill(false),
+  );
+  const [chipData, setChipData] = React.useState([]);
   const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  // const menuItems = [].concat(
-  //   ...[].concat(mock.map((i) => i.choice.map((item) => menuMap(item)))),
-  // );
 
   const handleChangeFilter = () => {
     setExpanded(!expanded);
   };
 
-  const [isChecked, setIsChecked] = React.useState(
-    menuItems1D.slice().fill(false),
-  );
+  const menuIndexHandler = (index) => {
+    let a = 0;
+    for (let i = 0; i < index; i++) {
+      a += menuIndex[i];
+    }
+    return a;
+  };
 
   const toggleCheckboxValue = (index) => {
+    setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+    if (!chipData.includes(menuItems1D[index])) {
+      setChipData([...chipData, menuItems1D[index]]);
+    }
+  };
+
+  const handleDelete = (chipToDelete) => {
+    setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
+    const index = menuItems1D.findIndex((element) => element === chipToDelete);
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
   };
 
@@ -218,13 +227,17 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                     {/* <div> */}
                   </Box>
                 </Box>
-                <Box sx={{ m: 2 }}>
-                  <Chip
-                    // icon={icon}
-                    label={'Abcd'}
-                    // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
-                  />
-                </Box>
+                {chipData.length > 0 && !expanded && (
+                  <Box sx={{ m: 2 }}>
+                    {chipData.map((item, i) => (
+                      <Chip
+                        key={i}
+                        label={item}
+                        onDelete={() => handleDelete(item)}
+                      />
+                    ))}
+                  </Box>
+                )}
               </Box>
               <AccordionDetails>
                 <Box
@@ -248,14 +261,10 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                             key={j}
                             control={
                               <Checkbox
-                                key={j + (i == 0 ? 0 : menuIndex[i - 1])}
-                                checked={
-                                  isChecked[j + (i == 0 ? 0 : menuIndex[i - 1])]
-                                }
+                                key={j + menuIndexHandler(i)}
+                                checked={isChecked[j + menuIndexHandler(i)]}
                                 onClick={() =>
-                                  toggleCheckboxValue(
-                                    j + (i == 0 ? 0 : menuIndex[i - 1]),
-                                  )
+                                  toggleCheckboxValue(j + menuIndexHandler(i))
                                 }
                                 name={item}
                               />
@@ -267,6 +276,41 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                     </FormControl>
                   ))}
                 </Box>
+                {isChecked.includes(true) && (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleChangeFilter}
+                      sx={{
+                        borderRadius: 30,
+                        border: 2,
+                        borderColor: 'primary.main',
+                        px: 2,
+                        '&:hover': {
+                          border: 2,
+                        },
+                      }}
+                    >
+                      <Typography
+                        variant="button"
+                        color="text.primary"
+                        sx={{
+                          textTransform: 'uppercase',
+                          letterSpacing: 1.2,
+                          fontWeight: 400,
+                        }}
+                      >
+                        Done
+                      </Typography>
+                    </Button>
+                  </Box>
+                )}
               </AccordionDetails>
             </Accordion>
             {/* <Box>
