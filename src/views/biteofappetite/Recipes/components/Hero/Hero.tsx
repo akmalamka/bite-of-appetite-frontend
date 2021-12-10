@@ -19,45 +19,66 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Container from 'components/Container';
 import './placeholder.css';
 
+interface Filter {
+  type: string;
+  choice: string[];
+}
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   keyword: string;
   onChangeKeyword: (keyword) => void;
+  chipData: string[];
+  isChecked: boolean[];
+  onChangeCheckboxValue: (number) => void;
+  onChangeDeleteChip: (string) => void;
+  onClearAll: () => void;
+  menuIndex: number[];
+  filterMenu: Filter[];
 }
 
-const mock = [
-  {
-    type: 'Cuisine',
-    choice: ['Indonesian', 'Japanese', 'Korean', 'Italian', 'Fusion'],
-  },
-  {
-    type: 'Food Type',
-    choice: ['Appetizer', 'Main Course', 'Dessert', 'Snacks'],
-  },
-  {
-    type: 'Main Ingredient',
-    choice: ['Chicken', 'Beef', 'Seafood', 'Egg', 'Rice', 'Mango'],
-  },
-  { type: 'Difficulty', choice: ['Easy', 'Medium', 'Hard'] },
-];
+// const mock = [
+//   {
+//     type: 'Cuisine',
+//     choice: ['Indonesian', 'Japanese', 'Korean', 'Italian', 'Fusion'],
+//   },
+//   {
+//     type: 'Food Type',
+//     choice: ['Appetizer', 'Main Course', 'Dessert', 'Snacks'],
+//   },
+//   {
+//     type: 'Main Ingredient',
+//     choice: ['Chicken', 'Beef', 'Seafood', 'Egg', 'Rice', 'Mango'],
+//   },
+//   { type: 'Difficulty', choice: ['Easy', 'Medium', 'Hard'] },
+// ];
 
-const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
+const Hero = ({
+  keyword,
+  onChangeKeyword,
+  chipData,
+  isChecked,
+  onChangeCheckboxValue,
+  onChangeDeleteChip,
+  onClearAll,
+  menuIndex,
+  filterMenu,
+}: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
 
-  const menuMap = (item) => {
-    return item;
-  };
-  const menuItems2D = [].concat(
-    mock.map((i) => i.choice.map((item) => menuMap(item))),
-  );
-  const menuItems1D = [].concat(...menuItems2D);
-  const menuIndex = menuItems2D.map((item, i) => item.length);
+  // const menuMap = (item) => {
+  //   return item;
+  // };
+  // const menuItems2D = [].concat(
+  //   mock.map((i) => i.choice.map((item) => menuMap(item))),
+  // );
+  // const menuItems1D = [].concat(...menuItems2D);
+  // const menuIndex = menuItems2D.map((item, i) => item.length);
 
-  const [isChecked, setIsChecked] = React.useState(
-    menuItems1D.slice().fill(false),
-  );
-  const [chipData, setChipData] = React.useState([]);
+  // const [isChecked, setIsChecked] = React.useState(
+  //   menuItems1D.slice().fill(false),
+  // );
+  // const [chipData, setChipData] = React.useState([]);
   const [expanded, setExpanded] = React.useState<boolean>(false);
 
   const handleChangeFilter = () => {
@@ -72,29 +93,35 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
     return a;
   };
 
-  const toggleCheckboxValue = (index) => {
-    setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
-    if (chipData.includes(menuItems1D[index])) {
-      setChipData((chips) =>
-        chips.filter((chip) => chip !== menuItems1D[index]),
-      );
-    } else {
-      setChipData([...chipData, menuItems1D[index]]);
-    }
-  };
+  // const menuIndexHandler = (index) => {
+  //   let a = 0;
+  //   for (let i = 0; i < index; i++) {
+  //     a += menuIndex[i];
+  //   }
+  //   return a;
+  // };
 
-  const handleDelete = (chipToDelete) => {
-    setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
-    const index = menuItems1D.findIndex((element) => element === chipToDelete);
-    setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
-  };
+  // const toggleCheckboxValue = (index) => {
+  //   setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+  //   if (chipData.includes(menuItems1D[index])) {
+  //     setChipData((chips) =>
+  //       chips.filter((chip) => chip !== menuItems1D[index]),
+  //     );
+  //   } else {
+  //     setChipData([...chipData, menuItems1D[index]]);
+  //   }
+  // };
 
-  const handleClearAll = () => {
-    setChipData([]);
-    // setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
-    // const index = menuItems1D.findIndex((element) => element === chipToDelete);
-    setIsChecked(isChecked.map((item) => false));
-  };
+  // const handleDelete = (chipToDelete) => {
+  //   setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
+  //   const index = menuItems1D.findIndex((element) => element === chipToDelete);
+  //   setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+  // };
+
+  // const handleClearAll = () => {
+  //   setChipData([]);
+  //   setIsChecked(isChecked.map((item) => false));
+  // };
 
   return (
     <Box position={'relative'}>
@@ -244,14 +271,14 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                       <Chip
                         key={i}
                         label={item}
-                        onDelete={() => handleDelete(item)}
+                        onDelete={() => onChangeDeleteChip(item)}
                         sx={{ mr: 1, mb: 1 }}
                       />
                     ))}
                     <Chip
                       label={'Clear All'}
                       sx={{ mr: 1, mb: 1 }}
-                      onClick={handleClearAll}
+                      onClick={onClearAll}
                     />
                   </Box>
                 )}
@@ -264,7 +291,7 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  {mock.map((filter, i) => (
+                  {filterMenu.map((filter, i) => (
                     <FormControl
                       key={i}
                       sx={{ m: 3 }}
@@ -281,7 +308,7 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                                 key={j + menuIndexHandler(i)}
                                 checked={isChecked[j + menuIndexHandler(i)]}
                                 onClick={() =>
-                                  toggleCheckboxValue(j + menuIndexHandler(i))
+                                  onChangeCheckboxValue(j + menuIndexHandler(i))
                                 }
                                 name={item}
                               />

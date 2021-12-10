@@ -142,9 +142,10 @@ const mock = [
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   keyword: string;
+  chipDataString: string;
 }
 
-const PopularNews = ({ keyword }: Props): JSX.Element => {
+const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
   const theme = useTheme();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -154,17 +155,48 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
   const [page, setPage] = React.useState(1);
   const PER_PAGE = 2;
 
-  // const dummy = mock.concat(mock);
-
-  const options = {
-    threshold: 0.05,
+  const optionsSearch = {
+    threshold: 0.3,
+    // includeScore: true,
     // Search in 'title' array
     keys: ['title'],
   };
 
-  const fuse = new Fuse(mock, options);
+  const optionsFilter = {
+    threshold: 0,
+    // includeScore: true,
+    useExtendedSearch: true,
+    // Search in 'title' array
+    keys: ['tags'],
+  };
 
-  const result = keyword === '' ? mock : fuse.search(keyword);
+  const fuseSearch = new Fuse(mock, optionsSearch);
+  const fuseFilter = new Fuse(mock, optionsFilter);
+
+  const resultSearch = keyword === '' ? mock : fuseSearch.search(keyword);
+  const resultFilter =
+    chipDataString === '' ? mock : fuseFilter.search(chipDataString);
+
+  // console.log(chipDataString);
+  // console.log(resultFilter);
+  function finalResult() {
+    if (keyword === '') {
+      if (chipDataString === '') {
+        return mock;
+      } else {
+        return resultFilter;
+      }
+    } else {
+      if (chipDataString === '') {
+        return resultSearch;
+      } else {
+        const flattenFilter = resultFilter.map((item) => item.item);
+        return new Fuse(flattenFilter, optionsSearch).search(keyword); // diubah yang gabungan dari search dan filter
+      }
+    }
+  }
+
+  const result = finalResult();
   const count = Math.ceil(result.length / PER_PAGE);
   const _DATA = usePagination(result, PER_PAGE);
 
@@ -204,7 +236,11 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                   component={LazyLoadImage}
                   height={1}
                   width={1}
-                  src={keyword === '' ? item.image : item.item.image}
+                  src={
+                    keyword === '' && chipDataString === ''
+                      ? item.image
+                      : item.item.image
+                  }
                   alt="..."
                   effect="blur"
                   sx={{
@@ -245,7 +281,10 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                       marginY: { xs: 1, md: 0 },
                     }}
                   >
-                    {(keyword === '' ? item : item.item).tags.map((item) => (
+                    {(keyword === '' && chipDataString === ''
+                      ? item
+                      : item.item
+                    ).tags.map((item) => (
                       <Chip
                         key={item}
                         label={item}
@@ -279,7 +318,9 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
-                    {keyword === '' ? item.title : item.item.title}
+                    {keyword === '' && chipDataString === ''
+                      ? item.title
+                      : item.item.title}
                   </Typography>
                   <Typography
                     variant={'subtitle1'}
@@ -294,7 +335,9 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
-                    {keyword === '' ? item.description : item.item.description}
+                    {keyword === '' && chipDataString === ''
+                      ? item.description
+                      : item.item.description}
                   </Typography>
                   <Box
                     marginTop={2}
