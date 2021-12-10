@@ -74,7 +74,11 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
 
   const toggleCheckboxValue = (index) => {
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
-    if (!chipData.includes(menuItems1D[index])) {
+    if (chipData.includes(menuItems1D[index])) {
+      setChipData((chips) =>
+        chips.filter((chip) => chip !== menuItems1D[index]),
+      );
+    } else {
       setChipData([...chipData, menuItems1D[index]]);
     }
   };
@@ -83,6 +87,13 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
     setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
     const index = menuItems1D.findIndex((element) => element === chipToDelete);
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+  };
+
+  const handleClearAll = () => {
+    setChipData([]);
+    // setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
+    // const index = menuItems1D.findIndex((element) => element === chipToDelete);
+    setIsChecked(isChecked.map((item) => false));
   };
 
   return (
@@ -234,8 +245,14 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                         key={i}
                         label={item}
                         onDelete={() => handleDelete(item)}
+                        sx={{ mr: 1, mb: 1 }}
                       />
                     ))}
+                    <Chip
+                      label={'Clear All'}
+                      sx={{ mr: 1, mb: 1 }}
+                      onClick={handleClearAll}
+                    />
                   </Box>
                 )}
               </Box>
@@ -313,13 +330,6 @@ const Hero = ({ keyword, onChangeKeyword }: Props): JSX.Element => {
                 )}
               </AccordionDetails>
             </Accordion>
-            {/* <Box>
-              <Chip
-                // icon={icon}
-                label={'Abcd'}
-                // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
-              />
-            </Box> */}
           </Box>
         </Box>
       </Container>

@@ -23,7 +23,7 @@ const mock = [
     description:
       'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
     title: 'White Pesto Pasta',
-    tags: ['Pasta', 'Fast', 'Easy', 'Western'],
+    tags: ['Indonesian', 'Appetizer', 'Chicken', 'Easy'],
   },
   {
     image:
@@ -31,7 +31,7 @@ const mock = [
     description:
       'It only takes a handful of ingredients to bring this dazzling South Asian snack to life in your kitchen. These particular jalebi strike the perfect balance between crispy, chewy, and sweet.',
     title: 'Jalebi',
-    tags: ['Pasta', 'Fast', 'Easy'],
+    tags: ['Korean', 'Main Course', 'Easy'],
   },
   {
     image:
@@ -39,7 +39,7 @@ const mock = [
     description:
       'Velvety dollops of whipped cream top an extra-crisp, delicate meringue shell for the perfect range of textures.',
     title: 'Pavlovas With Fresh Berries',
-    tags: ['Fast', 'Easy', 'Western'],
+    tags: ['Fusion', 'Easy'],
   },
   {
     image:
@@ -47,31 +47,95 @@ const mock = [
     description:
       'Dark brown sugar is key and a dollop of mascarpone makes for superior tenderness. Walnuts optional but encouraged. ',
     title: 'Banana Bread',
+    tags: ['Snacks', 'Egg', 'Medium'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/5df7e3a774d917000929589d/1:1/w_2240,c_limit/FGFP-Turmeric-Salmon-Coconut-Crisp%2016x9.jpg',
+    description:
+      'The coconut crisp brings texture and heat to this simple stewy dish.',
+    title: 'Turmeric Salmon With Coconut Crisp',
+    tags: ['Indonesian', 'Dessert', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/5de7e495b79e20000879d72a/1:1/w_2240,c_limit/Amiel-Lobster-Pasta-Lede-1.jpg',
+    description:
+      'A creamy, eye rollingly rich pasta sauce that tastes deeply lobstery, but even more deeply of love.',
+    title: 'Lobster Pasta',
     tags: ['Pasta', 'Fast', 'Western'],
   },
   {
     image:
-      'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg',
+      'https://assets.bonappetit.com/photos/57add77f53e63daf11a4de9f/1:1/w_2240,c_limit/chewy-molasses-cookies.jpg',
     description:
-      'It only takes a handful of ingredients to bring this dazzling South Asian snack to life in your kitchen. These particular jalebi strike the perfect balance between crispy, chewy, and sweet.',
-    title: 'Jalebi',
-    tags: ['Pasta', 'Fast', 'Easy'],
+      'Molasses keeps these cookies magically fresh and chewy for days.',
+    title: 'Chewy Molasses Cookies',
+    tags: ['Italian', 'Snacks', 'Seafood', 'Easy'],
   },
   {
     image:
-      'https://assets.bonappetit.com/photos/57ad371b53e63daf11a4dcfc/1:1/w_2240,c_limit/banana-bread-1-of-1.jpg',
+      'https://assets.bonappetit.com/photos/57adf6d053e63daf11a4e015/1:1/w_2240,c_limit/chicken-khao-soi1.jpg',
     description:
-      'Dark brown sugar is key and a dollop of mascarpone makes for superior tenderness. Walnuts optional but encouraged. ',
-    title: 'Banana Bread',
-    tags: ['Pasta', 'Fast', 'Western'],
+      'A simple curry paste gives this northern Thai–inspired soup surprising depth of flavor.',
+    title: 'Chicken Khao Soi',
+    tags: ['Fusion', 'Dessert', 'Easy'],
   },
   {
     image:
-      'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
+      'https://assets.bonappetit.com/photos/6169b04e2f34dd3430e96df8/1:1/w_2240,c_limit/Shrimp-and-Salami-Pasta.jpeg',
     description:
-      'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
-    title: 'Hore Hore Hore',
-    tags: ['Pasta', 'Fast', 'Easy', 'Western'],
+      'A dreamy vacation to Portugal inspired this shrimp and salami pasta from recipe developer Shilpa Uskokovic.',
+    title: 'Shrimp and Salami Pasta',
+    tags: ['Fusion', 'Medium'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/5e6bb3bd97812f0008bb8bf5/1:1/w_2240,c_limit/0420-Pasta-Rigatoni-With-Fennel-Anchovies.jpg',
+    description:
+      'Something truly magical happens when fennel, garlic, and anchovies get caramelized together in olive oil, then paired with citrus zest.',
+    title: 'Rigatoni With Fennel and Anchovies',
+    tags: ['Indonesian', 'Beef', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/6192c7803c7174017f361933/1:1/w_2240,c_limit/Maple-kettle-corn%0D.jpg',
+    description:
+      'Kettle corn is undeniably delicious, so there’s no reason to mess with it—unless the alternative is utterly showstopping.',
+    title: 'Maple-Za’atar Kettle Corn',
+    tags: ['Korean', 'Appetizer', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/610983ac7ab03bb297b2f500/1:1/w_2240,c_limit/0921-Weeknight%20Ragu%CC%80.jpg',
+    description:
+      'Many ragus require hours of simmering. Not this one. Here we take the express lane, opting for ground meat, which gives you a head start on tenderness, and combining it with flavor-packed ingredients like double-concentrated tomato paste and heavy cream.',
+    title: 'Weeknight Ragù',
+    tags: ['Indonesian', 'Chicken', 'Easy'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/6192c5018a5569968cdfac88/1:1/w_2240,c_limit/Crispy-olives-chile-sauce%0D.jpg',
+    description:
+      'How to take olives from snack to PARTY snack? Buy pre-stuffed olives, then coat them in panko, fry until deep golden brown, and serve with Calabrian chile sauce.',
+    title: 'Crispy Olives With Calabrian Chile Sauce',
+    tags: ['Japanese', 'Chicken', 'Hard'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/613b59be6b6b69f9c769c523/1:1/w_2240,c_limit/Seasonal%20Pasta%20Lantern%20Inn.jpg',
+    description:
+      'This cozy winter squash and kale pasta from The Lantern Inn in Wassaic, NY, uses an entire butternut squash, a whole bunch of kale, and crunchy pecan breadcrumbs for total fall bliss in dinner form.',
+    title: 'Winter Squash and Kale Pasta With Pecan Breadcrumbs',
+    tags: ['Korean', 'Appetizer', 'Rice'],
+  },
+  {
+    image:
+      'https://assets.bonappetit.com/photos/6192c54bb3c163c8b55ebf59/1:1/w_2240,c_limit/Curried-egg-tartines%0D.jpg',
+    description:
+      'While we would happily eat a plain slice of crispy fried bread, one piled with a creamy curried egg salad and herbs is way more exciting.',
+    title: 'Curried Egg Tartines',
+    tags: ['Indonesian', 'Dessert', 'Mango', 'Hard'],
   },
 ];
 
@@ -90,7 +154,7 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
   const [page, setPage] = React.useState(1);
   const PER_PAGE = 2;
 
-  const dummy = mock.concat(mock);
+  // const dummy = mock.concat(mock);
 
   const options = {
     threshold: 0.05,
@@ -98,9 +162,9 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
     keys: ['title'],
   };
 
-  const fuse = new Fuse(dummy, options);
+  const fuse = new Fuse(mock, options);
 
-  const result = keyword === '' ? dummy : fuse.search(keyword);
+  const result = keyword === '' ? mock : fuse.search(keyword);
   const count = Math.ceil(result.length / PER_PAGE);
   const _DATA = usePagination(result, PER_PAGE);
 
@@ -213,6 +277,7 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                         md: i % 2 === 0 ? 'flex-start' : 'flex-end',
                       },
                     }}
+                    align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
                     {keyword === '' ? item.title : item.item.title}
                   </Typography>
@@ -222,10 +287,10 @@ const PopularNews = ({ keyword }: Props): JSX.Element => {
                     fontWeight={500}
                     sx={{
                       display: 'flex',
-                      justifyContent: {
-                        xs: 'center',
-                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
-                      },
+                      // justifyContent: {
+                      //   xs: 'center',
+                      //   md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      // },
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
