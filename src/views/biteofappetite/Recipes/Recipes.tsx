@@ -53,14 +53,6 @@ const Recipes = (): JSX.Element => {
     menuItems1D.slice().fill(false),
   );
 
-  // const menuIndexHandler = (index) => {
-  //   let a = 0;
-  //   for (let i = 0; i < index; i++) {
-  //     a += menuIndex[i];
-  //   }
-  //   return a;
-  // };
-
   const toggleCheckboxValue = (index) => {
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
     if (chipData.includes(menuItems1D[index])) {
@@ -89,20 +81,6 @@ const Recipes = (): JSX.Element => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  // console.log(chipData);
-  // const obj = ['abc', 'def', 'ghi'];
-  // const myJSON = JSON.stringify(obj);
-  // console.log(myJSON.replace('[', '').replace(']', ''));
-
-  const chipDatatoString = (chipData) => {
-    return JSON.stringify(chipData)
-      .replace('[', '')
-      .replace(']', '')
-      .replace(',', '|');
-  };
-  // function chipDataToString(chipData) {
-
-  // }
 
   return (
     <Main colorInvert={true}>
@@ -119,10 +97,7 @@ const Recipes = (): JSX.Element => {
       />
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <PopularNews
-            keyword={keyword}
-            chipDataString={chipDatatoString(chipData)}
-          />
+          <PopularNews keyword={keyword} chipData={chipData} />
         </Container>
       </Box>
       {/* <Box bgcolor={'alternate.main'}>

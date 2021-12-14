@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -142,10 +142,10 @@ const mock = [
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   keyword: string;
-  chipDataString: string;
+  chipData: string[];
 }
 
-const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
+const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
   const theme = useTheme();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -154,44 +154,54 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
   const { mode } = theme.palette;
   const [page, setPage] = React.useState(1);
   const PER_PAGE = 2;
+  const [searchFirst, setSearchFirst] = React.useState<boolean>(false);
 
   const optionsSearch = {
     threshold: 0.3,
-    // includeScore: true,
-    // Search in 'title' array
     keys: ['title'],
   };
 
   const optionsFilter = {
     threshold: 0,
-    // includeScore: true,
+    includeScore: true,
     useExtendedSearch: true,
-    // Search in 'title' array
     keys: ['tags'],
   };
+  const chipDataMapped = chipData.map(function(obj) {
+    return {
+      tags: obj,
+    };
+  });
+  console.log(chipDataMapped);
 
   const fuseSearch = new Fuse(mock, optionsSearch);
   const fuseFilter = new Fuse(mock, optionsFilter);
 
   const resultSearch = keyword === '' ? mock : fuseSearch.search(keyword);
   const resultFilter =
-    chipDataString === '' ? mock : fuseFilter.search(chipDataString);
+    chipData.length == 0 ? mock : fuseFilter.search({ $and: chipDataMapped });
 
-  // console.log(chipDataString);
-  // console.log(resultFilter);
+  console.log(resultFilter);
   function finalResult() {
     if (keyword === '') {
-      if (chipDataString === '') {
+      if (chipData.length == 0) {
         return mock;
       } else {
         return resultFilter;
       }
     } else {
-      if (chipDataString === '') {
+      if (chipData.length == 0) {
         return resultSearch;
       } else {
-        const flattenFilter = resultFilter.map((item) => item.item);
-        return new Fuse(flattenFilter, optionsSearch).search(keyword); // diubah yang gabungan dari search dan filter
+        if (searchFirst) {
+          const flattenSearch = resultSearch.map((item) => item.item);
+          return new Fuse(flattenSearch, optionsFilter).search({
+            $and: chipDataMapped,
+          });
+        } else {
+          const flattenFilter = resultFilter.map((item) => item.item);
+          return new Fuse(flattenFilter, optionsSearch).search(keyword); // diubah yang gabungan dari search dan filter
+        }
       }
     }
   }
@@ -204,6 +214,14 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
     setPage(p);
     _DATA.jump(p);
   };
+
+  useEffect(() => {
+    if (keyword.length == 0 && chipData.length > 0) {
+      setSearchFirst(false);
+    } else if (keyword.length > 0 && chipData.length == 0) {
+      setSearchFirst(true);
+    }
+  }, [keyword, chipData]);
 
   return (
     <Box>
@@ -237,7 +255,7 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
                   height={1}
                   width={1}
                   src={
-                    keyword === '' && chipDataString === ''
+                    keyword === '' && chipData.length == 0
                       ? item.image
                       : item.item.image
                   }
@@ -281,7 +299,7 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
                       marginY: { xs: 1, md: 0 },
                     }}
                   >
-                    {(keyword === '' && chipDataString === ''
+                    {(keyword === '' && chipData.length == 0
                       ? item
                       : item.item
                     ).tags.map((item) => (
@@ -318,7 +336,7 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
-                    {keyword === '' && chipDataString === ''
+                    {keyword === '' && chipData.length == 0
                       ? item.title
                       : item.item.title}
                   </Typography>
@@ -335,7 +353,7 @@ const PopularNews = ({ keyword, chipDataString }: Props): JSX.Element => {
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >
-                    {keyword === '' && chipDataString === ''
+                    {keyword === '' && chipData.length == 0
                       ? item.description
                       : item.item.description}
                   </Typography>
