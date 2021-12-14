@@ -172,7 +172,6 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
       tags: obj,
     };
   });
-  console.log(chipDataMapped);
 
   const fuseSearch = new Fuse(mock, optionsSearch);
   const fuseFilter = new Fuse(mock, optionsFilter);
@@ -181,7 +180,6 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
   const resultFilter =
     chipData.length == 0 ? mock : fuseFilter.search({ $and: chipDataMapped });
 
-  console.log(resultFilter);
   function finalResult() {
     if (keyword === '') {
       if (chipData.length == 0) {
@@ -213,6 +211,7 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
   const _DATA = usePagination(result, PER_PAGE);
 
   const handleChangePage = (e, p) => {
+    window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
     setPage(p);
     _DATA.jump(p);
   };

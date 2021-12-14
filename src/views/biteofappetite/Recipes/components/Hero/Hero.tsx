@@ -55,25 +55,6 @@ const Hero = ({
   const theme = useTheme();
   const { mode } = theme.palette;
 
-  // const menuMap = (item) => {
-  //   return item;
-  // };
-  // const menuItems2D = [].concat(
-  //   mock.map((i) => i.choice.map((item) => menuMap(item))),
-  // );
-  // const menuItems1D = [].concat(...menuItems2D);
-  // const menuIndex = menuItems2D.map((item, i) => item.length);
-
-  // const [isChecked, setIsChecked] = React.useState(
-  //   menuItems1D.slice().fill(false),
-  // );
-  // const [chipData, setChipData] = React.useState([]);
-  // const [expanded, setExpanded] = React.useState<boolean>(false);
-
-  // const handleChangeFilter = () => {
-  //   setExpanded(!expanded);
-  // };
-
   const menuIndexHandler = (index) => {
     let a = 0;
     for (let i = 0; i < index; i++) {
@@ -85,36 +66,6 @@ const Hero = ({
   const handleClickAway = () => {
     onChangeFilterExpanded(true);
   };
-
-  // const menuIndexHandler = (index) => {
-  //   let a = 0;
-  //   for (let i = 0; i < index; i++) {
-  //     a += menuIndex[i];
-  //   }
-  //   return a;
-  // };
-
-  // const toggleCheckboxValue = (index) => {
-  //   setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
-  //   if (chipData.includes(menuItems1D[index])) {
-  //     setChipData((chips) =>
-  //       chips.filter((chip) => chip !== menuItems1D[index]),
-  //     );
-  //   } else {
-  //     setChipData([...chipData, menuItems1D[index]]);
-  //   }
-  // };
-
-  // const handleDelete = (chipToDelete) => {
-  //   setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
-  //   const index = menuItems1D.findIndex((element) => element === chipToDelete);
-  //   setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
-  // };
-
-  // const handleClearAll = () => {
-  //   setChipData([]);
-  //   setIsChecked(isChecked.map((item) => false));
-  // };
 
   return (
     <Box position={'relative'}>
@@ -286,6 +237,8 @@ const Hero = ({
                       display: 'flex',
                       flexDirection: { xs: 'column', md: 'row' },
                       justifyContent: 'space-between',
+                      maxHeight: { xs: 250, md: 350 },
+                      overflow: 'auto',
                     }}
                   >
                     {filterMenu.map((filter, i) => (
