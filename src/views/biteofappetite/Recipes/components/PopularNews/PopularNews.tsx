@@ -24,6 +24,7 @@ const mock = [
       'Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t even need a food processor to make this riff on the normal pesto you know and love.',
     title: 'White Pesto Pasta',
     tags: ['Indonesian', 'Appetizer', 'Chicken', 'Easy'],
+    href: '/white-pesto-pasta',
   },
   {
     image:
@@ -32,6 +33,7 @@ const mock = [
       'It only takes a handful of ingredients to bring this dazzling South Asian snack to life in your kitchen. These particular jalebi strike the perfect balance between crispy, chewy, and sweet.',
     title: 'Jalebi',
     tags: ['Korean', 'Main Course', 'Easy'],
+    href: '/jalebi',
   },
   {
     image:
@@ -40,6 +42,7 @@ const mock = [
       'Velvety dollops of whipped cream top an extra-crisp, delicate meringue shell for the perfect range of textures.',
     title: 'Pavlovas With Fresh Berries',
     tags: ['Fusion', 'Easy'],
+    href: '/pavlovas-with-fresh-berries',
   },
   {
     image:
@@ -48,6 +51,7 @@ const mock = [
       'Dark brown sugar is key and a dollop of mascarpone makes for superior tenderness. Walnuts optional but encouraged. ',
     title: 'Banana Bread',
     tags: ['Snacks', 'Egg', 'Medium'],
+    href: '/banana-bread',
   },
   {
     image:
@@ -56,6 +60,7 @@ const mock = [
       'The coconut crisp brings texture and heat to this simple stewy dish.',
     title: 'Turmeric Salmon With Coconut Crisp',
     tags: ['Indonesian', 'Dessert', 'Easy'],
+    href: 'turmeric-salmon-with-coconut-crisp',
   },
   {
     image:
@@ -64,6 +69,7 @@ const mock = [
       'A creamy, eye rollingly rich pasta sauce that tastes deeply lobstery, but even more deeply of love.',
     title: 'Lobster Pasta',
     tags: ['Pasta', 'Fast', 'Western'],
+    href: '/lobster-pasta',
   },
   {
     image:
@@ -72,6 +78,7 @@ const mock = [
       'Molasses keeps these cookies magically fresh and chewy for days.',
     title: 'Chewy Molasses Cookies',
     tags: ['Italian', 'Snacks', 'Seafood', 'Easy'],
+    href: 'chewy-molasses-cookies',
   },
   {
     image:
@@ -80,6 +87,7 @@ const mock = [
       'A simple curry paste gives this northern Thai–inspired soup surprising depth of flavor.',
     title: 'Chicken Khao Soi',
     tags: ['Fusion', 'Dessert', 'Easy'],
+    href: '/chicken-khao-soi',
   },
   {
     image:
@@ -88,6 +96,7 @@ const mock = [
       'A dreamy vacation to Portugal inspired this shrimp and salami pasta from recipe developer Shilpa Uskokovic.',
     title: 'Shrimp and Salami Pasta',
     tags: ['Fusion', 'Medium'],
+    href: '/shrimp-and-salami-pasta',
   },
   {
     image:
@@ -96,6 +105,7 @@ const mock = [
       'Something truly magical happens when fennel, garlic, and anchovies get caramelized together in olive oil, then paired with citrus zest.',
     title: 'Rigatoni With Fennel and Anchovies',
     tags: ['Indonesian', 'Beef', 'Easy'],
+    href: '/rigatoni-with-fennel-and-anchovies',
   },
   {
     image:
@@ -104,6 +114,7 @@ const mock = [
       'Kettle corn is undeniably delicious, so there’s no reason to mess with it—unless the alternative is utterly showstopping.',
     title: 'Maple-Za’atar Kettle Corn',
     tags: ['Korean', 'Appetizer', 'Easy'],
+    href: 'maple-za’atar-kettle-corn',
   },
   {
     image:
@@ -112,6 +123,7 @@ const mock = [
       'Many ragus require hours of simmering. Not this one. Here we take the express lane, opting for ground meat, which gives you a head start on tenderness, and combining it with flavor-packed ingredients like double-concentrated tomato paste and heavy cream.',
     title: 'Weeknight Ragù',
     tags: ['Indonesian', 'Chicken', 'Easy'],
+    href: 'weeknight-ragu',
   },
   {
     image:
@@ -120,6 +132,7 @@ const mock = [
       'How to take olives from snack to PARTY snack? Buy pre-stuffed olives, then coat them in panko, fry until deep golden brown, and serve with Calabrian chile sauce.',
     title: 'Crispy Olives With Calabrian Chile Sauce',
     tags: ['Japanese', 'Chicken', 'Hard'],
+    href: 'crispy-olives-with-calabrian-chile-sauce',
   },
   {
     image:
@@ -128,6 +141,7 @@ const mock = [
       'This cozy winter squash and kale pasta from The Lantern Inn in Wassaic, NY, uses an entire butternut squash, a whole bunch of kale, and crunchy pecan breadcrumbs for total fall bliss in dinner form.',
     title: 'Winter Squash and Kale Pasta With Pecan Breadcrumbs',
     tags: ['Korean', 'Appetizer', 'Rice'],
+    href: '/winter-squash-and-kale-pasta-with-pecan-breadcrumbs',
   },
   {
     image:
@@ -136,6 +150,7 @@ const mock = [
       'While we would happily eat a plain slice of crispy fried bread, one piled with a creamy curried egg salad and herbs is way more exciting.',
     title: 'Curried Egg Tartines',
     tags: ['Indonesian', 'Dessert', 'Mango', 'Hard'],
+    href: '/curied-egg-tartines',
   },
 ];
 
@@ -205,7 +220,6 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
   }
 
   const result = finalResult();
-  // const [result, setResult] = useState(mock);
 
   const count = Math.ceil(result.length / PER_PAGE);
   const _DATA = usePagination(result, PER_PAGE);
@@ -251,27 +265,39 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
                   },
                 }}
               >
-                <Box
-                  component={LazyLoadImage}
-                  height={1}
-                  width={1}
-                  src={
-                    keyword === '' && chipData.length == 0
-                      ? item.image
-                      : item.item.image
-                  }
-                  alt="..."
-                  effect="blur"
+                <Button
+                  fullWidth
+                  disableRipple={true}
+                  disableFocusRipple={true}
+                  href={item.href}
                   sx={{
-                    objectFit: 'cover',
+                    padding: 0,
                     maxHeight: 530,
-                    borderRadius: 2,
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0.8)'
-                        : 'none',
+                    maxWidth: 705,
                   }}
-                />
+                >
+                  <Box
+                    component={LazyLoadImage}
+                    height={1}
+                    width={1}
+                    src={
+                      keyword === '' && chipData.length == 0
+                        ? item.image
+                        : item.item.image
+                    }
+                    alt="..."
+                    effect="blur"
+                    sx={{
+                      objectFit: 'contain',
+                      maxHeight: { xs: 530, md: 1 },
+                      borderRadius: 2,
+                      filter:
+                        theme.palette.mode === 'dark'
+                          ? 'brightness(0.8)'
+                          : 'none',
+                    }}
+                  />
+                </Button>
               </Box>
               <CardContent
                 sx={{
@@ -371,6 +397,7 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
                     <Button
                       variant="outlined"
                       color="primary"
+                      href={item.href}
                       sx={{
                         borderRadius: 30,
                         border: 2,
