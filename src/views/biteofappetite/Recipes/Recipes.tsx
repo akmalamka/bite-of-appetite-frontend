@@ -52,6 +52,15 @@ const Recipes = (): JSX.Element => {
   const [isChecked, setIsChecked] = React.useState(
     menuItems1D.slice().fill(false),
   );
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+
+  const handleChangeFilterExpanded = (isClickAway) => {
+    if (isClickAway) {
+      setExpanded(false);
+    } else {
+      setExpanded(!expanded);
+    }
+  };
 
   const toggleCheckboxValue = (index) => {
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
@@ -94,10 +103,12 @@ const Recipes = (): JSX.Element => {
         onClearAll={handleClearAll}
         menuIndex={menuIndex}
         filterMenu={mock}
+        expanded={expanded}
+        onChangeFilterExpanded={handleChangeFilterExpanded}
       />
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <PopularNews keyword={keyword} chipData={chipData} />
+          <PopularNews keyword={keyword} chipData={expanded ? [] : chipData} />
         </Container>
       </Box>
       {/* <Box bgcolor={'alternate.main'}>

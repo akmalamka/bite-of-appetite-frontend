@@ -207,6 +207,8 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
   }
 
   const result = finalResult();
+  // const [result, setResult] = useState(mock);
+
   const count = Math.ceil(result.length / PER_PAGE);
   const _DATA = usePagination(result, PER_PAGE);
 
