@@ -56,6 +56,7 @@ import {
   AboutBiteOfAppetite as AboutBiteOfAppetiteView,
   FoodForThought as FoodForThoughtView,
   Recipes as RecipesView,
+  DetailRecipe as DetailRecipeView,
 } from 'views';
 
 const routes = [
@@ -286,6 +287,10 @@ const routes = [
   {
     path: '/recipes',
     renderer: (params = {}): JSX.Element => <RecipesView {...params} />,
+  },
+  {
+    path: '/jalebi',
+    renderer: (params = {}): JSX.Element => <DetailRecipeView {...params} />,
   },
   {
     path: '/food-for-thought',
