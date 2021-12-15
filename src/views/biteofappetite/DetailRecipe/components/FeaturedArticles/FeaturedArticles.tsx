@@ -22,6 +22,34 @@ import SwipeableViews from 'react-swipeable-views';
 
 const mock = ['Easy', 'Indonesian', 'Chicken'];
 
+const ingredients = [
+  {
+    ingredients: 'Smoked Beef',
+    measurement: 75,
+    unit: 'gr',
+  },
+  {
+    ingredients: 'All Purpose Flour',
+    measurement: 150,
+    unit: 'gr',
+  },
+  {
+    ingredients: 'Chocolate',
+    measurement: 150,
+    unit: 'gr',
+  },
+  {
+    ingredients: 'Salt',
+    measurement: 5,
+    unit: 'gr',
+  },
+  {
+    ingredients: 'Vanilla',
+    measurement: 2,
+    unit: 'sprigs',
+  },
+];
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -160,32 +188,17 @@ const FeaturedArticles = (): JSX.Element => {
             fontWeight={700}
             sx={{
               paddingY: 1,
-              // display: 'flex',
-              // justifyContent: {
-              //   xs: 'center',
-              //   md: i % 2 === 0 ? 'flex-start' : 'flex-end',
-              // },
             }}
             align={'center'}
           >
-            {/* {keyword === '' && chipData.length == 0
-            ? item.title
-            : item.item.title} */}
             Gluten-Free Carrot Cake
           </Typography>
           <Typography
             variant={'subtitle1'}
             color="text.secondary"
             fontWeight={500}
-            // sx={{
-            //   display: 'flex',
-            // }}
             align={'center'}
-            // align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
           >
-            {/* {keyword === '' && chipData.length == 0
-            ? item.description
-            : item.item.description} */}
             Almond flour is a wonderfully sweet, nutty complement for fresh
             carrots, walnuts, and raisins.
           </Typography>
@@ -276,7 +289,6 @@ const FeaturedArticles = (): JSX.Element => {
         </Box>
       </Box>
       <Box
-        bgcolor={'alternate.main'}
         sx={{
           display: 'flex',
           width: 1 / 2,
@@ -307,14 +319,10 @@ const FeaturedArticles = (): JSX.Element => {
               m={2}
               sx={{
                 lineHeight: 1.8,
-                // letterSpacing: 0.5,
               }}
               align={'left'}
               paragraph
             >
-              {/* {keyword === '' && chipData.length == 0
-            ? item.description
-            : item.item.description} */}
               Why choose between the two greats, vanilla and chocolate? Each
               bite of this art deco shortbread has just the right amount of
               both. Stacking the dough in alternating colors and then smushing
@@ -335,21 +343,87 @@ const FeaturedArticles = (): JSX.Element => {
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 alignItems: 'center',
-                // m: 2,
               }}
             >
-              <IconButton
-                disabled={portion == 0}
-                onClick={() => handleChangePortion(false)}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  width: 1,
+                }}
               >
-                <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
-              </IconButton>
-              <Typography sx={{ marginX: 1 }}>Serves {portion}</Typography>
-              <IconButton onClick={() => handleChangePortion(true)}>
-                <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
-              </IconButton>
+                <IconButton
+                  disabled={portion == 0}
+                  onClick={() => handleChangePortion(false)}
+                >
+                  <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
+                </IconButton>
+                <Typography sx={{ marginX: 1 }}>Serves {portion}</Typography>
+                <IconButton onClick={() => handleChangePortion(true)}>
+                  <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
+                </IconButton>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', width: 1 }}>
+                {ingredients.map((item, i) => (
+                  <div key={i}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        m: 1,
+                        // justifyContent: 'space-between',
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          variant={'subtitle1'}
+                          color="text.primary"
+                          fontWeight={600}
+                          align={'center'}
+                          sx={{ pr: 1 }}
+                          // sx={{ m: 1 }}
+                        >
+                          {item.ingredients}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          // display: 'flex',
+                          flexGrow: 1,
+                          transform: 'rotate(180deg)',
+                          pt: 1,
+                          // alignItems: 'flex-end',
+                        }}
+                      >
+                        <Divider
+                          // orientation="horizontal"
+                          sx={{
+                            border: '0.1px dashed',
+                            // transform: 'rotate(90deg)',
+                            // flexGrow: 1,
+                            // width: 1,
+                          }}
+                          flexItem
+                        />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant={'subtitle1'}
+                          color="text.primary"
+                          fontWeight={500}
+                          align={'center'}
+                          sx={{ pl: 1 }}
+                        >
+                          {item.measurement} {item.unit}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </div>
+                ))}
+              </Box>
             </Box>
           </TabPanel>
           <TabPanel value={value} index={2}>
