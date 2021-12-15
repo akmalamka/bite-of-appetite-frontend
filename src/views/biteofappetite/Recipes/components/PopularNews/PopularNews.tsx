@@ -257,9 +257,9 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
             >
               <Box
                 sx={{
-                  width: { xs: 1, md: '75%' },
+                  // width: { xs: 1, md: '75%' },
                   '& .lazy-load-image-loaded': {
-                    height: 1,
+                    // height: 1,
                     display: 'flex !important',
                   },
                 }}
@@ -333,11 +333,8 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
                         key={item}
                         label={item}
                         component="a"
-                        // href=""
-                        // clickable
                         size={'medium'}
                         variant={'outlined'}
-                        // color={'primary'}
                         sx={{
                           marginRight: i % 2 === 0 ? 1 : 0,
                           marginLeft: i % 2 === 0 ? 0 : 1,
@@ -372,10 +369,6 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
                     fontWeight={500}
                     sx={{
                       display: 'flex',
-                      // justifyContent: {
-                      //   xs: 'center',
-                      //   md: i % 2 === 0 ? 'flex-start' : 'flex-end',
-                      // },
                     }}
                     align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
                   >

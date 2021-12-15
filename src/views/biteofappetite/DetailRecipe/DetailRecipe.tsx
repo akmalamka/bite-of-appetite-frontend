@@ -111,7 +111,7 @@ const DetailRecipe = (): JSX.Element => {
           <PopularNews keyword={keyword} chipData={expanded ? [] : chipData} />
         </Container>
       </Box> */}
-      <Box width={1 / 2}>
+      <Box>
         <Container>
           <FeaturedArticles />
         </Container>
