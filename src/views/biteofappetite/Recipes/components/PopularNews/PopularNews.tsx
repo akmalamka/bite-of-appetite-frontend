@@ -235,6 +235,10 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
     } else if (keyword.length > 0 && chipData.length == 0) {
       setSearchFirst(true);
     }
+    if (keyword.length > 0 || chipData.length > 0) {
+      setPage(1);
+      _DATA.jump(1);
+    }
   }, [keyword, chipData]);
 
   return (
