@@ -25,9 +25,6 @@ import StepButton from '@mui/material/StepButton';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import SwipeableViews from 'react-swipeable-views';
-// import TabPanel from '@mui/lab/TabPanel';
-import './scrollbar.css';
-import { Directions, NoEncryption } from '@mui/icons-material';
 
 const mock = ['Easy', 'Indonesian', 'Chicken'];
 
@@ -124,48 +121,57 @@ const ingredientsWithComponent = [
 
 const direction = [
   {
+    title: 'Mix dry ingredients',
     step:
       'Whisk 1⅓ cups flour and ¾ tsp. salt in a medium bowl. Whisk cocoa powder, remaining 1 cup flour, and remaining ¾ tsp. salt in another medium bowl. These are the bases for your chocolate and vanilla doughs.',
     tips: '',
   },
   {
+    title: 'Mix wet ingredients',
     step:
       'Beat butter, granulated sugar, and powdered sugar in the bowl of a stand mixer on medium-high speed until light and fluffy, about 4 minutes. Add egg yolk and vanilla and beat until smooth. Divide mixture between the 2 bowls of dry ingredients (about 1 cup in each). Scrape vanilla mixture back into stand mixer bowl (save the mixing bowl) and beat on low speed just until combined. Return to reserved bowl. Repeat process with chocolate mixture.',
     tips: '',
   },
   {
+    title: 'Make the batter',
     step:
       'Arrange 2 large sheets of parchment paper on a work surface. Dollop one-quarter of chocolate dough in the center of each sheet and pat into rough 6x2" rectangles. Dollop one-quarter of vanilla dough on top of each chocolate slab and pat into rectangles the same size and shape so that you have 2 layers each. Repeat entire process so you have 4 alternating layers. Tightly press stacked dough into cylinders about 1½" wide and 8" long, using the parchment to help you. Wrap logs in plastic wrap and chill until very firm, at least 2 hours.',
     tips: '',
   },
   {
+    title: 'Prepare the protein',
     step:
       'Place racks in upper and lower thirds of oven; preheat to 350°. Working one at a time, unwrap dough and brush with egg. Carefully sprinkle surface with sanding sugar and roll logs in sugar to coat well (really press dough into sugar so it sticks). Slice into rounds a generous ¼" thick, rotating after every few cuts to keep slices round.',
     tips:
       'Arrange cookies on parchment-lined baking sheets, spacing 2" apart. Bake, rotating baking sheets top to bottom and front to back halfway through, until edges are just set, 12–14 minutes. Let cool on baking sheets.',
   },
   {
+    title: 'Get ready to swimmin on hot oil pool!',
     step:
       'Dough can be made 3 days ahead; keep chilled. Cookies can be baked 5 days ahead; store airtight at room temperature.',
     tips: '',
   },
   {
+    title: 'Make it fancy',
     step:
       'Beat butter, granulated sugar, and powdered sugar in the bowl of a stand mixer on medium-high speed until light and fluffy, about 4 minutes. Add egg yolk and vanilla and beat until smooth. Divide mixture between the 2 bowls of dry ingredients (about 1 cup in each). Scrape vanilla mixture back into stand mixer bowl (save the mixing bowl) and beat on low speed just until combined. Return to reserved bowl. Repeat process with chocolate mixture.',
     tips:
       'Third year making these. I usually make this GLUTEN FREE and they are Better than flour!!!! Bob`s one to one. Wonderful cookie, easy and so tasty. I am giving this batch away so I used wheat flour and they are salty, not too much though just not as good as Gluten free. I like to roll the dough so it is spiral, very pretty and use those hard to stick decorating xmas sprinkles, they stick great and look so festive!',
   },
   {
+    title: 'One more stepp',
     step:
       'Dough can be made 3 days ahead; keep chilled. Cookies can be baked 5 days ahead; store airtight at room temperature.',
     tips: '',
   },
   {
+    title: 'One last',
     step:
       'Beat butter, granulated sugar, and powdered sugar in the bowl of a stand mixer on medium-high speed until light and fluffy, about 4 minutes. Add egg yolk and vanilla and beat until smooth. Divide mixture between the 2 bowls of dry ingredients (about 1 cup in each). Scrape vanilla mixture back into stand mixer bowl (save the mixing bowl) and beat on low speed just until combined. Return to reserved bowl. Repeat process with chocolate mixture.',
     tips: '',
   },
   {
+    title: 'Yeayyyy its done',
     step:
       'Arrange 2 large sheets of parchment paper on a work surface. Dollop one-quarter of chocolate dough in the center of each sheet and pat into rough 6x2" rectangles. Dollop one-quarter of vanilla dough on top of each chocolate slab and pat into rectangles the same size and shape so that you have 2 layers each. Repeat entire process so you have 4 alternating layers. Tightly press stacked dough into cylinders about 1½" wide and 8" long, using the parchment to help you. Wrap logs in plastic wrap and chill until very firm, at least 2 hours.',
     tips: '',
@@ -246,12 +252,12 @@ function a11yProps(index: number) {
 const FeaturedArticles = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
+  const SERVE = 2;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const [value, setValue] = useState(0);
-  const [portion, setPortion] = useState(1);
+  const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -505,7 +511,7 @@ const FeaturedArticles = (): JSX.Element => {
                 }}
               >
                 <IconButton
-                  disabled={portion == 0}
+                  disabled={portion == 1}
                   onClick={() => handleChangePortion(false)}
                 >
                   <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
@@ -595,7 +601,7 @@ const FeaturedArticles = (): JSX.Element => {
                               align={'center'}
                               sx={{ pl: 1 }}
                             >
-                              {item.measurement} {item.unit}
+                              {(item.measurement * portion) / SERVE} {item.unit}
                             </Typography>
                           </Box>
                         </Box>
@@ -664,73 +670,42 @@ const FeaturedArticles = (): JSX.Element => {
               }}
             >
               <Box sx={{ mr: 4, my: 1, maxWidth: 440 }}>
-                <SwipeableViews
+                {/* <SwipeableViews
                   index={activeStep}
-                  // onChangeIndex={handleChangeActiveStep}
+                  onSwitching={handleChangeActiveStep}
                   axis="y"
                   resistance
-                >
-                  {direction.map((item, i) => (
-                    <StepPanel key={i} value={activeStep} index={i}>
-                      <Typography
-                        variant={'body1'}
-                        color="text.primary"
-                        align={'justify'}
-                        sx={{ lineHeight: 1.8 }}
-                      >
-                        {item.step}
-                      </Typography>
-                      {item.tips.length > 0 && (
-                        <Typography
-                          variant={'body2'}
-                          color="text.primary"
-                          align={'justify'}
-                          sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
-                        >
-                          Tips: {item.tips}
-                        </Typography>
-                      )}
-                    </StepPanel>
-                    // <div key={i}>
-                    //   <Typography
-                    //     variant={'body1'}
-                    //     color="text.primary"
-                    //     align={'justify'}
-                    //     sx={{ lineHeight: 1.8 }}
-                    //   >
-                    //     {item.step}
-                    //   </Typography>
-                    //   {item.tips.length > 0 && (
-                    //     <Typography
-                    //       variant={'body2'}
-                    //       color="text.primary"
-                    //       align={'justify'}
-                    //       sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
-                    //     >
-                    //       Tips: {item.tips}
-                    //     </Typography>
-                    //   )}
-                    // </div>
-                  ))}
-                  {/* <Typography
-                    variant={'body1'}
-                    color="text.primary"
-                    align={'justify'}
-                    sx={{ lineHeight: 1.8 }}
-                  >
-                    {direction[activeStep].step}
-                  </Typography>
-                  {direction[activeStep].tips.length > 0 && (
+                > */}
+                {direction.map((item, i) => (
+                  <StepPanel key={i} value={activeStep} index={i}>
                     <Typography
-                      variant={'body2'}
+                      variant={'h6'}
                       color="text.primary"
                       align={'justify'}
-                      sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                      sx={{ lineHeight: 1.8 }}
                     >
-                      Tips: {direction[activeStep].tips}
+                      {item.title}
                     </Typography>
-                  )} */}
-                </SwipeableViews>
+                    <Typography
+                      variant={'body1'}
+                      color="text.primary"
+                      align={'justify'}
+                      sx={{ lineHeight: 1.8 }}
+                    >
+                      {item.step}
+                    </Typography>
+                    {item.tips.length > 0 && (
+                      <Typography
+                        variant={'body2'}
+                        color="text.primary"
+                        align={'justify'}
+                        sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                      >
+                        Tips: {item.tips}
+                      </Typography>
+                    )}
+                  </StepPanel>
+                ))}
               </Box>
               <Box sx={{ maxHeight: 360, overflow: 'auto' }}>
                 {direction.map((item, i) => (
@@ -741,10 +716,23 @@ const FeaturedArticles = (): JSX.Element => {
                       size="small"
                       sx={{
                         border: i == activeStep ? '1px solid' : 'none',
-                        bgcolor: 'common.white',
+                        // '&::hover': {
+                        //   bgcolor:
+                        //     mode == 'light'
+                        //       ? theme.palette.common.white
+                        //       : theme.palette.primary.dark,
+                        // },
+                        bgcolor:
+                          mode == 'light'
+                            ? theme.palette.common.white
+                            : theme.palette.primary.dark,
                         my: 0.5,
                         mr: 1,
                         boxShadow: 'none',
+                        color:
+                          mode === 'light'
+                            ? theme.palette.text.primary
+                            : theme.palette.common.white,
                       }}
                     >
                       <Typography variant="button" sx={{ fontWeight: 500 }}>
