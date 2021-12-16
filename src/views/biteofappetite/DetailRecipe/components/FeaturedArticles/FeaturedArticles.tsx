@@ -5,6 +5,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -19,34 +21,98 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import SwipeableViews from 'react-swipeable-views';
 // import TabPanel from '@mui/lab/TabPanel';
+import './scrollbar.css';
 
 const mock = ['Easy', 'Indonesian', 'Chicken'];
 
 const ingredients = [
   {
-    ingredients: 'Smoked Beef',
+    name: 'Smoked Beef',
     measurement: 75,
     unit: 'gr',
   },
   {
-    ingredients: 'All Purpose Flour',
+    name: 'All Purpose Flour',
     measurement: 150,
     unit: 'gr',
   },
   {
-    ingredients: 'Chocolate',
+    name: 'Chocolate',
     measurement: 150,
     unit: 'gr',
   },
   {
-    ingredients: 'Salt',
+    name: 'Salt',
     measurement: 5,
     unit: 'gr',
   },
   {
-    ingredients: 'Vanilla',
+    name: 'Vanilla',
     measurement: 2,
     unit: 'sprigs',
+  },
+];
+
+const ingredientsWithComponent = [
+  {
+    component: 'Brown Butter Mousse',
+    ingredients: [
+      {
+        name: 'Smoked Beef',
+        measurement: 75,
+        unit: 'gr',
+      },
+      {
+        name: 'All Purpose Flour',
+        measurement: 150,
+        unit: 'gr',
+      },
+      {
+        name: 'Chocolate',
+        measurement: 150,
+        unit: 'gr',
+      },
+      {
+        name: 'Salt',
+        measurement: 5,
+        unit: 'gr',
+      },
+      {
+        name: 'Vanilla',
+        measurement: 2,
+        unit: 'sprigs',
+      },
+    ],
+  },
+  {
+    component: 'Tonka Bean Caramel',
+    ingredients: [
+      {
+        name: 'Smoked Beef',
+        measurement: 75,
+        unit: 'gr',
+      },
+      {
+        name: 'All Purpose Flour',
+        measurement: 150,
+        unit: 'gr',
+      },
+      {
+        name: 'Chocolate',
+        measurement: 150,
+        unit: 'gr',
+      },
+      {
+        name: 'Salt',
+        measurement: 5,
+        unit: 'gr',
+      },
+      {
+        name: 'Vanilla',
+        measurement: 2,
+        unit: 'sprigs',
+      },
+    ],
   },
 ];
 
@@ -130,7 +196,12 @@ const FeaturedArticles = (): JSX.Element => {
     }
   };
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
@@ -169,13 +240,14 @@ const FeaturedArticles = (): JSX.Element => {
           />
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Typography
-              variant="overline"
+              variant="caption"
               color="text.primary"
               sx={{
-                textTransform: 'uppercase',
+                // textTransform: 'uppercase',
                 letterSpacing: 1.5,
                 fontWeight: 400,
                 fontSize: 10,
+                pt: 1,
               }}
             >
               Food Photography and Food Styling by Muhammad Akmal
@@ -320,7 +392,7 @@ const FeaturedArticles = (): JSX.Element => {
               sx={{
                 lineHeight: 1.8,
               }}
-              align={'left'}
+              align={'justify'}
               paragraph
             >
               Why choose between the two greats, vanilla and chocolate? Each
@@ -366,7 +438,93 @@ const FeaturedArticles = (): JSX.Element => {
                   <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
                 </IconButton>
               </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', width: 1 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: 1,
+                  maxHeight: 455,
+                  // root: {
+                  //   'Muibox-root::-webkit-scrollbar': {
+                  //     width: 200,
+                  //   },
+                  //   // '&::-webkit-scrollbar-track': {
+                  //   //   boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
+                  //   // },
+                  //   // '&::-webkit-scrollbar-thumb': {
+                  //   //   backgroundColor: 'darkgrey',
+                  //   //   outline: '1px solid slategrey',
+                  //   // },
+                  // },
+                  // '&::-webkit-scrollbar-track': {
+                  //   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                  //   // webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                  // },
+                  // '&::-webkit-scrollbar-thumb': {
+                  //   backgroundColor: 'rgba(0,0,0,.1)',
+                  //   outline: '1px dashed slategrey',
+                  // },
+                }}
+              >
+                {ingredientsWithComponent.map((item, i) => (
+                  <div key={i}>
+                    <Typography
+                      variant={'h6'}
+                      color="text.primary"
+                      sx={{ m: 1 }}
+                    >
+                      {item.component}
+                    </Typography>
+                    {item.ingredients.map((item, j) => (
+                      <div key={j}>
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            m: 1,
+                          }}
+                        >
+                          <Box>
+                            <Typography
+                              variant={'subtitle1'}
+                              color="text.primary"
+                              fontWeight={600}
+                              align={'center'}
+                              sx={{ pr: 1 }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              flexGrow: 1,
+                              transform: 'rotate(180deg)',
+                              pt: 1,
+                            }}
+                          >
+                            <Divider
+                              sx={{
+                                border: '0.1px dashed',
+                              }}
+                              flexItem
+                            />
+                          </Box>
+                          <Box>
+                            <Typography
+                              variant={'subtitle1'}
+                              color="text.primary"
+                              fontWeight={500}
+                              align={'center'}
+                              sx={{ pl: 1 }}
+                            >
+                              {item.measurement} {item.unit}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </div>
+                    ))}
+                  </div>
+                ))}
                 {ingredients.map((item, i) => (
                   <div key={i}>
                     <Box
@@ -374,7 +532,6 @@ const FeaturedArticles = (): JSX.Element => {
                         display: 'flex',
                         flexDirection: 'row',
                         m: 1,
-                        // justifyContent: 'space-between',
                       }}
                     >
                       <Box>
@@ -384,27 +541,20 @@ const FeaturedArticles = (): JSX.Element => {
                           fontWeight={600}
                           align={'center'}
                           sx={{ pr: 1 }}
-                          // sx={{ m: 1 }}
                         >
-                          {item.ingredients}
+                          {item.name}
                         </Typography>
                       </Box>
                       <Box
                         sx={{
-                          // display: 'flex',
                           flexGrow: 1,
                           transform: 'rotate(180deg)',
                           pt: 1,
-                          // alignItems: 'flex-end',
                         }}
                       >
                         <Divider
-                          // orientation="horizontal"
                           sx={{
                             border: '0.1px dashed',
-                            // transform: 'rotate(90deg)',
-                            // flexGrow: 1,
-                            // width: 1,
                           }}
                           flexItem
                         />
@@ -427,7 +577,49 @@ const FeaturedArticles = (): JSX.Element => {
             </Box>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                m: 1,
+              }}
+            >
+              <Box sx={{ mr: 2, my: 1 }}>
+                <Typography
+                  variant={'body1'}
+                  color="text.primary"
+                  align={'justify'}
+                >
+                  Preheat oven to 425°. Place potatoes in a large pot and pour
+                  in water to cover by 2. Season water generously with salt and
+                  bring to a simmer over medium-high heat. Reduce heat and
+                  simmer gently until potatoes are tender on the outside but
+                  still very firm in the center, 8–10 minutes.
+                </Typography>
+                <Typography
+                  variant={'body2'}
+                  color="text.primary"
+                  align={'justify'}
+                  sx={{ pt: 2 }}
+                >
+                  Tips : This is an essential first step: It draws out the
+                  excess moisture, ensuring that the cream mixture doesn’t get
+                  watery
+                </Typography>
+              </Box>
+              <Box>
+                {/* <ButtonGroup orientation="vertical"> */}
+                {/* <Fab aria-label="add" variant="extended"> */}
+                <Fab
+                  aria-label="add"
+                  variant="circular"
+                  size="small"
+                  sx={{ border: '1px solid', bgcolor: 'none' }}
+                >
+                  1
+                </Fab>
+              </Box>
+            </Box>
           </TabPanel>
         </SwipeableViews>
       </Box>
