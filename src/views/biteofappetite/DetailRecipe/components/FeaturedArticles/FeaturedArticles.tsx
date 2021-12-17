@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -24,7 +24,9 @@ import StepContent from '@mui/material/StepContent';
 import StepButton from '@mui/material/StepButton';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SwipeableViews from 'react-swipeable-views';
+import useWindowDimensions from './useWindowDimensions';
 
 const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
 
@@ -242,7 +244,7 @@ function StepPanel(props: TabPanelProps) {
       aria-labelledby={`step-${index}`}
       {...other}
     >
-      {value === index && <Box>{children}</Box>}
+      {value === index && <Box width={1}>{children}</Box>}
     </div>
   );
 }
@@ -261,6 +263,7 @@ const FeaturedArticles = (): JSX.Element => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const { height } = useWindowDimensions();
   const [value, setValue] = useState(0);
   const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
@@ -283,299 +286,516 @@ const FeaturedArticles = (): JSX.Element => {
   const handleChangeActiveStep = (step) => {
     setActiveStep(step);
   };
+
+  useEffect(() => {
+    if (value == 2) {
+      setValue(0);
+    }
+  }, [isMd]);
+
+  useEffect(() => {
+    console.log('height ', height);
+  }, [height]);
+
   return (
     <Box
       sx={{
         display: 'flex',
+        flexDirection: isMd ? 'row' : 'column',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          width: 1 / 2,
-          flexDirection: 'column',
-          mr: isMd ? 2 : 1,
-        }}
-      >
+      <SwipeableViews containerStyle={{ height: height - 58 }} axis="y">
         <Box
+          component="div"
           sx={{
-            // width: { xs: 1, md: '75%' },
-            '& .lazy-load-image-loaded': {
-              display: 'flex !important',
-            },
+            display: 'flex',
+            width: isMd ? 1 / 2 : 1,
+            height: height - 58,
+            flexDirection: 'column',
+            mr: isMd ? 2 : 1,
+            justifyContent: 'space-evenly',
           }}
         >
           <Box
-            component={LazyLoadImage}
-            height={1}
-            width={1}
-            src={
-              'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg'
-            }
-            alt="..."
-            effect="blur"
             sx={{
-              objectFit: 'cover',
-              // maxHeight: { xs: 530, md: 1 },
-              maxHeight: 370,
-              borderRadius: 2,
-              justifyContent: 'center',
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+              // width: { xs: 1, md: '75%' },
+              '& .lazy-load-image-loaded': {
+                display: 'flex !important',
+              },
             }}
-          />
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Typography
-              variant="caption"
-              color="text.primary"
+          >
+            <Box
+              component={LazyLoadImage}
+              height={1}
+              width={1}
+              src={
+                'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg'
+              }
+              alt="..."
+              effect="blur"
               sx={{
-                // textTransform: 'uppercase',
+                objectFit: 'cover',
+                // maxHeight: { xs: 530, md: 1 },
+                maxHeight: { xs: 320, sm: 370 },
+                borderRadius: 2,
+                justifyContent: 'center',
+                filter:
+                  theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+              }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography
+                variant="caption"
+                color="text.primary"
+                sx={{
+                  // textTransform: 'uppercase',
+                  letterSpacing: 1.5,
+                  fontWeight: 400,
+                  fontSize: 10,
+                  pt: 1,
+                }}
+                align="center"
+              >
+                Food Photography and Food Styling by Muhammad Akmal
+              </Typography>
+            </Box>
+          </Box>
+          <Box>
+            <Typography
+              variant={'h4'}
+              fontWeight={700}
+              sx={{
+                paddingY: 1,
+              }}
+              align={'center'}
+            >
+              Gluten-Free Carrot Cake
+            </Typography>
+            {isMd && (
+              <Typography
+                variant={'subtitle1'}
+                color="text.secondary"
+                fontWeight={500}
+                align={'center'}
+              >
+                Almond flour is a wonderfully sweet, nutty complement for fresh
+                carrots, walnuts, and raisins.
+              </Typography>
+            )}
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              // width: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: isMd ? 'row' : 'column',
+            }}
+          >
+            <Typography
+              variant="overline"
+              color="text.primary"
+              align="center"
+              sx={{
+                paddingY: isMd ? 1 : 0.5,
+                textTransform: 'uppercase',
                 letterSpacing: 1.5,
                 fontWeight: 400,
                 fontSize: 10,
-                pt: 1,
+                width: isMd ? 1 / 2 : 1,
               }}
-              align="center"
             >
-              Food Photography and Food Styling by Muhammad Akmal
+              By Muhammad Akmal
+            </Typography>
+            {isMd && (
+              <Divider
+                orientation="vertical"
+                sx={{
+                  border: '1px solid',
+                  height: 1 / 2,
+                }}
+              />
+            )}
+            {isMd && (
+              <Typography
+                variant="overline"
+                color="text.primary"
+                align="center"
+                sx={{
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.5,
+                  fontWeight: 400,
+                  fontSize: 10,
+                  width: isMd ? 1 / 2 : 1,
+                }}
+              >
+                Inspired By Joshua Weissman
+              </Typography>
+            )}
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography
+              variant="subtitle2"
+              color="text.primary"
+              sx={{
+                // paddingY: 1,
+                letterSpacing: 0.4,
+                // fontWeight: 400,
+                // fontSize: 14,
+              }}
+            >
+              September 20, 2021
             </Typography>
           </Box>
-        </Box>
-        <Box>
-          <Typography
-            variant={'h4'}
-            fontWeight={700}
-            sx={{
-              paddingY: 1,
-            }}
-            align={'center'}
-          >
-            Gluten-Free Carrot Cake
-          </Typography>
-          <Typography
-            variant={'subtitle1'}
-            color="text.secondary"
-            fontWeight={500}
-            align={'center'}
-          >
-            Almond flour is a wonderfully sweet, nutty complement for fresh
-            carrots, walnuts, and raisins.
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            // width: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: isMd ? 'row' : 'column',
-          }}
-        >
-          <Typography
-            variant="overline"
-            color="text.primary"
-            align="center"
-            sx={{
-              paddingY: isMd ? 1 : 0.5,
-              textTransform: 'uppercase',
-              letterSpacing: 1.5,
-              fontWeight: 400,
-              fontSize: 10,
-              width: isMd ? 1 / 2 : 1,
-            }}
-          >
-            By Muhammad Akmal
-          </Typography>
+          <IconButton sx={{ p: 0 }}>
+            <KeyboardArrowDownIcon fontSize="large" />
+          </IconButton>
           {isMd && (
-            <Divider
-              orientation="vertical"
-              sx={{
-                border: '1px solid',
-                height: 1 / 2,
-              }}
-            />
-          )}
-
-          <Typography
-            variant="overline"
-            color="text.primary"
-            align="center"
-            sx={{
-              textTransform: 'uppercase',
-              letterSpacing: 1.5,
-              fontWeight: 400,
-              fontSize: 10,
-              width: isMd ? 1 / 2 : 1,
-            }}
-          >
-            Inspired By Joshua Weissman
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            sx={{
-              paddingY: 1,
-              letterSpacing: 0.4,
-              fontWeight: 400,
-              fontSize: 14,
-            }}
-          >
-            September 20, 2021
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginY: 0.5,
-            flexWrap: 'wrap',
-            columnGap: 1,
-            rowGap: 1,
-          }}
-        >
-          {mock.map((item) => (
-            <Chip
-              key={item}
-              label={item}
-              component="a"
-              size={'medium'}
-              variant={'outlined'}
-              sx={{
-                color:
-                  mode === 'light'
-                    ? theme.palette.text.primary
-                    : theme.palette.common.white,
-              }}
-            />
-          ))}
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          width: 1 / 2,
-          flexDirection: 'column',
-        }}
-      >
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="ingredients and steps tab"
-            centered={isMd}
-            variant={isMd ? 'standard' : 'fullWidth'}
-          >
-            <Tab
-              label={<TabLabel>Story Behind The Dish</TabLabel>}
-              {...a11yProps(0)}
-              wrapped
-            />
-            <Tab label={<TabLabel>Ingredients</TabLabel>} {...a11yProps(1)} />
-            <Tab label={<TabLabel>Steps</TabLabel>} {...a11yProps(2)} />
-          </Tabs>
-        </Box>
-        <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
-          <TabPanel value={value} index={0}>
-            <Typography
-              variant={'body1'}
-              color="text.primary"
-              m={2}
-              sx={{
-                lineHeight: 1.8,
-              }}
-              align={'justify'}
-              paragraph
-            >
-              Why choose between the two greats, vanilla and chocolate? Each
-              bite of this art deco shortbread has just the right amount of
-              both. Stacking the dough in alternating colors and then smushing
-              them into a roll is as easy as making shapes with Play-Doh. The
-              method makes for a fancy-looking swirl that novices can succeed at
-              too.
-              <br />
-              <br />
-              Why choose between the two greats, vanilla and chocolate? Each
-              bite of this art deco shortbread has just the right amount of
-              both. Stacking the dough in alternating colors and then smushing
-              them into a roll is as easy as making shapes with Play-Doh. The
-              method makes for a fancy-looking swirl that novices can succeed at
-              too.
-            </Typography>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                justifyContent: 'center',
+                marginY: 0.5,
+                flexWrap: 'wrap',
+                columnGap: 1,
+                rowGap: 1,
               }}
             >
-              <Box
+              {mock.map((item) => (
+                <Chip
+                  key={item}
+                  label={item}
+                  component="a"
+                  size={'medium'}
+                  variant={'outlined'}
+                  sx={{
+                    color:
+                      mode === 'light'
+                        ? theme.palette.text.primary
+                        : theme.palette.common.white,
+                  }}
+                />
+              ))}
+            </Box>
+          )}
+        </Box>
+        {!isMd && (
+          <Box
+            component="div"
+            sx={{
+              display: 'flex',
+              width: isMd ? 1 / 2 : 1,
+              height: height - 58,
+              flexDirection: 'column',
+              mr: isMd ? 2 : 1,
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <Box>
+              <Typography
+                variant={'h3'}
+                fontWeight={700}
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  width: 1,
+                  paddingY: 1,
+                }}
+                align={'center'}
+              >
+                Gluten-Free Carrot Cake
+              </Typography>
+              <Typography
+                variant={'subtitle1'}
+                color="text.secondary"
+                fontWeight={500}
+                align={'center'}
+              >
+                Almond flour is a wonderfully sweet, nutty complement for fresh
+                carrots, walnuts, and raisins.
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                // width: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: isMd ? 'row' : 'column',
+              }}
+            >
+              <Typography
+                variant="overline"
+                color="text.primary"
+                align="center"
+                sx={{
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.5,
+                  fontWeight: 400,
+                  fontSize: 10,
+                  width: isMd ? 1 / 2 : 1,
                 }}
               >
-                <IconButton
-                  disabled={portion == 1}
-                  onClick={() => handleChangePortion(false)}
+                Inspired By Joshua Weissman
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                color="text.primary"
+                sx={{
+                  // paddingY: 1,
+                  letterSpacing: 0.4,
+                  // fontWeight: 400,
+                  // fontSize: 14,
+                }}
+              >
+                Total Time: 60 minutes
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginY: 0.5,
+                flexWrap: 'wrap',
+                columnGap: 1,
+                rowGap: 1,
+              }}
+            >
+              {mock.map((item) => (
+                <Chip
+                  key={item}
+                  label={item}
+                  component="a"
+                  size={'medium'}
+                  variant={'outlined'}
+                  sx={{
+                    color:
+                      mode === 'light'
+                        ? theme.palette.text.primary
+                        : theme.palette.common.white,
+                    mt: 1,
+                  }}
+                />
+              ))}
+            </Box>
+            <IconButton sx={{ p: 0 }}>
+              <KeyboardArrowDownIcon fontSize="large" />
+            </IconButton>
+          </Box>
+        )}
+        {!isMd && (
+          <Box
+            component="div"
+            sx={{
+              display: 'flex',
+              width: isMd ? 1 / 2 : 1,
+              height: height - 58,
+              flexDirection: 'column',
+              mr: isMd ? 2 : 1,
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <Box>
+              <Typography
+                variant={'h4'}
+                fontWeight={700}
+                sx={{
+                  paddingY: 1,
+                }}
+                align={'center'}
+              >
+                Story About This Dish
+              </Typography>
+              <Typography
+                variant={'subtitle1'}
+                color="text.secondary"
+                fontWeight={500}
+                align={'center'}
+              >
+                Almond flour is a wonderfully sweet, nutty complement for fresh
+                carrots, walnuts, and raisins.
+              </Typography>
+            </Box>
+            <IconButton sx={{ p: 0 }}>
+              <KeyboardArrowDownIcon fontSize="large" />
+            </IconButton>
+          </Box>
+        )}
+        <Box
+          component="div"
+          sx={{
+            display: 'flex',
+            width: isMd ? 1 / 2 : 1,
+            height: height - 58,
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+          }}
+        >
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="ingredients and steps tab"
+              centered={isMd}
+              variant={isMd ? 'standard' : 'fullWidth'}
+            >
+              <Tab
+                label={
+                  <TabLabel>
+                    {isMd ? 'Story About This Dish' : 'Ingredients'}
+                  </TabLabel>
+                }
+                {...a11yProps(0)}
+                wrapped
+              />
+              <Tab
+                label={<TabLabel>{isMd ? 'Ingredients' : 'Steps'}</TabLabel>}
+                {...a11yProps(1)}
+              />
+              {isMd && (
+                <Tab label={<TabLabel>Steps</TabLabel>} {...a11yProps(2)} />
+              )}
+            </Tabs>
+          </Box>
+          <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
+            <TabPanel value={value} index={0}>
+              {isMd ? (
+                <Typography
+                  variant={'body1'}
+                  color="text.primary"
+                  m={2}
+                  sx={{
+                    lineHeight: 1.8,
+                  }}
+                  align={'justify'}
+                  paragraph
                 >
-                  <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
-                </IconButton>
-                <Typography sx={{ marginX: 1 }}>Serves {portion}</Typography>
-                <IconButton onClick={() => handleChangePortion(true)}>
-                  <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
-                </IconButton>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: 1,
-                  maxHeight: 455,
-                  overflow: 'auto',
-                  // root: {
-                  //   'Muibox-root::-webkit-scrollbar': {
-                  //     width: 200,
-                  //   },
-                  //   // '&::-webkit-scrollbar-track': {
-                  //   //   boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
-                  //   // },
-                  //   // '&::-webkit-scrollbar-thumb': {
-                  //   //   backgroundColor: 'darkgrey',
-                  //   //   outline: '1px solid slategrey',
-                  //   // },
-                  // },
-                  // '&::-webkit-scrollbar-track': {
-                  //   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                  //   // webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                  // },
-                  // '&::-webkit-scrollbar-thumb': {
-                  //   backgroundColor: 'rgba(0,0,0,.1)',
-                  //   outline: '1px dashed slategrey',
-                  // },
-                }}
-              >
-                {ingredientsWithComponent.map((item, i) => (
-                  <div key={i}>
-                    <Typography
-                      variant={'h6'}
-                      color="text.primary"
-                      sx={{ m: 1 }}
+                  Why choose between the two greats, vanilla and chocolate? Each
+                  bite of this art deco shortbread has just the right amount of
+                  both. Stacking the dough in alternating colors and then
+                  smushing them into a roll is as easy as making shapes with
+                  Play-Doh. The method makes for a fancy-looking swirl that
+                  novices can succeed at too.
+                  <br />
+                  <br />
+                  Why choose between the two greats, vanilla and chocolate? Each
+                  bite of this art deco shortbread has just the right amount of
+                  both. Stacking the dough in alternating colors and then
+                  smushing them into a roll is as easy as making shapes with
+                  Play-Doh. The method makes for a fancy-looking swirl that
+                  novices can succeed at too.
+                </Typography>
+              ) : (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      width: 1,
+                    }}
+                  >
+                    <IconButton
+                      disabled={portion == 1}
+                      onClick={() => handleChangePortion(false)}
                     >
-                      {item.component}
+                      <RemoveIcon
+                        sx={{ borderRadius: 2, border: '1px solid' }}
+                      />
+                    </IconButton>
+                    <Typography sx={{ marginX: 1 }}>
+                      Serves {portion}
                     </Typography>
-                    {item.ingredients.map((item, j) => (
-                      <div key={j}>
+                    <IconButton onClick={() => handleChangePortion(true)}>
+                      <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      width: 1,
+                      maxHeight: 455,
+                      overflow: 'auto',
+                    }}
+                  >
+                    {ingredientsWithComponent.map((item, i) => (
+                      <div key={i}>
+                        <Typography
+                          variant={'h6'}
+                          color="text.primary"
+                          sx={{ m: 1 }}
+                        >
+                          {item.component}
+                        </Typography>
+                        {item.ingredients.map((item, j) => (
+                          <div key={j}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                m: 1,
+                              }}
+                            >
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={600}
+                                  align={'center'}
+                                  sx={{ pr: 1 }}
+                                >
+                                  {item.name}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  flexGrow: 1,
+                                  transform: 'rotate(180deg)',
+                                  pt: 1,
+                                }}
+                              >
+                                <Divider
+                                  sx={{
+                                    border: '0.1px dashed',
+                                  }}
+                                  flexItem
+                                />
+                              </Box>
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={500}
+                                  align={'center'}
+                                  sx={{ pl: 1 }}
+                                >
+                                  {(item.measurement * portion) / SERVE}{' '}
+                                  {item.unit}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                    {ingredients.map((item, i) => (
+                      <div key={i}>
                         <Box
                           sx={{
                             display: 'flex',
@@ -616,167 +836,366 @@ const FeaturedArticles = (): JSX.Element => {
                               align={'center'}
                               sx={{ pl: 1 }}
                             >
-                              {(item.measurement * portion) / SERVE} {item.unit}
+                              {item.measurement} {item.unit}
                             </Typography>
                           </Box>
                         </Box>
                       </div>
                     ))}
-                  </div>
-                ))}
-                {ingredients.map((item, i) => (
-                  <div key={i}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        m: 1,
-                      }}
+                  </Box>
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {isMd ? (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      width: 1,
+                    }}
+                  >
+                    <IconButton
+                      disabled={portion == 1}
+                      onClick={() => handleChangePortion(false)}
                     >
-                      <Box>
+                      <RemoveIcon
+                        sx={{ borderRadius: 2, border: '1px solid' }}
+                      />
+                    </IconButton>
+                    <Typography sx={{ marginX: 1 }}>
+                      Serves {portion}
+                    </Typography>
+                    <IconButton onClick={() => handleChangePortion(true)}>
+                      <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      width: 1,
+                      maxHeight: 455,
+                      overflow: 'auto',
+                    }}
+                  >
+                    {ingredientsWithComponent.map((item, i) => (
+                      <div key={i}>
                         <Typography
-                          variant={'subtitle1'}
+                          variant={'h6'}
                           color="text.primary"
-                          fontWeight={600}
-                          align={'center'}
-                          sx={{ pr: 1 }}
+                          sx={{ m: 1 }}
                         >
-                          {item.name}
+                          {item.component}
                         </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          flexGrow: 1,
-                          transform: 'rotate(180deg)',
-                          pt: 1,
-                        }}
-                      >
-                        <Divider
+                        {item.ingredients.map((item, j) => (
+                          <div key={j}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                m: 1,
+                              }}
+                            >
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={600}
+                                  align={'center'}
+                                  sx={{ pr: 1 }}
+                                >
+                                  {item.name}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  flexGrow: 1,
+                                  transform: 'rotate(180deg)',
+                                  pt: 1,
+                                }}
+                              >
+                                <Divider
+                                  sx={{
+                                    border: '0.1px dashed',
+                                  }}
+                                  flexItem
+                                />
+                              </Box>
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={500}
+                                  align={'center'}
+                                  sx={{ pl: 1 }}
+                                >
+                                  {(item.measurement * portion) / SERVE}{' '}
+                                  {item.unit}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                    {ingredients.map((item, i) => (
+                      <div key={i}>
+                        <Box
                           sx={{
-                            border: '0.1px dashed',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            m: 1,
                           }}
-                          flexItem
-                        />
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant={'subtitle1'}
-                          color="text.primary"
-                          fontWeight={500}
-                          align={'center'}
-                          sx={{ pl: 1 }}
                         >
-                          {item.measurement} {item.unit}
+                          <Box>
+                            <Typography
+                              variant={'subtitle1'}
+                              color="text.primary"
+                              fontWeight={600}
+                              align={'center'}
+                              sx={{ pr: 1 }}
+                            >
+                              {item.name}
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              flexGrow: 1,
+                              transform: 'rotate(180deg)',
+                              pt: 1,
+                            }}
+                          >
+                            <Divider
+                              sx={{
+                                border: '0.1px dashed',
+                              }}
+                              flexItem
+                            />
+                          </Box>
+                          <Box>
+                            <Typography
+                              variant={'subtitle1'}
+                              color="text.primary"
+                              fontWeight={500}
+                              align={'center'}
+                              sx={{ pl: 1 }}
+                            >
+                              {item.measurement} {item.unit}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </div>
+                    ))}
+                  </Box>
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    m: 1,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      mr: isMd ? 4 : 2,
+                      my: 1,
+                      width: 6 / 7,
+                      // width: 1,
+                      // maxWidth: { xs: 230, sm: 550, md: 420 },
+                    }}
+                  >
+                    {direction.map((item, i) => (
+                      <StepPanel key={i} value={activeStep} index={i}>
+                        <Typography
+                          variant={'h6'}
+                          color="text.primary"
+                          align={'justify'}
+                          sx={{ lineHeight: 1.8 }}
+                        >
+                          {item.title}
                         </Typography>
+                        <Typography
+                          variant={'body1'}
+                          color="text.primary"
+                          align={'justify'}
+                          sx={{ lineHeight: 1.8 }}
+                        >
+                          {item.step}
+                        </Typography>
+                        {item.tips.length > 0 && (
+                          <Typography
+                            variant={'body2'}
+                            color="text.primary"
+                            align={'justify'}
+                            sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                          >
+                            Tips: {item.tips}
+                          </Typography>
+                        )}
+                      </StepPanel>
+                    ))}
+                  </Box>
+                  <Box
+                    sx={{
+                      width: 1 / 7,
+                      maxHeight: 360,
+                      overflow: 'auto',
+                    }}
+                  >
+                    {direction.map((item, i) => (
+                      <Box
+                        component="div"
+                        key={i}
+                        onClick={() => handleChangeActiveStep(i)}
+                      >
+                        <Fab
+                          aria-label="add"
+                          variant="circular"
+                          size={isMd ? 'medium' : 'small'}
+                          sx={{
+                            border: i == activeStep ? '1px solid' : 'none',
+                            // '&::hover': {
+                            //   bgcolor:
+                            //     mode == 'light'
+                            //       ? theme.palette.common.white
+                            //       : theme.palette.primary.dark,
+                            // },
+                            bgcolor:
+                              mode == 'light'
+                                ? theme.palette.common.white
+                                : theme.palette.primary.dark,
+                            my: 0.5,
+                            boxShadow: 'none',
+                            color:
+                              mode === 'light'
+                                ? theme.palette.text.primary
+                                : theme.palette.common.white,
+                          }}
+                        >
+                          <Typography variant="button" sx={{ fontWeight: 500 }}>
+                            {i}
+                          </Typography>
+                        </Fab>
                       </Box>
-                    </Box>
-                  </div>
-                ))}
-              </Box>
-            </Box>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                m: 1,
-              }}
-            >
+                    ))}
+                  </Box>
+                </Box>
+              )}
+            </TabPanel>
+            <TabPanel value={value} index={2}>
               <Box
                 sx={{
-                  mr: isMd ? 4 : 2,
-                  my: 1,
-                  maxWidth: isMd ? 440 : 230,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  m: 1,
                 }}
               >
-                {/* <SwipeableViews
+                <Box
+                  sx={{
+                    mr: isMd ? 4 : 2,
+                    my: 1,
+                    maxWidth: 5 / 7,
+                  }}
+                >
+                  {/* <SwipeableViews
                   index={activeStep}
                   onSwitching={handleChangeActiveStep}
                   axis="y"
                   resistance
                 > */}
-                {direction.map((item, i) => (
-                  <StepPanel key={i} value={activeStep} index={i}>
-                    <Typography
-                      variant={'h6'}
-                      color="text.primary"
-                      align={'justify'}
-                      sx={{ lineHeight: 1.8 }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant={'body1'}
-                      color="text.primary"
-                      align={'justify'}
-                      sx={{ lineHeight: 1.8 }}
-                    >
-                      {item.step}
-                    </Typography>
-                    {item.tips.length > 0 && (
+                  {direction.map((item, i) => (
+                    <StepPanel key={i} value={activeStep} index={i}>
                       <Typography
-                        variant={'body2'}
+                        variant={'h6'}
                         color="text.primary"
                         align={'justify'}
-                        sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                        sx={{ lineHeight: 1.8 }}
                       >
-                        Tips: {item.tips}
+                        {item.title}
                       </Typography>
-                    )}
-                  </StepPanel>
-                ))}
-              </Box>
-              <Box
-                sx={{
-                  // width: isMd ? '56px' : '48px',
-                  // width: 1 / 2,
-                  maxHeight: 360,
-                  overflow: 'auto',
-                }}
-              >
-                {direction.map((item, i) => (
-                  <Box
-                    component="div"
-                    key={i}
-                    onClick={() => handleChangeActiveStep(i)}
-                  >
-                    <Fab
-                      aria-label="add"
-                      variant="circular"
-                      size={isMd ? 'medium' : 'small'}
-                      sx={{
-                        border: i == activeStep ? '1px solid' : 'none',
-                        // '&::hover': {
-                        //   bgcolor:
-                        //     mode == 'light'
-                        //       ? theme.palette.common.white
-                        //       : theme.palette.primary.dark,
-                        // },
-                        bgcolor:
-                          mode == 'light'
-                            ? theme.palette.common.white
-                            : theme.palette.primary.dark,
-                        my: 0.5,
-                        boxShadow: 'none',
-                        color:
-                          mode === 'light'
-                            ? theme.palette.text.primary
-                            : theme.palette.common.white,
-                      }}
+                      <Typography
+                        variant={'body1'}
+                        color="text.primary"
+                        align={'justify'}
+                        sx={{ lineHeight: 1.8 }}
+                      >
+                        {item.step}
+                      </Typography>
+                      {item.tips.length > 0 && (
+                        <Typography
+                          variant={'body2'}
+                          color="text.primary"
+                          align={'justify'}
+                          sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                        >
+                          Tips: {item.tips}
+                        </Typography>
+                      )}
+                    </StepPanel>
+                  ))}
+                </Box>
+                <Box
+                  sx={{
+                    // width: isMd ? '56px' : '48px',
+                    width: 1 / 7,
+                    maxHeight: 360,
+                    overflow: 'auto',
+                  }}
+                >
+                  {direction.map((item, i) => (
+                    <Box
+                      component="div"
+                      key={i}
+                      onClick={() => handleChangeActiveStep(i)}
                     >
-                      <Typography variant="button" sx={{ fontWeight: 500 }}>
-                        {i}
-                      </Typography>
-                    </Fab>
-                  </Box>
-                ))}
+                      <Fab
+                        aria-label="add"
+                        variant="circular"
+                        size={isMd ? 'medium' : 'small'}
+                        sx={{
+                          border: i == activeStep ? '1px solid' : 'none',
+                          // '&::hover': {
+                          //   bgcolor:
+                          //     mode == 'light'
+                          //       ? theme.palette.common.white
+                          //       : theme.palette.primary.dark,
+                          // },
+                          bgcolor:
+                            mode == 'light'
+                              ? theme.palette.common.white
+                              : theme.palette.primary.dark,
+                          my: 0.5,
+                          boxShadow: 'none',
+                          color:
+                            mode === 'light'
+                              ? theme.palette.text.primary
+                              : theme.palette.common.white,
+                        }}
+                      >
+                        <Typography variant="button" sx={{ fontWeight: 500 }}>
+                          {i}
+                        </Typography>
+                      </Fab>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
-            </Box>
-          </TabPanel>
-        </SwipeableViews>
-      </Box>
+            </TabPanel>
+          </SwipeableViews>
+        </Box>
+      </SwipeableViews>
     </Box>
   );
 };
