@@ -34,16 +34,6 @@ const Footer = (): JSX.Element => {
             justifyContent={{ xs: 'center', sm: 'flex-start' }}
             marginBottom={{ xs: 2, sm: 0 }}
           >
-            {/* <Box
-              component={'img'}
-              src={
-                mode === 'light'
-                  ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                  : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-              }
-              height={1}
-              width={1}
-            /> */}
             {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
           </Box>
           <Box
