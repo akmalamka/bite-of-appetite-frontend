@@ -25,6 +25,7 @@ const mock = [
     title: 'White Pesto Pasta',
     tags: ['Indonesian', 'Appetizer', 'Chicken', 'Easy'],
     href: '/white-pesto-pasta',
+    time: '40 minutes',
   },
   {
     image:
@@ -34,6 +35,7 @@ const mock = [
     title: 'Jalebi',
     tags: ['Korean', 'Main Course', 'Easy'],
     href: '/jalebi',
+    time: '60 minutes',
   },
   {
     image:
@@ -43,6 +45,7 @@ const mock = [
     title: 'Pavlovas With Fresh Berries',
     tags: ['Fusion', 'Easy'],
     href: '/pavlovas-with-fresh-berries',
+    time: '90 minutes',
   },
   {
     image:
@@ -52,6 +55,7 @@ const mock = [
     title: 'Banana Bread',
     tags: ['Snacks', 'Egg', 'Medium'],
     href: '/banana-bread',
+    time: '30 minutes',
   },
   {
     image:
@@ -61,6 +65,7 @@ const mock = [
     title: 'Turmeric Salmon With Coconut Crisp',
     tags: ['Indonesian', 'Dessert', 'Easy'],
     href: 'turmeric-salmon-with-coconut-crisp',
+    time: '50 minutes',
   },
   {
     image:
@@ -70,6 +75,7 @@ const mock = [
     title: 'Lobster Pasta',
     tags: ['Pasta', 'Fast', 'Western'],
     href: '/lobster-pasta',
+    time: '40 minutes',
   },
   {
     image:
@@ -79,6 +85,7 @@ const mock = [
     title: 'Chewy Molasses Cookies',
     tags: ['Italian', 'Snacks', 'Seafood', 'Easy'],
     href: 'chewy-molasses-cookies',
+    time: '20 minutes',
   },
   {
     image:
@@ -88,6 +95,7 @@ const mock = [
     title: 'Chicken Khao Soi',
     tags: ['Fusion', 'Dessert', 'Easy'],
     href: '/chicken-khao-soi',
+    time: '15 minutes',
   },
   {
     image:
@@ -97,6 +105,7 @@ const mock = [
     title: 'Shrimp and Salami Pasta',
     tags: ['Fusion', 'Medium'],
     href: '/shrimp-and-salami-pasta',
+    time: '30 minutes',
   },
   {
     image:
@@ -115,6 +124,7 @@ const mock = [
     title: 'Maple-Za’atar Kettle Corn',
     tags: ['Korean', 'Appetizer', 'Easy'],
     href: 'maple-za’atar-kettle-corn',
+    time: '45 minutes',
   },
   {
     image:
@@ -124,6 +134,7 @@ const mock = [
     title: 'Weeknight Ragù',
     tags: ['Indonesian', 'Chicken', 'Easy'],
     href: 'weeknight-ragu',
+    time: '30 minutes',
   },
   {
     image:
@@ -133,6 +144,7 @@ const mock = [
     title: 'Crispy Olives With Calabrian Chile Sauce',
     tags: ['Japanese', 'Chicken', 'Hard'],
     href: 'crispy-olives-with-calabrian-chile-sauce',
+    time: '40 minutes',
   },
   {
     image:
@@ -142,6 +154,7 @@ const mock = [
     title: 'Winter Squash and Kale Pasta With Pecan Breadcrumbs',
     tags: ['Korean', 'Appetizer', 'Rice'],
     href: '/winter-squash-and-kale-pasta-with-pecan-breadcrumbs',
+    time: '40 minutes',
   },
   {
     image:
@@ -151,6 +164,7 @@ const mock = [
     title: 'Curried Egg Tartines',
     tags: ['Indonesian', 'Dessert', 'Mango', 'Hard'],
     href: '/curied-egg-tartines',
+    time: '75 minutes',
   },
 ];
 
@@ -414,7 +428,7 @@ const PopularNews = ({ keyword, chipData }: Props): JSX.Element => {
                           fontWeight: 400,
                         }}
                       >
-                        View Recipe
+                        See Recipe
                       </Typography>
                     </Button>
                   </Box>

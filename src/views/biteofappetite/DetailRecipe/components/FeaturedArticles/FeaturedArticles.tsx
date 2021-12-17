@@ -26,7 +26,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import SwipeableViews from 'react-swipeable-views';
 
-const mock = ['Easy', 'Indonesian', 'Chicken'];
+const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
 
 const ingredients = [
   {
@@ -120,6 +120,11 @@ const ingredientsWithComponent = [
 ];
 
 const direction = [
+  {
+    title: 'Time needed',
+    step: 'Approximately 60 minutes including prep and cooking',
+    tips: '',
+  },
   {
     title: 'Mix dry ingredients',
     step:
@@ -282,16 +287,14 @@ const FeaturedArticles = (): JSX.Element => {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
           width: 1 / 2,
           flexDirection: 'column',
-          m: 2,
+          mr: isMd ? 2 : 1,
         }}
       >
         <Box
@@ -332,6 +335,7 @@ const FeaturedArticles = (): JSX.Element => {
                 fontSize: 10,
                 pt: 1,
               }}
+              align="center"
             >
               Food Photography and Food Styling by Muhammad Akmal
             </Typography>
@@ -361,8 +365,10 @@ const FeaturedArticles = (): JSX.Element => {
         <Box
           sx={{
             display: 'flex',
+            // width: 1,
             justifyContent: 'center',
             alignItems: 'center',
+            flexDirection: isMd ? 'row' : 'column',
           }}
         >
           <Typography
@@ -370,20 +376,26 @@ const FeaturedArticles = (): JSX.Element => {
             color="text.primary"
             align="center"
             sx={{
-              paddingY: 1,
+              paddingY: isMd ? 1 : 0.5,
               textTransform: 'uppercase',
               letterSpacing: 1.5,
               fontWeight: 400,
               fontSize: 10,
-              width: 1 / 2,
+              width: isMd ? 1 / 2 : 1,
             }}
           >
             By Muhammad Akmal
           </Typography>
-          <Divider
-            orientation="vertical"
-            sx={{ border: '1px solid', height: '16px' }}
-          />
+          {isMd && (
+            <Divider
+              orientation="vertical"
+              sx={{
+                border: '1px solid',
+                height: 1 / 2,
+              }}
+            />
+          )}
+
           <Typography
             variant="overline"
             color="text.primary"
@@ -393,7 +405,7 @@ const FeaturedArticles = (): JSX.Element => {
               letterSpacing: 1.5,
               fontWeight: 400,
               fontSize: 10,
-              width: 1 / 2,
+              width: isMd ? 1 / 2 : 1,
             }}
           >
             Inspired By Joshua Weissman
@@ -423,6 +435,9 @@ const FeaturedArticles = (): JSX.Element => {
             display: 'flex',
             justifyContent: 'center',
             marginY: 0.5,
+            flexWrap: 'wrap',
+            columnGap: 1,
+            rowGap: 1,
           }}
         >
           {mock.map((item) => (
@@ -433,7 +448,6 @@ const FeaturedArticles = (): JSX.Element => {
               size={'medium'}
               variant={'outlined'}
               sx={{
-                marginRight: 1,
                 color:
                   mode === 'light'
                     ? theme.palette.text.primary
@@ -456,6 +470,7 @@ const FeaturedArticles = (): JSX.Element => {
             onChange={handleChange}
             aria-label="ingredients and steps tab"
             centered={isMd}
+            variant={isMd ? 'standard' : 'fullWidth'}
           >
             <Tab
               label={<TabLabel>Story Behind The Dish</TabLabel>}
@@ -669,7 +684,13 @@ const FeaturedArticles = (): JSX.Element => {
                 m: 1,
               }}
             >
-              <Box sx={{ mr: 4, my: 1, maxWidth: 440 }}>
+              <Box
+                sx={{
+                  mr: isMd ? 4 : 2,
+                  my: 1,
+                  maxWidth: isMd ? 440 : 230,
+                }}
+              >
                 {/* <SwipeableViews
                   index={activeStep}
                   onSwitching={handleChangeActiveStep}
@@ -707,13 +728,24 @@ const FeaturedArticles = (): JSX.Element => {
                   </StepPanel>
                 ))}
               </Box>
-              <Box sx={{ maxHeight: 360, overflow: 'auto' }}>
+              <Box
+                sx={{
+                  // width: isMd ? '56px' : '48px',
+                  // width: 1 / 2,
+                  maxHeight: 360,
+                  overflow: 'auto',
+                }}
+              >
                 {direction.map((item, i) => (
-                  <div key={i} onClick={() => handleChangeActiveStep(i)}>
+                  <Box
+                    component="div"
+                    key={i}
+                    onClick={() => handleChangeActiveStep(i)}
+                  >
                     <Fab
                       aria-label="add"
                       variant="circular"
-                      size="small"
+                      size={isMd ? 'medium' : 'small'}
                       sx={{
                         border: i == activeStep ? '1px solid' : 'none',
                         // '&::hover': {
@@ -727,7 +759,6 @@ const FeaturedArticles = (): JSX.Element => {
                             ? theme.palette.common.white
                             : theme.palette.primary.dark,
                         my: 0.5,
-                        mr: 1,
                         boxShadow: 'none',
                         color:
                           mode === 'light'
@@ -736,10 +767,10 @@ const FeaturedArticles = (): JSX.Element => {
                       }}
                     >
                       <Typography variant="button" sx={{ fontWeight: 500 }}>
-                        {i + 1}
+                        {i}
                       </Typography>
                     </Fab>
-                  </div>
+                  </Box>
                 ))}
               </Box>
             </Box>
