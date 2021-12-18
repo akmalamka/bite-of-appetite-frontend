@@ -177,7 +177,14 @@ interface TabLabelProps {
   children?: React.ReactNode;
 }
 
-function TabLabel(props: TabLabelProps) {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  indexTab: number;
+  onChangeTab: (event: React.SyntheticEvent, indexTab: number) => void;
+  onChangeIndexTab: (indexTab: number) => void;
+}
+
+export function TabLabel(props: TabLabelProps) {
   const { children } = props;
 
   return (
@@ -231,30 +238,34 @@ function StepPanel(props: TabPanelProps) {
   );
 }
 
-function a11yProps(index: number) {
+export function a11yProps(index: number) {
   return {
     id: `tab-${index}`,
     'aria-controls': `tabpanel-${index}`,
   };
 }
 
-const DetailTabs = (): JSX.Element => {
+const DetailTabs = ({
+  indexTab,
+  onChangeTab,
+  onChangeIndexTab,
+}: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const SERVE = 2;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
   const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
+  // const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  //   setValue(newValue);
+  // };
+  // const handleChangeIndex = (index) => {
+  //   setValue(index);
+  // };
 
   const handleChangePortion = (add) => {
     if (add) {
@@ -269,8 +280,8 @@ const DetailTabs = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (value == 2) {
-      setValue(0);
+    if (indexTab == 2) {
+      onChangeIndexTab(0);
     }
   }, [isMd]);
 
@@ -278,8 +289,8 @@ const DetailTabs = (): JSX.Element => {
     <Box component="div">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
-          value={value}
-          onChange={handleChange}
+          value={indexTab}
+          onChange={onChangeTab}
           aria-label="ingredients and steps tab"
           centered={isMd}
           variant={isMd ? 'standard' : 'fullWidth'}
@@ -300,8 +311,8 @@ const DetailTabs = (): JSX.Element => {
           {isMd && <Tab label={<TabLabel>Steps</TabLabel>} {...a11yProps(2)} />}
         </Tabs>
       </Box>
-      <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
-        <TabPanel value={value} index={0}>
+      <SwipeableViews index={indexTab} onChangeIndex={onChangeIndexTab}>
+        <TabPanel value={indexTab} index={0}>
           {isMd ? (
             <Typography
               variant={'body1'}
@@ -475,7 +486,7 @@ const DetailTabs = (): JSX.Element => {
             </Box>
           )}
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={indexTab} index={1}>
           {isMd ? (
             <Box
               sx={{
@@ -717,7 +728,7 @@ const DetailTabs = (): JSX.Element => {
             </Box>
           )}
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={indexTab} index={2}>
           <Box
             sx={{
               display: 'flex',

@@ -1,24 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useWindowDimensions from './useWindowDimensions';
 import SwipeableViews from 'react-swipeable-views';
 import RecipeDescription from './RecipeDescription';
 import DetailTabs from './DetailTabs';
+import { TabLabel, a11yProps } from './DetailTabs';
 
 const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
 
 const FeaturedArticles = (): JSX.Element => {
   const theme = useTheme();
-  const { mode } = theme.palette;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const { height } = useWindowDimensions();
+  const [indexMobile, setIndexMobile] = useState(0);
+  const [indexTab, setIndexTab] = useState(0);
+
+  // const handleChangeMobile = (newValue: number) => {
+  //   setIndexMobile(newValue);
+  // };
+  const handleChangeIndexMobile = (index: number) => {
+    setIndexMobile(index);
+  };
+
+  const handleChangeTab = (event, newValue) => {
+    setIndexTab(newValue);
+    console.log('index', newValue);
+    if (indexMobile == 2) {
+      handleChangeIndexMobile(3);
+    }
+  };
+
+  const handleChangeIndexTab = (index: number) => {
+    console.log('index', index);
+    setIndexTab(index);
+  };
+
   useEffect(() => {
     console.log(height);
   }, [height]);
@@ -42,7 +67,10 @@ const FeaturedArticles = (): JSX.Element => {
               mr: 2,
             }}
           >
-            <RecipeDescription index={0} />
+            <RecipeDescription
+              index={0}
+              onChangeIndexMobile={handleChangeIndexMobile}
+            />
           </Box>
           <Box
             sx={{
@@ -53,11 +81,20 @@ const FeaturedArticles = (): JSX.Element => {
               justifyContent: 'space-evenly',
             }}
           >
-            <DetailTabs />
+            <DetailTabs
+              indexTab={indexTab}
+              onChangeTab={handleChangeTab}
+              onChangeIndexTab={handleChangeIndexTab}
+            />
           </Box>
         </Box>
       ) : (
-        <SwipeableViews containerStyle={{ height: height - 90 }} axis="y">
+        <SwipeableViews
+          containerStyle={{ height: height - 90 }}
+          axis="y"
+          index={indexMobile}
+          onChangeIndex={handleChangeIndexMobile}
+        >
           <Box
             component="div"
             sx={{
@@ -67,7 +104,10 @@ const FeaturedArticles = (): JSX.Element => {
               flexDirection: 'column',
             }}
           >
-            <RecipeDescription index={0} />
+            <RecipeDescription
+              index={0}
+              onChangeIndexMobile={handleChangeIndexMobile}
+            />
           </Box>
           <Box
             component="div"
@@ -78,7 +118,10 @@ const FeaturedArticles = (): JSX.Element => {
               flexDirection: 'column',
             }}
           >
-            <RecipeDescription index={1} />
+            <RecipeDescription
+              index={1}
+              onChangeIndexMobile={handleChangeIndexMobile}
+            />
           </Box>
           <Box
             component="div"
@@ -119,9 +162,20 @@ const FeaturedArticles = (): JSX.Element => {
                 carrots, walnuts, and raisins.
               </Typography>
             </Box>
-            <IconButton sx={{ pb: 1 }}>
+            {/* <IconButton sx={{ pb: 1 }}>
               <KeyboardArrowDownIcon fontSize="large" />
-            </IconButton>
+            </IconButton> */}
+            <Tabs
+              value={indexTab}
+              onChange={handleChangeTab}
+              TabIndicatorProps={{ style: { display: 'none' } }}
+              aria-label="ingredients and steps tab"
+              centered={false}
+              variant={'fullWidth'}
+            >
+              <Tab label={<TabLabel>Ingredients</TabLabel>} {...a11yProps(0)} />
+              <Tab label={<TabLabel>Steps</TabLabel>} {...a11yProps(1)} />
+            </Tabs>
           </Box>
           <Box
             component="div"
@@ -130,10 +184,13 @@ const FeaturedArticles = (): JSX.Element => {
               width: 1,
               height: height - 90,
               flexDirection: 'column',
-              justifyContent: 'space-evenly',
             }}
           >
-            <DetailTabs />
+            <DetailTabs
+              indexTab={indexTab}
+              onChangeTab={handleChangeTab}
+              onChangeIndexTab={handleChangeIndexTab}
+            />
           </Box>
         </SwipeableViews>
       )}

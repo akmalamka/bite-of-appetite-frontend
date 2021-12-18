@@ -14,9 +14,13 @@ const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
+  onChangeIndexMobile: (number) => void;
 }
 
-const RecipeDescription = ({ index }: Props): JSX.Element => {
+const RecipeDescription = ({
+  index,
+  onChangeIndexMobile,
+}: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -217,7 +221,10 @@ const RecipeDescription = ({ index }: Props): JSX.Element => {
           </Box>
         )}
         {!isMd && (
-          <IconButton sx={{ pb: 1 }}>
+          <IconButton
+            sx={{ pb: 1 }}
+            onClick={() => onChangeIndexMobile(index + 1)}
+          >
             <KeyboardArrowDownIcon fontSize="large" />
           </IconButton>
         )}
