@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -71,14 +72,22 @@ const mock = [
   },
 ];
 
-const WithCtaButton = (): JSX.Element => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  isHome: boolean;
+}
+
+const WithCtaButton = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   return (
     <Container>
       <Box marginBottom={4}>
         <Typography
           variant="h4"
-          data-aos={'fade-up'}
+          data-aos={isMd ? 'fade-up' : 'none'}
           color="text.primary"
           align={'center'}
           gutterBottom
@@ -87,7 +96,7 @@ const WithCtaButton = (): JSX.Element => {
             textTransform: 'uppercase',
           }}
         >
-          Try this recent recipes!
+          {isHome ? 'Try this recent recipes!' : 'Try another recipes!'}
         </Typography>
       </Box>
       <Carousel

@@ -10,6 +10,7 @@ import SwipeableViews from 'react-swipeable-views';
 import RecipeDescription from './RecipeDescription';
 import DetailTabs from './DetailTabs';
 import { TabLabel, a11yProps } from './DetailTabs';
+import { MinimallyDesigned } from 'blocks/productGrids';
 
 const FeaturedArticles = (): JSX.Element => {
   const theme = useTheme();
@@ -175,6 +176,17 @@ const FeaturedArticles = (): JSX.Element => {
               onChangeTab={handleChangeTab}
               onChangeIndexTab={handleChangeIndexTab}
             />
+          </Box>
+          <Box
+            component="div"
+            sx={{
+              display: 'flex',
+              width: 1,
+              height: height - 90,
+              flexDirection: 'column',
+            }}
+          >
+            <MinimallyDesigned isHome={false} />
           </Box>
         </SwipeableViews>
       )}

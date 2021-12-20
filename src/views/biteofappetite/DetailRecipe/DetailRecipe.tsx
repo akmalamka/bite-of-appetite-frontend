@@ -18,6 +18,7 @@ import {
   SidebarNewsletter,
   Tags,
 } from './components';
+import { MinimallyDesigned } from 'blocks/productGrids';
 
 const mock = [
   {
@@ -116,6 +117,14 @@ const DetailRecipe = (): JSX.Element => {
           <FeaturedArticles />
         </Container>
       </Box>
+      {isMd && (
+        <Box>
+          <Container>
+            <MinimallyDesigned isHome={false} />
+          </Container>
+        </Box>
+      )}
+
       {/* <Container>
         <Grid container spacing={isMd ? 4 : 2}>
           <Grid item xs={12} md={8}>

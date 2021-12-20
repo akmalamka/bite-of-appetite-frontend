@@ -22,7 +22,7 @@ const IndexView = (): JSX.Element => {
         <Hero />
         <Container>
           {/* <Services /> */}
-          <MinimallyDesigned />
+          <MinimallyDesigned isHome={true} />
         </Container>
         {/* <Box
           sx={{

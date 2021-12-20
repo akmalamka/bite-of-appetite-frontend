@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/blocks/product-grids/minimally-designed',
     renderer: (params = {}): JSX.Element => (
-      <MinimallyDesignedView {...params} />
+      <MinimallyDesignedView isHome {...params} />
     ),
   },
   {
