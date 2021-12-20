@@ -26,20 +26,14 @@ const FeaturedArticles = (): JSX.Element => {
 
   const handleChangeTab = (event, newValue) => {
     setIndexTab(newValue);
-    console.log('index', newValue);
     if (indexMobile == 2) {
       handleChangeIndexMobile(3);
     }
   };
 
   const handleChangeIndexTab = (index: number) => {
-    console.log('index', index);
     setIndexTab(index);
   };
-
-  useEffect(() => {
-    console.log(height);
-  }, [height]);
 
   return (
     <Box>

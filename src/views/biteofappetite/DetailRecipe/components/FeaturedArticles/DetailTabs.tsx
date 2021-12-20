@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Divider from '@mui/material/Divider';
+import Slide from '@mui/material/Slide';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import SwipeableViews from 'react-swipeable-views';
@@ -173,6 +174,14 @@ interface TabPanelProps {
   value: number;
 }
 
+interface StepPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+  isMd: boolean;
+  // ref?: React.RefObject<any>;
+}
+
 interface TabLabelProps {
   children?: React.ReactNode;
 }
@@ -203,7 +212,7 @@ export function TabLabel(props: TabLabelProps) {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index } = props;
 
   return (
     <div
@@ -211,35 +220,53 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`panel-${index}`}
       aria-labelledby={`tab-${index}`}
-      {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
     </div>
   );
 }
 
-function StepPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="steppanel"
-      // hidden={value !== index}
-      id={`step-panel-${index}`}
-      aria-labelledby={`step-${index}`}
-      {...other}
-    >
-      {/* {value === index && <Box width={1}>{children}</Box>} */}
-      <Box width={1} sx={{ height: 500 }}>
-        {children}
-      </Box>
-    </div>
-  );
-}
+const StepPanel = forwardRef(
+  (props: StepPanelProps, ref: React.RefObject<any>) => {
+    const { children, value, index, isMd } = props;
+    // const containerRef = useRef(null);
+    console.log('isMd ', isMd);
+    // console.log(ref.current);
+    if (isMd) {
+      return (
+        <div
+          role="steppanel"
+          // hidden={value !== index}
+          id={`step-panel-${index}`}
+          aria-labelledby={`step-${index}`}
+        >
+          {/* {value === index && <Box width={1}>{children}</Box>} */}
+          <Box width={1} sx={{ height: 500 }}>
+            {children}
+          </Box>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          role="steppanel"
+          hidden={value !== index}
+          id={`step-panel-${index}`}
+          aria-labelledby={`step-${index}`}
+          // ref={containerRef}
+        >
+          <Slide direction="up" in={value === index} container={ref.current}>
+            {/* {value === index && <Box width={1}>{children}</Box>} */}
+            <Box width={1} sx={{ height: 340 }}>
+              {children}
+            </Box>
+          </Slide>
+        </div>
+      );
+    }
+  },
+);
+StepPanel.displayName = 'StepPanel';
 
 export function a11yProps(index: number) {
   return {
@@ -261,8 +288,7 @@ const DetailTabs = ({
   });
   const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
-  const [boxHeight, setBoxHeight] = useState(0);
-  const ref = useRef(null);
+  const containerRef = useRef(null);
 
   const handleChangePortion = (add) => {
     if (add) {
@@ -281,11 +307,6 @@ const DetailTabs = ({
       onChangeIndexTab(0);
     }
   }, [isMd]);
-
-  // console.log(ref);
-  // useLayoutEffect(() => {
-  //   setBoxHeight(ref.current.clientHeight);
-  // }, []);
 
   return (
     <Box component="div">
@@ -648,12 +669,17 @@ const DetailTabs = ({
                   mr: isMd ? 4 : 2,
                   my: 1,
                   width: 6 / 7,
-                  // width: 1,
-                  // maxWidth: { xs: 230, sm: 550, md: 420 },
                 }}
+                ref={containerRef}
               >
                 {direction.map((item, i) => (
-                  <StepPanel key={i} value={activeStep} index={i}>
+                  <StepPanel
+                    key={i}
+                    value={activeStep}
+                    index={i}
+                    isMd={false}
+                    ref={containerRef}
+                  >
                     <Typography
                       variant={'h6'}
                       color="text.primary"
@@ -742,11 +768,8 @@ const DetailTabs = ({
             <Box
               sx={{
                 mr: isMd ? 4 : 2,
-                my: 1,
                 maxWidth: 5 / 7,
-                // maxHeight: 500,
               }}
-              ref={ref}
             >
               <SwipeableViews
                 index={activeStep}
@@ -756,7 +779,7 @@ const DetailTabs = ({
                 resistance
               >
                 {direction.map((item, i) => (
-                  <StepPanel key={i} value={activeStep} index={i}>
+                  <StepPanel key={i} value={activeStep} index={i} isMd={true}>
                     <Typography
                       variant={'h6'}
                       color="text.primary"
