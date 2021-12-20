@@ -229,18 +229,13 @@ function TabPanel(props: TabPanelProps) {
 const StepPanel = forwardRef(
   (props: StepPanelProps, ref: React.RefObject<any>) => {
     const { children, value, index, isMd } = props;
-    // const containerRef = useRef(null);
-    console.log('isMd ', isMd);
-    // console.log(ref.current);
     if (isMd) {
       return (
         <div
           role="steppanel"
-          // hidden={value !== index}
           id={`step-panel-${index}`}
           aria-labelledby={`step-${index}`}
         >
-          {/* {value === index && <Box width={1}>{children}</Box>} */}
           <Box width={1} sx={{ height: 500 }}>
             {children}
           </Box>
@@ -248,20 +243,24 @@ const StepPanel = forwardRef(
       );
     } else {
       return (
-        <div
+        <Box
+          component="div"
           role="steppanel"
           hidden={value !== index}
           id={`step-panel-${index}`}
           aria-labelledby={`step-${index}`}
           // ref={containerRef}
+          sx={{
+            overflow: 'hidden',
+          }}
         >
           <Slide direction="up" in={value === index} container={ref.current}>
             {/* {value === index && <Box width={1}>{children}</Box>} */}
-            <Box width={1} sx={{ height: 340 }}>
+            <Box width={1} sx={{ maxHeight: 425, overflowY: 'auto' }}>
               {children}
             </Box>
           </Slide>
-        </div>
+        </Box>
       );
     }
   },
@@ -310,7 +309,15 @@ const DetailTabs = ({
 
   return (
     <Box component="div">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+          // position: 'fixed',
+          // bottom: '0',
+          // width: '100%',
+        }}
+      >
         <Tabs
           value={indexTab}
           onChange={onChangeTab}
@@ -768,7 +775,7 @@ const DetailTabs = ({
             <Box
               sx={{
                 mr: isMd ? 4 : 2,
-                maxWidth: 5 / 7,
+                maxWidth: 11 / 14,
               }}
             >
               <SwipeableViews
