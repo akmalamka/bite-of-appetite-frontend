@@ -2,18 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useWindowDimensions from './useWindowDimensions';
 import SwipeableViews from 'react-swipeable-views';
 import RecipeDescription from './RecipeDescription';
 import DetailTabs from './DetailTabs';
 import { TabLabel, a11yProps } from './DetailTabs';
-
-const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
 
 const FeaturedArticles = (): JSX.Element => {
   const theme = useTheme();
@@ -24,9 +20,6 @@ const FeaturedArticles = (): JSX.Element => {
   const [indexMobile, setIndexMobile] = useState(0);
   const [indexTab, setIndexTab] = useState(0);
 
-  // const handleChangeMobile = (newValue: number) => {
-  //   setIndexMobile(newValue);
-  // };
   const handleChangeIndexMobile = (index: number) => {
     setIndexMobile(index);
   };
@@ -162,11 +155,8 @@ const FeaturedArticles = (): JSX.Element => {
                 carrots, walnuts, and raisins.
               </Typography>
             </Box>
-            {/* <IconButton sx={{ pb: 1 }}>
-              <KeyboardArrowDownIcon fontSize="large" />
-            </IconButton> */}
             <Tabs
-              value={indexTab}
+              value={indexMobile == 2 ? -1 : indexTab}
               onChange={handleChangeTab}
               TabIndicatorProps={{ style: { display: 'none' } }}
               aria-label="ingredients and steps tab"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -228,12 +228,15 @@ function StepPanel(props: TabPanelProps) {
   return (
     <div
       role="steppanel"
-      hidden={value !== index}
+      // hidden={value !== index}
       id={`step-panel-${index}`}
       aria-labelledby={`step-${index}`}
       {...other}
     >
-      {value === index && <Box width={1}>{children}</Box>}
+      {/* {value === index && <Box width={1}>{children}</Box>} */}
+      <Box width={1} sx={{ height: 500 }}>
+        {children}
+      </Box>
     </div>
   );
 }
@@ -256,16 +259,10 @@ const DetailTabs = ({
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  // const [value, setValue] = useState(0);
   const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
-
-  // const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-  //   setValue(newValue);
-  // };
-  // const handleChangeIndex = (index) => {
-  //   setValue(index);
-  // };
+  const [boxHeight, setBoxHeight] = useState(0);
+  const ref = useRef(null);
 
   const handleChangePortion = (add) => {
     if (add) {
@@ -284,6 +281,11 @@ const DetailTabs = ({
       onChangeIndexTab(0);
     }
   }, [isMd]);
+
+  // console.log(ref);
+  // useLayoutEffect(() => {
+  //   setBoxHeight(ref.current.clientHeight);
+  // }, []);
 
   return (
     <Box component="div">
@@ -700,22 +702,22 @@ const DetailTabs = ({
                       size={isMd ? 'medium' : 'small'}
                       sx={{
                         border: i == activeStep ? '1px solid' : 'none',
-                        // '&::hover': {
+                        // '.MuiFab-root': {
                         //   bgcolor:
                         //     mode == 'light'
                         //       ? theme.palette.common.white
                         //       : theme.palette.primary.dark,
                         // },
-                        bgcolor:
+                        backgroundColor:
                           mode == 'light'
                             ? theme.palette.common.white
                             : theme.palette.primary.dark,
                         my: 0.5,
                         boxShadow: 'none',
-                        color:
-                          mode === 'light'
-                            ? theme.palette.text.primary
-                            : theme.palette.common.white,
+                        // color:
+                        //   mode === 'light'
+                        //     ? theme.palette.text.primary
+                        //     : theme.palette.common.white,
                       }}
                     >
                       <Typography variant="button" sx={{ fontWeight: 500 }}>
@@ -742,48 +744,51 @@ const DetailTabs = ({
                 mr: isMd ? 4 : 2,
                 my: 1,
                 maxWidth: 5 / 7,
+                // maxHeight: 500,
               }}
+              ref={ref}
             >
-              {/* <SwipeableViews
-                  index={activeStep}
-                  onSwitching={handleChangeActiveStep}
-                  axis="y"
-                  resistance
-                > */}
-              {direction.map((item, i) => (
-                <StepPanel key={i} value={activeStep} index={i}>
-                  <Typography
-                    variant={'h6'}
-                    color="text.primary"
-                    align={'justify'}
-                    sx={{ lineHeight: 1.8 }}
-                  >
-                    {item.title}
-                  </Typography>
-                  <Typography
-                    variant={'body1'}
-                    color="text.primary"
-                    align={'justify'}
-                    sx={{ lineHeight: 1.8 }}
-                  >
-                    {item.step}
-                  </Typography>
-                  {item.tips.length > 0 && (
+              <SwipeableViews
+                index={activeStep}
+                onChangeIndex={handleChangeActiveStep}
+                axis="y"
+                containerStyle={{ height: 500 }}
+                resistance
+              >
+                {direction.map((item, i) => (
+                  <StepPanel key={i} value={activeStep} index={i}>
                     <Typography
-                      variant={'body2'}
+                      variant={'h6'}
                       color="text.primary"
                       align={'justify'}
-                      sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                      sx={{ lineHeight: 1.8 }}
                     >
-                      Tips: {item.tips}
+                      {item.title}
                     </Typography>
-                  )}
-                </StepPanel>
-              ))}
+                    <Typography
+                      variant={'body1'}
+                      color="text.primary"
+                      align={'justify'}
+                      sx={{ lineHeight: 1.8 }}
+                    >
+                      {item.step}
+                    </Typography>
+                    {item.tips.length > 0 && (
+                      <Typography
+                        variant={'body2'}
+                        color="text.primary"
+                        align={'justify'}
+                        sx={{ pt: 2, fontWeight: 500, lineHeight: 1.8 }}
+                      >
+                        Tips: {item.tips}
+                      </Typography>
+                    )}
+                  </StepPanel>
+                ))}
+              </SwipeableViews>
             </Box>
             <Box
               sx={{
-                // width: isMd ? '56px' : '48px',
                 width: 1 / 7,
                 maxHeight: 360,
                 overflow: 'auto',
