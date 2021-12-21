@@ -4,9 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { NavItem } from './components';
 import { ThemeModeToggler } from '../../components';
-import { SocialIcon } from 'react-social-icons'; // remove aja yaaa di packagenya
 import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from './components/Icons/page-title-white.svg';
 import { IconList } from './components/';
@@ -43,16 +41,6 @@ const Topbar = ({
       width={1}
     >
       <Box display={'flex'} component="a" href="/" width={0.3}>
-        {/* <Box
-        component={'img'}
-        src={
-          mode === 'light' && !colorInvert
-            ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-            : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-        }
-        height={1}
-        width={1}
-        /> */}
         {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>

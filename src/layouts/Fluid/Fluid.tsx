@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
@@ -13,7 +11,7 @@ import Zoom from '@mui/material/Zoom';
 import NoSsr from '@mui/material/NoSsr';
 
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer, ThemeModeToggler } from './components';
+import { Topbar, Footer, ThemeModeToggler } from './components';
 
 import pages from '../navigation';
 
@@ -28,22 +26,11 @@ const Fluid = ({
   colorInvert = false,
   bgcolor = 'alternate.main',
 }: Props): JSX.Element => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = (): void => {
     setOpenSidebar(true);
   };
-
-  const handleSidebarClose = (): void => {
-    setOpenSidebar(false);
-  };
-
-  const open = isMd ? false : openSidebar;
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,

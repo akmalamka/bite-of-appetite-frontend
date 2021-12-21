@@ -46,9 +46,7 @@ const IndexView = (): JSX.Element => {
         <ResizableFrame
           src={'/blocks/product-grids/minimally-designed'}
           title={'Grid with minimally designed articles'}
-          path={
-            './src/blocks/productGrids/MinimallyDesigned/MinimallyDesigned.js|ts'
-          }
+          path={'./src/blocks/productGrids/RecipeCarousel/RecipeCarousel.js|ts'}
         />
         <ResizableFrame
           src={'/blocks/product-grids/with-promo-badge'}

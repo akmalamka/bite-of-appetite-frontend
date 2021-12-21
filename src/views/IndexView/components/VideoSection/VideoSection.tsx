@@ -1,9 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 
 const VideoSection = (): JSX.Element => {
-  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -20,7 +18,6 @@ const VideoSection = (): JSX.Element => {
           width: 1,
           height: 1,
           zIndex: 3,
-          // background: theme.palette.primary.main,
           opacity: 0.2,
         },
       }}
@@ -33,17 +30,14 @@ const VideoSection = (): JSX.Element => {
         loop={true}
       >
         <source
-          // src="https://assets.maccarianagency.com/videos/video.mp4"
           src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/mp4"
         />
         <source
-          // src="https://assets.maccarianagency.com/videos/video.mp4"
           src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/webm"
         />
         <source
-          // src="https://assets.maccarianagency.com/videos/video.mp4"
           src="https://doobydobap.com/wp-content/uploads/2021/06/Gimbap-video.mp4"
           type="video/ogg"
         />

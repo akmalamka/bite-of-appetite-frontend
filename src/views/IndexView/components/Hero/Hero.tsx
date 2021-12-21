@@ -1,10 +1,7 @@
 import React from 'react';
 import Typed from 'react-typed';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { alpha, useTheme } from '@mui/material/styles';
 import { VideoSection } from '../index';
 
@@ -12,9 +9,6 @@ import Container from 'components/Container';
 
 const Hero = (): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
 
   return (
     <Box
@@ -28,7 +22,6 @@ const Hero = (): JSX.Element => {
       }}
     >
       <Box
-        // paddingY={{ xs: 0, sm: '2rem', md: '4rem' }}
         display={'flex'}
         flexDirection="column"
         justifyContent="space-between"
@@ -80,20 +73,8 @@ const Hero = (): JSX.Element => {
                 watching my content and recipes.
               </Typography>
             </Box>
-            <Box
-              maxWidth={{ xs: 1, sm: 1, md: 1, lg: '45%' }}
-              // sx={{
-              //   display: { xs: 'none', md: 'block' },
-              // }}
-            >
-              <Box
-                display={'flex'}
-                // width={'30rem'}
-                // height={'35rem'}
-                // left={'50%'}
-                // top={0}
-                m={4}
-              >
+            <Box maxWidth={{ xs: 1, sm: 1, md: 1, lg: '45%' }}>
+              <Box display={'flex'} m={4}>
                 <VideoSection />
               </Box>
             </Box>

@@ -4,7 +4,7 @@ import React from 'react';
 import {
   IndexView as ProductGridsIndexView,
   WithCtaButton as WithCtaButtonView,
-  MinimallyDesigned as MinimallyDesignedView,
+  RecipeCarousel as RecipeCarouselView,
   WithPromoBadge as WithPromoBadgeView,
 } from 'blocks/productGrids';
 
@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/blocks/product-grids/minimally-designed',
     renderer: (params = {}): JSX.Element => (
-      <MinimallyDesignedView isHome {...params} />
+      <RecipeCarouselView isHome {...params} />
     ),
   },
   {

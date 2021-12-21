@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import NavItem from './components/NavItem';
 import { ReactComponent as PageTitle } from '../../../Topbar/components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from '../../../Topbar/components/Icons/page-title-white.svg';
 import CloseIcon from '@mui/icons-material/Close';
@@ -46,21 +45,10 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           paddingX={2}
           paddingY={1}
           title="Bite of Appetite"
-          // width={{ xs: 100, md: 180 }}
           sx={{
             justifyContent: 'center',
           }}
         >
-          {/* <Box
-            component={'img'}
-            src={
-              mode === 'light'
-                ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-            }
-            height={1}
-            width={1}
-          /> */}
           {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
         </Box>
         <Box>

@@ -1,8 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
   InstagramButton,
   SoundcloudButton,
@@ -11,8 +9,6 @@ import {
 } from './index';
 
 const IconList = (): JSX.Element => {
-  const theme = useTheme();
-  const { mode } = theme.palette;
   return (
     <Box m={2} flexDirection="row" display="flex" justifyContent="space-evenly">
       <Box
