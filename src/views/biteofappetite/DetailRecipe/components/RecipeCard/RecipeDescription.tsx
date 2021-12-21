@@ -15,11 +15,13 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
   onChangeIndexMobile: (number) => void;
+  data: any;
 }
 
 const RecipeDescription = ({
   index,
   onChangeIndexMobile,
+  data,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -30,7 +32,6 @@ const RecipeDescription = ({
   function isMediumOrIndexOne() {
     return isMd || index == 1;
   }
-
   return (
     <Box
       component="div"
@@ -54,9 +55,7 @@ const RecipeDescription = ({
             component={LazyLoadImage}
             height={1}
             width={1}
-            src={
-              'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg'
-            }
+            src={data.image}
             alt="..."
             effect="blur"
             sx={{
@@ -80,7 +79,8 @@ const RecipeDescription = ({
               }}
               align="center"
             >
-              Food Photography and Food Styling by Muhammad Akmal
+              Food Photography by {data.foodPhotographyBy} and Food Styling by{' '}
+              {data.foodStylingBy}
             </Typography>
           </Box>
         </Box>
@@ -96,7 +96,7 @@ const RecipeDescription = ({
             mx: isMd ? 0 : 1,
           }}
         >
-          Gluten-Free Carrot Cake
+          {data.title}
         </Typography>
         {isMediumOrIndexOne() && (
           <Typography
@@ -105,13 +105,12 @@ const RecipeDescription = ({
             fontWeight={500}
             align={'center'}
           >
-            Almond flour is a wonderfully sweet, nutty complement for fresh
-            carrots, walnuts, and raisins.
+            {data.description}
           </Typography>
         )}
         {index == 1 && (
           <Typography variant="subtitle2" color="text.primary" align={'center'}>
-            Total Time: 60 minutes
+            Total Time: {data.time}
           </Typography>
         )}
       </Box>
@@ -143,7 +142,7 @@ const RecipeDescription = ({
                 width: isMd ? 1 / 2 : 1,
               }}
             >
-              By Muhammad Akmal
+              By {data.recipeBy}
             </Typography>
           )}
 
@@ -156,7 +155,7 @@ const RecipeDescription = ({
               }}
             />
           )}
-          {isMediumOrIndexOne() && (
+          {isMediumOrIndexOne() && data.inspiredByExist && (
             <Typography
               variant="overline"
               color="text.primary"
@@ -169,7 +168,7 @@ const RecipeDescription = ({
                 width: isMd ? 1 / 2 : 1,
               }}
             >
-              Inspired By Joshua Weissman
+              Inspired By {data.inspiredBy}
             </Typography>
           )}
         </Box>
@@ -187,7 +186,7 @@ const RecipeDescription = ({
                 letterSpacing: 0.4,
               }}
             >
-              September 20, 2021
+              {data.date}
             </Typography>
           </Box>
         )}
@@ -202,7 +201,7 @@ const RecipeDescription = ({
               rowGap: 1,
             }}
           >
-            {mock.map((item) => (
+            {data.tags.map((item) => (
               <Chip
                 key={item}
                 label={item}

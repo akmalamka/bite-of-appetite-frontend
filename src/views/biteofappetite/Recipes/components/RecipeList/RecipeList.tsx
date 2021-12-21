@@ -27,14 +27,25 @@ interface SeeRecipeProps {
   title: string;
   image: boolean;
   src?: string;
+  index: number;
 }
-function SeeRecipeButton({ title, image, src }: SeeRecipeProps) {
+
+// interface stateProps {
+//   index: number;
+// }
+function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
   const { url } = useRouteMatch();
   const theme = useTheme();
+  console.log('url', url);
   if (image) {
     return (
       <Link
-        to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+        to={{
+          pathname: `${url}/${title.toLowerCase().replaceAll(' ', '-')}`,
+          state: {
+            index: index,
+          },
+        }}
         style={{ textDecoration: 'none' }}
       >
         <Button
@@ -225,6 +236,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       ? item.image
                       : item.item.image
                   }
+                  index={i + PER_PAGE * (page - 1)}
                 />
               </Box>
               <CardContent
@@ -321,6 +333,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                           : item.item.title
                       }
                       image={false}
+                      index={i}
                     />
                   </Box>
                 </Box>

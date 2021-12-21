@@ -190,6 +190,7 @@ interface Props {
   indexTab: number;
   onChangeTab: (event: React.SyntheticEvent, indexTab: number) => void;
   onChangeIndexTab: (indexTab: number) => void;
+  data: any;
 }
 
 export function TabLabel(props: TabLabelProps) {
@@ -275,10 +276,13 @@ const DetailTabs = ({
   indexTab,
   onChangeTab,
   onChangeIndexTab,
+  data,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  const SERVE = 2;
+  const SERVE = data.serves;
+  // console.log('data ', data);
+  const isWithComponent = data.isIngredientsWithComponent;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -348,20 +352,7 @@ const DetailTabs = ({
               align={'justify'}
               paragraph
             >
-              Why choose between the two greats, vanilla and chocolate? Each
-              bite of this art deco shortbread has just the right amount of
-              both. Stacking the dough in alternating colors and then smushing
-              them into a roll is as easy as making shapes with Play-Doh. The
-              method makes for a fancy-looking swirl that novices can succeed at
-              too.
-              <br />
-              <br />
-              Why choose between the two greats, vanilla and chocolate? Each
-              bite of this art deco shortbread has just the right amount of
-              both. Stacking the dough in alternating colors and then smushing
-              them into a roll is as easy as making shapes with Play-Doh. The
-              method makes for a fancy-looking swirl that novices can succeed at
-              too.
+              {data.story}
             </Typography>
           ) : (
             <Box
@@ -399,15 +390,17 @@ const DetailTabs = ({
                   overflow: 'auto',
                 }}
               >
-                {ingredientsWithComponent.map((item, i) => (
+                {data.ingredients.map((item, i) => (
                   <div key={i}>
-                    <Typography
-                      variant={'h6'}
-                      color="text.primary"
-                      sx={{ m: 1 }}
-                    >
-                      {item.component}
-                    </Typography>
+                    {data.isIngredientsWithComponent && (
+                      <Typography
+                        variant={'h6'}
+                        color="text.primary"
+                        sx={{ m: 1 }}
+                      >
+                        {item.component}
+                      </Typography>
+                    )}
                     {item.ingredients.map((item, j) => (
                       <div key={j}>
                         <Box
@@ -456,54 +449,6 @@ const DetailTabs = ({
                         </Box>
                       </div>
                     ))}
-                  </div>
-                ))}
-                {ingredients.map((item, i) => (
-                  <div key={i}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        m: 1,
-                      }}
-                    >
-                      <Box>
-                        <Typography
-                          variant={'subtitle1'}
-                          color="text.primary"
-                          fontWeight={600}
-                          align={'center'}
-                          sx={{ pr: 1 }}
-                        >
-                          {item.name}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          flexGrow: 1,
-                          transform: 'rotate(180deg)',
-                          pt: 1,
-                        }}
-                      >
-                        <Divider
-                          sx={{
-                            border: '0.1px dashed',
-                          }}
-                          flexItem
-                        />
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant={'subtitle1'}
-                          color="text.primary"
-                          fontWeight={500}
-                          align={'center'}
-                          sx={{ pl: 1 }}
-                        >
-                          {item.measurement} {item.unit}
-                        </Typography>
-                      </Box>
-                    </Box>
                   </div>
                 ))}
               </Box>
@@ -547,17 +492,73 @@ const DetailTabs = ({
                   overflow: 'auto',
                 }}
               >
-                {ingredientsWithComponent.map((item, i) => (
-                  <div key={i}>
-                    <Typography
-                      variant={'h6'}
-                      color="text.primary"
-                      sx={{ m: 1 }}
-                    >
-                      {item.component}
-                    </Typography>
-                    {item.ingredients.map((item, j) => (
-                      <div key={j}>
+                {data.isIngredientsWithComponent ? (
+                  <Box component="div">
+                    {data.ingredients.map((item, i) => (
+                      <div key={i}>
+                        <Typography
+                          variant={'h6'}
+                          color="text.primary"
+                          sx={{ m: 1 }}
+                        >
+                          {item.component}
+                        </Typography>
+                        {item.ingredients.map((item, j) => (
+                          <div key={j}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                m: 1,
+                              }}
+                            >
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={600}
+                                  align={'center'}
+                                  sx={{ pr: 1 }}
+                                >
+                                  {item.name}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  flexGrow: 1,
+                                  transform: 'rotate(180deg)',
+                                  pt: 1,
+                                }}
+                              >
+                                <Divider
+                                  sx={{
+                                    border: '0.1px dashed',
+                                  }}
+                                  flexItem
+                                />
+                              </Box>
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={500}
+                                  align={'center'}
+                                  sx={{ pl: 1 }}
+                                >
+                                  {(item.measurement * portion) / SERVE}{' '}
+                                  {item.unit}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </Box>
+                ) : (
+                  <Box component="div">
+                    {data.ingredients.map((item, i) => (
+                      <div key={i}>
                         <Box
                           sx={{
                             display: 'flex',
@@ -604,56 +605,8 @@ const DetailTabs = ({
                         </Box>
                       </div>
                     ))}
-                  </div>
-                ))}
-                {ingredients.map((item, i) => (
-                  <div key={i}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        m: 1,
-                      }}
-                    >
-                      <Box>
-                        <Typography
-                          variant={'subtitle1'}
-                          color="text.primary"
-                          fontWeight={600}
-                          align={'center'}
-                          sx={{ pr: 1 }}
-                        >
-                          {item.name}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          flexGrow: 1,
-                          transform: 'rotate(180deg)',
-                          pt: 1,
-                        }}
-                      >
-                        <Divider
-                          sx={{
-                            border: '0.1px dashed',
-                          }}
-                          flexItem
-                        />
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant={'subtitle1'}
-                          color="text.primary"
-                          fontWeight={500}
-                          align={'center'}
-                          sx={{ pl: 1 }}
-                        >
-                          {item.measurement} {item.unit}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </div>
-                ))}
+                  </Box>
+                )}
               </Box>
             </Box>
           ) : (
@@ -673,7 +626,7 @@ const DetailTabs = ({
                 }}
                 ref={containerRef}
               >
-                {direction.map((item, i) => (
+                {data.directions.map((item, i) => (
                   <StepPanel
                     key={i}
                     value={activeStep}
@@ -717,7 +670,7 @@ const DetailTabs = ({
                   overflow: 'auto',
                 }}
               >
-                {direction.map((item, i) => (
+                {data.directions.map((item, i) => (
                   <Box
                     component="div"
                     key={i}
@@ -779,7 +732,7 @@ const DetailTabs = ({
                 containerStyle={{ height: 500 }}
                 resistance
               >
-                {direction.map((item, i) => (
+                {data.directions.map((item, i) => (
                   <StepPanel key={i} value={activeStep} index={i} isMd={true}>
                     <Typography
                       variant={'h6'}
@@ -818,7 +771,7 @@ const DetailTabs = ({
                 overflow: 'auto',
               }}
             >
-              {direction.map((item, i) => (
+              {data.directions.map((item, i) => (
                 <Box
                   component="div"
                   key={i}

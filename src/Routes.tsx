@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import viewsRoutes from 'views/routes';
 import docsRoutes from 'docs/routes';
 import blocksRoutes from 'blocks/routes';
@@ -13,10 +13,6 @@ import {
 } from 'views';
 
 const Routes = (): JSX.Element => {
-  const { path, url } = useRouteMatch();
-  // console.log('url ', url);
-  // console.log('path ', path);
-
   const routes = [
     {
       path: '/',
