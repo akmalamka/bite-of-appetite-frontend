@@ -1,12 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, forwardRef } from 'react';
-import {
-  Link,
-  MemoryRouter,
-  useRouteMatch,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -20,7 +14,6 @@ import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
 import usePagination from './Pagination';
 import { dummyRecipes } from './dummyRecipes';
-import { DetailRecipe } from 'views';
 import Fuse from 'fuse.js';
 
 interface Props {
@@ -32,33 +25,83 @@ interface Props {
 interface SeeRecipeProps {
   // eslint-disable-next-line @typescript-eslint/ban-types
   title: string;
+  image: boolean;
+  src?: string;
 }
-function SeeRecipe({ title }: SeeRecipeProps) {
-  const { path, url } = useRouteMatch();
-  console.log('title ', title.toLowerCase().replaceAll(' ', '-'));
-  return (
-    <Box component="div">
-      <Link to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}>
-        <Typography
-          variant="button"
-          color="text.primary"
+function SeeRecipeButton({ title, image, src }: SeeRecipeProps) {
+  const { url } = useRouteMatch();
+  const theme = useTheme();
+  if (image) {
+    return (
+      <Link
+        to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+        style={{ textDecoration: 'none' }}
+      >
+        <Button
+          fullWidth
+          disableRipple={true}
+          disableFocusRipple={true}
           sx={{
-            textTransform: 'uppercase',
-            letterSpacing: 1.2,
-            fontWeight: 400,
+            padding: 0,
+            maxHeight: 530,
+            maxWidth: 705,
           }}
         >
-          See Recipe
-        </Typography>
+          <Box
+            component={LazyLoadImage}
+            height={1}
+            width={1}
+            src={src}
+            alt="..."
+            effect="blur"
+            sx={{
+              objectFit: 'contain',
+              maxHeight: { xs: 530, md: 1 },
+              borderRadius: 2,
+              filter:
+                theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+            }}
+          />
+        </Button>
       </Link>
-
-      <Switch>
-        <Route path={`${path}/:recipeTitle`}>
-          <DetailRecipe />
-        </Route>
-      </Switch>
-    </Box>
-  );
+    );
+  } else {
+    return (
+      <Box component="div">
+        <Link
+          to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{
+              borderRadius: 30,
+              border: 2,
+              borderColor: 'primary.main',
+              my: 1,
+              px: 2,
+              '&:hover': {
+                border: 2,
+              },
+            }}
+          >
+            <Typography
+              variant="button"
+              color="text.primary"
+              sx={{
+                textTransform: 'uppercase',
+                letterSpacing: 1.2,
+                fontWeight: 400,
+              }}
+            >
+              See Recipe
+            </Typography>
+          </Button>
+        </Link>
+      </Box>
+    );
+  }
 }
 
 const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
@@ -170,39 +213,19 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                   },
                 }}
               >
-                <Button
-                  fullWidth
-                  disableRipple={true}
-                  disableFocusRipple={true}
-                  href={item.href}
-                  sx={{
-                    padding: 0,
-                    maxHeight: 530,
-                    maxWidth: 705,
-                  }}
-                >
-                  <Box
-                    component={LazyLoadImage}
-                    height={1}
-                    width={1}
-                    src={
-                      keyword === '' && chipData.length == 0
-                        ? item.image
-                        : item.item.image
-                    }
-                    alt="..."
-                    effect="blur"
-                    sx={{
-                      objectFit: 'contain',
-                      maxHeight: { xs: 530, md: 1 },
-                      borderRadius: 2,
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.8)'
-                          : 'none',
-                    }}
-                  />
-                </Button>
+                <SeeRecipeButton
+                  title={
+                    keyword === '' && chipData.length == 0
+                      ? item.title
+                      : item.item.title
+                  }
+                  image={true}
+                  src={
+                    keyword === '' && chipData.length == 0
+                      ? item.image
+                      : item.item.image
+                  }
+                />
               </Box>
               <CardContent
                 sx={{
@@ -291,42 +314,14 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       },
                     }}
                   >
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      // component={SeeRecipe}
-                      // href={item.href}
-                      sx={{
-                        borderRadius: 30,
-                        border: 2,
-                        borderColor: 'primary.main',
-                        my: 1,
-                        px: 2,
-                        '&:hover': {
-                          border: 2,
-                        },
-                      }}
-                    >
-                      {/* <Typography
-                        component={SeeRecipe}
-                        variant="button"
-                        color="text.primary"
-                        sx={{
-                          textTransform: 'uppercase',
-                          letterSpacing: 1.2,
-                          fontWeight: 400,
-                        }}
-                      >
-                        See Recipe
-                      </Typography> */}
-                      <SeeRecipe
-                        title={
-                          keyword === '' && chipData.length == 0
-                            ? item.title
-                            : item.item.title
-                        }
-                      />
-                    </Button>
+                    <SeeRecipeButton
+                      title={
+                        keyword === '' && chipData.length == 0
+                          ? item.title
+                          : item.item.title
+                      }
+                      image={false}
+                    />
                   </Box>
                 </Box>
               </CardContent>

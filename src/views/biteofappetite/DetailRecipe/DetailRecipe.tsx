@@ -9,7 +9,7 @@ import { RecipeCarousel } from 'blocks/productGrids';
 
 const DetailRecipe = (): JSX.Element => {
   const theme = useTheme();
-
+  window.scrollTo(0, 0);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });

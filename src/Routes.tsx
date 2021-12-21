@@ -34,10 +34,10 @@ const Routes = (): JSX.Element => {
       path: '/recipes',
       renderer: (params = {}): JSX.Element => <RecipesView {...params} />,
     },
-    // {
-    //   path: '/jalebi',
-    //   renderer: (params = {}): JSX.Element => <DetailRecipeView {...params} />,
-    // },
+    {
+      path: '/recipes/:recipeTitle',
+      renderer: (params = {}): JSX.Element => <DetailRecipeView {...params} />,
+    },
     {
       path: '/food-for-thought',
       renderer: (params = {}): JSX.Element => (
