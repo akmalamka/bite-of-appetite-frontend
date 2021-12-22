@@ -9,8 +9,6 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const mock = ['Easy', 'Indonesian', 'Chicken', 'Dessert'];
-
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;

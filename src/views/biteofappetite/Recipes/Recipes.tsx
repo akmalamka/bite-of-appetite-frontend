@@ -73,7 +73,7 @@ const Recipes = (): JSX.Element => {
   };
 
   return (
-    <Main colorInvert={true}>
+    <Main colorInvert={false}>
       <SearchFilterBar
         keyword={keyword}
         onChangeKeyword={handleChangeKeyword}
@@ -86,6 +86,7 @@ const Recipes = (): JSX.Element => {
         filterMenu={mock}
         expanded={expanded}
         onChangeFilterExpanded={handleChangeFilterExpanded}
+        isRecipeList={true}
       />
       <Box>
         <Container>
