@@ -36,7 +36,6 @@ interface SeeRecipeProps {
 function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
   const { url } = useRouteMatch();
   const theme = useTheme();
-  console.log('url', url);
   if (image) {
     return (
       <Link
@@ -202,127 +201,28 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   return (
     <Box>
       <Grid container spacing={4}>
-        {result.slice(PER_PAGE * (page - 1), PER_PAGE * page).map((item, i) => (
-          <Grid key={i} item xs={12}>
-            <Box
-              component={Card}
-              width={1}
-              height={1}
-              borderRadius={0}
-              boxShadow={0}
-              display={'flex'}
-              flexDirection={{
-                xs: 'column',
-                md: i % 2 === 0 ? 'row-reverse' : 'row',
-              }}
-              sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
-            >
-              <Box
-                sx={{
-                  '& .lazy-load-image-loaded': {
-                    display: 'flex !important',
-                  },
-                }}
-              >
-                <SeeRecipeButton
-                  title={
-                    keyword === '' && chipData.length == 0
-                      ? item.title
-                      : item.item.title
-                  }
-                  image={true}
-                  src={
-                    keyword === '' && chipData.length == 0
-                      ? item.image
-                      : item.item.image
-                  }
-                  index={i + PER_PAGE * (page - 1)}
-                />
-              </Box>
-              <CardContent
-                sx={{
-                  paddingX: { xs: 1, sm: 2, md: 4 },
-                  width: { xs: 1, md: '50%' },
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
+        {result.length > 0 ? (
+          result
+            .slice(PER_PAGE * (page - 1), PER_PAGE * page)
+            .map((item, i) => (
+              <Grid key={i} item xs={12}>
                 <Box
+                  component={Card}
+                  width={1}
                   height={1}
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
+                  borderRadius={0}
+                  boxShadow={0}
+                  display={'flex'}
+                  flexDirection={{
+                    xs: 'column',
+                    md: i % 2 === 0 ? 'row-reverse' : 'row',
                   }}
+                  sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
                 >
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: {
-                        xs: 'center',
-                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
-                      },
-                      marginY: { xs: 1, md: 0 },
-                    }}
-                  >
-                    {(keyword === '' && chipData.length == 0
-                      ? item
-                      : item.item
-                    ).tags.map((item) => (
-                      <Chip
-                        key={item}
-                        label={item}
-                        component="a"
-                        size={'medium'}
-                        variant={'outlined'}
-                        sx={{
-                          marginRight: i % 2 === 0 ? 1 : 0,
-                          marginLeft: i % 2 === 0 ? 0 : 1,
-                          color:
-                            mode === 'light'
-                              ? theme.palette.text.primary
-                              : theme.palette.common.white,
-                        }}
-                      />
-                    ))}
-                  </Box>
-                  <Typography
-                    variant={'h4'}
-                    fontWeight={700}
-                    sx={{
-                      marginY: 2,
-                      display: 'flex',
-                      justifyContent: {
-                        xs: 'center',
-                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
-                      },
-                    }}
-                    align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
-                  >
-                    {keyword === '' && chipData.length == 0
-                      ? item.title
-                      : item.item.title}
-                  </Typography>
-                  <Typography
-                    variant={'subtitle1'}
-                    color="text.secondary"
-                    fontWeight={500}
-                    sx={{
-                      display: 'flex',
-                    }}
-                    align={isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'}
-                  >
-                    {keyword === '' && chipData.length == 0
-                      ? item.description
-                      : item.item.description}
-                  </Typography>
-                  <Box
-                    marginTop={2}
-                    sx={{
-                      display: 'flex',
-                      justifyContent: {
-                        xs: 'center',
-                        md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                      '& .lazy-load-image-loaded': {
+                        display: 'flex !important',
                       },
                     }}
                   >
@@ -332,29 +232,150 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                           ? item.title
                           : item.item.title
                       }
-                      image={false}
-                      index={i}
+                      image={true}
+                      src={
+                        keyword === '' && chipData.length == 0
+                          ? item.image
+                          : item.item.image
+                      }
+                      index={i + PER_PAGE * (page - 1)}
                     />
                   </Box>
+                  <CardContent
+                    sx={{
+                      paddingX: { xs: 1, sm: 2, md: 4 },
+                      width: { xs: 1, md: '50%' },
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <Box
+                      height={1}
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: {
+                            xs: 'center',
+                            md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                          },
+                          marginY: { xs: 1, md: 0 },
+                        }}
+                      >
+                        {(keyword === '' && chipData.length == 0
+                          ? item
+                          : item.item
+                        ).tags.map((item) => (
+                          <Chip
+                            key={item}
+                            label={item}
+                            component="a"
+                            size={'medium'}
+                            variant={'outlined'}
+                            sx={{
+                              marginRight: i % 2 === 0 ? 1 : 0,
+                              marginLeft: i % 2 === 0 ? 0 : 1,
+                              color:
+                                mode === 'light'
+                                  ? theme.palette.text.primary
+                                  : theme.palette.common.white,
+                            }}
+                          />
+                        ))}
+                      </Box>
+                      <Typography
+                        variant={'h4'}
+                        fontWeight={700}
+                        sx={{
+                          marginY: 2,
+                          display: 'flex',
+                          justifyContent: {
+                            xs: 'center',
+                            md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                          },
+                        }}
+                        align={
+                          isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'
+                        }
+                      >
+                        {keyword === '' && chipData.length == 0
+                          ? item.title
+                          : item.item.title}
+                      </Typography>
+                      <Typography
+                        variant={'subtitle1'}
+                        color="text.secondary"
+                        fontWeight={500}
+                        sx={{
+                          display: 'flex',
+                        }}
+                        align={
+                          isMd ? (i % 2 === 0 ? 'left' : 'right') : 'center'
+                        }
+                      >
+                        {keyword === '' && chipData.length == 0
+                          ? item.description
+                          : item.item.description}
+                      </Typography>
+                      <Box
+                        marginTop={2}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: {
+                            xs: 'center',
+                            md: i % 2 === 0 ? 'flex-start' : 'flex-end',
+                          },
+                        }}
+                      >
+                        <SeeRecipeButton
+                          title={
+                            keyword === '' && chipData.length == 0
+                              ? item.title
+                              : item.item.title
+                          }
+                          image={false}
+                          index={i}
+                        />
+                      </Box>
+                    </Box>
+                  </CardContent>
                 </Box>
-              </CardContent>
-            </Box>
-          </Grid>
-        ))}
+              </Grid>
+            ))
+        ) : (
+          <Box sx={{ width: 1 }}>
+            <Typography
+              variant="h5"
+              sx={{
+                color: 'text.primary',
+              }}
+              align="center"
+            >
+              Oops! It looks like there's no such recipe you're looking for :(
+            </Typography>
+          </Box>
+        )}
       </Grid>
-      <Pagination
-        count={count}
-        size="large"
-        boundaryCount={0}
-        siblingCount={isMd ? 1 : 0}
-        page={page}
-        sx={{
-          marginY: 4,
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-        onChange={handleChangePage}
-      />
+      {result.length > 0 && (
+        <Pagination
+          count={count}
+          size="large"
+          boundaryCount={0}
+          siblingCount={isMd ? 1 : 0}
+          page={page}
+          sx={{
+            marginY: 4,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          onChange={handleChangePage}
+        />
+      )}
     </Box>
   );
 };

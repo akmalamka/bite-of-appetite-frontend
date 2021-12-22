@@ -87,7 +87,7 @@ const Recipes = (): JSX.Element => {
         expanded={expanded}
         onChangeFilterExpanded={handleChangeFilterExpanded}
       />
-      <Box bgcolor={'alternate.main'}>
+      <Box>
         <Container>
           <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
         </Container>

@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
-
+import { dummyRecipes } from 'views/biteofappetite/Recipes/components/RecipeList/dummyRecipes';
 import Container from 'components/Container';
 
 const responsive = {
@@ -32,39 +32,6 @@ const responsive = {
     partialVisibilityGutter: 0,
   },
 };
-
-const mock = [
-  {
-    media:
-      'https://assets.bonappetit.com/photos/5ca53251a63de5746feb255d/1:1/w_2240,c_limit/matzo-ball-soup.jpg',
-    title: 'Gochujang Chicken',
-  },
-  {
-    media:
-      'https://assets.bonappetit.com/photos/588108978503afa76d468af7/1:1/w_2240,c_limit/overnight-oats-with-coconut-dates-almonds-and-honey.jpg',
-    title: 'Eggplant Parmesan',
-  },
-  {
-    media:
-      'https://assets.bonappetit.com/photos/5d7296eec4af4d0008ad1263/16:9/w_2240,c_limit/Basically-Gojuchang-Chicken-Recipe-Wide.jpg',
-    title: 'Overnight Oats',
-  },
-  {
-    media:
-      'https://assets.bonappetit.com/photos/57d9d24d5a14a530086ef7bf/1:1/w_2240,c_limit/bas-best-eggplant-parmesan.jpg',
-    title: 'Matzo Ball Soup',
-  },
-  {
-    media:
-      'https://assets.bonappetit.com/photos/5d7296eec4af4d0008ad1263/16:9/w_2240,c_limit/Basically-Gojuchang-Chicken-Recipe-Wide.jpg',
-    title: 'Fgghehe',
-  },
-  {
-    media:
-      'https://assets.bonappetit.com/photos/5d7296eec4af4d0008ad1263/16:9/w_2240,c_limit/Basically-Gojuchang-Chicken-Recipe-Wide.jpg',
-    title: 'Abcde',
-  },
-];
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -102,7 +69,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
       >
-        {mock.map((item, i) => (
+        {dummyRecipes.map((item, i) => (
           <Box
             key={i}
             display="flex"
@@ -123,7 +90,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
             >
               <CardMedia
                 title={item.title}
-                image={item.media}
+                image={item.image}
                 sx={{
                   objectFit: 'contain',
                   minWidth: 220,
