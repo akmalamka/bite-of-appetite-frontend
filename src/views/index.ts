@@ -52,5 +52,6 @@ export { default as NotFound } from './NotFound';
 export { default as NotFoundCover } from './NotFoundCover';
 export { default as Recipes } from './biteofappetite/Recipes';
 export { default as DetailRecipe } from './biteofappetite/DetailRecipe';
+export { default as DetailWriting } from './biteofappetite/DetailWriting';
 export { default as FoodForThought } from './biteofappetite/FoodForThought';
 export { default as AboutBiteOfAppetite } from './biteofappetite/AboutBiteOfAppetite';

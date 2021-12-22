@@ -10,6 +10,7 @@ import {
   FoodForThought as FoodForThoughtView,
   Recipes as RecipesView,
   DetailRecipe as DetailRecipeView,
+  DetailWriting as DetailWritingView,
 } from 'views';
 
 const Routes = (): JSX.Element => {
@@ -33,6 +34,10 @@ const Routes = (): JSX.Element => {
     {
       path: '/recipes/:recipeTitle',
       renderer: (params = {}): JSX.Element => <DetailRecipeView {...params} />,
+    },
+    {
+      path: '/food-for-thought/:writingTitle',
+      renderer: (params = {}): JSX.Element => <DetailWritingView {...params} />,
     },
     {
       path: '/food-for-thought',

@@ -153,9 +153,8 @@ const RecipeCard = (): JSX.Element => {
                 color="text.secondary"
                 fontWeight={500}
                 align={'center'}
+                paragraph
               >
-                {/* Almond flour is a wonderfully sweet, nutty complement for fresh
-                carrots, walnuts, and raisins. */}
                 {dummyRecipes[recipeIndex].story}
               </Typography>
             </Box>
