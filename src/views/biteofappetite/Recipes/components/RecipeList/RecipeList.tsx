@@ -200,9 +200,9 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
 
   return (
     <Box>
-      <Grid container spacing={4}>
-        {result.length > 0 ? (
-          result
+      {result.length > 0 ? (
+        <Grid container spacing={4}>
+          {result
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
             .map((item, i) => (
               <Grid key={i} item xs={12}>
@@ -346,21 +346,23 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                   </CardContent>
                 </Box>
               </Grid>
-            ))
-        ) : (
-          <Box sx={{ width: 1 }}>
-            <Typography
-              variant="h5"
-              sx={{
-                color: 'text.primary',
-              }}
-              align="center"
-            >
-              Oops! It looks like there's no such recipe you're looking for :(
-            </Typography>
-          </Box>
-        )}
-      </Grid>
+            ))}
+        </Grid>
+      ) : (
+        <Box sx={{ mx: 2 }}>
+          <Typography
+            variant={isMd ? 'h5' : 'h6'}
+            sx={{
+              fontWeight: 600,
+              color: 'text.primary',
+            }}
+            align="center"
+          >
+            Oops! Sorry, It looks like there's no such recipe you're looking for
+            :(
+          </Typography>
+        </Box>
+      )}
       {result.length > 0 && (
         <Pagination
           count={count}
