@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
@@ -81,9 +80,9 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
       }
     }
   }
-  const onClickRecipe = (chosenRecipe) => {
-    dispatch(setChosenRecipe(chosenRecipe));
-    console.log('aaaa');
+  const onClickRecipe = (index) => {
+    dispatch(setChosenRecipe(dummyRecipes[index]));
+    console.log('aaa');
   };
 
   const result = finalResult();
@@ -129,7 +128,6 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       ? item.image
                       : item.item.image
                   }
-                  page={page}
                   tags={
                     (keyword === '' && chipData.length == 0 ? item : item.item)
                       .tags
@@ -140,14 +138,15 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       : item.item.description
                   }
                   isRecipe={true}
-                  onClickRecipe={() => onClickRecipe(dummyRecipes[i])}
+                  page={page}
+                  onClickRecipe={onClickRecipe}
                 />
-                <Button
+                {/* <Button
                   variant="outlined"
                   onClick={() => onClickRecipe(dummyRecipes[i])}
                 >
                   AAA
-                </Button>
+                </Button> */}
               </Grid>
             ))}
         </Grid>

@@ -39,10 +39,9 @@ const WritingList = (): JSX.Element => {
                 index={i}
                 title={item.title}
                 src={item.image}
-                page={page}
-                // tags={item.tags}
                 description={item.description}
                 isRecipe={false}
+                page={page}
               />
             </Grid>
           ))}

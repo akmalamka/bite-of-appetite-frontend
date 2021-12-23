@@ -10,126 +10,28 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-import { PER_PAGE } from '../../views/biteofappetite/Recipes/components/RecipeList/RecipeList';
+import { PER_PAGE } from 'views/biteofappetite/Recipes/components/RecipeList/RecipeList';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
   title: string;
   src: string;
-  page: number;
   tags?: string[];
   description: string;
   isRecipe: boolean;
-  onClickRecipe?: (chosenRecipe: any) => void;
-}
-
-interface SeeRecipeProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  title: string;
-  image: boolean;
-  src?: string;
-  index: number;
-  onClick?: (chosenRecipe: any) => void;
-}
-
-function SeeRecipeButton({
-  title,
-  image,
-  src,
-  index,
-  onClick,
-}: SeeRecipeProps) {
-  const { url } = useRouteMatch();
-  const theme = useTheme();
-  if (image) {
-    return (
-      <Link
-        to={{
-          pathname: `${url}${title.toLowerCase().replaceAll(' ', '-')}`,
-          state: {
-            index: index,
-          },
-        }}
-        style={{ textDecoration: 'none' }}
-      >
-        <Button
-          fullWidth
-          disableRipple={true}
-          disableFocusRipple={true}
-          sx={{
-            padding: 0,
-            maxHeight: 530,
-            maxWidth: 705,
-          }}
-          onClick={onClick}
-        >
-          <Box
-            component={LazyLoadImage}
-            height={1}
-            width={1}
-            src={src}
-            alt="..."
-            effect="blur"
-            sx={{
-              objectFit: 'contain',
-              maxHeight: { xs: 530, md: 1 },
-              borderRadius: 2,
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
-            }}
-          />
-        </Button>
-      </Link>
-    );
-  } else {
-    return (
-      <Box component="div">
-        <Link
-          to={`${url}${title.toLowerCase().replaceAll(' ', '-')}`}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{
-              borderRadius: 30,
-              border: 2,
-              borderColor: 'primary.main',
-              my: 1,
-              px: 2,
-              '&:hover': {
-                border: 2,
-              },
-            }}
-            onClick={onClick}
-          >
-            <Typography
-              variant="button"
-              color="text.primary"
-              sx={{
-                textTransform: 'uppercase',
-                letterSpacing: 1.2,
-                fontWeight: 400,
-              }}
-            >
-              See Recipe
-            </Typography>
-          </Button>
-        </Link>
-      </Box>
-    );
-  }
+  page: number;
+  onClickRecipe?: (index: number) => void;
 }
 
 const DataCard = ({
   index,
   title,
   src,
-  page,
   tags,
   description,
   isRecipe,
+  page,
   onClickRecipe,
 }: Props): JSX.Element => {
   const theme = useTheme();
@@ -137,6 +39,8 @@ const DataCard = ({
     defaultMatches: true,
   });
   const { mode } = theme.palette;
+  const { url } = useRouteMatch();
+
   return (
     <Box
       component={Card}
@@ -158,12 +62,40 @@ const DataCard = ({
           },
         }}
       >
-        <SeeRecipeButton
-          title={title}
-          image={true}
-          src={src}
-          index={index + PER_PAGE * (page - 1)}
-        />
+        <Link
+          to={{
+            pathname: `${url}/${title.toLowerCase().replaceAll(' ', '-')}`,
+          }}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button
+            fullWidth
+            disableRipple={true}
+            disableFocusRipple={true}
+            sx={{
+              padding: 0,
+              maxHeight: 530,
+              maxWidth: 705,
+            }}
+            onClick={() => onClickRecipe(index + (page - 1) * PER_PAGE)}
+          >
+            <Box
+              component={LazyLoadImage}
+              height={1}
+              width={1}
+              src={src}
+              alt="..."
+              effect="blur"
+              sx={{
+                objectFit: 'contain',
+                maxHeight: { xs: 530, md: 1 },
+                borderRadius: 2,
+                filter:
+                  theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+              }}
+            />
+          </Button>
+        </Link>
       </Box>
       <CardContent
         sx={{
@@ -247,12 +179,38 @@ const DataCard = ({
               },
             }}
           >
-            <SeeRecipeButton
-              title={title}
-              image={false}
-              index={index}
-              onClick={onClickRecipe}
-            />
+            <Link
+              to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{
+                  borderRadius: 30,
+                  border: 2,
+                  borderColor: 'primary.main',
+                  my: 1,
+                  px: 2,
+                  '&:hover': {
+                    border: 2,
+                  },
+                }}
+                onClick={() => onClickRecipe(index + (page - 1) * PER_PAGE)}
+              >
+                <Typography
+                  variant="button"
+                  color="text.primary"
+                  sx={{
+                    textTransform: 'uppercase',
+                    letterSpacing: 1.2,
+                    fontWeight: 400,
+                  }}
+                >
+                  See Recipe
+                </Typography>
+              </Button>
+            </Link>
           </Box>
         </Box>
       </CardContent>
