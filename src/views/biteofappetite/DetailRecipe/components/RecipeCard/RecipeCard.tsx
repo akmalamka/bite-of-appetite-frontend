@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -11,7 +12,6 @@ import RecipeDescription from './RecipeDescription';
 import DetailTabs from './DetailTabs';
 import { TabLabel, a11yProps } from './DetailTabs';
 import { RecipeCarousel } from 'blocks/productGrids';
-import { dummyRecipes } from 'views/biteofappetite/Recipes/components/RecipeList/dummyRecipes';
 
 const RecipeCard = (): JSX.Element => {
   const theme = useTheme();
@@ -21,6 +21,8 @@ const RecipeCard = (): JSX.Element => {
   const { height } = useWindowDimensions();
   const [indexMobile, setIndexMobile] = useState(0);
   const [indexTab, setIndexTab] = useState(0);
+
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
 
   const handleChangeIndexMobile = (index: number) => {
     setIndexMobile(index);
@@ -59,7 +61,7 @@ const RecipeCard = (): JSX.Element => {
             <RecipeDescription
               index={0}
               onChangeIndexMobile={handleChangeIndexMobile}
-              data={dummyRecipes[0]}
+              data={chosenRecipe}
             />
           </Box>
           <Box
@@ -75,7 +77,7 @@ const RecipeCard = (): JSX.Element => {
               indexTab={indexTab}
               onChangeTab={handleChangeTab}
               onChangeIndexTab={handleChangeIndexTab}
-              data={dummyRecipes[0]}
+              data={chosenRecipe}
             />
           </Box>
         </Box>
@@ -98,7 +100,7 @@ const RecipeCard = (): JSX.Element => {
             <RecipeDescription
               index={0}
               onChangeIndexMobile={handleChangeIndexMobile}
-              data={dummyRecipes[0]}
+              data={chosenRecipe}
             />
           </Box>
           <Box
@@ -113,7 +115,7 @@ const RecipeCard = (): JSX.Element => {
             <RecipeDescription
               index={1}
               onChangeIndexMobile={handleChangeIndexMobile}
-              data={dummyRecipes[0]}
+              data={chosenRecipe}
             />
           </Box>
           <Box
@@ -152,7 +154,7 @@ const RecipeCard = (): JSX.Element => {
                 align={'center'}
                 paragraph
               >
-                {dummyRecipes[0].story}
+                {chosenRecipe.story}
               </Typography>
             </Box>
             <Tabs
@@ -180,7 +182,7 @@ const RecipeCard = (): JSX.Element => {
               indexTab={indexTab}
               onChangeTab={handleChangeTab}
               onChangeIndexTab={handleChangeIndexTab}
-              data={dummyRecipes[0]}
+              data={chosenRecipe}
             />
           </Box>
           <Box
