@@ -1,8 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
@@ -10,6 +12,7 @@ import usePagination from './Pagination';
 import { dummyRecipes } from './dummyRecipes';
 import { DataCard } from 'blocks/DataCard';
 import Fuse from 'fuse.js';
+import { setChosenRecipe } from 'redux/actions/recipeActions';
 
 export const PER_PAGE = 2;
 
@@ -21,6 +24,7 @@ interface Props {
 
 const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -77,6 +81,10 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
       }
     }
   }
+  const onClickRecipe = (chosenRecipe) => {
+    dispatch(setChosenRecipe(chosenRecipe));
+    console.log('aaaa');
+  };
 
   const result = finalResult();
 
@@ -132,7 +140,14 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       : item.item.description
                   }
                   isRecipe={true}
+                  onClickRecipe={() => onClickRecipe(dummyRecipes[i])}
                 />
+                <Button
+                  variant="outlined"
+                  onClick={() => onClickRecipe(dummyRecipes[i])}
+                >
+                  AAA
+                </Button>
               </Grid>
             ))}
         </Grid>

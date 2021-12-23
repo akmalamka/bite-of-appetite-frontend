@@ -21,6 +21,7 @@ interface Props {
   tags?: string[];
   description: string;
   isRecipe: boolean;
+  onClickRecipe?: (chosenRecipe: any) => void;
 }
 
 interface SeeRecipeProps {
@@ -29,16 +30,23 @@ interface SeeRecipeProps {
   image: boolean;
   src?: string;
   index: number;
+  onClick?: (chosenRecipe: any) => void;
 }
 
-function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
+function SeeRecipeButton({
+  title,
+  image,
+  src,
+  index,
+  onClick,
+}: SeeRecipeProps) {
   const { url } = useRouteMatch();
   const theme = useTheme();
   if (image) {
     return (
       <Link
         to={{
-          pathname: `${url}/${title.toLowerCase().replaceAll(' ', '-')}`,
+          pathname: `${url}${title.toLowerCase().replaceAll(' ', '-')}`,
           state: {
             index: index,
           },
@@ -54,6 +62,7 @@ function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
             maxHeight: 530,
             maxWidth: 705,
           }}
+          onClick={onClick}
         >
           <Box
             component={LazyLoadImage}
@@ -77,7 +86,7 @@ function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
     return (
       <Box component="div">
         <Link
-          to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+          to={`${url}${title.toLowerCase().replaceAll(' ', '-')}`}
           style={{ textDecoration: 'none' }}
         >
           <Button
@@ -93,6 +102,7 @@ function SeeRecipeButton({ title, image, src, index }: SeeRecipeProps) {
                 border: 2,
               },
             }}
+            onClick={onClick}
           >
             <Typography
               variant="button"
@@ -120,9 +130,9 @@ const DataCard = ({
   tags,
   description,
   isRecipe,
+  onClickRecipe,
 }: Props): JSX.Element => {
   const theme = useTheme();
-
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -237,7 +247,12 @@ const DataCard = ({
               },
             }}
           >
-            <SeeRecipeButton title={title} image={false} index={index} />
+            <SeeRecipeButton
+              title={title}
+              image={false}
+              index={index}
+              onClick={onClickRecipe}
+            />
           </Box>
         </Box>
       </CardContent>
