@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  IndexView,
   Home as HomeView,
   Customers as CustomersView,
   HireUs as HireUsView,
@@ -27,7 +26,6 @@ import {
   Logistics as LogisticsView,
   Ecommerce as EcommerceView,
   Pricing as PricingView,
-  About as AboutView,
   HelpCenter as HelpCenterView,
   HelpCenterArticle as HelpCenterArticleView,
   PortfolioPage as PortfolioPageView,
@@ -53,7 +51,7 @@ import {
   AccountSecurity as AccountSecurityView,
   NotFound as NotFoundView,
   NotFoundCover as NotFoundCoverView,
-  AboutBiteOfAppetite as AboutBiteOfAppetiteView,
+  About as AboutView,
   FoodForThought as FoodForThoughtView,
   Recipes as RecipesView,
   DetailRecipe as DetailRecipeView,
@@ -62,11 +60,11 @@ import {
 const routes = [
   {
     path: '/',
-    renderer: (params = {}): JSX.Element => <IndexView {...params} />,
+    renderer: (params = {}): JSX.Element => <HomeView {...params} />,
   },
   {
     path: '/home',
-    renderer: (params = {}): JSX.Element => <IndexView {...params} />,
+    renderer: (params = {}): JSX.Element => <HomeView {...params} />,
   },
   // {
   //   path: '/customers',
@@ -297,10 +295,8 @@ const routes = [
     renderer: (params = {}): JSX.Element => <FoodForThoughtView {...params} />,
   },
   {
-    path: '/about-bite-of-appetite',
-    renderer: (params = {}): JSX.Element => (
-      <AboutBiteOfAppetiteView {...params} />
-    ),
+    path: '/about',
+    renderer: (params = {}): JSX.Element => <AboutView {...params} />,
   },
 ];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-const VideoSection = (): JSX.Element => {
+const VideoCard = (): JSX.Element => {
   return (
     <Box
       sx={{
@@ -47,4 +47,4 @@ const VideoSection = (): JSX.Element => {
   );
 };
 
-export default VideoSection;
+export default VideoCard;

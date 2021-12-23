@@ -2,14 +2,14 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import { Hero } from './components';
+import ImageWithDescription from 'blocks/ImageWithDescription';
 import { RecipeCarousel } from 'blocks/productGrids';
 
-const IndexView = (): JSX.Element => {
+const Home = (): JSX.Element => {
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Main bgcolor={'background.paper'}>
-        <Hero />
+        <ImageWithDescription video={true} />
         <Container>
           <RecipeCarousel isHome={true} />
         </Container>
@@ -18,4 +18,4 @@ const IndexView = (): JSX.Element => {
   );
 };
 
-export default IndexView;
+export default Home;

@@ -86,7 +86,7 @@ const SearchFilterBar = ({
           }}
         >
           <Box
-            marginBottom={2}
+            marginBottom={isRecipeList ? 2 : 0}
             sx={{ display: 'flex', justifyContent: 'center' }}
           >
             <Typography

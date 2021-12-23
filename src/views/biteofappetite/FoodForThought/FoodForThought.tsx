@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { WritingList } from './components';
-import { SearchFilterBar } from '../Recipes/components';
+import SearchFilterBar from 'blocks/SearchFilterBar';
 
 const FoodForThought = (): JSX.Element => {
   return (

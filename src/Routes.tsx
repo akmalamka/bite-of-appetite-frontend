@@ -4,9 +4,9 @@ import viewsRoutes from 'views/routes';
 import docsRoutes from 'docs/routes';
 import blocksRoutes from 'blocks/routes';
 import {
-  IndexView,
+  Home as HomeView,
   NotFoundCover as NotFoundCoverView,
-  AboutBiteOfAppetite as AboutBiteOfAppetiteView,
+  About as AboutView,
   FoodForThought as FoodForThoughtView,
   Recipes as RecipesView,
   DetailRecipe as DetailRecipeView,
@@ -17,11 +17,11 @@ const Routes = (): JSX.Element => {
   const routes = [
     {
       path: '/',
-      renderer: (params = {}): JSX.Element => <IndexView {...params} />,
+      renderer: (params = {}): JSX.Element => <HomeView {...params} />,
     },
     {
       path: '/home',
-      renderer: (params = {}): JSX.Element => <IndexView {...params} />,
+      renderer: (params = {}): JSX.Element => <HomeView {...params} />,
     },
     {
       path: '/not-found-cover',
@@ -46,10 +46,8 @@ const Routes = (): JSX.Element => {
       ),
     },
     {
-      path: '/about-bite-of-appetite',
-      renderer: (params = {}): JSX.Element => (
-        <AboutBiteOfAppetiteView {...params} />
-      ),
+      path: '/about',
+      renderer: (params = {}): JSX.Element => <AboutView {...params} />,
     },
   ];
   return (
