@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -9,17 +9,7 @@ interface Props {
   colorInvert?: boolean;
 }
 
-const NavItem = ({
-  title,
-  id,
-  items,
-  colorInvert = false,
-}: Props): JSX.Element => {
-  const [activeLink, setActiveLink] = useState('');
-  useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
-  }, []);
-
+const NavItem = ({ id, items, colorInvert = false }: Props): JSX.Element => {
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
   return (

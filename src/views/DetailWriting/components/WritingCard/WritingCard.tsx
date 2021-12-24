@@ -6,7 +6,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { dummyWritings } from './dummyWritings';
 
 const WritingCard = (): JSX.Element => {
   const theme = useTheme();
