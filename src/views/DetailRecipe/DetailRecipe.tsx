@@ -15,7 +15,7 @@ const DetailRecipe = (): JSX.Element => {
   });
 
   return (
-    <Main colorInvert={true}>
+    <Main colorInvert={false}>
       <Box>
         <Container>
           <RecipeCard />
