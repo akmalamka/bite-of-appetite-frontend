@@ -9,10 +9,13 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: 'Poppins, sans-serif',
         button: {
           textTransform: 'none',
           fontWeight: 'medium' as React.CSSProperties['fontWeight'],
+        },
+        h6: {
+          fontWeight: 600,
         },
       },
       zIndex: {

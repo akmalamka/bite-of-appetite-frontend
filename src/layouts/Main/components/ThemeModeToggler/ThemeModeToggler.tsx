@@ -16,14 +16,14 @@ const ThemeModeToggler = (): JSX.Element => {
       sx={{
         borderRadius: 2,
         minWidth: 'auto',
-        padding: 0.5,
+        padding: 1,
         borderColor: alpha(theme.palette.divider, 0.2),
       }}
     >
       {mode === 'light' ? (
         <svg
-          width={20}
-          height={20}
+          width={24}
+          height={24}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -38,8 +38,8 @@ const ThemeModeToggler = (): JSX.Element => {
         </svg>
       ) : (
         <svg
-          width={20}
-          height={20}
+          width={24}
+          height={24}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

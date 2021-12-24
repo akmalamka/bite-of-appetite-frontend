@@ -1,99 +1,91 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-
-import NavItem from './components/NavItem';
+import { ReactComponent as PageTitle } from '../../../Topbar/components/Icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from '../../../Topbar/components/Icons/page-title-white.svg';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconList } from '../../../Topbar/components';
 
 interface Props {
   pages: {
-    landings: Array<PageItem>;
-    company: Array<PageItem>;
-    account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    recipes: Array<PageItem>;
+    foodforthought: Array<PageItem>;
+    about: Array<PageItem>;
   };
+  onClose: () => void;
 }
 
-const SidebarNav = ({ pages }: Props): JSX.Element => {
+const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-
   const {
-    landings: landingPages,
-    secondary: secondaryPages,
-    company: companyPages,
-    account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
+    recipes: recipePages,
+    foodforthought: foodForThoughtPages,
+    about: aboutPages,
   } = pages;
-
+  const pagesArray = [recipePages, foodForThoughtPages, aboutPages];
   return (
     <Box>
-      <Box width={1} paddingX={2} paddingY={1}>
+      <Box
+        paddingX={2}
+        paddingY={1}
+        display={'flex'}
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Box
           display={'flex'}
           component="a"
           href="/"
-          title="theFront"
-          width={{ xs: 100, md: 120 }}
+          paddingX={2}
+          paddingY={1}
+          title="Bite of Appetite"
+          sx={{
+            justifyContent: 'center',
+          }}
         >
-          <Box
-            component={'img'}
-            src={
-              mode === 'light'
-                ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-            }
-            height={1}
-            width={1}
-          />
+          {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
+        </Box>
+        <Box>
+          <CloseIcon fontSize="large" onClick={() => onClose()} />
         </Box>
       </Box>
       <Box paddingX={2} paddingY={2}>
-        <Box>
-          <NavItem title={'Landings'} items={landingPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Company'} items={companyPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Pages'} items={secondaryPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Account'} items={accountPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Blog'} items={blogPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Portfolio'} items={portfolioPages} />
-        </Box>
-        <Box marginTop={2}>
-          <Button
-            size={'large'}
-            variant="outlined"
-            fullWidth
-            component="a"
-            href="/docs/introduction"
+        {pagesArray.map((p, index) => (
+          <Box
+            key={index}
+            sx={{
+              '&:hover': {
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}
           >
-            Documentation
-          </Button>
-        </Box>
-        <Box marginTop={1}>
-          <Button
-            size={'large'}
-            variant="contained"
-            color="primary"
-            fullWidth
-            component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
-          >
-            Purchase now
-          </Button>
-        </Box>
+            <Button
+              component={'a'}
+              href={p[0].href}
+              fullWidth
+              sx={{
+                justifyContent: 'center',
+                color:
+                  mode === 'light'
+                    ? theme.palette.common.white
+                    : theme.palette.text.primary,
+              }}
+            >
+              <Typography
+                color={mode === 'light' ? 'text.primary' : 'common.white'}
+              >
+                {p[0].title}
+              </Typography>
+            </Button>
+          </Box>
+        ))}
+        <IconList />
       </Box>
     </Box>
   );

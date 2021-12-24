@@ -9,26 +9,23 @@ interface Props {
   open: boolean;
   variant: 'permanent' | 'persistent' | 'temporary' | undefined;
   pages: {
-    landings: Array<PageItem>;
-    company: Array<PageItem>;
-    account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    recipes: Array<PageItem>;
+    foodforthought: Array<PageItem>;
+    about: Array<PageItem>;
   };
 }
 
 const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
   return (
     <Drawer
-      anchor="left"
+      anchor="top"
       onClose={() => onClose()}
       open={open}
       variant={variant}
       sx={{
         '& .MuiPaper-root': {
           width: '100%',
-          maxWidth: 280,
+          height: '100%',
         },
       }}
     >
@@ -38,7 +35,7 @@ const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
           padding: 1,
         }}
       >
-        <SidebarNav pages={pages} />
+        <SidebarNav pages={pages} onClose={() => onClose()} />
       </Box>
     </Drawer>
   );
