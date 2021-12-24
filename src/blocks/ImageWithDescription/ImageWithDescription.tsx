@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
-import VideoCard from 'blocks/VideoCard';
+import VideoCard from '../VideoCard/VideoCard';
 
 import Container from 'components/Container';
 

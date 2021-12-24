@@ -10,8 +10,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-import { PER_PAGE } from 'views/biteofappetite/Recipes/components/RecipeList/RecipeList';
-
+import { PER_PAGE } from 'utils/constants';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
