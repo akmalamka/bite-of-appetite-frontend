@@ -7,7 +7,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { Form } from './components';
 
-const SigninCover = (): JSX.Element => {
+const SignIn = (): JSX.Element => {
   const theme = useTheme();
   return (
     <Main>
@@ -90,7 +90,7 @@ const SigninCover = (): JSX.Element => {
                         component={LazyLoadImage}
                         effect="blur"
                         src={
-                          'https://assets.maccarianagency.com/backgrounds/img18.jpg'
+                          'https://assets.bonappetit.com/photos/61a8f4111d05f215bce1ba02/1:1/w_2240,c_limit/20211119%20Tropical%20Babas%20LEDE.jpg'
                         }
                         height={{ xs: 'auto', md: 1 }}
                         maxHeight={{ xs: 300, md: 1 }}
@@ -115,4 +115,4 @@ const SigninCover = (): JSX.Element => {
   );
 };
 
-export default SigninCover;
+export default SignIn;

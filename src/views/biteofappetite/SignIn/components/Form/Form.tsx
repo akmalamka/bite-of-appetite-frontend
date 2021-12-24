@@ -50,7 +50,7 @@ const Form = (): JSX.Element => {
         >
           Login
         </Typography>
-        <Typography
+        {/* <Typography
           variant="h4"
           sx={{
             fontWeight: 700,
@@ -60,7 +60,7 @@ const Form = (): JSX.Element => {
         </Typography>
         <Typography color="text.secondary">
           Login to manage your account.
-        </Typography>
+        </Typography> */}
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
@@ -93,7 +93,7 @@ const Form = (): JSX.Element => {
                   Enter your password
                 </Typography>
               </Box>
-              <Typography variant={'subtitle2'}>
+              {/* <Typography variant={'subtitle2'}>
                 <Link
                   component={'a'}
                   color={'primary'}
@@ -102,7 +102,7 @@ const Form = (): JSX.Element => {
                 >
                   Forgot your password?
                 </Link>
-              </Typography>
+              </Typography> */}
             </Box>
             <TextField
               label="Password *"
@@ -126,7 +126,7 @@ const Form = (): JSX.Element => {
               maxWidth={600}
               margin={'0 auto'}
             >
-              <Box marginBottom={{ xs: 1, sm: 0 }}>
+              {/* <Box marginBottom={{ xs: 1, sm: 0 }}>
                 <Typography variant={'subtitle2'}>
                   Don't have an account yet?{' '}
                   <Link
@@ -138,7 +138,7 @@ const Form = (): JSX.Element => {
                     Sign up here.
                   </Link>
                 </Typography>
-              </Box>
+              </Box> */}
               <Button size={'large'} variant={'contained'} type={'submit'}>
                 Login
               </Button>

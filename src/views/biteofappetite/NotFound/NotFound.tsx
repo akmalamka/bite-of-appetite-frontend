@@ -10,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-const NotFoundCover = (): JSX.Element => {
+const NotFound = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -54,11 +54,11 @@ const NotFoundCover = (): JSX.Element => {
                     align={isMd ? 'left' : 'center'}
                   >
                     Oops! Looks like you followed a bad link.
-                    <br />
+                    {/* <br />
                     If you think this is a problem with us, please{' '}
                     <Link href={''} underline="none">
                       tell us
-                    </Link>
+                    </Link> */}
                   </Typography>
                   <Box
                     marginTop={4}
@@ -67,12 +67,31 @@ const NotFoundCover = (): JSX.Element => {
                   >
                     <Button
                       component={Link}
-                      variant="contained"
+                      variant="outlined"
                       color="primary"
-                      size="large"
+                      sx={{
+                        borderRadius: 10,
+                        border: 2,
+                        borderColor: 'primary.main',
+                        my: 2,
+                        px: 2,
+                        '&:hover': {
+                          border: 2,
+                        },
+                      }}
                       href={'/'}
                     >
-                      Back home
+                      <Typography
+                        variant="button"
+                        color="text.primary"
+                        sx={{
+                          textTransform: 'uppercase',
+                          letterSpacing: 1.2,
+                          fontWeight: 400,
+                        }}
+                      >
+                        Back Home
+                      </Typography>
                     </Button>
                   </Box>
                 </Box>
@@ -134,7 +153,7 @@ const NotFoundCover = (): JSX.Element => {
                         component={LazyLoadImage}
                         effect="blur"
                         src={
-                          'https://assets.maccarianagency.com/backgrounds/img23.jpg'
+                          'https://assets.bonappetit.com/photos/6192e2a9cac90dfe15673f38/1:1/w_2240,c_limit/Prime-Rib-Roast.jpg'
                         }
                         height={{ xs: 'auto', md: 1 }}
                         maxHeight={{ xs: 300, md: 1 }}
@@ -159,4 +178,4 @@ const NotFoundCover = (): JSX.Element => {
   );
 };
 
-export default NotFoundCover;
+export default NotFound;

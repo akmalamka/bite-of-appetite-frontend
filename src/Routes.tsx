@@ -5,12 +5,13 @@ import docsRoutes from 'docs/routes';
 import blocksRoutes from 'blocks/routes';
 import {
   Home as HomeView,
-  NotFoundCover as NotFoundCoverView,
   About as AboutView,
   FoodForThought as FoodForThoughtView,
   Recipes as RecipesView,
   DetailRecipe as DetailRecipeView,
   DetailWriting as DetailWritingView,
+  SignIn as SignInView,
+  NotFound as NotFoundView,
 } from 'views';
 
 const Routes = (): JSX.Element => {
@@ -22,10 +23,6 @@ const Routes = (): JSX.Element => {
     {
       path: '/home',
       renderer: (params = {}): JSX.Element => <HomeView {...params} />,
-    },
-    {
-      path: '/not-found-cover',
-      renderer: (params = {}): JSX.Element => <NotFoundCoverView {...params} />,
     },
     {
       path: '/recipes',
@@ -49,6 +46,14 @@ const Routes = (): JSX.Element => {
       path: '/about',
       renderer: (params = {}): JSX.Element => <AboutView {...params} />,
     },
+    {
+      path: '/sign-in',
+      renderer: (params = {}): JSX.Element => <SignInView {...params} />,
+    },
+    {
+      path: '/not-found',
+      renderer: (params = {}): JSX.Element => <NotFoundView {...params} />,
+    },
   ];
   return (
     <Switch>
@@ -61,7 +66,7 @@ const Routes = (): JSX.Element => {
       {blocksRoutes.map((item, i) => (
         <Route key={i} exact path={item.path} render={() => item.renderer()} />
       ))} */}
-      <Redirect to={'/not-found-cover'} />
+      <Redirect to={'/not-found'} />
     </Switch>
   );
 };
