@@ -236,16 +236,67 @@ const DetailTabs = ({
                 {data.ingredients.map((item, i) => (
                   <div key={i}>
                     {data.isIngredientsWithComponent && (
-                      <Typography
-                        variant={'h6'}
-                        color="text.primary"
-                        sx={{ m: 1 }}
-                      >
-                        {item.component}
-                      </Typography>
+                      <div key={i}>
+                        <Typography
+                          variant={'h6'}
+                          color="text.primary"
+                          sx={{ m: 1 }}
+                        >
+                          {item.component}
+                        </Typography>
+                        {item.ingredients.map((item, j) => (
+                          <div key={j}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                m: 1,
+                              }}
+                            >
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={600}
+                                  align={'center'}
+                                  sx={{ pr: 1 }}
+                                >
+                                  {item.name}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  flexGrow: 1,
+                                  transform: 'rotate(180deg)',
+                                  pt: 1,
+                                }}
+                              >
+                                <Divider
+                                  sx={{
+                                    border: '0.1px dashed',
+                                  }}
+                                  flexItem
+                                />
+                              </Box>
+                              <Box>
+                                <Typography
+                                  variant={'subtitle1'}
+                                  color="text.primary"
+                                  fontWeight={500}
+                                  align={'center'}
+                                  sx={{ pl: 1 }}
+                                >
+                                  {(item.measurement * portion) / SERVE}{' '}
+                                  {item.unit}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </div>
+                        ))}
+                      </div>
                     )}
-                    {item.ingredients.map((item, j) => (
-                      <div key={j}>
+                    {!data.isIngredientsWithComponent && (
+                      <div key={i}>
                         <Box
                           sx={{
                             display: 'flex',
@@ -291,7 +342,7 @@ const DetailTabs = ({
                           </Box>
                         </Box>
                       </div>
-                    ))}
+                    )}
                   </div>
                 ))}
               </Box>
