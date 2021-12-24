@@ -1,9 +1,10 @@
 {
-  "name": "thefront-ts--react-scripts",
-  "author": "maccarian",
-  "email": "hi@maccarianagency.com",
+  "name": "bite-of-appetite",
+  "author": "muhammad-akmal",
+  "email": "akmalmuhammad51@gmail.com",
   "version": "4.4.0",
   "private": true,
+  "homepage": "https://biteofappetite.netlify.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
