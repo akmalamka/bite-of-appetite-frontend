@@ -82,7 +82,6 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   }
   const onClickRecipe = (index) => {
     dispatch(setChosenRecipe(dummyRecipes[index]));
-    console.log('aaa');
   };
 
   const result = finalResult();
@@ -141,12 +140,6 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                   page={page}
                   onClickRecipe={onClickRecipe}
                 />
-                {/* <Button
-                  variant="outlined"
-                  onClick={() => onClickRecipe(dummyRecipes[i])}
-                >
-                  AAA
-                </Button> */}
               </Grid>
             ))}
         </Grid>

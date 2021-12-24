@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -9,9 +10,11 @@ import usePagination from './Pagination';
 import { dummyWritings } from './dummyWritings';
 import { DataCard } from 'blocks/DataCard';
 import { dummyRecipes } from 'views/biteofappetite/Recipes/components/RecipeList/dummyRecipes';
+import { setChosenWriting } from 'redux/actions/writingActions';
 
 const WritingList = (): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -28,6 +31,10 @@ const WritingList = (): JSX.Element => {
     _DATA.jump(p);
   };
 
+  const onClickWriting = (index) => {
+    dispatch(setChosenWriting(dummyWritings[index]));
+  };
+
   return (
     <Box>
       <Grid container spacing={4}>
@@ -42,6 +49,7 @@ const WritingList = (): JSX.Element => {
                 description={item.description}
                 isRecipe={false}
                 page={page}
+                onClickWriting={onClickWriting}
               />
             </Grid>
           ))}

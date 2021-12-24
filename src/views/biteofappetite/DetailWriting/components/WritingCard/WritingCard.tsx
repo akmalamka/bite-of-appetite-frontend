@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -14,6 +15,10 @@ const WritingCard = (): JSX.Element => {
     defaultMatches: true,
   });
 
+  const chosenWriting = useSelector(
+    (state: any) => state.writing.chosenWriting,
+  );
+
   return (
     <Box>
       <Box marginBottom={2} sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -24,7 +29,7 @@ const WritingCard = (): JSX.Element => {
             color: 'text.primary',
           }}
         >
-          {dummyWritings[0].title}
+          {chosenWriting.title}
         </Typography>
       </Box>
       <Box
@@ -39,7 +44,7 @@ const WritingCard = (): JSX.Element => {
           component={LazyLoadImage}
           height={1}
           width={1}
-          src={dummyWritings[0].image}
+          src={chosenWriting.image}
           alt="..."
           effect="blur"
           sx={{
@@ -68,7 +73,7 @@ const WritingCard = (): JSX.Element => {
           align={'center'}
           sx={{ width: 1 / 2 }}
         >
-          {dummyWritings[0].description}
+          {chosenWriting.description}
         </Typography>
         <Typography
           variant="overline"
@@ -82,7 +87,7 @@ const WritingCard = (): JSX.Element => {
             width: isMd ? 1 / 2 : 1,
           }}
         >
-          By {dummyWritings[0].writingsBy}
+          By {chosenWriting.writingsBy}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -91,7 +96,7 @@ const WritingCard = (): JSX.Element => {
             letterSpacing: 0.4,
           }}
         >
-          {dummyWritings[0].date}
+          {chosenWriting.date}
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', width: 1, justifyContent: 'center' }}>
@@ -103,7 +108,7 @@ const WritingCard = (): JSX.Element => {
           paragraph
           sx={{ width: 1 / 2 }}
         >
-          {dummyWritings[0].story}
+          {chosenWriting.story}
         </Typography>
       </Box>
       <Box
@@ -122,7 +127,7 @@ const WritingCard = (): JSX.Element => {
           paragraph
           sx={{ width: 1 / 2, m: 4 }}
         >
-          {dummyWritings[0].story}
+          {chosenWriting.story}
         </Typography>
         <Typography
           variant={'subtitle1'}
@@ -132,7 +137,7 @@ const WritingCard = (): JSX.Element => {
           paragraph
           sx={{ width: 1 / 2, m: 4 }}
         >
-          {dummyWritings[0].story}
+          {chosenWriting.story}
         </Typography>
       </Box>
     </Box>

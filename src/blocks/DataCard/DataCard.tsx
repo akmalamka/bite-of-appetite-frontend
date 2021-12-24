@@ -22,6 +22,7 @@ interface Props {
   isRecipe: boolean;
   page: number;
   onClickRecipe?: (index: number) => void;
+  onClickWriting?: (index: number) => void;
 }
 
 const DataCard = ({
@@ -33,6 +34,7 @@ const DataCard = ({
   isRecipe,
   page,
   onClickRecipe,
+  onClickWriting,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -77,7 +79,11 @@ const DataCard = ({
               maxHeight: 530,
               maxWidth: 705,
             }}
-            onClick={() => onClickRecipe(index + (page - 1) * PER_PAGE)}
+            onClick={() => {
+              isRecipe
+                ? onClickRecipe(index + (page - 1) * PER_PAGE)
+                : onClickWriting(index + (page - 1) * PER_PAGE);
+            }}
           >
             <Box
               component={LazyLoadImage}
@@ -196,7 +202,11 @@ const DataCard = ({
                     border: 2,
                   },
                 }}
-                onClick={() => onClickRecipe(index + (page - 1) * PER_PAGE)}
+                onClick={() => {
+                  isRecipe
+                    ? onClickRecipe(index + (page - 1) * PER_PAGE)
+                    : onClickWriting(index + (page - 1) * PER_PAGE);
+                }}
               >
                 <Typography
                   variant="button"
@@ -207,7 +217,7 @@ const DataCard = ({
                     fontWeight: 400,
                   }}
                 >
-                  See Recipe
+                  {isRecipe ? 'See Recipe' : 'Read More'}
                 </Typography>
               </Button>
             </Link>
