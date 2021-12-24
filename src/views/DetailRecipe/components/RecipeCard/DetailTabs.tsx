@@ -132,6 +132,7 @@ const DetailTabs = ({
   const [portion, setPortion] = useState(SERVE);
   const [activeStep, setActiveStep] = useState(0);
   const containerRef = useRef(null);
+  console.log('data ', data);
 
   const handleChangePortion = (add) => {
     if (add) {
