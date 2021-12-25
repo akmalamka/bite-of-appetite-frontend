@@ -82,7 +82,7 @@ const Footer = (): JSX.Element => {
               <Link
                 underline="none"
                 component="a"
-                href="/about-bite-of-appetite"
+                href="/about"
                 color="text.primary"
                 variant={'subtitle2'}
               >
