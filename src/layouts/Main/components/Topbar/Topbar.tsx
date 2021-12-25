@@ -13,6 +13,7 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   onSidebarOpen: () => void;
   pages: {
+    home: Array<PageItem>;
     recipes: Array<PageItem>;
     foodforthought: Array<PageItem>;
     about: Array<PageItem>;
@@ -28,11 +29,12 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
+    home: homePages,
     recipes: recipePages,
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
-  const pagesArray = [recipePages, foodForThoughtPages, aboutPages];
+  const pagesArray = [homePages, recipePages, foodForThoughtPages, aboutPages];
   return (
     <Box
       display={'flex'}
@@ -83,7 +85,7 @@ const Topbar = ({
         <Box>
           <ThemeModeToggler />
         </Box>
-        <IconList />
+        {/* <IconList /> */}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Box>

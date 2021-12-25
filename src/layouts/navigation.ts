@@ -1,4 +1,10 @@
 const pages = {
+  home: [
+    {
+      title: 'Home',
+      href: '/',
+    },
+  ],
   recipes: [
     {
       title: 'Recipes',

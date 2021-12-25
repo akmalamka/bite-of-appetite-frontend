@@ -10,6 +10,7 @@ import { IconList } from '../../../Topbar/components';
 
 interface Props {
   pages: {
+    home: Array<PageItem>;
     recipes: Array<PageItem>;
     foodforthought: Array<PageItem>;
     about: Array<PageItem>;
@@ -21,13 +22,14 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
+    home: homePages,
     recipes: recipePages,
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
-  const pagesArray = [recipePages, foodForThoughtPages, aboutPages];
+  const pagesArray = [homePages, recipePages, foodForThoughtPages, aboutPages];
   return (
-    <Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
       <Box
         paddingX={2}
         paddingY={1}
@@ -36,6 +38,7 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
+          height: 1 / 8,
         }}
       >
         <Box
@@ -55,7 +58,16 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           <CloseIcon fontSize="large" onClick={() => onClose()} />
         </Box>
       </Box>
-      <Box paddingX={2} paddingY={2}>
+      <Box
+        paddingX={2}
+        paddingY={2}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: 7 / 8,
+          justifyContent: 'space-between',
+        }}
+      >
         {pagesArray.map((p, index) => (
           <Box
             key={index}
@@ -79,13 +91,14 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
             >
               <Typography
                 color={mode === 'light' ? 'text.primary' : 'common.white'}
+                variant="h4"
               >
                 {p[0].title}
               </Typography>
             </Button>
           </Box>
         ))}
-        <IconList />
+        <IconList isHamburgerOpen={true} />
       </Box>
     </Box>
   );

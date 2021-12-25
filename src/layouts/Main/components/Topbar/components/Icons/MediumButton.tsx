@@ -4,9 +4,13 @@ import { useTheme } from '@mui/material/styles';
 
 interface Props {
   colorInvert?: boolean;
+  isHamburgerOpen: boolean;
 }
 
-const MediumButton = ({ colorInvert = false }: Props): JSX.Element => {
+const MediumButton = ({
+  colorInvert = false,
+  isHamburgerOpen,
+}: Props): JSX.Element => {
   const theme = useTheme();
 
   return (
@@ -22,8 +26,8 @@ const MediumButton = ({ colorInvert = false }: Props): JSX.Element => {
       }}
     >
       <svg
-        width={24}
-        height={24}
+        width={isHamburgerOpen ? 40 : 24}
+        height={isHamburgerOpen ? 40 : 24}
         xmlns="http://www.w3.org/2000/svg"
         fill={
           colorInvert ? theme.palette.common.white : theme.palette.text.primary

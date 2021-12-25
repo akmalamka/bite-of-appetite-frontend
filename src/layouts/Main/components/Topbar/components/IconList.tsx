@@ -7,7 +7,11 @@ import {
   SpotifyButton,
 } from './index';
 
-const IconList = (): JSX.Element => {
+interface Props {
+  isHamburgerOpen?: boolean;
+}
+
+const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
   return (
     <Box m={2} flexDirection="row" display="flex" justifyContent="space-evenly">
       <Box
@@ -19,7 +23,10 @@ const IconList = (): JSX.Element => {
           },
         }}
       >
-        <InstagramButton colorInvert={false} />
+        <InstagramButton
+          colorInvert={false}
+          isHamburgerOpen={isHamburgerOpen}
+        />
       </Box>
       <Box
         marginLeft={1}
@@ -30,7 +37,7 @@ const IconList = (): JSX.Element => {
           },
         }}
       >
-        <MediumButton colorInvert={false} />
+        <MediumButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
       </Box>
       <Box
         marginLeft={1}
@@ -41,7 +48,10 @@ const IconList = (): JSX.Element => {
           },
         }}
       >
-        <SoundcloudButton colorInvert={false} />
+        <SoundcloudButton
+          colorInvert={false}
+          isHamburgerOpen={isHamburgerOpen}
+        />
       </Box>
       <Box
         marginLeft={1}
@@ -52,7 +62,7 @@ const IconList = (): JSX.Element => {
           },
         }}
       >
-        <SpotifyButton colorInvert={false} />
+        <SpotifyButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
       </Box>
     </Box>
   );

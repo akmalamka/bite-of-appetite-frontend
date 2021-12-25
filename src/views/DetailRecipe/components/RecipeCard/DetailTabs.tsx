@@ -677,12 +677,12 @@ const DetailTabs = ({
                     size={isMd ? 'medium' : 'small'}
                     sx={{
                       border: i == activeStep ? '1px solid' : 'none',
-                      // '&::hover': {
-                      //   bgcolor:
-                      //     mode == 'light'
-                      //       ? theme.palette.common.white
-                      //       : theme.palette.primary.dark,
-                      // },
+                      '&:hover': {
+                        bgcolor:
+                          mode == 'light'
+                            ? theme.palette.common.white
+                            : theme.palette.primary.dark,
+                      },
                       bgcolor:
                         mode == 'light'
                           ? theme.palette.common.white
