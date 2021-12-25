@@ -77,8 +77,9 @@ const RecipeDescription = ({
               }}
               align="center"
             >
-              Food Photography by {data.foodPhotographyBy} and Food Styling by{' '}
-              {data.foodStylingBy}
+              {data.foodPhotographyBy === data.foodStylingBy
+                ? `Food Photography and Food Styling by ${data.foodPhotographyBy}`
+                : `Food Photography by ${data.foodPhotographyBy} and Food Styling by ${data.foodStylingBy}`}
             </Typography>
           </Box>
         </Box>
