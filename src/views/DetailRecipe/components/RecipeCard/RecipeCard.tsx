@@ -151,10 +151,11 @@ const RecipeCard = (): JSX.Element => {
                 variant={'subtitle1'}
                 color="text.secondary"
                 fontWeight={500}
-                align={'center'}
+                align={'justify'}
                 paragraph
               >
                 {chosenRecipe.story}
+                {/* kyknya harus dibatesin jumlahnya */}
               </Typography>
             </Box>
             <Tabs

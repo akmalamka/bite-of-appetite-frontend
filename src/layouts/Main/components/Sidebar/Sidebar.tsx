@@ -9,6 +9,7 @@ interface Props {
   open: boolean;
   variant: 'permanent' | 'persistent' | 'temporary' | undefined;
   pages: {
+    home: Array<PageItem>;
     recipes: Array<PageItem>;
     foodforthought: Array<PageItem>;
     about: Array<PageItem>;

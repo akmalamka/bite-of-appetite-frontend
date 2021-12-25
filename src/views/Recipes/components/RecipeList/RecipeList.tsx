@@ -115,7 +115,11 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
             .map((item, i) => (
               <Grid key={i} item xs={12}>
                 <DataCard
-                  index={i}
+                  index={
+                    keyword === '' && chipData.length == 0
+                      ? item.index
+                      : item.item.index
+                  }
                   title={
                     keyword === '' && chipData.length == 0
                       ? item.title

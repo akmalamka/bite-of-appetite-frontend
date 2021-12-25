@@ -110,7 +110,7 @@ const WritingCard = (): JSX.Element => {
           {chosenWriting.story}
         </Typography>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           width: 1,
@@ -138,7 +138,7 @@ const WritingCard = (): JSX.Element => {
         >
           {chosenWriting.story}
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

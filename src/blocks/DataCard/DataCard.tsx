@@ -80,7 +80,7 @@ const DataCard = ({
             }}
             onClick={() => {
               isRecipe
-                ? onClickRecipe(index + (page - 1) * PER_PAGE)
+                ? onClickRecipe(index)
                 : onClickWriting(index + (page - 1) * PER_PAGE);
             }}
           >

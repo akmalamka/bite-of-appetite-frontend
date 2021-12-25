@@ -7,6 +7,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ReactComponent as PageTitle } from '../Topbar/components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from '../Topbar/components/Icons/page-title-white.svg';
+import { IconList } from '../Topbar/components';
+
 const Footer = (): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -31,6 +33,7 @@ const Footer = (): JSX.Element => {
             title="Bite of Appetite"
             width={0.3}
             justifyContent={{ xs: 'center', sm: 'flex-start' }}
+            // alignContent="flex-start"
             marginBottom={{ xs: 2, sm: 0 }}
           >
             {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
@@ -38,9 +41,9 @@ const Footer = (): JSX.Element => {
           <Box
             display="flex"
             flexWrap={'wrap'}
-            alignItems={'center'}
-            flexDirection={isSm ? 'row' : 'column'}
-            rowGap={1}
+            alignItems={isSm ? 'flex-start' : 'center'}
+            flexDirection={'column'}
+            rowGap={2}
           >
             <Box marginRight={isSm ? 4 : 0}>
               <Link
@@ -79,7 +82,7 @@ const Footer = (): JSX.Element => {
               <Link
                 underline="none"
                 component="a"
-                href="/about-bite-of-appetite"
+                href="/about"
                 color="text.primary"
                 variant={'subtitle2'}
               >
@@ -87,6 +90,7 @@ const Footer = (): JSX.Element => {
               </Link>
             </Box>
           </Box>
+          <IconList />
         </Box>
       </Grid>
       <Grid item xs={12}>

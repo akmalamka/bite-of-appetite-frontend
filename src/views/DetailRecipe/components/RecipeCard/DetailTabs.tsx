@@ -219,7 +219,9 @@ const DetailTabs = ({
                 >
                   <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
                 </IconButton>
-                <Typography sx={{ marginX: 1 }}>Serves {portion}</Typography>
+                <Typography sx={{ marginX: 1, width: 1 / 3 }} align="center">
+                  Serves {portion}
+                </Typography>
                 <IconButton onClick={() => handleChangePortion(true)}>
                   <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
                 </IconButton>
@@ -677,12 +679,12 @@ const DetailTabs = ({
                     size={isMd ? 'medium' : 'small'}
                     sx={{
                       border: i == activeStep ? '1px solid' : 'none',
-                      // '&::hover': {
-                      //   bgcolor:
-                      //     mode == 'light'
-                      //       ? theme.palette.common.white
-                      //       : theme.palette.primary.dark,
-                      // },
+                      '&:hover': {
+                        bgcolor:
+                          mode == 'light'
+                            ? theme.palette.common.white
+                            : theme.palette.primary.dark,
+                      },
                       bgcolor:
                         mode == 'light'
                           ? theme.palette.common.white

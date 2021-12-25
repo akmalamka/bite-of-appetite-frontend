@@ -1,5 +1,6 @@
 export const dummyRecipes = [
   {
+    index: 0,
     image:
       'https://assets.bonappetit.com/photos/5cabd1070916ec42af559902/1:1/w_2240,c_limit/white-pesto-pasta-1.jpg',
     description:
@@ -109,6 +110,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 1,
     image:
       'https://assets.bonappetit.com/photos/61aa54511beaef6a9ff6d6b4/1:1/w_2240,c_limit/20211123%20Jalebi%20LEDE.jpg',
     description:
@@ -233,6 +235,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 2,
     image:
       'https://assets.bonappetit.com/photos/57ace5141b334044149752d7/1:1/w_2240,c_limit/pavlovas-with-fresh-berries.jpg',
     description:
@@ -347,6 +350,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 3,
     image:
       'https://assets.bonappetit.com/photos/57ad371b53e63daf11a4dcfc/1:1/w_2240,c_limit/banana-bread-1-of-1.jpg',
     description:
@@ -466,6 +470,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 4,
     image:
       'https://assets.bonappetit.com/photos/5df7e3a774d917000929589d/1:1/w_2240,c_limit/FGFP-Turmeric-Salmon-Coconut-Crisp%2016x9.jpg',
     description:
@@ -610,6 +615,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 5,
     image:
       'https://assets.bonappetit.com/photos/5de7e495b79e20000879d72a/1:1/w_2240,c_limit/Amiel-Lobster-Pasta-Lede-1.jpg',
     description:
@@ -724,6 +730,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 6,
     image:
       'https://assets.bonappetit.com/photos/57add77f53e63daf11a4de9f/1:1/w_2240,c_limit/chewy-molasses-cookies.jpg',
     description:
@@ -848,6 +855,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 7,
     image:
       'https://assets.bonappetit.com/photos/57adf6d053e63daf11a4e015/1:1/w_2240,c_limit/chicken-khao-soi1.jpg',
     description:
@@ -957,6 +965,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 8,
     image:
       'https://assets.bonappetit.com/photos/6169b04e2f34dd3430e96df8/1:1/w_2240,c_limit/Shrimp-and-Salami-Pasta.jpeg',
     description:
@@ -1100,6 +1109,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 9,
     image:
       'https://assets.bonappetit.com/photos/5e6bb3bd97812f0008bb8bf5/1:1/w_2240,c_limit/0420-Pasta-Rigatoni-With-Fennel-Anchovies.jpg',
     description:
@@ -1214,6 +1224,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 10,
     image:
       'https://assets.bonappetit.com/photos/6192c7803c7174017f361933/1:1/w_2240,c_limit/Maple-kettle-corn%0D.jpg',
     description:
@@ -1323,6 +1334,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 11,
     image:
       'https://assets.bonappetit.com/photos/610983ac7ab03bb297b2f500/1:1/w_2240,c_limit/0921-Weeknight%20Ragu%CC%80.jpg',
     description:
@@ -1466,6 +1478,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 12,
     image:
       'https://assets.bonappetit.com/photos/6192c5018a5569968cdfac88/1:1/w_2240,c_limit/Crispy-olives-chile-sauce%0D.jpg',
     description:
@@ -1590,6 +1603,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 13,
     image:
       'https://assets.bonappetit.com/photos/613b59be6b6b69f9c769c523/1:1/w_2240,c_limit/Seasonal%20Pasta%20Lantern%20Inn.jpg',
     description:
@@ -1704,6 +1718,7 @@ export const dummyRecipes = [
     ],
   },
   {
+    index: 14,
     image:
       'https://assets.bonappetit.com/photos/6192c54bb3c163c8b55ebf59/1:1/w_2240,c_limit/Curried-egg-tartines%0D.jpg',
     description:
