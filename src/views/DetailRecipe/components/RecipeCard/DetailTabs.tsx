@@ -219,7 +219,9 @@ const DetailTabs = ({
                 >
                   <RemoveIcon sx={{ borderRadius: 2, border: '1px solid' }} />
                 </IconButton>
-                <Typography sx={{ marginX: 1 }}>Serves {portion}</Typography>
+                <Typography sx={{ marginX: 1, width: 1 / 3 }} align="center">
+                  Serves {portion}
+                </Typography>
                 <IconButton onClick={() => handleChangePortion(true)}>
                   <AddIcon sx={{ borderRadius: 2, border: '1px solid' }} />
                 </IconButton>

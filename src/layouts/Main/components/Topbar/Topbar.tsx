@@ -7,7 +7,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
 import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from './components/Icons/page-title-white.svg';
-import { IconList } from './components/';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -85,7 +84,6 @@ const Topbar = ({
         <Box>
           <ThemeModeToggler />
         </Box>
-        {/* <IconList /> */}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Box>

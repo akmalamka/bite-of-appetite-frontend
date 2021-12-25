@@ -196,7 +196,7 @@ const RecipeDescription = ({
               display: 'flex',
               justifyContent: 'center',
               flexWrap: 'wrap',
-              columnGap: 1,
+              columnGap: isMd ? 1 : 2,
               rowGap: 1,
             }}
           >
