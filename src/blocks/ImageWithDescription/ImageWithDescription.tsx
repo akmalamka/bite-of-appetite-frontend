@@ -35,14 +35,13 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
           <Box
             display={'flex'}
             alignItems="center"
-            flexDirection={{ xs: 'column', lg: 'row' }}
+            flexDirection={{ xs: 'column', md: 'row' }}
           >
             <Box
               maxWidth={{
                 xs: 1,
                 sm: 1,
-                md: `${video ? 1 : '40%'}`,
-                lg: `${video ? '55%' : '40%'}`,
+                md: `${video ? '55%' : '40%'}`,
               }}
               m={4}
             >
@@ -91,8 +90,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
               maxWidth={{
                 xs: 1,
                 sm: 1,
-                md: `${video ? 1 : '60%'}`,
-                lg: `${video ? '45%' : '60%'}`,
+                md: `${video ? '45%' : '60%'}`,
               }}
             >
               <Box display={'flex'} m={4}>
