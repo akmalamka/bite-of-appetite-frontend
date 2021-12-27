@@ -40,6 +40,7 @@ interface Props {
 
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
+  const { mode } = theme.palette;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -68,6 +69,11 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         partialVisible={true}
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
+        // dotListClass={
+        //   mode === 'light'
+        //     ? 'react-multi-carousel-dot'
+        //     : 'react-multi-carousel-dot-dark'
+        // }
       >
         {dummyRecipes.map((item, i) => (
           <Box

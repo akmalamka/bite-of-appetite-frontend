@@ -1,3 +1,14 @@
 .react-multi-carousel-list {
-  padding-bottom: 48px;
+  padding-bottom: 36px;
+}
+
+.react-multi-carousel-dot {
+  margin-right: 8px;
+}
+
+.react-multi-carousel-dot button {
+  border-width: 0;
+}
+.react-multi-carousel-dot--active button {
+  border-width: 0;
 }
