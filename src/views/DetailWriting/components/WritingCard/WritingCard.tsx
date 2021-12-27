@@ -48,8 +48,8 @@ const WritingCard = (): JSX.Element => {
           effect="blur"
           sx={{
             objectFit: 'cover',
-            maxHeight: { xs: 320, sm: 400, md: 550 },
-            maxWidth: { xs: 320, sm: 450, md: 700 },
+            maxHeight: { xs: 300, sm: 450, md: 600 },
+            maxWidth: { xs: 400, sm: 600, md: 900 },
             borderRadius: 2,
             justifyContent: 'center',
             filter: theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
@@ -70,7 +70,7 @@ const WritingCard = (): JSX.Element => {
           color="text.secondary"
           fontWeight={500}
           align={'center'}
-          sx={{ width: 1 / 2 }}
+          sx={{ width: 3 / 5 }}
         >
           {chosenWriting.description}
         </Typography>
@@ -98,14 +98,33 @@ const WritingCard = (): JSX.Element => {
           {chosenWriting.date}
         </Typography>
       </Box>
-      <Box sx={{ display: 'flex', width: 1, justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: 1,
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
         <Typography
           variant={'subtitle1'}
           color="text.primary"
           fontWeight={500}
+          fontSize={{ sm: '18px', md: '21px' }}
           align={'justify'}
           paragraph
-          sx={{ width: 1 / 2 }}
+          sx={{ width: 3 / 5 }}
+        >
+          {chosenWriting.story}
+        </Typography>
+        <Typography
+          variant={'subtitle1'}
+          color="text.primary"
+          fontWeight={500}
+          fontSize={{ sm: '18px', md: '21px' }}
+          align={'justify'}
+          paragraph
+          sx={{ width: 3 / 5 }}
         >
           {chosenWriting.story}
         </Typography>

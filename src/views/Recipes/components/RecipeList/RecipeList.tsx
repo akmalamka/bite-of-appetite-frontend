@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import usePagination from './Pagination';
-import { dummyRecipes } from './dummyRecipes';
+import { dummyRecipes } from '../../../../utils/dummyRecipes';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
@@ -89,7 +89,8 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   const _DATA = usePagination(result, PER_PAGE);
 
   const handleChangePage = (e, p) => {
-    window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
+    // window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setPage(p);
     _DATA.jump(p);
   };

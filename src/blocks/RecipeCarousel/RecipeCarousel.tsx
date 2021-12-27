@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -9,8 +11,9 @@ import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
-import { dummyRecipes } from 'views/Recipes/components/RecipeList/dummyRecipes';
+import { dummyRecipes } from 'utils/dummyRecipes';
 import Container from 'components/Container';
+import { setChosenRecipe } from 'redux/actions/recipeActions';
 
 const responsive = {
   desktop: {
@@ -40,9 +43,20 @@ interface Props {
 
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
+  const chosenRecipeTitle = useSelector(
+    (state: any) => state.recipe.recipeTitle,
+  );
+
+  const onClickRecipe = (index) => {
+    dispatch(setChosenRecipe(dummyRecipes[index]));
+  };
   return (
     <Container>
       <Box marginBottom={4}>
@@ -61,61 +75,87 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         </Typography>
       </Box>
       <Carousel
-        showDots={true}
+        showDots={isSm ? true : false}
         responsive={responsive}
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
+        // dotListClass={
+        //   mode === 'light'
+        //     ? 'react-multi-carousel-dot'
+        //     : 'react-multi-carousel-dot-dark'
+        // }
       >
-        {dummyRecipes.map((item, i) => (
-          <Box
-            key={i}
-            display="flex"
-            justifyContent="center"
-            alignItems="flex-start"
-          >
-            <Card
-              sx={{
-                width: 0.9,
-                height: 0.9,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                boxShadow: 'none',
-                bgcolor: 'transparent',
-                backgroundImage: 'none',
-              }}
+        {(isHome
+          ? dummyRecipes
+          : dummyRecipes.filter((item) => item.title !== chosenRecipeTitle)
+        )
+          // .slice(9) ntar tambahin ini yaa, urusin prettiernya
+          .map((item, i) => (
+            <Box
+              key={i}
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
             >
-              <CardMedia
-                title={item.title}
-                image={item.image}
+              <Card
                 sx={{
-                  objectFit: 'contain',
-                  minWidth: 220,
-                  minHeight: 260,
-                  height: {
-                    sm: 330,
-                    md: 350,
-                    lg: 480,
-                  },
-                  borderRadius: 2,
+                  width: 0.9,
+                  height: 0.9,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  boxShadow: 'none',
+                  bgcolor: 'transparent',
+                  backgroundImage: 'none',
                 }}
-              />
-              <Box
-                marginTop={2}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'flex-start'}
               >
-                <Typography fontWeight={700} variant="h5">
-                  {item.title}
-                </Typography>
-              </Box>
-            </Card>
-          </Box>
-        ))}
+                <Link
+                  to={{
+                    pathname: `/recipes/${item.title
+                      .toLowerCase()
+                      .replaceAll(' ', '-')}`,
+                  }}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <CardMedia
+                    title={item.title}
+                    image={item.image}
+                    onClick={() => {
+                      onClickRecipe(item.index);
+                    }}
+                    sx={{
+                      objectFit: 'contain',
+                      minWidth: 220,
+                      minHeight: 260,
+                      height: {
+                        sm: 330,
+                        md: 350,
+                        lg: 480,
+                      },
+                      borderRadius: 2,
+                      filter:
+                        theme.palette.mode === 'dark'
+                          ? 'brightness(0.8)'
+                          : 'none',
+                    }}
+                  />
+                  <Box
+                    marginTop={2}
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'flex-start'}
+                  >
+                    <Typography fontWeight={700} variant="h5">
+                      {item.title}
+                    </Typography>
+                  </Box>
+                </Link>
+              </Card>
+            </Box>
+          ))}
       </Carousel>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
@@ -140,6 +180,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
               textTransform: 'uppercase',
               letterSpacing: 1.2,
               fontWeight: 400,
+              fontSize: { xs: 12, md: 14 },
             }}
           >
             View All Recipes

@@ -41,77 +41,97 @@ const RecipeDescription = ({
         justifyContent: isMd ? 'center' : 'space-between',
       }}
     >
-      {index == 0 && (
+      <Box
+        sx={{
+          display: 'flex',
+          height: 3 / 4,
+          flexDirection: 'column',
+          justifyContent: 'space-evenly',
+        }}
+      >
+        {index == 0 && (
+          <Box
+            sx={{
+              '& .lazy-load-image-loaded': {
+                display: 'flex !important',
+              },
+              height: 1,
+            }}
+          >
+            <Box
+              component={LazyLoadImage}
+              height={1}
+              width={1}
+              src={data.image}
+              alt="..."
+              effect="blur"
+              sx={{
+                objectFit: 'cover',
+                maxHeight: { xs: 320, sm: 550, md: 370 },
+                borderRadius: 2,
+                justifyContent: 'center',
+                filter:
+                  theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+              }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography
+                variant="caption"
+                color="text.primary"
+                sx={{
+                  letterSpacing: 1.5,
+                  fontWeight: 400,
+                  fontSize: { xs: 8, sm: 10 },
+                  pt: 1,
+                }}
+                align="center"
+              >
+                {data.foodPhotographyBy === data.foodStylingBy
+                  ? `Food Photography and Food Styling by ${data.foodPhotographyBy}`
+                  : `Food Photography by ${data.foodPhotographyBy} and Food Styling by ${data.foodStylingBy}`}
+              </Typography>
+            </Box>
+          </Box>
+        )}
         <Box
           sx={{
-            '& .lazy-load-image-loaded': {
-              display: 'flex !important',
-            },
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: isMd ? 1 : 2,
           }}
         >
-          <Box
-            component={LazyLoadImage}
-            height={1}
-            width={1}
-            src={data.image}
-            alt="..."
-            effect="blur"
-            sx={{
-              objectFit: 'cover',
-              maxHeight: { xs: 320, sm: 370 },
-              borderRadius: 2,
-              justifyContent: 'center',
-              filter:
-                theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
-            }}
-          />
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Typography
-              variant="caption"
-              color="text.primary"
-              sx={{
-                letterSpacing: 1.5,
-                fontWeight: 400,
-                fontSize: { xs: 8, sm: 10 },
-                pt: 1,
-              }}
-              align="center"
-            >
-              {data.foodPhotographyBy === data.foodStylingBy
-                ? `Food Photography and Food Styling by ${data.foodPhotographyBy}`
-                : `Food Photography by ${data.foodPhotographyBy} and Food Styling by ${data.foodStylingBy}`}
-            </Typography>
-          </Box>
-        </Box>
-      )}
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', rowGap: isMd ? 1 : 2 }}
-      >
-        <Typography
-          variant={isMd ? 'h4' : index == 0 ? 'h3' : 'h1'}
-          fontWeight={700}
-          align={'center'}
-          sx={{
-            mx: isMd ? 0 : 1,
-          }}
-        >
-          {data.title}
-        </Typography>
-        {isMediumOrIndexOne() && (
           <Typography
-            variant={isMd ? 'subtitle1' : 'h6'}
-            color="text.secondary"
-            fontWeight={500}
+            variant={isMd ? 'h4' : index == 0 ? 'h3' : 'h1'}
+            fontWeight={700}
             align={'center'}
+            sx={{
+              mx: isMd ? 0 : 1,
+              py: 1,
+            }}
           >
-            {data.description}
+            {data.title}
           </Typography>
-        )}
-        {index == 1 && (
-          <Typography variant="subtitle2" color="text.primary" align={'center'}>
-            Total Time: {data.time}
-          </Typography>
-        )}
+          {isMediumOrIndexOne() && (
+            <Typography
+              variant={isMd ? 'subtitle1' : 'h6'}
+              color="text.secondary"
+              fontWeight={500}
+              align={'center'}
+              px={1}
+            >
+              {data.description}
+            </Typography>
+          )}
+          {index == 1 && (
+            <Typography
+              variant="subtitle2"
+              color="text.primary"
+              align={'center'}
+            >
+              Total Time: {data.time}
+            </Typography>
+          )}
+        </Box>
       </Box>
       <Box
         sx={{
@@ -144,7 +164,6 @@ const RecipeDescription = ({
               By {data.recipeBy}
             </Typography>
           )}
-
           {isMd && (
             <Divider
               orientation="vertical"
@@ -189,7 +208,6 @@ const RecipeDescription = ({
             </Typography>
           </Box>
         )}
-
         {isMediumOrIndexOne() && (
           <Box
             sx={{

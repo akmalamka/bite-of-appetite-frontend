@@ -133,7 +133,7 @@ const RecipeCard = (): JSX.Element => {
               sx={{
                 display: 'flex',
                 height: 1,
-                justifyContent: 'center',
+                justifyContent: 'space-evenly',
                 flexDirection: 'column',
               }}
             >
@@ -152,6 +152,7 @@ const RecipeCard = (): JSX.Element => {
                 color="text.secondary"
                 fontWeight={500}
                 align={'justify'}
+                px={2}
                 paragraph
               >
                 {chosenRecipe.story}

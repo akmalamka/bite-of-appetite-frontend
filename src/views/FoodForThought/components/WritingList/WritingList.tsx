@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import usePagination from './Pagination';
-import { dummyWritings } from './dummyWritings';
+import { dummyWritings } from 'utils/dummyWritings';
 import { DataCard } from 'blocks';
 import { setChosenWriting } from 'redux/actions/writingActions';
 import { PER_PAGE } from 'utils/constants';
@@ -24,7 +24,7 @@ const WritingList = (): JSX.Element => {
   const _DATA = usePagination(dummyWritings, PER_PAGE);
 
   const handleChangePage = (e, p) => {
-    window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setPage(p);
     _DATA.jump(p);
   };

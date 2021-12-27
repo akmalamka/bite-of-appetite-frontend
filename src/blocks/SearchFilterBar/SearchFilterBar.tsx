@@ -16,7 +16,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import FilterListIcon from '@mui/icons-material/FilterList';
-
 import Container from 'components/Container';
 import './placeholder.css';
 
@@ -74,8 +73,8 @@ const SearchFilterBar = ({
       <Container
         zIndex={3}
         position={'relative'}
-        minHeight={isRecipeList ? { xs: 150, sm: 200, md: 400 } : 'none'}
-        maxHeight={400}
+        minHeight={isRecipeList ? { xs: 125, sm: 175, md: 250 } : 'none'}
+        maxHeight={300}
       >
         <Box
           width={1}
@@ -101,14 +100,13 @@ const SearchFilterBar = ({
           </Box>
           {isRecipeList && (
             <Box
-              padding={2}
+              m={2}
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
               }}
-              marginTop={4}
               boxShadow="none"
             >
               <ClickAwayListener onClickAway={handleClickAway}>
@@ -159,7 +157,7 @@ const SearchFilterBar = ({
                           }}
                           variant="outlined"
                           size="medium"
-                          placeholder="Search Nasi Goreng"
+                          placeholder="Try 'Pasta'"
                           fullWidth
                           value={keyword}
                           onChange={(event) =>
@@ -247,7 +245,14 @@ const SearchFilterBar = ({
                           component="fieldset"
                           variant="standard"
                         >
-                          <FormLabel component="legend">
+                          <FormLabel
+                            component="legend"
+                            sx={{
+                              '&.Mui-focused': {
+                                color: mode === 'light' ? '#677788' : '#AEB0B4',
+                              },
+                            }}
+                          >
                             {filter.type}
                           </FormLabel>
                           <FormGroup>
