@@ -88,43 +88,45 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                   ? 'Food is my way to tell stories and connect with people who share the same passion as I do. Whether its because youre hungry at midnight or trying to learn how to cook, I hope you enjoy watching my content and recipes.'
                   : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
               </Typography>
-              <Link
-                to="#"
-                onClick={(e) => {
-                  window.location.href = 'mailto:akmalmuhammad51@gmail.com';
-                  e.preventDefault();
-                }}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  sx={{
-                    display: 'flex',
-                    borderRadius: 30,
-                    border: 2,
-                    borderColor: 'primary.main',
-                    my: 1,
-                    // px: 2,
-                    '&:hover': {
-                      border: 2,
-                    },
-                    width: 2 / 3,
+              {!video && (
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    window.location.href = 'mailto:akmalmuhammad51@gmail.com';
+                    e.preventDefault();
                   }}
+                  style={{ textDecoration: 'none' }}
                 >
-                  <Typography
-                    variant="button"
-                    color="text.primary"
+                  <Button
+                    variant="outlined"
+                    color="primary"
                     sx={{
-                      textTransform: 'uppercase',
-                      letterSpacing: 1.2,
-                      fontWeight: 400,
+                      display: 'flex',
+                      borderRadius: 30,
+                      border: 2,
+                      borderColor: 'primary.main',
+                      my: 1,
+                      // px: 2,
+                      '&:hover': {
+                        border: 2,
+                      },
+                      width: 1 / 2,
                     }}
                   >
-                    Lets make a conversation!
-                  </Typography>
-                </Button>
-              </Link>
+                    <Typography
+                      variant="button"
+                      color="text.primary"
+                      sx={{
+                        textTransform: 'uppercase',
+                        letterSpacing: 1.2,
+                        fontWeight: 400,
+                      }}
+                    >
+                      Let`s collab!
+                    </Typography>
+                  </Button>
+                </Link>
+              )}
             </Box>
             <Box
               maxWidth={{
