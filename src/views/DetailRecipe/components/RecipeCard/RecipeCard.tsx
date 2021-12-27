@@ -133,7 +133,7 @@ const RecipeCard = (): JSX.Element => {
               sx={{
                 display: 'flex',
                 height: 1,
-                justifyContent: 'center',
+                justifyContent: 'space-evenly',
                 flexDirection: 'column',
               }}
             >

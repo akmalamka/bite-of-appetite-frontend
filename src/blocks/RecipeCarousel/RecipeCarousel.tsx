@@ -40,6 +40,9 @@ interface Props {
 
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
@@ -48,7 +51,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
       <Box marginBottom={4}>
         <Typography
           variant="h4"
-          data-aos={'fade-up'}
+          data-aos={isMd ? 'fade-up' : 'none'}
           color="text.primary"
           align={'center'}
           gutterBottom
