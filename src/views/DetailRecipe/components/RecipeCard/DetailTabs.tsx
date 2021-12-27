@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useLayoutEffect,
+} from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -140,7 +146,6 @@ const DetailTabs = ({
       setPortion(portion - 1);
     }
   };
-
   const handleChangeActiveStep = (step) => {
     setActiveStep(step);
   };
@@ -150,6 +155,11 @@ const DetailTabs = ({
       onChangeIndexTab(0);
     }
   }, [isMd]);
+
+  useLayoutEffect(() => {
+    // onChangeTab(event, 0);
+    console.log('aaa');
+  }, []);
 
   return (
     <Box component="div">

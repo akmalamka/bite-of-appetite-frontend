@@ -9,7 +9,7 @@ import { RecipeCarousel } from 'blocks';
 
 const DetailRecipe = (): JSX.Element => {
   const theme = useTheme();
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });

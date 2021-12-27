@@ -89,7 +89,8 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   const _DATA = usePagination(result, PER_PAGE);
 
   const handleChangePage = (e, p) => {
-    window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
+    // window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setPage(p);
     _DATA.jump(p);
   };

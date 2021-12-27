@@ -5,6 +5,7 @@ import Container from 'components/Container';
 import { WritingCard } from './components';
 
 const DetailWriting = (): JSX.Element => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   return (
     <Main colorInvert={false}>
       <Box>
