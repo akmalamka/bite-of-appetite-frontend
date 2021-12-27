@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -11,6 +13,7 @@ import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
 import { dummyRecipes } from 'views/Recipes/components/RecipeList/dummyRecipes';
 import Container from 'components/Container';
+import { setChosenRecipe } from 'redux/actions/recipeActions';
 
 const responsive = {
   desktop: {
@@ -40,12 +43,17 @@ interface Props {
 
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { url } = useRouteMatch();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
+  const onClickRecipe = (index) => {
+    dispatch(setChosenRecipe(dummyRecipes[index]));
+  };
   return (
     <Container>
       <Box marginBottom={4}>
@@ -96,31 +104,47 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                 backgroundImage: 'none',
               }}
             >
-              <CardMedia
-                title={item.title}
-                image={item.image}
-                sx={{
-                  objectFit: 'contain',
-                  minWidth: 220,
-                  minHeight: 260,
-                  height: {
-                    sm: 330,
-                    md: 350,
-                    lg: 480,
-                  },
-                  borderRadius: 2,
+              <Link
+                to={{
+                  pathname: `/recipes/${item.title
+                    .toLowerCase()
+                    .replaceAll(' ', '-')}`,
                 }}
-              />
-              <Box
-                marginTop={2}
-                display={'flex'}
-                alignItems={'center'}
-                justifyContent={'flex-start'}
+                style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Typography fontWeight={700} variant="h5">
-                  {item.title}
-                </Typography>
-              </Box>
+                <CardMedia
+                  title={item.title}
+                  image={item.image}
+                  onClick={() => {
+                    onClickRecipe(item.index);
+                  }}
+                  sx={{
+                    objectFit: 'contain',
+                    minWidth: 220,
+                    minHeight: 260,
+                    height: {
+                      sm: 330,
+                      md: 350,
+                      lg: 480,
+                    },
+                    borderRadius: 2,
+                    filter:
+                      theme.palette.mode === 'dark'
+                        ? 'brightness(0.8)'
+                        : 'none',
+                  }}
+                />
+                <Box
+                  marginTop={2}
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'flex-start'}
+                >
+                  <Typography fontWeight={700} variant="h5">
+                    {item.title}
+                  </Typography>
+                </Box>
+              </Link>
             </Card>
           </Box>
         ))}
