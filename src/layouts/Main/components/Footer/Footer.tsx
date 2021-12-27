@@ -31,10 +31,11 @@ const Footer = (): JSX.Element => {
             component="a"
             href="/"
             title="Bite of Appetite"
-            width={0.3}
+            width={{ xs: 1, sm: 0.3 }}
             justifyContent={{ xs: 'center', sm: 'flex-start' }}
-            // alignContent="flex-start"
+            alignSelf={'flex-start'}
             marginBottom={{ xs: 2, sm: 0 }}
+            marginTop={2}
           >
             {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
           </Box>
@@ -43,9 +44,9 @@ const Footer = (): JSX.Element => {
             flexWrap={'wrap'}
             alignItems={isSm ? 'flex-start' : 'center'}
             flexDirection={'column'}
-            rowGap={2}
+            rowGap={1}
           >
-            <Box marginRight={isSm ? 4 : 0}>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
               <Link
                 underline="none"
                 component="a"
@@ -56,7 +57,7 @@ const Footer = (): JSX.Element => {
                 Home
               </Link>
             </Box>
-            <Box marginRight={isSm ? 4 : 0}>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
               <Link
                 underline="none"
                 component="a"
@@ -67,7 +68,7 @@ const Footer = (): JSX.Element => {
                 Recipes
               </Link>
             </Box>
-            <Box marginRight={isSm ? 4 : 0}>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
               <Link
                 underline="none"
                 component="a"
@@ -78,7 +79,7 @@ const Footer = (): JSX.Element => {
                 Food for Thought
               </Link>
             </Box>
-            <Box marginRight={isSm ? 4 : 0}>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
               <Link
                 underline="none"
                 component="a"

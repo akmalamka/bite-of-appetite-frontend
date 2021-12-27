@@ -152,6 +152,7 @@ const RecipeCard = (): JSX.Element => {
                 color="text.secondary"
                 fontWeight={500}
                 align={'justify'}
+                px={2}
                 paragraph
               >
                 {chosenRecipe.story}

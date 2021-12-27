@@ -93,6 +93,7 @@ const RecipeDescription = ({
           align={'center'}
           sx={{
             mx: isMd ? 0 : 1,
+            py: 1,
           }}
         >
           {data.title}
@@ -103,6 +104,7 @@ const RecipeDescription = ({
             color="text.secondary"
             fontWeight={500}
             align={'center'}
+            px={1}
           >
             {data.description}
           </Typography>

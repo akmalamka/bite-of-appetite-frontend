@@ -40,6 +40,7 @@ const Topbar = ({
       justifyContent={'space-between'}
       alignItems={'center'}
       width={1}
+      px={2}
     >
       <Box display={'flex'} component="a" href="/" width={0.3}>
         {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
