@@ -7,7 +7,7 @@ export const dummyWritings = [
     title: 'White Pesto Pasta',
     writingsBy: 'Carla Lalli Music',
     story:
-      'When the days become colder, I immediately crave sot-bap. Sot-bap in Korean merely translates to pot-rice. What`s beautiful about pot rice is that there can be thousands of variations depending on what toppings your heart desires. You can put vegetables, protein, seafood, anything imaginable. You`ll be rewarded with delicately steamed toppings strawn on top of freshly steamed rice that absorbed all the nuances of your desired toppings. \n Since mushrooms are now in season, I made buseot sot bap, aka mushroom pot rice. This is personally my favorite pot rice. While most mushrooms are available year-round, foraged during the colder seasons are the peak of woodiness and earthiness. ',
+      'When the days become colder, I immediately crave sot-bap. Sot-bap in Korean merely translates to pot-rice. What`s beautiful about pot rice is that there can be thousands of variations depending on what toppings your heart desires. You can put vegetables, protein, seafood, anything imaginable. You`ll be rewarded with delicately steamed toppings strawn on top of freshly steamed rice that absorbed all the nuances of your desired toppings. \n Since mushrooms are now in season, I made buseot sot bap, aka mushroom pot rice. This is personally my favorite pot rice. While most mushrooms are available year-round, foraged during the colder seasons are the peak of woodiness and earthiness. \n aaaaaaa',
     date: 'September 20, 2021',
   },
   {

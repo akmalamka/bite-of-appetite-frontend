@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import usePagination from './Pagination';
-import { dummyWritings } from './dummyWritings';
+import { dummyWritings } from 'utils/dummyWritings';
 import { DataCard } from 'blocks';
 import { setChosenWriting } from 'redux/actions/writingActions';
 import { PER_PAGE } from 'utils/constants';
