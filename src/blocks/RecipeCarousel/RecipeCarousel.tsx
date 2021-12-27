@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -44,13 +44,16 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { url } = useRouteMatch();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
+  const chosenRecipeTitle = useSelector(
+    (state: any) => state.recipe.recipeTitle,
+  );
+
   const onClickRecipe = (index) => {
     dispatch(setChosenRecipe(dummyRecipes[index]));
   };
@@ -85,7 +88,10 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         //     : 'react-multi-carousel-dot-dark'
         // }
       >
-        {dummyRecipes.map((item, i) => (
+        {(isHome
+          ? dummyRecipes
+          : dummyRecipes.filter((item) => item.title !== chosenRecipeTitle)
+        ).map((item, i) => (
           <Box
             key={i}
             display="flex"
