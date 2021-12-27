@@ -247,7 +247,14 @@ const SearchFilterBar = ({
                           component="fieldset"
                           variant="standard"
                         >
-                          <FormLabel component="legend">
+                          <FormLabel
+                            component="legend"
+                            sx={{
+                              '&.Mui-focused': {
+                                color: mode === 'light' ? '#677788' : '#AEB0B4',
+                              },
+                            }}
+                          >
                             {filter.type}
                           </FormLabel>
                           <FormGroup>
