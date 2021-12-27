@@ -16,13 +16,13 @@ interface Props {
 
 const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
   return (
     <Box
       m={2}
-      flexDirection={{ sm: 'row', md: 'column' }}
+      flexDirection={{ sm: isHamburgerOpen ? 'row' : 'column', md: 'column' }}
       display="flex"
       justifyContent="space-evenly"
       rowGap={1}
@@ -43,7 +43,7 @@ const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
           colorInvert={false}
           isHamburgerOpen={isHamburgerOpen}
         />
-        {isMd && (
+        {isSm && !isHamburgerOpen && (
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
             variant="subtitle2"
@@ -65,7 +65,7 @@ const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
         }}
       >
         <MediumButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
-        {isMd && (
+        {isSm && !isHamburgerOpen && (
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
             variant="subtitle2"
@@ -90,7 +90,7 @@ const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
           colorInvert={false}
           isHamburgerOpen={isHamburgerOpen}
         />
-        {isMd && (
+        {isSm && !isHamburgerOpen && (
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
             variant="subtitle2"
@@ -112,7 +112,7 @@ const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
         }}
       >
         <SpotifyButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
-        {isMd && (
+        {isSm && !isHamburgerOpen && (
           <Typography
             sx={{ display: 'flex', alignItems: 'center' }}
             variant="subtitle2"
