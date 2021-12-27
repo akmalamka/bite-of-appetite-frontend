@@ -40,8 +40,7 @@ interface Props {
 
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
-  const { mode } = theme.palette;
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
   return (
@@ -49,7 +48,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
       <Box marginBottom={4}>
         <Typography
           variant="h4"
-          data-aos={isMd ? 'fade-up' : 'none'}
+          data-aos={'fade-up'}
           color="text.primary"
           align={'center'}
           gutterBottom
@@ -62,7 +61,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         </Typography>
       </Box>
       <Carousel
-        showDots={true}
+        showDots={isSm ? true : false}
         responsive={responsive}
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
@@ -146,6 +145,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
               textTransform: 'uppercase',
               letterSpacing: 1.2,
               fontWeight: 400,
+              fontSize: { xs: 12, md: 14 },
             }}
           >
             View All Recipes

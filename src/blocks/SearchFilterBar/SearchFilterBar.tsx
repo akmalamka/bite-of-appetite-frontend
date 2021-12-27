@@ -159,7 +159,7 @@ const SearchFilterBar = ({
                           }}
                           variant="outlined"
                           size="medium"
-                          placeholder="Search Nasi Goreng"
+                          placeholder="Try 'Pasta'"
                           fullWidth
                           value={keyword}
                           onChange={(event) =>

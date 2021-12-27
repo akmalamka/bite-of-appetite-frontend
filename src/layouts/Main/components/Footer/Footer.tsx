@@ -111,17 +111,6 @@ const Footer = (): JSX.Element => {
         >
           &copy; Bite of Appetite. 2021, Muhammad Akmal. All rights reserved
         </Typography>
-        {/* <Typography
-          align={'center'}
-          variant={'caption'}
-          color="text.secondary"
-          component={'p'}
-        >
-          When you visit or interact with our sites, services or tools, we or
-          our authorised service providers may use cookies for storing
-          information to help provide you with a better, faster and safer
-          experience and for marketing purposes.
-        </Typography> */}
       </Grid>
     </Grid>
   );
