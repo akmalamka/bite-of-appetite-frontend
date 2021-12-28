@@ -129,7 +129,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     sx={{
                       objectFit: 'contain',
                       minWidth: 220,
-                      minHeight: 260,
+                      minHeight: { xs: 270, sm: 260 },
                       height: {
                         sm: 330,
                         md: 350,

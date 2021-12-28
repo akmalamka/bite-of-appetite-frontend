@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -39,6 +39,10 @@ const RecipeCard = (): JSX.Element => {
     setIndexTab(index);
   };
 
+  useEffect(() => {
+    handleChangeIndexMobile(0);
+    console.log('bbb');
+  }, []);
   return (
     <Box>
       {isMd ? (

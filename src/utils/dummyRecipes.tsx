@@ -60,7 +60,7 @@ export const dummyRecipes = [
       {
         title: 'Mix wet ingredients',
         step:
-          'Beat butter, granulated sugar, and powdered sugar in the bowl of a stand mixer on medium-high speed until light and fluffy, about 4 minutes. Add egg yolk and vanilla and beat until smooth. Divide mixture between the 2 bowls of dry ingredients (about 1 cup in each). Scrape vanilla mixture back into stand mixer bowl (save the mixing bowl) and beat on low speed just until combined. Return to reserved bowl. Repeat process with chocolate mixture.',
+          'Beat butter, granulated sugar, and powdered sugar in the bowl of a stand mixer on medium-high speed until light and fluffy, about 4 minutes. Add egg yolk and vanilla and beat until smooth. Divide mixture between the 2 bowls of dry ingredients (about 1 cup in each). Scrape vanilla mixture back into stand mixer bowl (save the mixing bowl) and beat on low speed just until',
         tips: '',
       },
       {
