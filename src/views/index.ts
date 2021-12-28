@@ -10,3 +10,4 @@ export { default as DetailRecipe } from './DetailRecipe';
 export { default as DetailWriting } from './DetailWriting';
 export { default as FoodForThought } from './FoodForThought';
 export { default as About } from './About';
+export { default as ContentManagement } from './ContentManagement';

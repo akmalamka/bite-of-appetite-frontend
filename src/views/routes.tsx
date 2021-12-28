@@ -13,6 +13,7 @@ import {
   AccountGeneral as AccountGeneralView,
   AccountNotifications as AccountNotificationsView,
   AccountSecurity as AccountSecurityView,
+  ContentManagement as ContentManagementView,
 } from 'views';
 
 const routes = [
@@ -69,6 +70,12 @@ const routes = [
   {
     path: '/account-security',
     renderer: (params = {}): JSX.Element => <AccountSecurityView {...params} />,
+  },
+  {
+    path: '/content-management',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView {...params} />
+    ),
   },
 ];
 
