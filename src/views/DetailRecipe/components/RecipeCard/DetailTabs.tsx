@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  forwardRef,
-  useLayoutEffect,
-} from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -132,6 +126,8 @@ const DetailTabs = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const SERVE = data.serves;
+  const TITLE = data.title;
+  const INDEX = data.index;
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -156,10 +152,11 @@ const DetailTabs = ({
     }
   }, [isMd]);
 
-  useLayoutEffect(() => {
-    // onChangeTab(event, 0);
-    console.log('aaa');
-  }, []);
+  useEffect(() => {
+    setPortion(SERVE);
+    setActiveStep(0);
+    onChangeIndexTab(0);
+  }, [TITLE, SERVE, INDEX]);
 
   return (
     <Box component="div">

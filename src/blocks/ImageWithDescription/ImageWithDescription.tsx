@@ -122,7 +122,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                         fontWeight: 400,
                       }}
                     >
-                      Let`s collab!
+                      Let`s collab
                     </Typography>
                   </Button>
                 </Link>
