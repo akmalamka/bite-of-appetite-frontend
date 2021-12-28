@@ -65,6 +65,10 @@ const SearchFilterBar = ({
   };
 
   const handleClickAway = () => {
+    if (expanded) {
+      console.log('aaa');
+      onClearAll();
+    }
     onChangeFilterExpanded(true);
   };
 
