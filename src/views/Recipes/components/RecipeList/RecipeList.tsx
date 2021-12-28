@@ -120,6 +120,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       ? item.index
                       : item.item.index
                   }
+                  resultIndex={i}
                   title={
                     keyword === '' && chipData.length == 0
                       ? item.title
