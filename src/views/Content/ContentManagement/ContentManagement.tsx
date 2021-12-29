@@ -12,6 +12,11 @@ import { Page } from './components';
 // import Page from '../components/Page';
 import Main from 'layouts/Main';
 
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  isRecipe?: boolean;
+}
+
 const validationSchema = yup.object({
   fullName: yup
     .string()
@@ -47,7 +52,7 @@ const validationSchema = yup.object({
     .max(200, 'Please enter a valid address'),
 });
 
-const ContentManagement = (): JSX.Element => {
+const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   const initialValues = {
     fullName: '',
     bio: '',
@@ -69,19 +74,19 @@ const ContentManagement = (): JSX.Element => {
 
   return (
     <Main>
-      <Page>
+      <Page isRecipe={isRecipe}>
         <Box>
           <Typography variant="h6" gutterBottom fontWeight={700}>
-            Change your private information
+            It`s time to add recipe! Yeayy
           </Typography>
-          <Typography variant={'subtitle2'} color={'text.secondary'}>
+          {/* <Typography variant={'subtitle2'} color={'text.secondary'}>
             Please read our{' '}
             <Link color={'primary'} href={'/company-terms'} underline={'none'}>
               terms of use
             </Link>{' '}
             to be informed how we manage your private data.
-          </Typography>
-          <Box paddingY={4}>
+          </Typography> */}
+          <Box paddingY={2}>
             <Divider />
           </Box>
           <form onSubmit={formik.handleSubmit}>
@@ -92,7 +97,7 @@ const ContentManagement = (): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Enter your first name
+                  Title
                 </Typography>
                 <TextField
                   label="First name *"

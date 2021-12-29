@@ -33,10 +33,11 @@ const pages = [
 ];
 
 interface Props {
+  isRecipe: boolean;
   children: React.ReactNode;
 }
 
-const Page = ({ children }: Props): JSX.Element => {
+const Page = ({ isRecipe, children }: Props): JSX.Element => {
   const [activeLink, setActiveLink] = useState('');
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
@@ -54,16 +55,16 @@ const Page = ({ children }: Props): JSX.Element => {
             gutterBottom
             sx={{ color: 'common.white' }}
           >
-            Account settings
+            Add {isRecipe ? 'recipe' : 'writing'}
           </Typography>
-          <Typography variant="h6" sx={{ color: 'common.white' }}>
+          {/* <Typography variant="h6" sx={{ color: 'common.white' }}>
             Change account information and settings
-          </Typography>
+          </Typography> */}
         </Container>
       </Box>
       <Container paddingTop={'0 !important'} marginTop={-8}>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={3}>
+          {/* <Grid item xs={12} md={3}>
             <Card sx={{ boxShadow: 3 }}>
               <List
                 disablePadding
@@ -114,8 +115,8 @@ const Page = ({ children }: Props): JSX.Element => {
                 ))}
               </List>
             </Card>
-          </Grid>
-          <Grid item xs={12} md={9}>
+          </Grid> */}
+          <Grid item xs={12}>
             <Card sx={{ boxShadow: 3, padding: 4 }}>{children}</Card>
           </Grid>
         </Grid>

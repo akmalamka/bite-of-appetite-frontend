@@ -90,9 +90,15 @@ const routes = [
     ),
   },
   {
-    path: '/content-management/:contentType/add',
+    path: '/content-management/recipes/add',
     renderer: (params = {}): JSX.Element => (
-      <ContentManagementView {...params} />
+      <ContentManagementView isRecipe={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings/add',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView isRecipe={false} {...params} />
     ),
   },
 ];
