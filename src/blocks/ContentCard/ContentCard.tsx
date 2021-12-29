@@ -53,16 +53,60 @@ const ContentCard = ({ title, image }: Props): JSX.Element => {
         >
           {title}
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: 2 }}>
           <Button
-            variant={'outlined'}
+            variant="outlined"
+            color="error"
+            sx={{
+              borderRadius: 10,
+              border: 2,
+              px: 2,
+              '&:hover': {
+                border: 2,
+              },
+            }}
             startIcon={<DeleteIcon />}
-            color={'error'}
+            // href="/recipes"
           >
-            Delete
+            <Typography
+              variant="button"
+              color="text.primary"
+              sx={{
+                textTransform: 'uppercase',
+                letterSpacing: 1.2,
+                fontWeight: 400,
+                fontSize: { xs: 12, md: 14 },
+              }}
+            >
+              Delete
+            </Typography>
           </Button>
-          <Button variant={'outlined'} startIcon={<EditIcon />}>
-            Edit
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{
+              borderRadius: 10,
+              border: 2,
+              px: 2,
+              '&:hover': {
+                border: 2,
+              },
+            }}
+            startIcon={<EditIcon />}
+            // href="/recipes"
+          >
+            <Typography
+              variant="button"
+              color="text.primary"
+              sx={{
+                textTransform: 'uppercase',
+                letterSpacing: 1.2,
+                fontWeight: 400,
+                fontSize: { xs: 12, md: 14 },
+              }}
+            >
+              Edit
+            </Typography>
           </Button>
         </Box>
       </Box>
