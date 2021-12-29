@@ -82,14 +82,14 @@ const Topbar = ({
             </Box>
           ))}
         </Box>
-        <Box>
+        {/* <Box>
           <ThemeModeToggler />
-        </Box>
+        </Box> */}
       </Box>
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-        <Box>
+        {/* <Box>
           <ThemeModeToggler />
-        </Box>
+        </Box> */}
         <Button
           onClick={() => onSidebarOpen()}
           aria-label="Menu"

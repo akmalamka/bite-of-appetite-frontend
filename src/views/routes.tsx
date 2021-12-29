@@ -14,6 +14,7 @@ import {
   AccountNotifications as AccountNotificationsView,
   AccountSecurity as AccountSecurityView,
   ContentManagement as ContentManagementView,
+  ContentList as ContentListView,
 } from 'views';
 
 const routes = [
@@ -75,6 +76,18 @@ const routes = [
     path: '/content-management',
     renderer: (params = {}): JSX.Element => (
       <ContentManagementView {...params} />
+    ),
+  },
+  {
+    path: '/content-management/recipes',
+    renderer: (params = {}): JSX.Element => (
+      <ContentListView isRecipe={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings',
+    renderer: (params = {}): JSX.Element => (
+      <ContentListView isRecipe={false} {...params} />
     ),
   },
 ];
