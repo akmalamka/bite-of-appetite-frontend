@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContentCard } from 'blocks';
+import { dummyRecipes } from 'utils/dummyRecipes';
+import { dummyWritings } from 'utils/dummyWritings';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -45,63 +47,9 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
               </Typography>
             </Box>
             <Grid container rowSpacing={4} columnSpacing={2}>
-              <ContentCard />
-              {/* <Grid item xs={4}>
-                <Box
-                  sx={{
-                    '& .lazy-load-image-loaded': {
-                      display: 'flex !important',
-                    },
-                    boxShadow: 1,
-                    position: 'relative',
-                    p: 2,
-                  }}
-                >
-                  <Box
-                    component={LazyLoadImage}
-                    height={1}
-                    width={1}
-                    src={
-                      'https://assets.bonappetit.com/photos/5fd2a19cd597aa87eb924b1e/16:9/w_2240,c_limit/Basically-Dakgalbi-2.jpg'
-                    }
-                    alt="..."
-                    effect="blur"
-                    sx={{
-                      objectFit: 'contain',
-                      maxHeight: { xs: 530, md: 1 },
-                      borderRadius: 2,
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.8)'
-                          : 'none',
-                    }}
-                  />
-                  <Typography
-                    variant={'h5'}
-                    fontWeight={600}
-                    sx={{
-                      marginY: 2,
-                      display: 'flex',
-                    }}
-                  >
-                    White Pesto Pasta
-                  </Typography>
-                  <Box
-                    sx={{ display: 'flex', flexDirection: 'row', columnGap: 4 }}
-                  >
-                    <Button
-                      variant={'outlined'}
-                      startIcon={<DeleteIcon />}
-                      color={'error'}
-                    >
-                      Delete
-                    </Button>
-                    <Button variant={'outlined'} startIcon={<EditIcon />}>
-                      Edit
-                    </Button>
-                  </Box>
-                </Box>
-              </Grid> */}
+              {(isRecipe ? dummyRecipes : dummyWritings).map((item, i) => (
+                <ContentCard key={i} title={item.title} image={item.image} />
+              ))}
             </Grid>
           </Box>
         </Container>

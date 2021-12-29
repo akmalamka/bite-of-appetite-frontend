@@ -8,11 +8,12 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-// interface Props {
-//   video: boolean;
-// }
+interface Props {
+  title: string;
+  image: string;
+}
 
-const ContentCard = (): JSX.Element => {
+const ContentCard = ({ title, image }: Props): JSX.Element => {
   const theme = useTheme();
 
   return (
@@ -31,9 +32,7 @@ const ContentCard = (): JSX.Element => {
           component={LazyLoadImage}
           height={1}
           width={1}
-          src={
-            'https://assets.bonappetit.com/photos/5fd2a19cd597aa87eb924b1e/16:9/w_2240,c_limit/Basically-Dakgalbi-2.jpg'
-          }
+          src={image}
           alt="..."
           effect="blur"
           sx={{
@@ -44,14 +43,15 @@ const ContentCard = (): JSX.Element => {
           }}
         />
         <Typography
-          variant={'h5'}
+          variant={'h6'}
           fontWeight={600}
           sx={{
             marginY: 2,
             display: 'flex',
+            height: 70,
           }}
         >
-          White Pesto Pasta
+          {title}
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: 4 }}>
           <Button
