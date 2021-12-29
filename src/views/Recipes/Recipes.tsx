@@ -4,22 +4,7 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { RecipeList } from './components';
 import { SearchFilterBar } from 'blocks';
-
-const mock = [
-  {
-    type: 'Cuisine',
-    choice: ['Indonesian', 'Japanese', 'Korean', 'Italian', 'Fusion'],
-  },
-  {
-    type: 'Food Type',
-    choice: ['Appetizer', 'Main Course', 'Dessert', 'Snacks'],
-  },
-  {
-    type: 'Main Ingredient',
-    choice: ['Chicken', 'Beef', 'Seafood', 'Egg', 'Rice', 'Mango'],
-  },
-  { type: 'Difficulty', choice: ['Easy', 'Medium', 'Hard'] },
-];
+import { filterMenu } from 'utils/constants';
 
 const Recipes = (): JSX.Element => {
   const [keyword, setKeyword] = React.useState<string>('');
@@ -29,7 +14,7 @@ const Recipes = (): JSX.Element => {
     return item;
   };
   const menuItems2D = [].concat(
-    mock.map((i) => i.choice.map((item) => menuMap(item))),
+    filterMenu.map((i) => i.choice.map((item) => menuMap(item))),
   );
   const menuItems1D = [].concat(...menuItems2D);
   const menuIndex = menuItems2D.map((item) => item.length);
@@ -84,7 +69,7 @@ const Recipes = (): JSX.Element => {
         onChangeDeleteChip={handleDelete}
         onClearAll={handleClearAll}
         menuIndex={menuIndex}
-        filterMenu={mock}
+        filterMenu={filterMenu}
         expanded={expanded}
         onChangeFilterExpanded={handleChangeFilterExpanded}
         isRecipeList={true}

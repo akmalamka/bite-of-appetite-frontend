@@ -6,16 +6,17 @@ interface Props {
   // All other props
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any;
+  isContent?: boolean;
 }
 
-const Container = ({ children, ...rest }: Props): JSX.Element => (
+const Container = ({ isContent, children, ...rest }: Props): JSX.Element => (
   <Box
     maxWidth={{ sm: 720, md: 1236 }}
     width={1}
     margin={'0 auto'}
     // paddingX={2}
     // paddingTop={2}
-    paddingY={{ xs: 2, sm: 4, md: 6 }}
+    paddingY={{ xs: 2, sm: 4, md: isContent ? 0 : 6 }}
     {...rest}
   >
     {children}

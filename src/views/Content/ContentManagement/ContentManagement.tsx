@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -9,7 +10,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Page } from './components';
-// import Page from '../components/Page';
+import { CheckboxDropdown } from './components';
+import { SearchFilterBar } from 'blocks';
+import { filterMenu } from 'utils/constants';
 import Main from 'layouts/Main';
 
 interface Props {
@@ -53,6 +56,54 @@ const validationSchema = yup.object({
 });
 
 const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
+  const theme = useTheme();
+  const { mode } = theme.palette;
+
+  const [chipData, setChipData] = React.useState([]);
+
+  const menuMap = (item) => {
+    return item;
+  };
+  const menuItems2D = [].concat(
+    filterMenu.map((i) => i.choice.map((item) => menuMap(item))),
+  );
+  const menuItems1D = [].concat(...menuItems2D);
+  const menuIndex = menuItems2D.map((item) => item.length);
+
+  const [isChecked, setIsChecked] = React.useState(
+    menuItems1D.slice().fill(false),
+  );
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+
+  const handleChangeFilterExpanded = (isClickAway) => {
+    if (isClickAway) {
+      setExpanded(false);
+    } else {
+      setExpanded(!expanded);
+    }
+  };
+
+  const toggleCheckboxValue = (index) => {
+    setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+    if (chipData.includes(menuItems1D[index])) {
+      setChipData((chips) =>
+        chips.filter((chip) => chip !== menuItems1D[index]),
+      );
+    } else {
+      setChipData([...chipData, menuItems1D[index]]);
+    }
+  };
+
+  const handleDelete = (chipToDelete) => {
+    setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
+    const index = menuItems1D.findIndex((element) => element === chipToDelete);
+    setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
+  };
+
+  const handleClearAll = () => {
+    setChipData([]);
+    setIsChecked(isChecked.map(() => false));
+  };
   const initialValues = {
     fullName: '',
     bio: '',
@@ -79,13 +130,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
           <Typography variant="h6" gutterBottom fontWeight={700}>
             It`s time to add recipe! Yeayy
           </Typography>
-          {/* <Typography variant={'subtitle2'} color={'text.secondary'}>
-            Please read our{' '}
-            <Link color={'primary'} href={'/company-terms'} underline={'none'}>
-              terms of use
-            </Link>{' '}
-            to be informed how we manage your private data.
-          </Typography> */}
           <Box paddingY={2}>
             <Divider />
           </Box>
@@ -97,10 +141,9 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Title
+                  Food Photography By
                 </Typography>
                 <TextField
-                  label="First name *"
                   variant="outlined"
                   name={'fullName'}
                   fullWidth
@@ -118,10 +161,50 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Enter your email
+                  Food Styling By
                 </Typography>
                 <TextField
-                  label="Email *"
+                  variant="outlined"
+                  name={'fullName'}
+                  fullWidth
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                  }
+                  helperText={formik.touched.fullName && formik.errors.fullName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Title
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  name={'fullName'}
+                  fullWidth
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                  }
+                  helperText={formik.touched.fullName && formik.errors.fullName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Tags
+                </Typography>
+                {/* <TextField
+                  label="Tags"
                   variant="outlined"
                   name={'email'}
                   fullWidth
@@ -129,6 +212,19 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   onChange={formik.handleChange}
                   error={formik.touched.email && Boolean(formik.errors.email)}
                   helperText={formik.touched.email && formik.errors.email}
+                /> */}
+                <SearchFilterBar
+                  chipData={chipData}
+                  isChecked={isChecked}
+                  onChangeCheckboxValue={toggleCheckboxValue}
+                  onChangeDeleteChip={handleDelete}
+                  onClearAll={handleClearAll}
+                  menuIndex={menuIndex}
+                  filterMenu={filterMenu}
+                  expanded={expanded}
+                  onChangeFilterExpanded={handleChangeFilterExpanded}
+                  isRecipeList={true}
+                  isContent={true}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -137,10 +233,9 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Bio
+                  Description
                 </Typography>
                 <TextField
-                  label="Bio"
                   variant="outlined"
                   name={'bio'}
                   multiline
