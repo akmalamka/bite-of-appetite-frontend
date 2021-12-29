@@ -10,5 +10,6 @@ export { default as DetailRecipe } from './DetailRecipe';
 export { default as DetailWriting } from './DetailWriting';
 export { default as FoodForThought } from './FoodForThought';
 export { default as About } from './About';
-export { default as ContentManagement } from './ContentManagement';
-export { default as ContentList } from './ContentList';
+export { default as ContentManagement } from './Content/ContentManagement';
+export { default as ContentList } from './Content/ContentList';
+export { default as ContentHome } from './Content/ContentHome';

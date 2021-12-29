@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -15,6 +16,7 @@ interface Props {
   isRecipe?: boolean;
 }
 const ContentList = ({ isRecipe }: Props): JSX.Element => {
+  const { url } = useRouteMatch();
   return (
     <Main>
       <Box
@@ -65,7 +67,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
                     },
                   }}
                   startIcon={<AddIcon />}
-                  // href="/recipes"
+                  href={`${url}/add`}
                 >
                   <Typography
                     variant="button"

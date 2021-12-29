@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-const ContentManagement = (): JSX.Element => {
+const ContentHome = (): JSX.Element => {
   const { url } = useRouteMatch();
   return (
     <Main>
@@ -75,7 +75,7 @@ const ContentManagement = (): JSX.Element => {
                     },
                     width: 1 / 3,
                   }}
-                  href={`${url}recipes`}
+                  href={`${url}/recipes`}
                 >
                   <Typography
                     variant="button"
@@ -123,7 +123,7 @@ const ContentManagement = (): JSX.Element => {
                     },
                     width: 1 / 3,
                   }}
-                  href={`${url}writings`}
+                  href={`${url}/writings`}
                 >
                   <Typography
                     variant="button"
@@ -147,4 +147,4 @@ const ContentManagement = (): JSX.Element => {
   );
 };
 
-export default ContentManagement;
+export default ContentHome;

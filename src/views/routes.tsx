@@ -15,6 +15,7 @@ import {
   AccountSecurity as AccountSecurityView,
   ContentManagement as ContentManagementView,
   ContentList as ContentListView,
+  ContentHome as ContentHomeView,
 } from 'views';
 
 const routes = [
@@ -74,9 +75,7 @@ const routes = [
   },
   {
     path: '/content-management',
-    renderer: (params = {}): JSX.Element => (
-      <ContentManagementView {...params} />
-    ),
+    renderer: (params = {}): JSX.Element => <ContentHomeView {...params} />,
   },
   {
     path: '/content-management/recipes',
@@ -88,6 +87,12 @@ const routes = [
     path: '/content-management/writings',
     renderer: (params = {}): JSX.Element => (
       <ContentListView isRecipe={false} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/:contentType/add',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView {...params} />
     ),
   },
 ];
