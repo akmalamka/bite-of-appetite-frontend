@@ -128,6 +128,7 @@ const SearchFilterBar = ({
                       xs: 300,
                       sm: 600,
                       md: isContent ? 570 : 800,
+                      border: isContent ? '1px solid' : 'none',
                     },
                   }}
                 >
@@ -136,8 +137,8 @@ const SearchFilterBar = ({
                     sx={{
                       display: 'flex',
                       flexDirection: 'column',
-                      border: '3px solid',
-                      boxShadow: 2,
+                      border: isContent ? 'none' : '3px solid',
+                      boxShadow: isContent ? 0 : 2,
                       borderRadius: 6,
                       borderColor:
                         mode === 'light'
@@ -206,9 +207,11 @@ const SearchFilterBar = ({
                           />
                         </Box>
                       )}
-                      <Box width={1} marginRight={1}>
-                        <Typography m={2}>Tags</Typography>
-                      </Box>
+                      {isContent && (
+                        <Box width={1} marginRight={1}>
+                          <Typography m={2}>Tags</Typography>
+                        </Box>
+                      )}
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <IconButton
                           onClick={() => onChangeFilterExpanded(false)}

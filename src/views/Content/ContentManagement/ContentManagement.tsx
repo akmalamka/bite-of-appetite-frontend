@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -10,7 +9,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { Page } from './components';
-import { CheckboxDropdown } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import Main from 'layouts/Main';
@@ -21,44 +19,55 @@ interface Props {
 }
 
 const validationSchema = yup.object({
-  fullName: yup
+  title: yup
     .string()
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  email: yup
+    .min(2, 'Please enter a valid title')
+    .max(75, 'Max 75 characters')
+    .required('Please specify the title'),
+  description: yup
     .string()
     .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  bio: yup
+    .max(190, 'Max 190 characters')
+    .required('Please specify the description'),
+  tags: yup
+    .array()
+    .min(1, 'Minimal 1 tag')
+    .required('Please specify tags'),
+  time: yup
     .string()
     .trim()
-    .max(500, 'Should be less than 500 chars'),
-  country: yup
+    .required('Please specify the time'),
+  foodPhotographyBy: yup
     .string()
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your country name'),
-  city: yup
+    .required('Please specify the food photographer'),
+  foodStylingBy: yup
     .string()
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your city name'),
-  address: yup
+    .required('Please specify the food styler'),
+  recipeBy: yup
     .string()
-    .required('Please specify your address')
-    .min(2, 'Please enter a valid address')
-    .max(200, 'Please enter a valid address'),
+    .trim()
+    .required('Please specify the recipe developer'),
+  inspiredBy: yup.string().trim(),
+  story: yup
+    .string()
+    .trim()
+    .min(2, 'Please enter a valid story')
+    .max(370, 'Max 370 characters')
+    .required('Please specify the story'),
+  date: yup
+    .string()
+    .trim()
+    .required('Please specify the date'),
+  serves: yup
+    .number()
+    .positive('Serves must be positive')
+    .required('Please specify serving'),
 });
 
 const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
-  const theme = useTheme();
-  const { mode } = theme.palette;
-
   const [chipData, setChipData] = React.useState([]);
 
   const menuMap = (item) => {
@@ -105,12 +114,18 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
     setIsChecked(isChecked.map(() => false));
   };
   const initialValues = {
-    fullName: '',
-    bio: '',
-    email: '',
-    country: '',
-    city: '',
-    address: '',
+    title: '',
+    description: '',
+    tags: chipData,
+    time: '',
+    foodPhotographyBy: '',
+    foodStylingBy: '',
+    recipeBy: '',
+    isInspiredByExist: false,
+    inspiredBy: '',
+    story: '',
+    date: '',
+    serves: 0,
   };
 
   const onSubmit = (values) => {
@@ -122,6 +137,10 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
     validationSchema: validationSchema,
     onSubmit,
   });
+
+  useEffect(() => {
+    formik.setFieldValue('tags', chipData);
+  }, [chipData]);
 
   return (
     <Main>
@@ -145,14 +164,18 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                 </Typography>
                 <TextField
                   variant="outlined"
-                  name={'fullName'}
+                  name={'foodPhotographyBy'}
                   fullWidth
-                  value={formik.values.fullName}
+                  value={formik.values.foodPhotographyBy}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                    formik.touched.foodPhotographyBy &&
+                    Boolean(formik.errors.foodPhotographyBy)
                   }
-                  helperText={formik.touched.fullName && formik.errors.fullName}
+                  helperText={
+                    formik.touched.foodPhotographyBy &&
+                    formik.errors.foodPhotographyBy
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -165,14 +188,17 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                 </Typography>
                 <TextField
                   variant="outlined"
-                  name={'fullName'}
+                  name={'foodStylingBy'}
                   fullWidth
-                  value={formik.values.fullName}
+                  value={formik.values.foodStylingBy}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.fullName && Boolean(formik.errors.fullName)
+                    formik.touched.foodStylingBy &&
+                    Boolean(formik.errors.foodStylingBy)
                   }
-                  helperText={formik.touched.fullName && formik.errors.fullName}
+                  helperText={
+                    formik.touched.foodStylingBy && formik.errors.foodStylingBy
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -185,14 +211,12 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                 </Typography>
                 <TextField
                   variant="outlined"
-                  name={'fullName'}
+                  name={'title'}
                   fullWidth
-                  value={formik.values.fullName}
+                  value={formik.values.title}
                   onChange={formik.handleChange}
-                  error={
-                    formik.touched.fullName && Boolean(formik.errors.fullName)
-                  }
-                  helperText={formik.touched.fullName && formik.errors.fullName}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                  helperText={formik.touched.title && formik.errors.title}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -237,38 +261,19 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                 </Typography>
                 <TextField
                   variant="outlined"
-                  name={'bio'}
+                  name={'description'}
                   multiline
                   rows={5}
                   fullWidth
-                  value={formik.values.bio}
-                  onChange={formik.handleChange}
-                  error={formik.touched.bio && Boolean(formik.errors.bio)}
-                  helperText={formik.touched.bio && formik.errors.bio}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography
-                  variant={'subtitle2'}
-                  sx={{ marginBottom: 2 }}
-                  fontWeight={700}
-                >
-                  Country
-                </Typography>
-                <TextField
-                  label="Country *"
-                  variant="outlined"
-                  name={'country'}
-                  fullWidth
-                  value={formik.values.country}
+                  value={formik.values.description}
                   onChange={formik.handleChange}
                   error={
-                    formik.touched.country && Boolean(formik.errors.country)
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
                   }
-                  helperText={formik.touched.country && formik.errors.country}
+                  helperText={
+                    formik.touched.description && formik.errors.description
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -277,17 +282,41 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  City
+                  Recipe By
                 </Typography>
                 <TextField
-                  label="City *"
                   variant="outlined"
-                  name={'city'}
+                  name={'recipeBy'}
                   fullWidth
-                  value={formik.values.city}
+                  value={formik.values.recipeBy}
                   onChange={formik.handleChange}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  helperText={formik.touched.city && formik.errors.city}
+                  error={
+                    formik.touched.recipeBy && Boolean(formik.errors.recipeBy)
+                  }
+                  helperText={formik.touched.recipeBy && formik.errors.recipeBy}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Inspired By
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  name={'inspiredBy'}
+                  fullWidth
+                  value={formik.values.inspiredBy}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.inspiredBy &&
+                    Boolean(formik.errors.inspiredBy)
+                  }
+                  helperText={
+                    formik.touched.inspiredBy && formik.errors.inspiredBy
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -296,42 +325,84 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   sx={{ marginBottom: 2 }}
                   fontWeight={700}
                 >
-                  Enter your address
+                  Story
                 </Typography>
                 <TextField
-                  label="Address *"
                   variant="outlined"
-                  name={'address'}
+                  name={'story'}
+                  multiline
+                  rows={5}
                   fullWidth
-                  value={formik.values.address}
+                  value={formik.values.story}
                   onChange={formik.handleChange}
-                  error={
-                    formik.touched.address && Boolean(formik.errors.address)
-                  }
-                  helperText={formik.touched.address && formik.errors.address}
+                  error={formik.touched.story && Boolean(formik.errors.story)}
+                  helperText={formik.touched.story && formik.errors.story}
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Date (ex: September 20, 2021)
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  name={'date'}
+                  fullWidth
+                  value={formik.values.date}
+                  onChange={formik.handleChange}
+                  error={formik.touched.date && Boolean(formik.errors.date)}
+                  helperText={formik.touched.date && formik.errors.date}
+                />
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Serves
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  name={'serves'}
+                  fullWidth
+                  value={formik.values.serves}
+                  onChange={formik.handleChange}
+                  error={formik.touched.serves && Boolean(formik.errors.serves)}
+                  helperText={formik.touched.serves && formik.errors.serves}
+                />
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <Typography
+                  variant={'subtitle2'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Time (in minutes)
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  name={'time'}
+                  fullWidth
+                  value={formik.values.time}
+                  onChange={formik.handleChange}
+                  error={formik.touched.time && Boolean(formik.errors.time)}
+                  helperText={formik.touched.time && formik.errors.time}
+                />
+              </Grid>
+
               <Grid item container xs={12}>
                 <Box
                   display="flex"
                   flexDirection={{ xs: 'column', sm: 'row' }}
                   alignItems={{ xs: 'stretched', sm: 'center' }}
-                  justifyContent={'space-between'}
+                  justifyContent={'flex-end'}
                   width={1}
                   margin={'0 auto'}
                 >
-                  <Box marginBottom={{ xs: 1, sm: 0 }}>
-                    <Typography variant={'subtitle2'}>
-                      You may also consider to update your{' '}
-                      <Link
-                        color={'primary'}
-                        href={'/account-billing'}
-                        underline={'none'}
-                      >
-                        billing information.
-                      </Link>
-                    </Typography>
-                  </Box>
                   <Button size={'large'} variant={'contained'} type={'submit'}>
                     Save
                   </Button>
