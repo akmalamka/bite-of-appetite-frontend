@@ -7,31 +7,15 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import { Page } from './components';
+import { DirectionField, AddDirectionButton, Page } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import Main from 'layouts/Main';
-import { NavItem } from 'layouts/Main/components/Topbar/components';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   isRecipe?: boolean;
-}
-
-interface DirectionFieldProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  stepNumber: number;
-  handleRemoveDirection: (stepNumber: number) => void;
-}
-
-interface AddDirectionButtonProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  stepNumber: number;
-  handleAddDirection: (stepNumber: number) => void;
 }
 
 const validationSchema = yup.object({
@@ -82,139 +66,6 @@ const validationSchema = yup.object({
     .positive('Serves must be positive')
     .required('Please specify serving'),
 });
-
-const DirectionField = ({
-  stepNumber,
-  handleRemoveDirection,
-}: DirectionFieldProps): JSX.Element => {
-  return (
-    <Grid container columnSpacing={2}>
-      <Grid item xs={1}>
-        <Typography variant={'h6'} align={'center'} m={2}>
-          {stepNumber}
-        </Typography>
-      </Grid>
-      <Grid item xs={10}>
-        <Grid container rowSpacing={2}>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Title
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'date'}
-              fullWidth
-              // value={formik.values.date}
-              // onChange={formik.handleChange}
-              // error={formik.touched.date && Boolean(formik.errors.date)}
-              // helperText={formik.touched.date && formik.errors.date}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Step
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'story'}
-              multiline
-              rows={5}
-              fullWidth
-              // value={formik.values.story}
-              // onChange={formik.handleChange}
-              // error={formik.touched.story && Boolean(formik.errors.story)}
-              // helperText={formik.touched.story && formik.errors.story}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Tips
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'date'}
-              fullWidth
-              // value={formik.values.date}
-              // onChange={formik.handleChange}
-              // error={formik.touched.date && Boolean(formik.errors.date)}
-              // helperText={formik.touched.date && formik.errors.date}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        xs={1}
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          pt: 4,
-        }}
-      >
-        <IconButton
-          edge="start"
-          aria-label="delete"
-          title="Delete"
-          size="large"
-          sx={{ border: '1px solid' }}
-          onClick={() => handleRemoveDirection(stepNumber)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Grid>
-    </Grid>
-  );
-};
-
-const AddDirectionButton = ({
-  stepNumber,
-  handleAddDirection,
-}: AddDirectionButtonProps): JSX.Element => {
-  return (
-    <Button
-      variant="outlined"
-      color="primary"
-      sx={{
-        borderRadius: 10,
-        border: 2,
-        borderColor: 'primary.main',
-        my: 2,
-        px: 2,
-        '&:hover': {
-          border: 2,
-        },
-      }}
-      startIcon={<AddIcon />}
-      onClick={() => handleAddDirection(stepNumber)}
-    >
-      <Typography
-        variant="button"
-        color="text.primary"
-        sx={{
-          textTransform: 'uppercase',
-          letterSpacing: 1.2,
-          fontWeight: 400,
-          fontSize: { xs: 12, md: 14 },
-        }}
-      >
-        Add direction
-      </Typography>
-    </Button>
-  );
-};
 
 const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   const [chipData, setChipData] = useState([]);
@@ -318,10 +169,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   useEffect(() => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
-
-  useEffect(() => {
-    console.log(directions);
-  }, [directions]);
 
   return (
     <Main>

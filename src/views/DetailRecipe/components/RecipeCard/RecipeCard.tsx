@@ -41,7 +41,6 @@ const RecipeCard = (): JSX.Element => {
 
   useEffect(() => {
     handleChangeIndexMobile(0);
-    console.log('bbb');
   }, []);
   return (
     <Box>
