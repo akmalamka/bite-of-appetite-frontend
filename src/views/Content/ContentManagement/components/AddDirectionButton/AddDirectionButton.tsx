@@ -5,14 +5,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 interface AddDirectionButtonProps {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  stepNumber: number;
-  handleAddDirection: (stepNumber: number) => void;
+  push: any;
 }
 
-const AddDirectionButton = ({
-  stepNumber,
-  handleAddDirection,
-}: AddDirectionButtonProps): JSX.Element => {
+const AddDirectionButton = ({ push }: AddDirectionButtonProps): JSX.Element => {
   return (
     <Button
       variant="outlined"
@@ -28,7 +24,7 @@ const AddDirectionButton = ({
         },
       }}
       startIcon={<AddIcon />}
-      onClick={() => handleAddDirection(stepNumber)}
+      onClick={() => push({ title: '', step: '', tips: '' })}
     >
       <Typography
         variant="button"

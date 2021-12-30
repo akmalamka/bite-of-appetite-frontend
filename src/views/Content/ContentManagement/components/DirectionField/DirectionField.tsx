@@ -1,109 +1,120 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
+import { Formik, Field, Form, FieldArray } from 'formik';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { AddDirectionButton } from '..';
+import './FieldClass.css';
 
-interface DirectionFieldProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  stepNumber: number;
-  handleRemoveDirection: (stepNumber: number) => void;
-}
-
-const DirectionField = ({
-  stepNumber,
-  handleRemoveDirection,
-}: DirectionFieldProps): JSX.Element => {
+const initialDirectionValue = {
+  directions: [
+    {
+      title: '',
+      step: '',
+      tips: '',
+    },
+  ],
+};
+const DirectionField = (): JSX.Element => {
   return (
-    <Grid container columnSpacing={2}>
-      <Grid item xs={1}>
-        <Typography variant={'h6'} align={'center'} m={2}>
-          {stepNumber}
-        </Typography>
-      </Grid>
-      <Grid item xs={10}>
-        <Grid container rowSpacing={2}>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Title
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'date'}
-              fullWidth
-              // value={formik.values.date}
-              // onChange={formik.handleChange}
-              // error={formik.touched.date && Boolean(formik.errors.date)}
-              // helperText={formik.touched.date && formik.errors.date}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Step
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'story'}
-              multiline
-              rows={5}
-              fullWidth
-              // value={formik.values.story}
-              // onChange={formik.handleChange}
-              // error={formik.touched.story && Boolean(formik.errors.story)}
-              // helperText={formik.touched.story && formik.errors.story}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              variant={'subtitle2'}
-              sx={{ marginBottom: 2 }}
-              fontWeight={700}
-            >
-              Tips
-            </Typography>
-            <TextField
-              variant="outlined"
-              name={'date'}
-              fullWidth
-              // value={formik.values.date}
-              // onChange={formik.handleChange}
-              // error={formik.touched.date && Boolean(formik.errors.date)}
-              // helperText={formik.touched.date && formik.errors.date}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        xs={1}
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          pt: 4,
-        }}
-      >
-        <IconButton
-          edge="start"
-          aria-label="delete"
-          title="Delete"
-          size="large"
-          sx={{ border: '1px solid' }}
-          onClick={() => handleRemoveDirection(stepNumber)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Grid>
-    </Grid>
+    <Formik
+      initialValues={initialDirectionValue}
+      onSubmit={async (values) => {
+        // await new Promise((r) => setTimeout(r, 500));
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
+      {({ values }) => (
+        <Form>
+          <FieldArray name="directions">
+            {({ insert, remove, push }) => (
+              <div>
+                {values.directions.length > 0 &&
+                  values.directions.map((direction, index) => (
+                    <div className="row" key={index}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <Box>
+                          <Typography
+                            variant={'h6'}
+                            sx={{ marginBottom: 2 }}
+                            fontWeight={700}
+                          >
+                            Step {index + 1}
+                          </Typography>
+                          <Typography
+                            variant={'subtitle2'}
+                            sx={{ marginBottom: 2 }}
+                            fontWeight={700}
+                          >
+                            Title
+                          </Typography>
+                          <Field
+                            name={`directions.${index}.title`}
+                            className="titleField"
+                            type="text"
+                          />
+                        </Box>
+                        <Box sx={{ p: 4 }}>
+                          <IconButton
+                            edge="start"
+                            aria-label="delete"
+                            title="Delete"
+                            size="large"
+                            sx={{ border: '1px solid' }}
+                            onClick={() => remove(index)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+
+                      <Box>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Step
+                        </Typography>
+                        <Field
+                          name={`directions.${index}.step`}
+                          className="stepField"
+                          type="textarea"
+                          as="textarea"
+                        />
+                      </Box>
+
+                      <Box>
+                        <Typography
+                          variant={'subtitle2'}
+                          sx={{ marginBottom: 2 }}
+                          fontWeight={700}
+                        >
+                          Tips
+                        </Typography>
+                        <Field
+                          name={`directions.${index}.tips`}
+                          className="stepField"
+                          type="textarea"
+                          as="textarea"
+                        />
+                      </Box>
+                    </div>
+                  ))}
+                <AddDirectionButton push={push} />
+              </div>
+            )}
+          </FieldArray>
+          <button type="submit">Invite</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

@@ -7,8 +7,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import { DirectionField, AddDirectionButton, Page } from './components';
+import { DirectionField, Page } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import Main from 'layouts/Main';
@@ -65,6 +64,10 @@ const validationSchema = yup.object({
     .number()
     .positive('Serves must be positive')
     .required('Please specify serving'),
+  directions: yup
+    .array()
+    .min(1, 'Minimal 1 directions')
+    .required('Please specify directions'),
 });
 
 const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
@@ -81,15 +84,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
 
   const [isChecked, setIsChecked] = useState(menuItems1D.slice().fill(false));
   const [expanded, setExpanded] = useState<boolean>(false);
-
-  const initialDirectionValue = {
-    stepNumber: 1,
-    title: '',
-    step: '',
-    tips: '',
-  };
-
-  const [directions, setDirections] = useState([initialDirectionValue]);
 
   const handleChangeFilterExpanded = (isClickAway) => {
     if (isClickAway) {
@@ -119,26 +113,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   const handleClearAll = () => {
     setChipData([]);
     setIsChecked(isChecked.map(() => false));
-  };
-
-  const handleAddDirection = (stepNumber) => {
-    setDirections([
-      ...directions,
-      { stepNumber: stepNumber, title: '', step: '', tips: '' },
-    ]);
-  };
-
-  const handleRemoveDirection = (stepNumber) => {
-    const tempDirections = directions
-      .filter((item) => item.stepNumber !== stepNumber)
-      .map(({ stepNumber, ...rest }, index) => {
-        stepNumber = index + 1;
-        return {
-          stepNumber,
-          ...rest,
-        };
-      });
-    setDirections(tempDirections);
   };
 
   const initialValues = {
@@ -426,22 +400,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   >
                     Directions
                   </Typography>
-                  <AddDirectionButton
-                    // formik={formik}
-                    stepNumber={directions.length + 1}
-                    handleAddDirection={handleAddDirection}
-                  />
                 </Box>
-                <List>
-                  {directions.map((item, i) => (
-                    <DirectionField
-                      key={i}
-                      // formik={formik}
-                      stepNumber={item.stepNumber}
-                      handleRemoveDirection={handleRemoveDirection}
-                    />
-                  ))}
-                </List>
               </Grid>
               <Grid item container xs={12}>
                 <Box
@@ -459,6 +418,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
               </Grid>
             </Grid>
           </form>
+          <DirectionField />
         </Box>
       </Page>
     </Main>
