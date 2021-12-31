@@ -7,6 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AddDirectionButton } from '..';
 import './FieldClass.css';
 
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  setDirections: any;
+}
+
 const initialDirectionValue = {
   directions: [
     {
@@ -16,12 +21,13 @@ const initialDirectionValue = {
     },
   ],
 };
-const DirectionField = (): JSX.Element => {
+const DirectionField = ({ setDirections }: Props): JSX.Element => {
   return (
     <Formik
       initialValues={initialDirectionValue}
       onSubmit={async (values) => {
         // await new Promise((r) => setTimeout(r, 500));
+        setDirections(values);
         alert(JSON.stringify(values, null, 2));
       }}
     >
@@ -43,13 +49,13 @@ const DirectionField = (): JSX.Element => {
                           <Typography
                             variant={'h6'}
                             sx={{ marginBottom: 2 }}
-                            fontWeight={700}
+                            fontWeight={600}
                           >
                             Step {index + 1}
                           </Typography>
                           <Typography
                             variant={'subtitle2'}
-                            sx={{ marginBottom: 2 }}
+                            sx={{ marginY: 2 }}
                             fontWeight={700}
                           >
                             Title
@@ -77,7 +83,7 @@ const DirectionField = (): JSX.Element => {
                       <Box>
                         <Typography
                           variant={'subtitle2'}
-                          sx={{ marginBottom: 2 }}
+                          sx={{ marginY: 2 }}
                           fontWeight={700}
                         >
                           Step
@@ -93,7 +99,7 @@ const DirectionField = (): JSX.Element => {
                       <Box>
                         <Typography
                           variant={'subtitle2'}
-                          sx={{ marginBottom: 2 }}
+                          sx={{ marginY: 2 }}
                           fontWeight={700}
                         >
                           Tips
@@ -107,11 +113,11 @@ const DirectionField = (): JSX.Element => {
                       </Box>
                     </div>
                   ))}
-                <AddDirectionButton push={push} />
+                <AddDirectionButton push={push} isIngredients={false} />
               </div>
             )}
           </FieldArray>
-          <button type="submit">Invite</button>
+          {/* <button type="submit">Invite</button> */}
         </Form>
       )}
     </Formik>

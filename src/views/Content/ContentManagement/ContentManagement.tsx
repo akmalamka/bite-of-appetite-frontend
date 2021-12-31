@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { DirectionField, Page } from './components';
+import { DirectionField, Page, IngredientsField } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import Main from 'layouts/Main';
@@ -15,6 +15,17 @@ import Main from 'layouts/Main';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   isRecipe?: boolean;
+}
+
+export interface Direction {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  title: string;
+  step: string;
+  tips: string;
+}
+export interface DirectionsProps {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  directions: Direction[];
 }
 
 const validationSchema = yup.object({
@@ -84,6 +95,15 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
 
   const [isChecked, setIsChecked] = useState(menuItems1D.slice().fill(false));
   const [expanded, setExpanded] = useState<boolean>(false);
+  const [directions, setDirections] = useState<DirectionsProps>({
+    directions: [
+      {
+        title: '',
+        step: '',
+        tips: '',
+      },
+    ],
+  });
 
   const handleChangeFilterExpanded = (isClickAway) => {
     if (isClickAway) {
@@ -128,6 +148,13 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
     story: '',
     date: '',
     serves: 0,
+    directions: [
+      {
+        title: '',
+        step: '',
+        tips: '',
+      },
+    ],
   };
 
   const onSubmit = (values) => {
@@ -143,6 +170,12 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   useEffect(() => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
+
+  useEffect(() => {
+    formik.setFieldValue('directions', directions.directions); // masih bug
+    console.log('aaa ', formik.values.directions);
+    // console.log(directions.directions);
+  }, [directions]);
 
   return (
     <Main>
@@ -394,7 +427,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   }}
                 >
                   <Typography
-                    variant={'subtitle2'}
+                    variant={'h5'}
                     sx={{ marginBottom: 2 }}
                     fontWeight={700}
                   >
@@ -402,23 +435,24 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item container xs={12}>
-                <Box
-                  display="flex"
-                  flexDirection={{ xs: 'column', sm: 'row' }}
-                  alignItems={{ xs: 'stretched', sm: 'center' }}
-                  justifyContent={'flex-end'}
-                  width={1}
-                  margin={'0 auto'}
-                >
-                  <Button size={'large'} variant={'contained'} type={'submit'}>
-                    Save
-                  </Button>
-                </Box>
-              </Grid>
             </Grid>
           </form>
-          <DirectionField />
+          <IngredientsField />
+          <DirectionField setDirections={setDirections} />
+          <Grid item container xs={12}>
+            <Box
+              display="flex"
+              flexDirection={{ xs: 'column', sm: 'row' }}
+              alignItems={{ xs: 'stretched', sm: 'center' }}
+              justifyContent={'flex-end'}
+              width={1}
+              margin={'0 auto'}
+            >
+              <Button size={'large'} variant={'contained'} type={'submit'}>
+                Save
+              </Button>
+            </Box>
+          </Grid>
         </Box>
       </Page>
     </Main>
