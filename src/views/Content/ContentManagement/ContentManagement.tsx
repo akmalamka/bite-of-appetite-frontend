@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -104,6 +105,8 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
       },
     ],
   });
+  const reader = new FileReader();
+  const [urlImage, setUrlImage] = useState(null);
 
   const handleChangeFilterExpanded = (isClickAway) => {
     if (isClickAway) {
@@ -136,6 +139,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   };
 
   const initialValues = {
+    imgFile: null,
     title: '',
     description: '',
     tags: chipData,
@@ -173,9 +177,27 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
 
   useEffect(() => {
     formik.setFieldValue('directions', directions.directions); // masih bug
-    console.log('aaa ', formik.values.directions);
-    // console.log(directions.directions);
   }, [directions]);
+
+  useEffect(() => {
+    if (formik.values.imgFile) {
+      const objectUrl = URL.createObjectURL(formik.values.imgFile);
+      console.log('urlImage ', objectUrl);
+      setUrlImage(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setUrlImage(undefined);
+      return;
+    }
+  }, [formik.values.imgFile]);
+
+  const onSelectFile = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      formik.setFieldValue('imgFile', null);
+      return;
+    }
+    formik.setFieldValue('imgFile', event.currentTarget.files[0]);
+  };
 
   return (
     <Main>
@@ -189,6 +211,41 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
           </Box>
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <div className="form-group">
+                  <Typography
+                    variant={'subtitle2'}
+                    sx={{ marginBottom: 2 }}
+                    fontWeight={700}
+                  >
+                    Image Upload
+                  </Typography>
+                  <input
+                    id="file"
+                    name="file"
+                    type="file"
+                    onChange={onSelectFile}
+                    className="form-control"
+                  />
+                  {urlImage}
+                  {formik.values.imgFile && (
+                    <Box
+                      component={LazyLoadImage}
+                      height={1}
+                      width={1}
+                      src={urlImage}
+                      alt="..."
+                      effect="blur"
+                      my={2}
+                      sx={{
+                        objectFit: 'contain',
+                        maxHeight: { xs: 530, md: 1 },
+                        borderRadius: 2,
+                      }}
+                    />
+                  )}
+                </div>
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography
                   variant={'subtitle2'}
