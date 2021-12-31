@@ -41,7 +41,7 @@ const IngredientsField = (): JSX.Element => {
     setChecked(event.target.checked);
   };
   return (
-    <Box>
+    <Box sx={{ my: 4 }}>
       <Box
         sx={{
           display: 'flex',
@@ -53,13 +53,12 @@ const IngredientsField = (): JSX.Element => {
         <Typography variant={'h5'} sx={{ marginBottom: 2 }} fontWeight={700}>
           Ingredients
         </Typography>
-        {/* <FormControlLabel control={<Switch />} label="with Component" /> */}
         <FormControlLabel
           control={<Switch checked={checked} onChange={handleChangeSwitch} />}
           label="with Component"
         />
       </Box>
-      {checked && (
+      {checked ? (
         <Formik
           initialValues={initialIngredientsValueWithComponent}
           onSubmit={async (values) => {
@@ -129,10 +128,6 @@ const IngredientsField = (): JSX.Element => {
                                   isWithComponent={true}
                                 />
                               </Box>
-                              {/* <IngredientsWithoutComponentField
-                                isInsideComponent={true}
-                                values={values.ingredientsWithComponent}
-                              /> */}
                               <FieldArray
                                 name={`ingredientsWithComponent[${i}].ingredients`}
                               >
@@ -241,8 +236,7 @@ const IngredientsField = (): JSX.Element => {
             </Form>
           )}
         </Formik>
-      )}
-      {!checked && (
+      ) : (
         <IngredientsWithoutComponentField isInsideComponent={false} />
       )}
     </Box>

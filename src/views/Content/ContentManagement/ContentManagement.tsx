@@ -418,27 +418,30 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                   helperText={formik.touched.time && formik.errors.time}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Typography
-                    variant={'h5'}
-                    sx={{ marginBottom: 2 }}
-                    fontWeight={700}
-                  >
-                    Directions
-                  </Typography>
-                </Box>
-              </Grid>
             </Grid>
           </form>
           <IngredientsField />
-          <DirectionField setDirections={setDirections} />
+
+          <Box sx={{ my: 4 }}>
+            <Grid item xs={12}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography
+                  variant={'h5'}
+                  sx={{ marginBottom: 2 }}
+                  fontWeight={700}
+                >
+                  Directions
+                </Typography>
+              </Box>
+            </Grid>
+            <DirectionField setDirections={setDirections} />
+          </Box>
           <Grid item container xs={12}>
             <Box
               display="flex"
