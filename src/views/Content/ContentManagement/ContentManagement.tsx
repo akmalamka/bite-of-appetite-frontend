@@ -18,17 +18,6 @@ interface Props {
   isRecipe?: boolean;
 }
 
-export interface Direction {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  title: string;
-  step: string;
-  tips: string;
-}
-export interface DirectionsProps {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  directions: Direction[];
-}
-
 const validationSchema = yup.object({
   title: yup
     .string()
@@ -96,15 +85,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
 
   const [isChecked, setIsChecked] = useState(menuItems1D.slice().fill(false));
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [directions, setDirections] = useState<DirectionsProps>({
-    directions: [
-      {
-        title: '',
-        step: '',
-        tips: '',
-      },
-    ],
-  });
   const [urlImage, setUrlImage] = useState(null);
 
   const handleChangeFilterExpanded = (isClickAway) => {
@@ -152,32 +132,23 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
     date: '',
     serves: 0,
     ingredients: null,
-    directions: [
-      {
-        title: '',
-        step: '',
-        tips: '',
-      },
-    ],
+    directions: null,
   };
 
   const onSubmit = (values) => {
-    return values;
+    alert(JSON.stringify(values, null, 2));
+    // return values;
   };
 
   const formik = useFormik({
     initialValues,
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema, nanti dipake yaa
     onSubmit,
   });
 
   useEffect(() => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
-
-  useEffect(() => {
-    formik.setFieldValue('directions', directions.directions); // masih bug
-  }, [directions]);
 
   useEffect(() => {
     if (formik.values.imgFile) {
@@ -205,11 +176,26 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
           <Typography variant="h6" gutterBottom fontWeight={700}>
             It`s time to add recipe! Yeayy
           </Typography>
+
           <Box paddingY={2}>
             <Divider />
           </Box>
           <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={4}>
+              <Grid item container xs={12}>
+                <Box
+                  display="flex"
+                  flexDirection={{ xs: 'column', sm: 'row' }}
+                  alignItems={{ xs: 'stretched', sm: 'center' }}
+                  justifyContent={'flex-end'}
+                  width={1}
+                  margin={'0 auto'}
+                >
+                  <Button size={'large'} variant={'contained'} type={'submit'}>
+                    Save Recipe
+                  </Button>
+                </Box>
+              </Grid>
               <Grid item xs={12}>
                 <div className="form-group">
                   <Typography
@@ -495,22 +481,8 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
                 </Typography>
               </Box>
             </Grid>
-            <DirectionField setDirections={setDirections} />
+            <DirectionField formik={formik} />
           </Box>
-          <Grid item container xs={12}>
-            <Box
-              display="flex"
-              flexDirection={{ xs: 'column', sm: 'row' }}
-              alignItems={{ xs: 'stretched', sm: 'center' }}
-              justifyContent={'flex-end'}
-              width={1}
-              margin={'0 auto'}
-            >
-              <Button size={'large'} variant={'contained'} type={'submit'}>
-                Save
-              </Button>
-            </Box>
-          </Grid>
         </Box>
       </Page>
     </Main>

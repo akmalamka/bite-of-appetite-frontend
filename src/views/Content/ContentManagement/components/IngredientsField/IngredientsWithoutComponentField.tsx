@@ -145,7 +145,6 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
             <Button variant={'contained'} type={'submit'}>
               Save Ingredients to Formik Object
             </Button>
-            {/* <button type="submit">Save Ingredients to Formik Object</button> */}
           </Form>
         )}
       </Formik>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AddDirectionButton } from '..';
@@ -9,7 +10,7 @@ import './FieldClass.css';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  setDirections: any;
+  formik: any;
 }
 
 const initialDirectionValue = {
@@ -21,13 +22,13 @@ const initialDirectionValue = {
     },
   ],
 };
-const DirectionField = ({ setDirections }: Props): JSX.Element => {
+const DirectionField = ({ formik }: Props): JSX.Element => {
   return (
     <Formik
       initialValues={initialDirectionValue}
       onSubmit={async (values) => {
         // await new Promise((r) => setTimeout(r, 500));
-        setDirections(values);
+        formik.setFieldValue('directions', values.directions);
         alert(JSON.stringify(values, null, 2));
       }}
     >
@@ -117,7 +118,9 @@ const DirectionField = ({ setDirections }: Props): JSX.Element => {
               </div>
             )}
           </FieldArray>
-          {/* <button type="submit">Invite</button> */}
+          <Button variant={'contained'} type={'submit'}>
+            Save Directions to Formik Object
+          </Button>
         </Form>
       )}
     </Formik>
