@@ -64,6 +64,7 @@ const IngredientsField = (): JSX.Element => {
           initialValues={initialIngredientsValueWithComponent}
           onSubmit={async (values) => {
             // await new Promise((r) => setTimeout(r, 500));
+            // console.log(values);
             alert(JSON.stringify(values, null, 2));
           }}
         >
@@ -132,93 +133,103 @@ const IngredientsField = (): JSX.Element => {
                                 isInsideComponent={true}
                                 values={values.ingredientsWithComponent}
                               /> */}
-                              {component.ingredients &&
-                                component.ingredients.length > 0 &&
-                                component.ingredients.map((ingredient, j) => (
-                                  <Box key={j}>
-                                    <Box
-                                      sx={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                      }}
-                                    >
-                                      <Typography
-                                        variant={'h6'}
-                                        sx={{ marginBottom: 2 }}
-                                        fontWeight={600}
-                                      >
-                                        Ingredient {j + 1}
-                                      </Typography>
-                                      <Box sx={{ px: 4, py: 2 }}>
-                                        <IconButton
-                                          edge="start"
-                                          aria-label="delete"
-                                          title="Delete"
-                                          size="large"
-                                          sx={{ border: '1px solid' }}
-                                          onClick={() => remove(j)}
-                                        >
-                                          <DeleteIcon />
-                                        </IconButton>
-                                      </Box>
-                                    </Box>
-                                    <Box
-                                      sx={{
-                                        display: 'flex',
-                                        justifyContent: 'space-around',
-                                      }}
-                                    >
-                                      <Box>
-                                        <Typography
-                                          variant={'subtitle2'}
-                                          sx={{ marginY: 2 }}
-                                          fontWeight={700}
-                                        >
-                                          Name
-                                        </Typography>
-                                        <Field
-                                          name={`ingredientsWithComponent[${i}].ingredients[${j}].name`}
-                                          className="titleField"
-                                          type="text"
-                                        />
-                                      </Box>
-                                      <Box>
-                                        <Typography
-                                          variant={'subtitle2'}
-                                          sx={{ marginY: 2 }}
-                                          fontWeight={700}
-                                        >
-                                          Measurement
-                                        </Typography>
-                                        <Field
-                                          name={`ingredientsWithComponent[${i}].ingredients[${j}].measurement`}
-                                          className="titleField"
-                                          type="text"
-                                        />
-                                      </Box>
-                                      <Box>
-                                        <Typography
-                                          variant={'subtitle2'}
-                                          sx={{ marginY: 2 }}
-                                          fontWeight={700}
-                                        >
-                                          Unit
-                                        </Typography>
-                                        <Field
-                                          name={`ingredientsWithComponent[${i}].ingredients[${j}].unit`}
-                                          className="titleField"
-                                          type="text"
-                                        />
-                                      </Box>
-                                    </Box>
-                                  </Box>
-                                ))}
-                              <AddDirectionButton
-                                push={push}
-                                isIngredients={true}
-                                isWithComponent={false}
-                              />
+                              <FieldArray
+                                name={`ingredientsWithComponent[${i}].ingredients`}
+                              >
+                                {({ insert, remove, push }) => (
+                                  <div>
+                                    {component.ingredients &&
+                                      component.ingredients.length > 0 &&
+                                      component.ingredients.map(
+                                        (ingredient, j) => (
+                                          <Box key={j}>
+                                            <Box
+                                              sx={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                              }}
+                                            >
+                                              <Typography
+                                                variant={'h6'}
+                                                sx={{ marginBottom: 2 }}
+                                                fontWeight={600}
+                                              >
+                                                Ingredient {j + 1}
+                                              </Typography>
+                                              <Box sx={{ px: 4, py: 2 }}>
+                                                <IconButton
+                                                  edge="start"
+                                                  aria-label="delete"
+                                                  title="Delete"
+                                                  size="large"
+                                                  sx={{ border: '1px solid' }}
+                                                  onClick={() => remove(j)}
+                                                >
+                                                  <DeleteIcon />
+                                                </IconButton>
+                                              </Box>
+                                            </Box>
+                                            <Box
+                                              sx={{
+                                                display: 'flex',
+                                                justifyContent: 'space-around',
+                                              }}
+                                            >
+                                              <Box>
+                                                <Typography
+                                                  variant={'subtitle2'}
+                                                  sx={{ marginY: 2 }}
+                                                  fontWeight={700}
+                                                >
+                                                  Name
+                                                </Typography>
+                                                <Field
+                                                  name={`ingredientsWithComponent[${i}].ingredients[${j}].name`}
+                                                  className="titleField"
+                                                  type="text"
+                                                />
+                                              </Box>
+                                              <Box>
+                                                <Typography
+                                                  variant={'subtitle2'}
+                                                  sx={{ marginY: 2 }}
+                                                  fontWeight={700}
+                                                >
+                                                  Measurement
+                                                </Typography>
+                                                <Field
+                                                  name={`ingredientsWithComponent[${i}].ingredients[${j}].measurement`}
+                                                  className="titleField"
+                                                  type="text"
+                                                />
+                                              </Box>
+                                              <Box>
+                                                <Typography
+                                                  variant={'subtitle2'}
+                                                  sx={{ marginY: 2 }}
+                                                  fontWeight={700}
+                                                >
+                                                  Unit
+                                                </Typography>
+                                                <Field
+                                                  name={`ingredientsWithComponent[${i}].ingredients[${j}].unit`}
+                                                  className="titleField"
+                                                  type="text"
+                                                />
+                                              </Box>
+                                            </Box>
+                                          </Box>
+                                        ),
+                                      )}
+                                    <AddDirectionButton
+                                      push={push}
+                                      isIngredients={true}
+                                      isWithComponent={false}
+                                    />
+                                  </div>
+                                )}
+                              </FieldArray>
                             </Box>
                           </div>
                         ))}
