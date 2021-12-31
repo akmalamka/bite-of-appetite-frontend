@@ -34,7 +34,7 @@ const DirectionField = ({ setDirections }: Props): JSX.Element => {
       {({ values }) => (
         <Form>
           <FieldArray name="directions">
-            {({ insert, remove, push }) => (
+            {({ remove, push }) => (
               <div>
                 {values.directions.length > 0 &&
                   values.directions.map((direction, index) => (

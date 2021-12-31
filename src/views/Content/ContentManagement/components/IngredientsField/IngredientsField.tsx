@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -78,9 +79,14 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
           {({ values }) => (
             <Form>
               <FieldArray name="ingredientsWithComponent">
-                {({ insert, remove, push }) => (
+                {({ remove, push }) => (
                   <div>
                     <Box>
+                      <AddDirectionButton
+                        push={push}
+                        isIngredients={true}
+                        isWithComponent={true}
+                      />
                       {values.ingredientsWithComponent.length > 0 &&
                         values.ingredientsWithComponent.map((component, i) => (
                           <div className="row" key={i}>
@@ -129,11 +135,6 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                   name={`ingredientsWithComponent.${i}.component`}
                                   className="titleField"
                                   type="text"
-                                />
-                                <AddDirectionButton
-                                  push={push}
-                                  isIngredients={true}
-                                  isWithComponent={true}
                                 />
                               </Box>
                               <FieldArray
@@ -240,7 +241,9 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                   </div>
                 )}
               </FieldArray>
-              <button type="submit">Save to Formik Object</button>
+              <Button variant={'contained'} type={'submit'}>
+                Save Ingredients to Formik Object
+              </Button>
             </Form>
           )}
         </Formik>

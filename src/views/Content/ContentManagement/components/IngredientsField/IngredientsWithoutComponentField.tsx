@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AddDirectionButton } from '..';
@@ -39,7 +40,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
         {({ values }) => (
           <Form>
             <FieldArray name="ingredientsWithoutComponent">
-              {({ insert, remove, push }) => (
+              {({ remove, push }) => (
                 <div>
                   <Box>
                     {values.ingredientsWithoutComponent.length > 0 &&
@@ -141,7 +142,10 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                 </div>
               )}
             </FieldArray>
-            <button type="submit">Save to Formik Object</button>
+            <Button variant={'contained'} type={'submit'}>
+              Save Ingredients to Formik Object
+            </Button>
+            {/* <button type="submit">Save Ingredients to Formik Object</button> */}
           </Form>
         )}
       </Formik>
