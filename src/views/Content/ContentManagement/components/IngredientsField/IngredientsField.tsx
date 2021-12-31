@@ -10,6 +10,11 @@ import { AddDirectionButton } from '..';
 import IngredientsWithoutComponentField from './IngredientsWithoutComponentField';
 import './FieldClass.css';
 
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  formik: any;
+}
+
 const initialIngredientsValueWithoutComponent = {
   ingredientsWithoutComponent: [
     {
@@ -34,7 +39,7 @@ const initialIngredientsValueWithComponent = {
     },
   ],
 };
-const IngredientsField = (): JSX.Element => {
+const IngredientsField = ({ formik }: Props): JSX.Element => {
   const [checked, setChecked] = useState(false);
 
   const handleChangeSwitch = (event) => {
@@ -63,7 +68,10 @@ const IngredientsField = (): JSX.Element => {
           initialValues={initialIngredientsValueWithComponent}
           onSubmit={async (values) => {
             // await new Promise((r) => setTimeout(r, 500));
-            // console.log(values);
+            formik.setFieldValue(
+              'ingredients',
+              values.ingredientsWithComponent,
+            );
             alert(JSON.stringify(values, null, 2));
           }}
         >
@@ -232,12 +240,12 @@ const IngredientsField = (): JSX.Element => {
                   </div>
                 )}
               </FieldArray>
-              <button type="submit">with Component</button>
+              <button type="submit">Save to Formik Object</button>
             </Form>
           )}
         </Formik>
       ) : (
-        <IngredientsWithoutComponentField isInsideComponent={false} />
+        <IngredientsWithoutComponentField formik={formik} />
       )}
     </Box>
   );

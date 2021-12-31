@@ -105,7 +105,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
       },
     ],
   });
-  const reader = new FileReader();
   const [urlImage, setUrlImage] = useState(null);
 
   const handleChangeFilterExpanded = (isClickAway) => {
@@ -152,6 +151,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
     story: '',
     date: '',
     serves: 0,
+    ingredients: null,
     directions: [
       {
         title: '',
@@ -182,7 +182,6 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
   useEffect(() => {
     if (formik.values.imgFile) {
       const objectUrl = URL.createObjectURL(formik.values.imgFile);
-      console.log('urlImage ', objectUrl);
       setUrlImage(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     } else {
@@ -477,8 +476,7 @@ const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
               </Grid>
             </Grid>
           </form>
-          <IngredientsField />
-
+          <IngredientsField formik={formik} />
           <Box sx={{ my: 4 }}>
             <Grid item xs={12}>
               <Box
