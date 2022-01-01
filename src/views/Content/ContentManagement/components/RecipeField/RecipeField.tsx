@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -66,6 +67,10 @@ const validationSchema = yup.object({
 
 const RecipeField = (): JSX.Element => {
   const [chipData, setChipData] = useState([]);
+  const chosenRecipeData = useSelector(
+    (state: any) => state.recipe.chosenRecipe,
+  );
+  console.log('chosenRecipeData ', chosenRecipeData);
 
   const menuMap = (item) => {
     return item;

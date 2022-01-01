@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { Page, WritingsField } from './components';
 import RecipeField from './components/RecipeField';
 import Main from 'layouts/Main';
+import { resetChosenRecipe } from 'redux/actions/recipeActions';
+import { resetChosenWriting } from 'redux/actions/writingActions';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -13,6 +16,11 @@ interface Props {
 }
 
 const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    isRecipe ? dispatch(resetChosenRecipe()) : dispatch(resetChosenWriting());
+  }, []);
+
   return (
     <Main>
       <Page isRecipe={isRecipe} isAddContent={isAddContent}>
