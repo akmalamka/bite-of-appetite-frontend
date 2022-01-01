@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -18,7 +18,9 @@ interface Props {
 const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
-    isRecipe ? dispatch(resetChosenRecipe()) : dispatch(resetChosenWriting());
+    isRecipe && isAddContent
+      ? dispatch(resetChosenRecipe())
+      : dispatch(resetChosenWriting());
   }, []);
 
   return (
@@ -32,7 +34,11 @@ const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
           <Box paddingY={2}>
             <Divider />
           </Box>
-          {isRecipe ? <RecipeField /> : <WritingsField />}
+          {isRecipe ? (
+            <RecipeField isAddContent={isAddContent} />
+          ) : (
+            <WritingsField isAddContent={isAddContent} />
+          )}
         </Box>
       </Page>
     </Main>

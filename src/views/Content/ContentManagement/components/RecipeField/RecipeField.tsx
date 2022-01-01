@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -11,6 +11,11 @@ import Typography from '@mui/material/Typography';
 import { DirectionField, IngredientsField } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
+
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  isAddContent: boolean;
+}
 
 const validationSchema = yup.object({
   title: yup
@@ -65,8 +70,9 @@ const validationSchema = yup.object({
     .required('Please specify directions'),
 });
 
-const RecipeField = (): JSX.Element => {
+const RecipeField = ({ isAddContent }: Props): JSX.Element => {
   const [chipData, setChipData] = useState([]);
+
   const chosenRecipeData = useSelector(
     (state: any) => state.recipe.chosenRecipe,
   );
@@ -115,8 +121,8 @@ const RecipeField = (): JSX.Element => {
     setIsChecked(isChecked.map(() => false));
   };
 
-  const initialValues = {
-    imgFile: null,
+  const initialEmptyValues = {
+    image: null,
     title: '',
     description: '',
     tags: chipData,
@@ -124,11 +130,12 @@ const RecipeField = (): JSX.Element => {
     foodPhotographyBy: '',
     foodStylingBy: '',
     recipeBy: '',
-    isInspiredByExist: false,
+    inspiredByExist: false,
     inspiredBy: '',
     story: '',
     date: '',
     serves: 0,
+    isIngredientsWithComponent: false,
     ingredients: null,
     directions: null,
   };
@@ -137,6 +144,13 @@ const RecipeField = (): JSX.Element => {
     alert(JSON.stringify(values, null, 2));
     // return values;
   };
+  const [initialValues, setinitialValues] = useState(initialEmptyValues);
+
+  useEffect(() => {
+    if (!isAddContent) {
+      setinitialValues(chosenRecipeData);
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -149,22 +163,22 @@ const RecipeField = (): JSX.Element => {
   }, [chipData]);
 
   useEffect(() => {
-    if (formik.values.imgFile) {
-      const objectUrl = URL.createObjectURL(formik.values.imgFile);
+    if (formik.values.image) {
+      const objectUrl = URL.createObjectURL(formik.values.image);
       setUrlImage(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     } else {
       setUrlImage(undefined);
       return;
     }
-  }, [formik.values.imgFile]);
+  }, [formik.values.image]);
 
   const onSelectFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
-      formik.setFieldValue('imgFile', null);
+      formik.setFieldValue('image', null);
       return;
     }
-    formik.setFieldValue('imgFile', event.currentTarget.files[0]);
+    formik.setFieldValue('image', event.currentTarget.files[0]);
   };
 
   return (
@@ -202,7 +216,7 @@ const RecipeField = (): JSX.Element => {
                 className="form-control"
               />
               {urlImage}
-              {formik.values.imgFile && (
+              {formik.values.image && (
                 <Box
                   component={LazyLoadImage}
                   height={1}

@@ -8,6 +8,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  isAddContent: boolean;
+}
+
 const validationSchema = yup.object({
   fullName: yup
     .string()
@@ -43,9 +48,9 @@ const validationSchema = yup.object({
     .max(200, 'Please enter a valid address'),
 });
 
-const WritingsField = (): JSX.Element => {
+const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   const initialValues = {
-    imgFile: null,
+    image: null,
     description: '',
     title: '',
     writingsBy: '',
@@ -66,22 +71,22 @@ const WritingsField = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (formik.values.imgFile) {
-      const objectUrl = URL.createObjectURL(formik.values.imgFile);
+    if (formik.values.image) {
+      const objectUrl = URL.createObjectURL(formik.values.image);
       setUrlImage(objectUrl);
       return () => URL.revokeObjectURL(objectUrl);
     } else {
       setUrlImage(undefined);
       return;
     }
-  }, [formik.values.imgFile]);
+  }, [formik.values.image]);
 
   const onSelectFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
-      formik.setFieldValue('imgFile', null);
+      formik.setFieldValue('image', null);
       return;
     }
-    formik.setFieldValue('imgFile', event.currentTarget.files[0]);
+    formik.setFieldValue('image', event.currentTarget.files[0]);
   };
 
   return (
@@ -105,7 +110,7 @@ const WritingsField = (): JSX.Element => {
                 className="form-control"
               />
               {urlImage}
-              {formik.values.imgFile && (
+              {formik.values.image && (
                 <Box
                   component={LazyLoadImage}
                   height={1}
