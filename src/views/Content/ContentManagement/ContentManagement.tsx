@@ -8,18 +8,19 @@ import Main from 'layouts/Main';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  isRecipe?: boolean;
+  isRecipe: boolean;
+  isAddContent: boolean;
 }
 
-const ContentManagement = ({ isRecipe }: Props): JSX.Element => {
+const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
   return (
     <Main>
-      <Page isRecipe={isRecipe}>
+      <Page isRecipe={isRecipe} isAddContent={isAddContent}>
         <Box>
           <Typography variant="h6" gutterBottom fontWeight={700}>
-            It`s time to add {isRecipe ? 'recipe' : 'writing'}! Yeayy
+            It`s time to {isAddContent ? 'add' : 'edit'}{' '}
+            {isRecipe ? 'recipe' : 'writing'}! Yeayy
           </Typography>
-
           <Box paddingY={2}>
             <Divider />
           </Box>

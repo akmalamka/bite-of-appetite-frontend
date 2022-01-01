@@ -8,16 +8,17 @@ import Container from 'components/Container';
 
 interface Props {
   isRecipe: boolean;
+  isAddContent: boolean;
   children: React.ReactNode;
 }
 
-const Page = ({ isRecipe, children }: Props): JSX.Element => {
+const Page = ({ isRecipe, isAddContent, children }: Props): JSX.Element => {
   return (
     <Box>
       <Box paddingY={4}>
         <Container>
           <Typography variant="h4" fontWeight={700} gutterBottom>
-            Add {isRecipe ? 'Recipe' : 'Writing'}
+            {isAddContent ? 'Add' : 'Edit'} {isRecipe ? 'Recipe' : 'Writing'}
           </Typography>
         </Container>
       </Box>

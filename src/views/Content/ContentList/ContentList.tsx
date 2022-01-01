@@ -1,15 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import AddIcon from '@mui/icons-material/Add';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContentCard } from 'blocks';
 import { dummyRecipes } from 'utils/dummyRecipes';
 import { dummyWritings } from 'utils/dummyWritings';
-import AddIcon from '@mui/icons-material/Add';
+import { setChosenRecipe } from 'redux/actions/recipeActions';
+import { setChosenWriting } from 'redux/actions/writingActions';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -17,6 +20,13 @@ interface Props {
 }
 const ContentList = ({ isRecipe }: Props): JSX.Element => {
   const { url } = useRouteMatch();
+  const dispatch = useDispatch();
+
+  const onClickEditContent = (index) => {
+    isRecipe
+      ? dispatch(setChosenRecipe(dummyRecipes[index]))
+      : dispatch(setChosenWriting(dummyWritings[index]));
+  };
   return (
     <Main>
       <Box
@@ -86,7 +96,13 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
             </Box>
             <Grid container rowSpacing={4} columnSpacing={2}>
               {(isRecipe ? dummyRecipes : dummyWritings).map((item, i) => (
-                <ContentCard key={i} title={item.title} image={item.image} />
+                <ContentCard
+                  key={i}
+                  title={item.title}
+                  image={item.image}
+                  onClickEditContent={onClickEditContent}
+                  index={i}
+                />
               ))}
             </Grid>
           </Box>

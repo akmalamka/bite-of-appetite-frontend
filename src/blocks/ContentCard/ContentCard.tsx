@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -11,10 +12,18 @@ import EditIcon from '@mui/icons-material/Edit';
 interface Props {
   title: string;
   image: string;
+  onClickEditContent: (index: number) => void;
+  index: number;
 }
 
-const ContentCard = ({ title, image }: Props): JSX.Element => {
+const ContentCard = ({
+  title,
+  image,
+  onClickEditContent,
+  index,
+}: Props): JSX.Element => {
   const theme = useTheme();
+  const { url } = useRouteMatch();
 
   return (
     <Grid item xs={4}>
@@ -81,33 +90,39 @@ const ContentCard = ({ title, image }: Props): JSX.Element => {
               Delete
             </Typography>
           </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            sx={{
-              borderRadius: 10,
-              border: 2,
-              px: 2,
-              '&:hover': {
-                border: 2,
-              },
-            }}
-            startIcon={<EditIcon />}
-            // href="/recipes"
+          <Link
+            to={`${url}/edit/${title.toLowerCase().replaceAll(' ', '-')}`}
+            style={{ textDecoration: 'none' }}
           >
-            <Typography
-              variant="button"
-              color="text.primary"
+            <Button
+              variant="outlined"
+              color="primary"
               sx={{
-                textTransform: 'uppercase',
-                letterSpacing: 1.2,
-                fontWeight: 400,
-                fontSize: { xs: 12, md: 14 },
+                borderRadius: 10,
+                border: 2,
+                px: 2,
+                '&:hover': {
+                  border: 2,
+                },
               }}
+              startIcon={<EditIcon />}
+              onClick={() => onClickEditContent(index)}
+              // href="/recipes"
             >
-              Edit
-            </Typography>
-          </Button>
+              <Typography
+                variant="button"
+                color="text.primary"
+                sx={{
+                  textTransform: 'uppercase',
+                  letterSpacing: 1.2,
+                  fontWeight: 400,
+                  fontSize: { xs: 12, md: 14 },
+                }}
+              >
+                Edit
+              </Typography>
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Grid>

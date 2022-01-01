@@ -92,13 +92,29 @@ const routes = [
   {
     path: '/content-management/recipes/add',
     renderer: (params = {}): JSX.Element => (
-      <ContentManagementView isRecipe={true} {...params} />
+      <ContentManagementView isRecipe={true} isAddContent={true} {...params} />
     ),
   },
   {
     path: '/content-management/writings/add',
     renderer: (params = {}): JSX.Element => (
-      <ContentManagementView isRecipe={false} {...params} />
+      <ContentManagementView isRecipe={false} isAddContent={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/recipes/edit/:recipeTitle',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView isRecipe={true} isAddContent={false} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings/edit/:writingTitle',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView
+        isRecipe={false}
+        isAddContent={false}
+        {...params}
+      />
     ),
   },
 ];
