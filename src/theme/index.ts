@@ -25,16 +25,16 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
-        MuiCssBaseline: {
-          styleOverrides: `
-            @font-face {
-              font-family: 'Yournotes';
-              font-style: normal;
-              font-display: swap;
-              src: local('Yournotes'), url(${YourNotes}) format('ttf');
-            }
-          `,
-        },
+        // MuiCssBaseline: {
+        //   styleOverrides: `
+        //     @font-face {
+        //       font-family: 'Yournotes';
+        //       font-style: normal;
+        //       font-display: swap;
+        //       src: local('Yournotes'), url(${YourNotes}) format('ttf');
+        //     }
+        //   `,
+        // },
         MuiButton: {
           styleOverrides: {
             root: {
