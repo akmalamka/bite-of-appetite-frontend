@@ -52,9 +52,11 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                 variant="h2"
                 color="text.primary"
                 gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
+                sx={
+                  {
+                    // fontWeight: 700,
+                  }
+                }
               >
                 {video ? 'Welcome to my food' : 'about this'}
                 <br />{' '}
@@ -122,7 +124,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                         fontWeight: 400,
                       }}
                     >
-                      Let`s collab!
+                      Let`s collab
                     </Typography>
                   </Button>
                 </Link>

@@ -2,6 +2,8 @@ import { Theme, responsiveFontSizes } from '@mui/material';
 import { createTheme, ComponentsOverrides } from '@mui/material/styles';
 import shadows from './shadows';
 import { light, dark } from './palette';
+import RecoletaAltSemiBold from 'fonts/Recoleta/RecoletaAltSemiBold.otf';
+// import YourNotes from 'fonts/Yournotes/Yournotes.ttf';
 
 const getTheme = (mode: string, themeToggler: () => void): Theme =>
   responsiveFontSizes(
@@ -9,7 +11,8 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        fontFamily: 'Poppins, sans-serif',
+        // fontFamily: 'RecoletaSemiBold',
+        fontFamily: ['Recoleta Alt'].join(','),
         button: {
           textTransform: 'none',
           fontWeight: 'medium' as React.CSSProperties['fontWeight'],

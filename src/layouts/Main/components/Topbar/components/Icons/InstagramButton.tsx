@@ -17,7 +17,7 @@ const InstagramButton = ({
     <Button
       variant={'text'}
       aria-label="Instagram button"
-      href="https://www.instagram.com/akmalm_20/"
+      href="https://www.instagram.com/akmaaaall___/"
       sx={{
         borderRadius: 2,
         minWidth: 'auto',

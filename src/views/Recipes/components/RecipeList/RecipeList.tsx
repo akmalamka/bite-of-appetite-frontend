@@ -46,6 +46,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
     };
   });
 
+  let result = [];
   const fuseSearch = new Fuse(dummyRecipes, optionsSearch);
   const fuseFilter = new Fuse(dummyRecipes, optionsFilter);
 
@@ -83,17 +84,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
     dispatch(setChosenRecipe(dummyRecipes[index]));
   };
 
-  const result = finalResult();
-
-  const count = Math.ceil(result.length / PER_PAGE);
-  const _DATA = usePagination(result, PER_PAGE);
-
-  const handleChangePage = (e, p) => {
-    // window.scrollTo(0, 0); // kalau mau langsung ke resepnya (0,400)
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setPage(p);
-    _DATA.jump(p);
-  };
+  result = finalResult();
 
   useEffect(() => {
     if (keyword.length == 0 && chipData.length > 0) {
@@ -106,6 +97,15 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
       _DATA.jump(1);
     }
   }, [keyword, chipData]);
+
+  const count = Math.ceil(result.length / PER_PAGE);
+  const _DATA = usePagination(result, PER_PAGE);
+
+  const handleChangePage = (e, p) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setPage(p);
+    _DATA.jump(p);
+  };
 
   return (
     <Box>
@@ -121,6 +121,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
                       ? item.index
                       : item.item.index
                   }
+                  resultIndex={i}
                   title={
                     keyword === '' && chipData.length == 0
                       ? item.title
