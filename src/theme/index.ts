@@ -2,7 +2,6 @@ import { Theme, responsiveFontSizes } from '@mui/material';
 import { createTheme, ComponentsOverrides } from '@mui/material/styles';
 import shadows from './shadows';
 import { light, dark } from './palette';
-import YourNotes from 'fonts/Yournotes/Yournotes.ttf';
 
 const getTheme = (mode: string, themeToggler: () => void): Theme =>
   responsiveFontSizes(
@@ -10,11 +9,14 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
       palette: mode === 'light' ? light : dark,
       shadows: shadows(mode),
       typography: {
-        // fontFamily: 'RecoletaSemiBold',
-        fontFamily: ['Yournotes'].join(','),
+        fontFamily: ['Recoleta Alt', 'Yournotes', 'Inter'].join(','),
         button: {
           textTransform: 'none',
           fontWeight: 'medium' as React.CSSProperties['fontWeight'],
+        },
+        h2: {
+          fontFamily: 'Recoleta Alt',
+          fontWeight: 600,
         },
         h6: {
           fontWeight: 600,
@@ -25,16 +27,6 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
-        // MuiCssBaseline: {
-        //   styleOverrides: `
-        //     @font-face {
-        //       font-family: 'Yournotes';
-        //       font-style: normal;
-        //       font-display: swap;
-        //       src: local('Yournotes'), url(${YourNotes}) format('ttf');
-        //     }
-        //   `,
-        // },
         MuiButton: {
           styleOverrides: {
             root: {

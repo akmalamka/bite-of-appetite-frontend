@@ -50,11 +50,12 @@ const Main = ({
         position={'sticky'}
         sx={{
           top: 0,
-          backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
+          // backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
+          backgroundColor: 'transparent',
         }}
         elevation={trigger ? 1 : 0}
       >
-        <Container paddingY={1}>
+        <Container paddingY={1} isTopbar={true}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             pages={pages}

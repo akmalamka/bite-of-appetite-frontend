@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import useWindowDimensions from './useWindowDimensions';
+import useWindowDimensions from 'utils/useWindowDimensions';
 import SwipeableViews from 'react-swipeable-views';
 import RecipeDescription from './RecipeDescription';
 import DetailTabs from './DetailTabs';

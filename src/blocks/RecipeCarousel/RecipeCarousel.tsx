@@ -61,22 +61,36 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
     <Container>
       <Box marginBottom={4}>
         <Typography
-          variant="h4"
+          variant="h6"
           data-aos={isMd ? 'fade-up' : 'none'}
-          color="text.primary"
+          color="text.secondary"
           align={'center'}
           gutterBottom
           sx={{
-            fontWeight: 700,
+            fontFamily: 'Inter',
+            fontWeight: 500,
             textTransform: 'uppercase',
           }}
         >
-          {isHome ? 'Try this recent recipes!' : 'Try another recipes!'}
+          {isHome ? 'Recipes' : 'Try another recipes!'}
+        </Typography>
+        <Typography
+          variant="h3"
+          data-aos={isMd ? 'fade-up' : 'none'}
+          color="text.secondary"
+          align={'center'}
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+          }}
+        >
+          {isHome ? 'Go try this recent recipes!' : 'Try another recipes!'}
         </Typography>
       </Box>
       <Carousel
         showDots={isSm ? true : false}
         responsive={responsive}
+        removeArrowOnDeviceType={['mobile']}
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}
@@ -148,7 +162,11 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     alignItems={'center'}
                     justifyContent={'flex-start'}
                   >
-                    <Typography fontWeight={700} variant="h5">
+                    <Typography
+                      color="text.secondary"
+                      fontWeight={700}
+                      variant="h5"
+                    >
                       {item.title}
                     </Typography>
                   </Box>
@@ -157,6 +175,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
             </Box>
           ))}
       </Carousel>
+
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           variant="outlined"
@@ -175,8 +194,9 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         >
           <Typography
             variant="button"
-            color="text.primary"
+            color="text.secondary"
             sx={{
+              fontFamily: 'Inter',
               textTransform: 'uppercase',
               letterSpacing: 1.2,
               fontWeight: 400,

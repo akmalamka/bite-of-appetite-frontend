@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
@@ -40,13 +41,16 @@ const Topbar = ({
       justifyContent={'space-between'}
       alignItems={'center'}
       width={1}
-      px={2}
     >
-      <Box display={'flex'} component="a" href="/" width={0.3}>
+      <Box display={'flex'} component="a" href="/" width={1 / 2}>
         {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
       </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box mx={{ md: 4, lg: 8 }} flexDirection="row" display="flex">
+      <Box
+        sx={{ display: { xs: 'none', md: 'flex' } }}
+        alignItems={'center'}
+        width={1 / 2}
+      >
+        <Box flexDirection="row" display="flex">
           {pagesArray.map((p, index) => (
             <Box
               key={index}
@@ -72,7 +76,7 @@ const Topbar = ({
                 <Typography
                   variant="h6"
                   sx={{
-                    textTransform: 'lowercase',
+                    textTransform: 'capitalize',
                   }}
                   color={colorInvert ? 'common.white' : 'text.primary'}
                 >
