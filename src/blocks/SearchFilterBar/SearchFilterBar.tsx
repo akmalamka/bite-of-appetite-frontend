@@ -1,6 +1,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
@@ -60,6 +62,13 @@ const SearchFilterBar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
+    defaultMatches: true,
+  });
 
   const menuIndexHandler = (index) => {
     let a = 0;
@@ -181,7 +190,7 @@ const SearchFilterBar = ({
                 </IconButton>
               </Box>
             </Box>
-            {chipData.length > 0 && !expanded && (
+            {isSm && chipData.length > 0 && !expanded && (
               <Box sx={{ m: 2 }}>
                 {chipData.map((item, i) => (
                   <Chip
@@ -207,12 +216,19 @@ const SearchFilterBar = ({
               </Box>
             )}
           </Box>
+          {!isSm && (
+            <Box>
+              <Divider sx={{ my: 2, border: '1px solid' }} />
+            </Box>
+          )}
           <AccordionDetails
             sx={{
-              position: 'absolute',
+              position: { xs: 'static', sm: 'absolute' },
               zIndex: 1,
               backgroundColor: 'background.paper',
-              maxWidth: 700,
+              border: { xs: 'none', sm: '2px solid' },
+              borderRadius: 2,
+              width: 1,
             }}
           >
             <Box
@@ -220,7 +236,7 @@ const SearchFilterBar = ({
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',
-                maxHeight: { xs: 250, md: 350 },
+                maxHeight: { sm: 250, md: 450 },
                 overflow: 'auto',
               }}
             >
@@ -236,9 +252,6 @@ const SearchFilterBar = ({
                     sx={{
                       color: 'text.primary',
                       fontFamily: 'Inter',
-                      // '&.Mui-focused': {
-                      //   color: mode === 'light' ? '#677788' : '#AEB0B4',
-                      // },
                     }}
                   >
                     {filter.type}
@@ -274,12 +287,20 @@ const SearchFilterBar = ({
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
+                  flexDirection: 'column',
+                  rowGap: 2,
                 }}
               >
                 <ButtonComponent
                   text={'Done'}
                   onClick={() => onChangeFilterExpanded(false)}
                 />
+                {isXs && (
+                  <ButtonComponent
+                    text={'Clear All'}
+                    onClick={() => onClearAll()}
+                  />
+                )}
               </Box>
             )}
           </AccordionDetails>

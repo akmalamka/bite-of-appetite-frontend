@@ -1,4 +1,4 @@
-export const PER_PAGE = 2;
+export const PER_PAGE = 5;
 
 export const filterMenu = [
   {

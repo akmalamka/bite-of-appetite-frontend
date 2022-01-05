@@ -2,6 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { RecipeList } from './components';
@@ -9,8 +11,13 @@ import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 
 const Recipes = (): JSX.Element => {
+  const theme = useTheme();
   const [keyword, setKeyword] = React.useState<string>('');
   const [chipData, setChipData] = React.useState([]);
+
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
 
   const menuMap = (item) => {
     return item;
@@ -60,11 +67,24 @@ const Recipes = (): JSX.Element => {
     setKeyword(word);
   };
 
+  function recipeListLogic() {
+    return expanded && !isSm;
+  }
+
   return (
     <Box bgcolor={'primary.light'}>
       <Main colorInvert={false}>
-        <Box display={'flex'} m={4} justifyContent={'space-between'}>
-          <Box>
+        <Box
+          display={'flex'}
+          m={4}
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          flexDirection={{ xs: 'column', sm: 'row' }}
+          rowGap={2}
+        >
+          <Box
+            display={'flex'}
+            justifyContent={{ xs: 'center', sm: 'flex-start' }}
+          >
             <Typography
               variant="h3"
               sx={{
@@ -93,11 +113,16 @@ const Recipes = (): JSX.Element => {
         <Box>
           <Divider sx={{ color: 'primary.main', border: '1px solid' }} />
         </Box>
-        <Box>
-          <Container zIndex={1}>
-            <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
-          </Container>
-        </Box>
+        {!recipeListLogic() && (
+          <Box>
+            <Container>
+              <RecipeList
+                keyword={keyword}
+                chipData={expanded ? [] : chipData}
+              />
+            </Container>
+          </Box>
+        )}
       </Main>
     </Box>
   );
