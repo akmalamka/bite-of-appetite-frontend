@@ -83,15 +83,12 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
               fullWidth
               sx={{
                 justifyContent: 'center',
-                color:
-                  mode === 'light'
-                    ? theme.palette.common.white
-                    : theme.palette.text.primary,
               }}
             >
               <Typography
-                color={mode === 'light' ? 'text.primary' : 'common.white'}
+                color={'text.secondary'}
                 variant="h4"
+                fontWeight={600}
               >
                 {p[0].title}
               </Typography>

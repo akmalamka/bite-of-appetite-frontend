@@ -15,6 +15,7 @@ const Home = (): JSX.Element => {
         </Container>
         <Box bgcolor={'secondary.main'} sx={{ p: 4 }}>
           <Typography
+            color={'text.secondary'}
             variant={'h5'}
             align={'center'}
             sx={{ p: 4 }}
@@ -26,7 +27,7 @@ const Home = (): JSX.Element => {
             the relationship between the food on our table, our own health, and
             our planet’s health.
           </Typography>
-          <Typography variant={'h5'} align={'center'}>
+          <Typography color={'text.secondary'} variant={'h5'} align={'center'}>
             Nhat Hanh
           </Typography>
         </Box>

@@ -55,7 +55,12 @@ const Main = ({
         }}
         elevation={trigger ? 1 : 0}
       >
-        <Container paddingY={1} isTopbar={true}>
+        <Container
+          maxWidth={{ sm: 1, md: 1600 }}
+          paddingY={{ xs: 2, md: 1 }}
+          paddingX={{ xs: 2, md: 4 }}
+          margin={'0'}
+        >
           <Topbar
             onSidebarOpen={handleSidebarOpen}
             pages={pages}

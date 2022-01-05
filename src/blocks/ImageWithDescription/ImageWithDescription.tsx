@@ -8,7 +8,6 @@ import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import VideoCard from '../VideoCard/VideoCard';
-
 import Container from 'components/Container';
 
 interface Props {
@@ -27,20 +26,34 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
     >
       <Box
         display={'flex'}
-        flexDirection={{ xs: 'column', md: video ? 'row-reverse' : 'row' }}
+        flexDirection={{ xs: 'column', md: video ? 'row' : 'row-reverse' }}
         bgcolor={'primary.main'}
-        height={height}
+        height={{ xs: 1, md: height }}
       >
+        <Box display={'flex'} width={{ xs: 1, md: 1 / 2 }}>
+          <Box
+            component={LazyLoadImage}
+            height={1}
+            width={1}
+            src={
+              'https://assets.bonappetit.com/photos/61afad39d0b93410e18acd94/1:1/w_2240,c_limit/20211123%20Eggplant%20Biryani%20LEDE.jpg'
+            }
+            alt="..."
+            effect="blur"
+            sx={{
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
         <Box
           width={{ xs: 1, md: 1 / 2 }}
           height={1}
+          m={{ xs: 4, md: 0 }}
           p={4}
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            // rowGap: 2,
-            // justifyContent: 'space-evenly',
-            paddingTop: 13,
+            paddingTop: { xs: 0, md: 13 },
           }}
         >
           <Box
@@ -49,12 +62,12 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
             justifyContent={'flex-end'}
             flexDirection={'column'}
           >
-            <Typography variant="h2" color="text.primary" gutterBottom>
+            <Typography variant="h2" color="text.secondary" gutterBottom>
               {video ? 'Welcome to' : 'about this'}
               <br /> {video ? 'my food ' : ''}
               {video && (
                 <Typography
-                  color={'text.primary'}
+                  color={'text.secondary'}
                   component={'span'}
                   variant={'inherit'}
                   fontFamily={'Yournotes'}
@@ -76,7 +89,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
           </Box>
           <Box
             height={1 / 2}
-            width={1 / 2}
+            width={{ xs: 2 / 3, md: 1 / 2 }}
             display={'flex'}
             justifyContent={'flex-end'}
             flexDirection={'column'}
@@ -84,7 +97,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
             <Typography
               variant="subtitle1"
               component="p"
-              color="text.primary"
+              color="text.secondary"
               sx={{ fontFamily: 'Inter', fontWeight: 400 }}
             >
               {video
@@ -119,7 +132,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
               >
                 <Typography
                   variant="button"
-                  color="text.primary"
+                  color="text.secondary"
                   sx={{
                     textTransform: 'uppercase',
                     letterSpacing: 1.2,
@@ -132,15 +145,6 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
             </Link>
           )}
         </Box>
-        <Box
-          width={{ xs: 1, md: 1 / 2 }}
-          sx={{
-            backgroundImage:
-              'url("https://assets.bonappetit.com/photos/61afad39d0b93410e18acd94/1:1/w_2240,c_limit/20211123%20Eggplant%20Biryani%20LEDE.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        ></Box>
       </Box>
     </Box>
   );

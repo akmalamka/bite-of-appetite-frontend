@@ -2,8 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AppBar from '@mui/material/AppBar';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
 import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
@@ -42,8 +41,26 @@ const Topbar = ({
       alignItems={'center'}
       width={1}
     >
-      <Box display={'flex'} component="a" href="/" width={1 / 2}>
-        {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />}
+      <Box
+        display={'flex'}
+        width={{ xs: 1, md: 1 / 2 }}
+        sx={{ justifyContent: { xs: 'space-between', md: 'flex-start' } }}
+      >
+        <Box component={'a'} href="/">
+          <PageTitle />
+        </Box>
+        {/* {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />} */}
+        <Button
+          onClick={() => onSidebarOpen()}
+          aria-label="Menu"
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+            minWidth: 'auto',
+            padding: 1,
+          }}
+        >
+          <MenuIcon />
+        </Button>
       </Box>
       <Box
         sx={{ display: { xs: 'none', md: 'flex' } }}
@@ -61,24 +78,13 @@ const Topbar = ({
                 },
               }}
             >
-              <Button
-                component={'a'}
-                href={p[0].href}
-                fullWidth
-                sx={{
-                  justifyContent: 'flex-start',
-                  color:
-                    mode === 'light' && !colorInvert
-                      ? theme.palette.common.white
-                      : theme.palette.text.primary,
-                }}
-              >
+              <Button component={'a'} href={p[0].href} fullWidth>
                 <Typography
                   variant="h6"
                   sx={{
                     textTransform: 'capitalize',
                   }}
-                  color={colorInvert ? 'common.white' : 'text.primary'}
+                  color={'text.secondary'}
                 >
                   {p[0].title}
                 </Typography>
@@ -90,10 +96,10 @@ const Topbar = ({
           <ThemeModeToggler />
         </Box> */}
       </Box>
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-        {/* <Box>
+      {/* <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
+        <Box>
           <ThemeModeToggler />
-        </Box> */}
+        </Box>
         <Button
           onClick={() => onSidebarOpen()}
           aria-label="Menu"
@@ -108,7 +114,7 @@ const Topbar = ({
         >
           <MenuIcon />
         </Button>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

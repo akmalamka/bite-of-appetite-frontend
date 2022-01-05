@@ -32,7 +32,7 @@ const responsive = {
     breakpoint: { max: 600, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
-    partialVisibilityGutter: 0,
+    partialVisibilityGutter: 40,
   },
 };
 
@@ -63,7 +63,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         <Typography
           variant="h6"
           data-aos={isMd ? 'fade-up' : 'none'}
-          color="text.secondary"
+          color="text.primary"
           align={'center'}
           gutterBottom
           sx={{
@@ -77,7 +77,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         <Typography
           variant="h3"
           data-aos={isMd ? 'fade-up' : 'none'}
-          color="text.secondary"
+          color="text.primary"
           align={'center'}
           gutterBottom
           sx={{
@@ -163,7 +163,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     justifyContent={'flex-start'}
                   >
                     <Typography
-                      color="text.secondary"
+                      color="text.primary"
                       fontWeight={700}
                       variant="h5"
                     >
@@ -194,7 +194,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         >
           <Typography
             variant="button"
-            color="text.secondary"
+            color="text.primary"
             sx={{
               fontFamily: 'Inter',
               textTransform: 'uppercase',

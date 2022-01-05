@@ -25,11 +25,15 @@ const InstagramButton = ({
       }}
     >
       <svg
-        width={isHamburgerOpen ? 40 : 24}
-        height={isHamburgerOpen ? 40 : 24}
+        // width={isHamburgerOpen ? 40 : 24}
+        // height={isHamburgerOpen ? 40 : 24}
+        width={24}
+        height={24}
         xmlns="http://www.w3.org/2000/svg"
         fill={
-          colorInvert ? theme.palette.common.white : theme.palette.text.primary
+          isHamburgerOpen
+            ? theme.palette.text.secondary
+            : theme.palette.text.primary
         }
         viewBox="0 0 24 24"
         role="img"

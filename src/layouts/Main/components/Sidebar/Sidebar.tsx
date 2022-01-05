@@ -35,6 +35,7 @@ const Sidebar = ({ pages, open, variant, onClose }: Props): JSX.Element => {
           height: '100%',
           padding: 1,
         }}
+        bgcolor={'primary.main'}
       >
         <SidebarNav pages={pages} onClose={() => onClose()} />
       </Box>
