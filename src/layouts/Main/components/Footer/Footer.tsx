@@ -128,24 +128,6 @@ const Footer = (): JSX.Element => {
           <IconList />
         </Box>
       </Grid>
-      {/* <Grid item xs={12}>
-        <Typography
-          align={'center'}
-          variant={'subtitle2'}
-          color="text.primary"
-          gutterBottom
-        >
-          Made with love in Bogor, Indonesia
-        </Typography>
-        <Typography
-          align={'center'}
-          variant={'subtitle2'}
-          color="text.primary"
-          gutterBottom
-        >
-          &copy; Bite of Appetite. 2021, Muhammad Akmal. All rights reserved
-        </Typography>
-      </Grid> */}
     </Grid>
   );
 };
