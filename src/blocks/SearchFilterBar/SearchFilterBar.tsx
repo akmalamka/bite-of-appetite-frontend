@@ -82,10 +82,10 @@ const SearchFilterBar = ({
         <Accordion
           expanded={expanded}
           sx={{
-            maxWidth: {
+            minWidth: {
               xs: 300,
               sm: 400,
-              md: 600,
+              md: 700,
             },
             boxShadow: 'none',
           }}
@@ -207,12 +207,16 @@ const SearchFilterBar = ({
               </Box>
             )}
           </Box>
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{
+              position: 'absolute',
+              zIndex: 1,
+              backgroundColor: 'background.paper',
+              maxWidth: 700,
+            }}
+          >
             <Box
               sx={{
-                position: 'sticky',
-                top: 50,
-                zIndex: 3,
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',

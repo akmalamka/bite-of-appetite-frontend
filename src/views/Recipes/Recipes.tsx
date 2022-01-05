@@ -94,7 +94,7 @@ const Recipes = (): JSX.Element => {
           <Divider sx={{ color: 'primary.main', border: '1px solid' }} />
         </Box>
         <Box>
-          <Container>
+          <Container zIndex={1}>
             <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
           </Container>
         </Box>
