@@ -7,8 +7,12 @@ import { ImageWithDescription, RecipeCarousel } from 'blocks';
 
 const Home = (): JSX.Element => {
   return (
-    <Box bgcolor={'primary.light'} sx={{ overflowX: 'hidden' }}>
-      <Main>
+    <Box sx={{ overflowX: 'hidden' }}>
+      <Main
+        colorInvert={false}
+        isTransparent={true}
+        menuColor={'text.secondary'}
+      >
         <ImageWithDescription video={true} />
         <Container>
           <RecipeCarousel isHome={true} />

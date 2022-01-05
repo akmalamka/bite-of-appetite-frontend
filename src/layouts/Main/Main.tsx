@@ -15,12 +15,16 @@ interface Props {
   children: React.ReactNode;
   colorInvert?: boolean;
   bgcolor?: string;
+  isTransparent?: boolean;
+  menuColor?: string;
 }
 
 const Main = ({
   children,
   colorInvert = false,
   bgcolor = 'transparent',
+  isTransparent = false,
+  menuColor = 'text.primary',
 }: Props): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -44,16 +48,23 @@ const Main = ({
     threshold: 38,
   });
 
+  function bgColorLogic() {
+    return trigger ? theme.palette.background.paper : bgcolor;
+  }
+
+  function elevationLogic() {
+    return trigger ? 1 : 0;
+  }
+
   return (
     <Box>
       <AppBar
         position={'sticky'}
         sx={{
           top: 0,
-          // backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
-          backgroundColor: 'transparent',
+          backgroundColor: isTransparent ? 'transparent' : bgColorLogic(),
         }}
-        elevation={trigger ? 1 : 0}
+        elevation={isTransparent ? 0 : elevationLogic()}
       >
         <Container
           maxWidth={{ sm: 1, md: 1600 }}
@@ -65,6 +76,7 @@ const Main = ({
             onSidebarOpen={handleSidebarOpen}
             pages={pages}
             colorInvert={trigger ? false : colorInvert}
+            menuColor={menuColor}
           />
         </Container>
       </AppBar>

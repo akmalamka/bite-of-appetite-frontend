@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
-import { ReactComponent as PageTitle } from './components/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from './components/Icons/page-title-white.svg';
+import { ReactComponent as PageTitle } from 'utils/Icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/Icons/page-title-white.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -18,12 +18,14 @@ interface Props {
     about: Array<PageItem>;
   };
   colorInvert?: boolean;
+  menuColor: string;
 }
 
 const Topbar = ({
   onSidebarOpen,
   pages,
   colorInvert = false,
+  menuColor,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -84,7 +86,7 @@ const Topbar = ({
                   sx={{
                     textTransform: 'capitalize',
                   }}
-                  color={'text.secondary'}
+                  color={menuColor}
                 >
                   {p[0].title}
                 </Typography>

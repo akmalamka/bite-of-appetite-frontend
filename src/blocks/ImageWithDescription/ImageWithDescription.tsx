@@ -63,7 +63,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
             flexDirection={'column'}
           >
             <Typography variant="h2" color="text.secondary" gutterBottom>
-              {video ? 'Welcome to' : 'about this'}
+              {video ? 'Welcome to' : 'About'}
               <br /> {video ? 'my food ' : ''}
               {video && (
                 <Typography
@@ -89,10 +89,11 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
           </Box>
           <Box
             height={1 / 2}
-            width={{ xs: 2 / 3, md: 1 / 2 }}
+            width={{ xs: 2 / 3, md: video ? 1 / 2 : 2 / 3 }}
             display={'flex'}
-            justifyContent={'flex-end'}
+            justifyContent={video ? 'flex-end' : 'flex-start'}
             flexDirection={'column'}
+            rowGap={2}
           >
             <Typography
               variant="subtitle1"
@@ -104,46 +105,46 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                 ? 'Food is my way to tell stories and connect with people who share the same passion as I do. Whether its because youre hungry at midnight or trying to learn how to cook, I hope you enjoy watching my content and recipes.'
                 : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
             </Typography>
-          </Box>
-
-          {!video && (
-            <Link
-              to="#"
-              onClick={(e) => {
-                window.location.href = 'mailto:akmalmuhammad51@gmail.com';
-                e.preventDefault();
-              }}
-              style={{ textDecoration: 'none' }}
-            >
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{
-                  display: 'flex',
-                  borderRadius: 30,
-                  border: 2,
-                  borderColor: 'primary.main',
-                  my: 1,
-                  '&:hover': {
-                    border: 2,
-                  },
-                  width: 1 / 2,
+            {!video && (
+              <Link
+                to="#"
+                onClick={(e) => {
+                  window.location.href = 'mailto:akmalmuhammad51@gmail.com';
+                  e.preventDefault();
                 }}
+                style={{ textDecoration: 'none' }}
               >
-                <Typography
-                  variant="button"
-                  color="text.secondary"
-                  sx={{
-                    textTransform: 'uppercase',
-                    letterSpacing: 1.2,
-                    fontWeight: 400,
-                  }}
-                >
-                  Let`s collab
-                </Typography>
-              </Button>
-            </Link>
-          )}
+                <Box>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{
+                      borderRadius: 30,
+                      border: 2,
+                      borderColor: 'secondary.main',
+                      my: 1,
+                      '&:hover': {
+                        border: 2,
+                      },
+                    }}
+                  >
+                    <Typography
+                      fontFamily={'Inter'}
+                      variant="button"
+                      color="text.secondary"
+                      sx={{
+                        textTransform: 'uppercase',
+                        letterSpacing: 1.2,
+                        fontWeight: 400,
+                      }}
+                    >
+                      Let’s collab
+                    </Typography>
+                  </Button>
+                </Box>
+              </Link>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -59,27 +59,29 @@ const Recipes = (): JSX.Element => {
   };
 
   return (
-    <Main colorInvert={false}>
-      <SearchFilterBar
-        keyword={keyword}
-        onChangeKeyword={handleChangeKeyword}
-        chipData={chipData}
-        isChecked={isChecked}
-        onChangeCheckboxValue={toggleCheckboxValue}
-        onChangeDeleteChip={handleDelete}
-        onClearAll={handleClearAll}
-        menuIndex={menuIndex}
-        filterMenu={filterMenu}
-        expanded={expanded}
-        onChangeFilterExpanded={handleChangeFilterExpanded}
-        isRecipeList={true}
-      />
-      <Box>
-        <Container>
-          <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
-        </Container>
-      </Box>
-    </Main>
+    <Box bgcolor={'primary.light'}>
+      <Main colorInvert={false}>
+        <SearchFilterBar
+          keyword={keyword}
+          onChangeKeyword={handleChangeKeyword}
+          chipData={chipData}
+          isChecked={isChecked}
+          onChangeCheckboxValue={toggleCheckboxValue}
+          onChangeDeleteChip={handleDelete}
+          onClearAll={handleClearAll}
+          menuIndex={menuIndex}
+          filterMenu={filterMenu}
+          expanded={expanded}
+          onChangeFilterExpanded={handleChangeFilterExpanded}
+          isRecipeList={true}
+        />
+        <Box>
+          <Container>
+            <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
+          </Container>
+        </Box>
+      </Main>
+    </Box>
   );
 };
 
