@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-import usePagination from './Pagination';
+import usePagination from 'utils/usePagination';
 import { dummyWritings } from 'utils/dummyWritings';
 import { DataCard } from 'blocks';
 import { setChosenWriting } from 'redux/actions/writingActions';
@@ -53,6 +53,7 @@ const WritingList = (): JSX.Element => {
           ))}
       </Grid>
       <Pagination
+        color={'primary'}
         count={count}
         size="large"
         boundaryCount={0}

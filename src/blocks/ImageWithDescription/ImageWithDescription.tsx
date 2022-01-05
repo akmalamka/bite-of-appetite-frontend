@@ -9,6 +9,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import VideoCard from '../VideoCard/VideoCard';
 import Container from 'components/Container';
+import { ButtonComponent } from 'blocks';
 
 interface Props {
   video: boolean;
@@ -115,32 +116,7 @@ const ImageWithDescription = ({ video }: Props): JSX.Element => {
                 style={{ textDecoration: 'none' }}
               >
                 <Box>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{
-                      borderRadius: 30,
-                      border: 2,
-                      borderColor: 'secondary.main',
-                      my: 1,
-                      '&:hover': {
-                        border: 2,
-                      },
-                    }}
-                  >
-                    <Typography
-                      fontFamily={'Inter'}
-                      variant="button"
-                      color="text.secondary"
-                      sx={{
-                        textTransform: 'uppercase',
-                        letterSpacing: 1.2,
-                        fontWeight: 400,
-                      }}
-                    >
-                      Let’s collab
-                    </Typography>
-                  </Button>
+                  <ButtonComponent text={'Let’s collab'} />
                 </Box>
               </Link>
             )}
