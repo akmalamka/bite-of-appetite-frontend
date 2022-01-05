@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
+import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
@@ -19,6 +20,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Container from 'components/Container';
 import './placeholder.css';
+import { ButtonComponent } from 'blocks';
 
 interface Filter {
   type: string;
@@ -75,27 +77,17 @@ const SearchFilterBar = ({
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
-    >
+    <Box>
       <ClickAwayListener onClickAway={handleClickAway}>
         <Accordion
           expanded={expanded}
           sx={{
             maxWidth: {
               xs: 300,
-              sm: 600,
-              md: isContent ? 570 : 800,
-              // border: isContent ? '1px solid' : 'none',
-              // border: '3px solid',
-              // borderRadius: 30,
-              boxShadow: 'none',
+              sm: 400,
+              md: 600,
             },
+            boxShadow: 'none',
           }}
         >
           <Box
@@ -103,9 +95,6 @@ const SearchFilterBar = ({
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              // border: isContent ? 'none' : '3px solid',
-              // border: '3px solid',
-              // boxShadow: isContent ? 0 : 2,
               borderRadius: 6,
               borderColor:
                 mode === 'light'
@@ -197,13 +186,21 @@ const SearchFilterBar = ({
                 {chipData.map((item, i) => (
                   <Chip
                     key={i}
-                    label={item}
+                    label={
+                      <Typography variant={'button'} fontFamily={'Inter'}>
+                        {item}
+                      </Typography>
+                    }
                     onDelete={() => onChangeDeleteChip(item)}
                     sx={{ mr: 1, mb: 1 }}
                   />
                 ))}
                 <Chip
-                  label={'Clear All'}
+                  label={
+                    <Typography variant={'button'} fontFamily={'Inter'}>
+                      Clear All
+                    </Typography>
+                  }
                   sx={{ mr: 1, mb: 1 }}
                   onClick={onClearAll}
                 />
@@ -213,6 +210,9 @@ const SearchFilterBar = ({
           <AccordionDetails>
             <Box
               sx={{
+                position: 'sticky',
+                top: 50,
+                zIndex: 3,
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',
@@ -230,9 +230,11 @@ const SearchFilterBar = ({
                   <FormLabel
                     component="legend"
                     sx={{
-                      '&.Mui-focused': {
-                        color: mode === 'light' ? '#677788' : '#AEB0B4',
-                      },
+                      color: 'text.primary',
+                      fontFamily: 'Inter',
+                      // '&.Mui-focused': {
+                      //   color: mode === 'light' ? '#677788' : '#AEB0B4',
+                      // },
                     }}
                   >
                     {filter.type}
@@ -249,9 +251,14 @@ const SearchFilterBar = ({
                               onChangeCheckboxValue(j + menuIndexHandler(i))
                             }
                             name={item}
+                            sx={{ color: 'text.primary' }}
                           />
                         }
-                        label={item}
+                        label={
+                          <Typography variant={'button'} fontFamily={'Inter'}>
+                            {item}
+                          </Typography>
+                        }
                       />
                     ))}
                   </FormGroup>
@@ -265,32 +272,10 @@ const SearchFilterBar = ({
                   justifyContent: 'center',
                 }}
               >
-                <Button
-                  variant="outlined"
-                  color="primary"
+                <ButtonComponent
+                  text={'Done'}
                   onClick={() => onChangeFilterExpanded(false)}
-                  sx={{
-                    borderRadius: 30,
-                    border: 2,
-                    borderColor: 'primary.main',
-                    px: 2,
-                    '&:hover': {
-                      border: 2,
-                    },
-                  }}
-                >
-                  <Typography
-                    variant="button"
-                    color="text.primary"
-                    sx={{
-                      textTransform: 'uppercase',
-                      letterSpacing: 1.2,
-                      fontWeight: 400,
-                    }}
-                  >
-                    Done
-                  </Typography>
-                </Button>
+                />
               </Box>
             )}
           </AccordionDetails>
