@@ -59,7 +59,7 @@ const Topbar = ({
             padding: 1,
           }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: theme.palette.primary.light }} />
         </Button>
       </Box>
       <Box

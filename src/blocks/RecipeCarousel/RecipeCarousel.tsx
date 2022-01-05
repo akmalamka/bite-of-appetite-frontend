@@ -90,7 +90,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
       <Carousel
         showDots={isSm ? true : false}
         responsive={responsive}
-        removeArrowOnDeviceType={['mobile']}
+        removeArrowOnDeviceType={['tablet', 'mobile']}
         // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}

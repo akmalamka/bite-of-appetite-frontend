@@ -55,7 +55,11 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
         </Box>
         <Box>
-          <CloseIcon fontSize="large" onClick={() => onClose()} />
+          <CloseIcon
+            fontSize="large"
+            onClick={() => onClose()}
+            sx={{ color: theme.palette.primary.light }}
+          />
         </Box>
       </Box>
       <Box
