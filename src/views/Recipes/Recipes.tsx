@@ -1,5 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { RecipeList } from './components';
@@ -61,20 +63,36 @@ const Recipes = (): JSX.Element => {
   return (
     <Box bgcolor={'primary.light'}>
       <Main colorInvert={false}>
-        <SearchFilterBar
-          keyword={keyword}
-          onChangeKeyword={handleChangeKeyword}
-          chipData={chipData}
-          isChecked={isChecked}
-          onChangeCheckboxValue={toggleCheckboxValue}
-          onChangeDeleteChip={handleDelete}
-          onClearAll={handleClearAll}
-          menuIndex={menuIndex}
-          filterMenu={filterMenu}
-          expanded={expanded}
-          onChangeFilterExpanded={handleChangeFilterExpanded}
-          isRecipeList={true}
-        />
+        <Box display={'flex'} m={4} justifyContent={'space-between'}>
+          <Box>
+            <Typography
+              variant="h3"
+              sx={{
+                fontWeight: 600,
+                color: 'text.primary',
+              }}
+            >
+              Recipes
+            </Typography>
+          </Box>
+          <SearchFilterBar
+            keyword={keyword}
+            onChangeKeyword={handleChangeKeyword}
+            chipData={chipData}
+            isChecked={isChecked}
+            onChangeCheckboxValue={toggleCheckboxValue}
+            onChangeDeleteChip={handleDelete}
+            onClearAll={handleClearAll}
+            menuIndex={menuIndex}
+            filterMenu={filterMenu}
+            expanded={expanded}
+            onChangeFilterExpanded={handleChangeFilterExpanded}
+            isRecipeList={true}
+          />
+        </Box>
+        <Box>
+          <Divider sx={{ color: 'primary.main', border: '1px solid' }} />
+        </Box>
         <Box>
           <Container>
             <RecipeList keyword={keyword} chipData={expanded ? [] : chipData} />
