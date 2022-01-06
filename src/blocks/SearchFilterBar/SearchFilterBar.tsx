@@ -18,6 +18,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Badge from '@mui/material/Badge';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Container from 'components/Container';
@@ -44,6 +45,23 @@ interface Props {
   isRecipeList: boolean;
   isContent?: boolean;
 }
+interface FilterIconProps {
+  isMobile: boolean;
+}
+
+const FilterIcon = ({ isMobile }: FilterIconProps): JSX.Element => {
+  return isMobile ? (
+    <Badge
+      badgeContent=" "
+      variant="dot"
+      sx={{ '.MuiBadge-dot': { backgroundColor: '#ff8261' } }}
+    >
+      <FilterListIcon />
+    </Badge>
+  ) : (
+    <FilterListIcon />
+  );
+};
 
 const SearchFilterBar = ({
   keyword,
@@ -186,7 +204,13 @@ const SearchFilterBar = ({
                   }}
                   size="medium"
                 >
-                  {isContent ? <ExpandMoreIcon /> : <FilterListIcon />}
+                  {isContent ? (
+                    <ExpandMoreIcon />
+                  ) : isXs ? (
+                    <FilterIcon isMobile={true} />
+                  ) : (
+                    <FilterIcon isMobile={false} />
+                  )}
                 </IconButton>
               </Box>
             </Box>
@@ -195,6 +219,7 @@ const SearchFilterBar = ({
                 {chipData.map((item, i) => (
                   <Chip
                     key={i}
+                    color={'primary'}
                     label={
                       <Typography variant={'button'} fontFamily={'Inter'}>
                         {item}
@@ -292,11 +317,15 @@ const SearchFilterBar = ({
                 }}
               >
                 <ButtonComponent
+                  color={'primary'}
+                  isSearchBar={true}
                   text={'Done'}
                   onClick={() => onChangeFilterExpanded(false)}
                 />
                 {isXs && (
                   <ButtonComponent
+                    isSearchBar={true}
+                    isClearAll={true}
                     text={'Clear All'}
                     onClick={() => onClearAll()}
                   />

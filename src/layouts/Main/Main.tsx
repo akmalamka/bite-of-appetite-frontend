@@ -90,7 +90,7 @@ const Main = ({
         {children}
         <Divider />
       </main>
-      <Container paddingY={4}>
+      <Container paddingY={4} marginX={2} maxWidth={'95%'}>
         <Footer />
       </Container>
     </Box>
