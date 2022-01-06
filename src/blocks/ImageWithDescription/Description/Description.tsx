@@ -32,7 +32,10 @@ const Description = ({
     <Box
       width={{ xs: 1, md: 1 / 2 }}
       height={1}
-      m={{ xs: 4, md: isContent ? 4 : 0 }}
+      // height={{ xs: 500, md: 1 }}
+      // minHeight={{ xs: 350, md: 1 }}
+      m={{ xs: isContent ? 0 : 4, md: isContent ? 4 : 0 }}
+      marginY={{ xs: 4, md: 0 }}
       p={4}
       sx={{
         display: 'flex',
@@ -44,10 +47,11 @@ const Description = ({
       {isContent && !isRecipe && (
         <Box
           display={'flex'}
-          height={'90%'}
+          height={{ xs: '100%', md: '90%' }}
           sx={{
             justifyContent: 'space-around',
             flexDirection: 'column',
+            rowGap: { xs: 8, sm: 4, md: 2 },
           }}
         >
           <Typography
@@ -70,9 +74,7 @@ const Description = ({
               fontWeight: 600,
             }}
           >
-            Built of toasted nuts, creamy ricotta, and salty Parmesan, you don’t
-            even need a food processor to make this riff on the normal pesto you
-            know and love.
+            {chosenWriting.description}
           </Typography>
           <Box>
             <Typography
@@ -86,7 +88,7 @@ const Description = ({
                 fontWeight: 400,
               }}
             >
-              By Muhammad Akmal
+              By {chosenWriting.writingsBy}
             </Typography>
             <Typography
               color={'text.secondary'}
@@ -97,7 +99,7 @@ const Description = ({
                 textTransform: 'uppercase',
               }}
             >
-              September 20, 2021
+              {chosenWriting.date}
             </Typography>
           </Box>
         </Box>

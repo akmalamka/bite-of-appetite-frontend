@@ -21,10 +21,7 @@ const WritingCard = (): JSX.Element => {
 
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <Box
-        marginBottom={2}
-        sx={{ display: 'flex', justifyContent: 'flex-start' }}
-      >
+      <Box marginY={2} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <Typography
           variant="h4"
           sx={{
