@@ -13,7 +13,7 @@ const Home = (): JSX.Element => {
         isTransparent={true}
         menuColor={'text.secondary'}
       >
-        <ImageWithDescription video={true} />
+        <ImageWithDescription imagePosition={'left'} />
         <Container>
           <RecipeCarousel isHome={true} />
         </Container>

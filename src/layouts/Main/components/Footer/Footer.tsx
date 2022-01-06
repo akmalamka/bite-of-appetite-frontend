@@ -5,9 +5,9 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { ReactComponent as PageTitle } from 'utils/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/Icons/page-title-white.svg';
-import { IconList } from 'utils/Icons';
+import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
+import { IconList } from 'utils/icons/soclalMedia';
 
 const Footer = (): JSX.Element => {
   const theme = useTheme();

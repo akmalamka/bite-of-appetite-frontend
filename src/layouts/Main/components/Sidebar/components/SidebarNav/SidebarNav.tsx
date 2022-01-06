@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { ReactComponent as PageTitle } from 'utils/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/Icons/page-title-white.svg';
+import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
 import CloseIcon from '@mui/icons-material/Close';
-import { IconList } from 'utils/Icons';
+import { IconList } from 'utils/icons/soclalMedia';
 
 interface Props {
   pages: {

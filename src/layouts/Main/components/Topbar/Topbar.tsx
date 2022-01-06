@@ -6,8 +6,9 @@ import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
-import { ReactComponent as PageTitle } from 'utils/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/Icons/page-title-white.svg';
+import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
+import { ReactComponent as Logo } from 'utils/icons/logo/logo-06-resize.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -19,7 +20,7 @@ interface Props {
     about: Array<PageItem>;
   };
   colorInvert?: boolean;
-  menuColor: string;
+  menuColor?: string;
   withDivider?: boolean;
 }
 
@@ -39,6 +40,9 @@ const Topbar = ({
     about: aboutPages,
   } = pages;
   const pagesArray = [homePages, recipePages, foodForThoughtPages, aboutPages];
+  function menuColorLogic() {
+    return menuColor ? menuColor : 'text.primary';
+  }
   return (
     <Box>
       <Box
@@ -54,6 +58,7 @@ const Topbar = ({
         >
           <Box component={'a'} href="/">
             <PageTitle />
+            {/* <Logo /> */}
           </Box>
           {/* {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />} */}
           <Button
@@ -90,7 +95,7 @@ const Topbar = ({
                     sx={{
                       textTransform: 'capitalize',
                     }}
-                    color={menuColor}
+                    color={colorInvert ? 'text.secondary' : menuColorLogic()}
                   >
                     {p[0].title}
                   </Typography>

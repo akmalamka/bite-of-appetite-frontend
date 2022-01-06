@@ -8,7 +8,7 @@ const About = (): JSX.Element => {
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Main colorInvert={false} isTransparent={true} menuColor={'text.primary'}>
-        <ImageWithDescription video={false} />
+        <ImageWithDescription imagePosition={'right'} />
       </Main>
     </Box>
   );

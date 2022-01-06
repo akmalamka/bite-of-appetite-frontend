@@ -7,7 +7,7 @@ import {
   SoundcloudButton,
   MediumButton,
   SpotifyButton,
-} from '../../layouts/Main/components/Topbar/components/index';
+} from 'utils/icons/soclalMedia';
 
 interface Props {
   isHamburgerOpen?: boolean;

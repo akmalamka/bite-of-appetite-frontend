@@ -47,12 +47,13 @@ interface Props {
 }
 interface FilterIconProps {
   isMobile: boolean;
+  isActive?: boolean;
 }
 
-const FilterIcon = ({ isMobile }: FilterIconProps): JSX.Element => {
+const FilterIcon = ({ isMobile, isActive }: FilterIconProps): JSX.Element => {
   return isMobile ? (
     <Badge
-      badgeContent=" "
+      badgeContent={isActive ? ' ' : 0}
       variant="dot"
       sx={{ '.MuiBadge-dot': { backgroundColor: '#ff8261' } }}
     >
@@ -207,7 +208,10 @@ const SearchFilterBar = ({
                   {isContent ? (
                     <ExpandMoreIcon />
                   ) : isXs ? (
-                    <FilterIcon isMobile={true} />
+                    <FilterIcon
+                      isMobile={true}
+                      isActive={chipData.length > 0}
+                    />
                   ) : (
                     <FilterIcon isMobile={false} />
                   )}
