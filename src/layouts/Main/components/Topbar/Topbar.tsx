@@ -68,9 +68,15 @@ const Topbar = ({
               display: { xs: 'flex', md: 'none' },
               minWidth: 'auto',
               padding: 1,
+              // bgcolor: 'rgba(102, 64, 20, .75)',
+              borderRadius: 30,
+              p: 2,
             }}
           >
-            <MenuIcon sx={{ color: theme.palette.primary.light }} />
+            <MenuIcon
+              fontSize="large"
+              sx={{ color: theme.palette.primary.light }}
+            />
           </Button>
         </Box>
         <Box

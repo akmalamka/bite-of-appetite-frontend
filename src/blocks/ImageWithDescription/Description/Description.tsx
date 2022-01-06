@@ -24,9 +24,6 @@ const Description = ({
   isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
 
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
@@ -119,8 +116,9 @@ const Description = ({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: isMd ? 'row' : 'column',
+                flexDirection: 'row',
                 columnGap: 2,
+                rowGap: 2,
               }}
             >
               <Typography
@@ -137,7 +135,7 @@ const Description = ({
               >
                 By {isRecipe ? data.recipeBy : data.writingsBy}
               </Typography>
-              {isMd && (
+              {data.inspiredBy && (
                 <Divider
                   orientation="vertical"
                   sx={{
