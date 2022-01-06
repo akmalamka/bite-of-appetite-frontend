@@ -28,7 +28,10 @@ const ImageWithDescription = ({
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
-  const chosenRecipe = useSelector((state: any) => state.writing.chosenRecipe);
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  function bgColorLogic() {
+    return isContent ? 'secondary.main' : 'primary.main';
+  }
   return (
     <Box
       sx={{
@@ -42,7 +45,7 @@ const ImageWithDescription = ({
           xs: 'column',
           md: imagePosition === 'left' ? 'row' : 'row-reverse',
         }}
-        bgcolor={isContent ? 'secondary.main' : 'primary.main'}
+        bgcolor={isRecipe ? ' background.paper' : bgColorLogic()}
         height={{ xs: 1, md: height }}
       >
         <Box display={'flex'} width={{ xs: 1, md: 1 / 2 }}>

@@ -72,7 +72,7 @@ const Recipes = (): JSX.Element => {
   }
 
   return (
-    <Box bgcolor={'primary.light'}>
+    <Box>
       <Main colorInvert={false}>
         <Box
           display={'flex'}

@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -14,20 +16,23 @@ interface Props {
   imagePosition: string;
   isRecipe: boolean;
   isContent?: boolean;
-  data?: any;
 }
 
 const Description = ({
   imagePosition,
   isRecipe,
   isContent,
-  data,
 }: Props): JSX.Element => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
 
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  const data = isRecipe ? chosenRecipe : chosenWriting;
   return (
     <Box
       width={{ xs: 1, md: 1 / 2 }}
@@ -43,8 +48,8 @@ const Description = ({
         paddingTop: { xs: 0, md: 13 },
       }}
     >
-      {isContent && isRecipe && <Box></Box>}
-      {isContent && !isRecipe && (
+      {/* {isContent && isRecipe && <Box></Box>} */}
+      {isContent && (
         <Box
           display={'flex'}
           height={{ xs: '100%', md: '90%' }}
@@ -55,7 +60,7 @@ const Description = ({
           }}
         >
           <Typography
-            color={'text.secondary'}
+            color={isRecipe ? 'text.primary' : 'text.secondary'}
             variant="subtitle1"
             align={'center'}
             sx={{
@@ -64,34 +69,102 @@ const Description = ({
               textTransform: 'uppercase',
             }}
           >
-            Food for Thought
+            {isRecipe ? 'Recipes' : 'Food for Thought'}
           </Typography>
-          <Typography
-            color={'text.secondary'}
-            variant="h4"
-            align={'center'}
-            sx={{
-              fontWeight: 600,
-            }}
-          >
-            {chosenWriting.description}
-          </Typography>
-          <Box>
+          {isRecipe && (
             <Typography
-              color={'text.secondary'}
-              variant="overline"
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
+              variant="h2"
               align={'center'}
-              display={'flex'}
-              justifyContent={'center'}
               sx={{
-                fontFamily: 'Inter',
-                fontWeight: 400,
+                fontWeight: 600,
               }}
             >
-              By {chosenWriting.writingsBy}
+              {data.title}
             </Typography>
+          )}
+          <Typography
+            fontFamily={isRecipe ? 'Inter' : 'Recoleta Alt'}
+            color={isRecipe ? 'text.primary' : 'text.secondary'}
+            variant={isRecipe ? 'h6' : 'h4'}
+            align={'center'}
+            sx={{
+              fontWeight: isRecipe ? 500 : 600,
+            }}
+          >
+            {data.description}
+          </Typography>
+          {isRecipe && (
             <Typography
-              color={'text.secondary'}
+              fontFamily={'Inter'}
+              variant="button"
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
+              sx={{
+                // letterSpacing: 1.5,
+                fontStyle: 'italic',
+                fontWeight: 400,
+                // fontSize: { xs: 8, sm: 10 },
+                // pt: 1,
+              }}
+              align="center"
+            >
+              {data.foodPhotographyBy === data.foodStylingBy
+                ? `Food Photography and Food Styling by ${data.foodPhotographyBy}`
+                : `Food Photography by ${data.foodPhotographyBy} and Food Styling by ${data.foodStylingBy}`}
+            </Typography>
+          )}
+          <Box display={'flex'} flexDirection={'column'} rowGap={2}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: isMd ? 'row' : 'column',
+                columnGap: 2,
+              }}
+            >
+              <Typography
+                color={isRecipe ? 'text.primary' : 'text.secondary'}
+                variant="subtitle2"
+                align={'center'}
+                display={'flex'}
+                justifyContent={'center'}
+                sx={{
+                  fontFamily: 'Inter',
+                  fontWeight: 400,
+                  textTransform: 'uppercase',
+                }}
+              >
+                By {isRecipe ? data.recipeBy : data.writingsBy}
+              </Typography>
+              {isMd && (
+                <Divider
+                  orientation="vertical"
+                  sx={{
+                    border: '1px solid',
+                    height: '16px',
+                  }}
+                />
+              )}
+              {data.inspiredBy && (
+                <Typography
+                  color={isRecipe ? 'text.primary' : 'text.secondary'}
+                  variant="subtitle2"
+                  align={'center'}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  sx={{
+                    fontFamily: 'Inter',
+                    fontWeight: 400,
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Inspired By {data.inspiredBy}
+                </Typography>
+              )}
+            </Box>
+            <Typography
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
               variant="subtitle2"
               align={'center'}
               sx={{
@@ -99,7 +172,7 @@ const Description = ({
                 textTransform: 'uppercase',
               }}
             >
-              {chosenWriting.date}
+              {data.date}
             </Typography>
           </Box>
         </Box>

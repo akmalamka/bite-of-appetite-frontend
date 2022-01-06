@@ -8,7 +8,7 @@ import { WritingCard } from './components';
 const DetailWriting = (): JSX.Element => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   return (
-    <Box sx={{ overflowX: 'hidden' }}>
+    <Box>
       <Main colorInvert={true}>
         <ImageWithDescription
           imagePosition={'left'}
