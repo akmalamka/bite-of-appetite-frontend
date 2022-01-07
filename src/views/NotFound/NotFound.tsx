@@ -18,13 +18,91 @@ const NotFound = (): JSX.Element => {
   return (
     <Main>
       <Box
+        // sx={{
+        //   width: 1,
+        //   height: 1,
+        //   overflow: 'hidden',
+        // }}
+        display={'flex'}
+        alignItems={'center'}
+        minHeight={{ xs: 550, md: 'calc(100vh - 58px)' }}
         sx={{
+          // flex: { xs: '0 0 100%', md: '0 0 50%' },
+          // position: 'relative',
+          // maxWidth: { xs: '100%', md: '50%' },
+          // order: { xs: 1, md: 2 },
+          // height: { xs: '550', md: 'calc(100vh - 58px)' },
           width: 1,
-          height: 1,
-          overflow: 'hidden',
+          // overflow: 'hidden',
         }}
+        bgcolor={'#ff8261'}
       >
-        <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
+        <Container>
+          <Box>
+            <Typography
+              color={'text.secondary'}
+              variant="h1"
+              component={'h1'}
+              align={'center'}
+              sx={{ fontWeight: 700, fontSize: { xs: 80, md: 150 } }}
+            >
+              404
+            </Typography>
+            <Box display={'flex'} justifyContent={'center'}>
+              <Typography
+                variant="h4"
+                component="p"
+                color="text.secondary"
+                align={'center'}
+                fontWeight={600}
+                marginRight={1}
+              >
+                Oops! Looks like you followed
+              </Typography>
+              <Typography
+                fontFamily={'Yournotes'}
+                variant="h4"
+                component="p"
+                color="text.secondary"
+                align={'center'}
+              >
+                a bad link.
+              </Typography>
+            </Box>
+
+            <Box marginTop={4} display={'flex'} justifyContent={'center'}>
+              <Button
+                component={Link}
+                variant="outlined"
+                color="primary"
+                sx={{
+                  borderRadius: 10,
+                  border: 2,
+                  borderColor: 'primary.main',
+                  my: 2,
+                  px: 2,
+                  '&:hover': {
+                    border: 2,
+                  },
+                }}
+                href={'/'}
+              >
+                <Typography
+                  variant="button"
+                  color="text.primary"
+                  sx={{
+                    textTransform: 'uppercase',
+                    letterSpacing: 1.2,
+                    fontWeight: 400,
+                  }}
+                >
+                  Back Home
+                </Typography>
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+        {/* <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
           <Box
             display={'flex'}
             flexDirection={{ xs: 'column', md: 'row' }}
@@ -53,11 +131,6 @@ const NotFound = (): JSX.Element => {
                     align={isMd ? 'left' : 'center'}
                   >
                     Oops! Looks like you followed a bad link.
-                    {/* <br />
-                    If you think this is a problem with us, please{' '}
-                    <Link href={''} underline="none">
-                      tell us
-                    </Link> */}
                   </Typography>
                   <Box
                     marginTop={4}
@@ -171,7 +244,7 @@ const NotFound = (): JSX.Element => {
               </Box>
             </Box>
           </Box>
-        </Container>
+        </Container> */}
       </Box>
     </Main>
   );
