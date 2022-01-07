@@ -16,7 +16,7 @@ interface Props {
   data: any;
 }
 
-const RecipeDescription = ({
+const RecipeDescriptionSwipeable = ({
   index,
   onChangeIndexMobile,
   data,
@@ -248,4 +248,4 @@ const RecipeDescription = ({
   );
 };
 
-export default RecipeDescription;
+export default RecipeDescriptionSwipeable;

@@ -4,7 +4,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import { RecipeCard } from './components';
+import Divider from '@mui/material/Divider';
+import { RecipeDescription } from './components';
 import { RecipeCarousel, ImageWithDescription } from 'blocks';
 
 const DetailRecipe = (): JSX.Element => {
@@ -19,6 +20,10 @@ const DetailRecipe = (): JSX.Element => {
           isContent={true}
           isRecipe={true}
         />
+
+        <Container>
+          <RecipeDescription />
+        </Container>
         {/* <Box>
           <Container>
             <RecipeCard />

@@ -8,12 +8,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import SwipeableViews from 'react-swipeable-views';
-import RecipeDescription from './RecipeDescription';
+import RecipeDescription from './RecipeDescriptionSwipeable';
 import DetailTabs from './DetailTabs';
 import { TabLabel, a11yProps } from './DetailTabs';
 import { RecipeCarousel } from 'blocks';
 
-const RecipeCard = (): JSX.Element => {
+const RecipeDetail = (): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -207,4 +207,4 @@ const RecipeCard = (): JSX.Element => {
   );
 };
 
-export default RecipeCard;
+export default RecipeDetail;
