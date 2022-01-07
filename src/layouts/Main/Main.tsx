@@ -15,6 +15,7 @@ interface Props {
   bgcolor?: string;
   isTransparent?: boolean;
   menuColor?: string;
+  logoColor?: string;
 }
 
 const Main = ({
@@ -23,6 +24,7 @@ const Main = ({
   bgcolor = 'transparent',
   isTransparent = false,
   menuColor = 'text.primary',
+  logoColor = 'chocolate',
 }: Props): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -75,6 +77,7 @@ const Main = ({
             pages={pages}
             colorInvert={trigger ? false : colorInvert}
             menuColor={menuColor}
+            logoColor={logoColor}
           />
         </Container>
       </AppBar>
@@ -84,13 +87,12 @@ const Main = ({
         variant="temporary"
         pages={pages}
       />
-      <main>
-        {children}
-        <Divider />
-      </main>
-      <Container paddingY={4} marginX={2} maxWidth={'95%'}>
-        <Footer />
-      </Container>
+      <main>{children}</main>
+      <Box bgcolor={'primary.main'}>
+        <Container paddingY={4} marginX={2} maxWidth={'95%'}>
+          <Footer logoColor={'white'} />
+        </Container>
+      </Box>
     </Box>
   );
 };

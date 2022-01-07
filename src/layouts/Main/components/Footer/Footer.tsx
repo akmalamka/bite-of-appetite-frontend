@@ -8,8 +8,14 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
 import { IconList } from 'utils/icons/soclalMedia';
+import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
+import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
-const Footer = (): JSX.Element => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  logoColor?: string;
+}
+const Footer = ({ logoColor }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
@@ -40,14 +46,17 @@ const Footer = (): JSX.Element => {
               href="/"
               title="Bite of Appetite"
             >
-              {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
+              {logoColor == 'white' ? <LogoWhite /> : <Logo />}
             </Box>
-            <Box marginY={2} paddingRight={{ xs: 0, md: 2 }}>
+            <Box marginY={2} paddingX={1}>
               <Typography
                 fontFamily={'Inter'}
                 align={isSm ? 'left' : 'center'}
                 variant={'subtitle2'}
-                color="text.primary"
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1,
+                }}
                 gutterBottom
               >
                 Made with love in Bogor, Indonesia
@@ -56,7 +65,10 @@ const Footer = (): JSX.Element => {
                 fontFamily={'Inter'}
                 align={isSm ? 'left' : 'center'}
                 variant={'subtitle2'}
-                color="text.primary"
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1,
+                }}
                 gutterBottom
               >
                 &copy; Bite of Appetite. 2021, Muhammad Akmal
@@ -65,7 +77,10 @@ const Footer = (): JSX.Element => {
                 fontFamily={'Inter'}
                 align={isSm ? 'left' : 'center'}
                 variant={'subtitle2'}
-                color="text.primary"
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1,
+                }}
                 gutterBottom
               >
                 All rights reserved
@@ -85,7 +100,7 @@ const Footer = (): JSX.Element => {
                 underline="none"
                 component="a"
                 href="/"
-                color="text.primary"
+                color="text.secondary"
                 variant={'h6'}
               >
                 Home
@@ -96,7 +111,7 @@ const Footer = (): JSX.Element => {
                 underline="none"
                 component="a"
                 href="/recipes"
-                color="text.primary"
+                color="text.secondary"
                 variant={'h6'}
               >
                 Recipes
@@ -107,7 +122,7 @@ const Footer = (): JSX.Element => {
                 underline="none"
                 component="a"
                 href="/food-for-thought"
-                color="text.primary"
+                color="text.secondary"
                 variant={'h6'}
               >
                 Food for Thought
@@ -118,14 +133,20 @@ const Footer = (): JSX.Element => {
                 underline="none"
                 component="a"
                 href="/about"
-                color="text.primary"
+                color="text.secondary"
                 variant={'h6'}
               >
                 About
               </Link>
             </Box>
           </Box>
-          <IconList />
+          <IconList
+            isHamburgerOpen={true}
+            alignSelf={{
+              xs: 'center',
+              sm: 'flex-start',
+            }}
+          />
         </Box>
       </Grid>
     </Grid>

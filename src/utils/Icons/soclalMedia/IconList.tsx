@@ -11,9 +11,10 @@ import {
 
 interface Props {
   isHamburgerOpen?: boolean;
+  [x: string]: any;
 }
 
-const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
+const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -27,6 +28,7 @@ const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
         xs: 'center',
         sm: isHamburgerOpen ? 'center' : 'flex-start',
       }}
+      {...rest}
     >
       <Box
         marginLeft={1}

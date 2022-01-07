@@ -7,7 +7,12 @@ import { text } from 'stream/consumers';
 const About = (): JSX.Element => {
   return (
     <Box sx={{ overflowX: 'hidden' }}>
-      <Main colorInvert={false} isTransparent={true} menuColor={'text.primary'}>
+      <Main
+        colorInvert={false}
+        isTransparent={true}
+        menuColor={'text.primary'}
+        logoColor={'white'}
+      >
         <ImageWithDescription imagePosition={'right'} />
       </Main>
     </Box>

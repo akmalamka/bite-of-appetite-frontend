@@ -8,7 +8,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ThemeModeToggler } from '../../components';
 import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
 import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
-import { ReactComponent as Logo } from 'utils/icons/logo/logo-06-resize.svg';
+import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
+import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -22,6 +23,7 @@ interface Props {
   colorInvert?: boolean;
   menuColor?: string;
   withDivider?: boolean;
+  logoColor?: string;
 }
 
 const Topbar = ({
@@ -30,6 +32,7 @@ const Topbar = ({
   colorInvert = false,
   menuColor,
   withDivider = false,
+  logoColor,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -57,8 +60,8 @@ const Topbar = ({
           sx={{ justifyContent: { xs: 'space-between', md: 'flex-start' } }}
         >
           <Box component={'a'} href="/">
-            <PageTitle />
-            {/* <Logo /> */}
+            {/* <PageTitle /> */}
+            {logoColor == 'white' ? <LogoWhite /> : <Logo />}
           </Box>
           {/* {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />} */}
           <Button
