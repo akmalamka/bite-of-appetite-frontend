@@ -6,15 +6,12 @@ import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
 import Main from 'layouts/Main';
 import Container from 'components/Container';
+import { isMd } from 'utils/constants';
 
 const NotFound = (): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
 
   return (
     <Main>

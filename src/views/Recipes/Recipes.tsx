@@ -8,16 +8,12 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { RecipeList } from './components';
 import { SearchFilterBar } from 'blocks';
-import { filterMenu } from 'utils/constants';
+import { filterMenu, isSm } from 'utils/constants';
 
 const Recipes = (): JSX.Element => {
   const theme = useTheme();
   const [keyword, setKeyword] = React.useState<string>('');
   const [chipData, setChipData] = React.useState([]);
-
-  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
-    defaultMatches: true,
-  });
 
   const menuMap = (item) => {
     return item;

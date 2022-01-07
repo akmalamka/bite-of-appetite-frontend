@@ -5,11 +5,10 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-
 import Container from 'components/Container';
 import { Topbar, Sidebar, Footer } from './components';
-
 import pages from '../navigation';
+import { isMd } from 'utils/constants';
 
 interface Props {
   children: React.ReactNode;
@@ -27,10 +26,6 @@ const Main = ({
   menuColor = 'text.primary',
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const handleSidebarOpen = (): void => {

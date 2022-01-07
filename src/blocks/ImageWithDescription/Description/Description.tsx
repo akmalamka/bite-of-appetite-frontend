@@ -7,10 +7,12 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import { ButtonComponent } from 'blocks';
+import { isXs } from 'utils/constants';
 
 interface Props {
   imagePosition: string;
@@ -24,9 +26,6 @@ const Description = ({
   isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
-    defaultMatches: true,
-  });
 
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
@@ -37,8 +36,6 @@ const Description = ({
     <Box
       width={{ xs: 1, md: 1 / 2 }}
       height={1}
-      // height={{ xs: 500, md: 1 }}
-      // minHeight={{ xs: 350, md: 1 }}
       m={{ xs: isContent ? 0 : 4, md: isContent ? 4 : 0 }}
       marginY={{ xs: 4, md: 0 }}
       p={4}
@@ -48,7 +45,6 @@ const Description = ({
         paddingTop: { xs: 0, md: 13 },
       }}
     >
-      {/* {isContent && isRecipe && <Box></Box>} */}
       {isContent && (
         <Box
           display={'flex'}
@@ -71,6 +67,27 @@ const Description = ({
           >
             {isRecipe ? 'Recipes' : 'Food for Thought'}
           </Typography>
+          {isRecipe && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                columnGap: { xs: 1, md: 2 },
+                rowGap: 1,
+              }}
+            >
+              {data.tags.map((item) => (
+                <Chip
+                  key={item}
+                  label={item}
+                  component="a"
+                  size={'medium'}
+                  variant={'outlined'}
+                />
+              ))}
+            </Box>
+          )}
           {isRecipe && (
             <Typography
               color={isRecipe ? 'text.primary' : 'text.secondary'}
