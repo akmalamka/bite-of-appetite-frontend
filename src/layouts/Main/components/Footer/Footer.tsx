@@ -5,9 +5,9 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { ReactComponent as PageTitle } from '../Topbar/components/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from '../Topbar/components/Icons/page-title-white.svg';
-import { IconList } from '../Topbar/components';
+import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
+import { IconList } from 'utils/icons/soclalMedia';
 
 const Footer = (): JSX.Element => {
   const theme = useTheme();
@@ -28,64 +28,98 @@ const Footer = (): JSX.Element => {
         >
           <Box
             display={'flex'}
-            component="a"
-            href="/"
-            title="Bite of Appetite"
-            width={{ xs: 1, sm: 0.3 }}
+            flexDirection={'column'}
             justifyContent={{ xs: 'center', sm: 'flex-start' }}
-            alignSelf={'flex-start'}
-            marginBottom={{ xs: 2, sm: 0 }}
-            marginTop={2}
+            alignSelf={{ xs: 'center', sm: 'flex-start' }}
+            marginX={{ xs: 2, md: 4 }}
           >
-            {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
+            <Box
+              display={'flex'}
+              justifyContent={{ xs: 'center', sm: 'flex-start' }}
+              component="a"
+              href="/"
+              title="Bite of Appetite"
+            >
+              {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
+            </Box>
+            <Box marginY={2} paddingRight={{ xs: 0, md: 2 }}>
+              <Typography
+                fontFamily={'Inter'}
+                align={isSm ? 'left' : 'center'}
+                variant={'subtitle2'}
+                color="text.primary"
+                gutterBottom
+              >
+                Made with love in Bogor, Indonesia
+              </Typography>
+              <Typography
+                fontFamily={'Inter'}
+                align={isSm ? 'left' : 'center'}
+                variant={'subtitle2'}
+                color="text.primary"
+                gutterBottom
+              >
+                &copy; Bite of Appetite. 2021, Muhammad Akmal
+              </Typography>
+              <Typography
+                fontFamily={'Inter'}
+                align={isSm ? 'left' : 'center'}
+                variant={'subtitle2'}
+                color="text.primary"
+                gutterBottom
+              >
+                All rights reserved
+              </Typography>
+            </Box>
           </Box>
+
           <Box
             display="flex"
             flexWrap={'wrap'}
             alignItems={isSm ? 'flex-start' : 'center'}
             flexDirection={'column'}
-            rowGap={1}
+            rowGap={2}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Link
                 underline="none"
                 component="a"
                 href="/"
                 color="text.primary"
-                variant={'subtitle2'}
+                variant={'h6'}
               >
                 Home
               </Link>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Link
                 underline="none"
                 component="a"
                 href="/recipes"
                 color="text.primary"
-                variant={'subtitle2'}
+                variant={'h6'}
               >
                 Recipes
               </Link>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Link
                 underline="none"
                 component="a"
                 href="/food-for-thought"
                 color="text.primary"
-                variant={'subtitle2'}
+                variant={'h6'}
               >
                 Food for Thought
               </Link>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', height: '40px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Link
                 underline="none"
                 component="a"
                 href="/about"
                 color="text.primary"
-                variant={'subtitle2'}
+                variant={'h6'}
               >
                 About
               </Link>
@@ -93,24 +127,6 @@ const Footer = (): JSX.Element => {
           </Box>
           <IconList />
         </Box>
-      </Grid>
-      <Grid item xs={12}>
-        <Typography
-          align={'center'}
-          variant={'subtitle2'}
-          color="text.secondary"
-          gutterBottom
-        >
-          Made with love in Bogor, Indonesia
-        </Typography>
-        <Typography
-          align={'center'}
-          variant={'subtitle2'}
-          color="text.secondary"
-          gutterBottom
-        >
-          &copy; Bite of Appetite. 2021, Muhammad Akmal. All rights reserved
-        </Typography>
       </Grid>
     </Grid>
   );

@@ -4,31 +4,36 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import { RecipeCard } from './components';
-import { RecipeCarousel } from 'blocks';
+import Divider from '@mui/material/Divider';
+import { RecipeDescription } from './components';
+import { RecipeCarousel, ImageWithDescription } from 'blocks';
 
 const DetailRecipe = (): JSX.Element => {
   const theme = useTheme();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
 
   return (
-    <Main colorInvert={false}>
-      <Box>
-        <Container>
-          <RecipeCard />
+    <Box>
+      <Main colorInvert={false}>
+        <ImageWithDescription
+          imagePosition={'left'}
+          isContent={true}
+          isRecipe={true}
+        />
+
+        <Container paddingY={2}>
+          <RecipeDescription />
         </Container>
-      </Box>
-      {isMd && (
-        <Box>
+        {/* <Box>
           <Container>
-            <RecipeCarousel isHome={false} />
+            <RecipeCard />
           </Container>
-        </Box>
-      )}
-    </Main>
+        </Box> */}
+        <Container>
+          <RecipeCarousel isHome={false} />
+        </Container>
+      </Main>
+    </Box>
   );
 };
 

@@ -10,6 +10,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
+import { ButtonComponent } from 'blocks';
 import { PER_PAGE } from 'utils/constants';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -79,6 +80,7 @@ const DataCard = ({
               padding: 0,
               maxHeight: 530,
               maxWidth: 705,
+              // borderRadius: 2,
             }}
             onClick={() => {
               isRecipe
@@ -96,7 +98,7 @@ const DataCard = ({
               sx={{
                 objectFit: 'contain',
                 maxHeight: { xs: 530, md: 1 },
-                borderRadius: 2,
+                // borderRadius: 2,
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
               }}
@@ -124,10 +126,7 @@ const DataCard = ({
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: {
-                  xs: 'center',
-                  md: index % 2 === 0 ? 'flex-start' : 'flex-end',
-                },
+                justifyContent: 'center',
                 marginY: { xs: 1, md: 0 },
               }}
             >
@@ -139,40 +138,44 @@ const DataCard = ({
                   size={'medium'}
                   variant={'outlined'}
                   sx={{
+                    border: '1px solid',
                     marginRight: index % 2 === 0 ? 1 : 0,
                     marginLeft: index % 2 === 0 ? 0 : 1,
                     color:
                       mode === 'light'
                         ? theme.palette.text.primary
                         : theme.palette.common.white,
+                    fontFamily: 'Inter',
                   }}
                 />
               ))}
             </Box>
           )}
           <Typography
-            variant={'h4'}
+            variant={'h3'}
             fontWeight={700}
             sx={{
               marginY: 2,
-              display: 'flex',
-              justifyContent: {
-                xs: 'center',
-                md: index % 2 === 0 ? 'flex-start' : 'flex-end',
-              },
+              // display: 'flex',
+              // justifyContent: 'center',
             }}
-            align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
+            // align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
+            align={'center'}
           >
             {title}
           </Typography>
           <Typography
+            fontFamily={'Inter'}
             variant={'subtitle1'}
-            color="text.secondary"
+            color="text.primary"
             fontWeight={500}
-            sx={{
-              display: 'flex',
-            }}
-            align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
+            sx={
+              {
+                // display: 'flex',
+              }
+            }
+            // align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
+            align={'center'}
           >
             {description}
           </Typography>
@@ -180,47 +183,21 @@ const DataCard = ({
             marginTop={2}
             sx={{
               display: 'flex',
-              justifyContent: {
-                xs: 'center',
-                md: index % 2 === 0 ? 'flex-start' : 'flex-end',
-              },
+              justifyContent: 'center',
             }}
           >
             <Link
               to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
               style={{ textDecoration: 'none' }}
             >
-              <Button
-                variant="outlined"
-                color="primary"
-                sx={{
-                  borderRadius: 30,
-                  border: 2,
-                  borderColor: 'primary.main',
-                  my: 1,
-                  px: 2,
-                  '&:hover': {
-                    border: 2,
-                  },
-                }}
+              <ButtonComponent
+                text={isRecipe ? 'See Recipe' : 'Read More'}
                 onClick={() => {
                   isRecipe
                     ? onClickRecipe(index + (page - 1) * PER_PAGE)
                     : onClickWriting(index + (page - 1) * PER_PAGE);
                 }}
-              >
-                <Typography
-                  variant="button"
-                  color="text.primary"
-                  sx={{
-                    textTransform: 'uppercase',
-                    letterSpacing: 1.2,
-                    fontWeight: 400,
-                  }}
-                >
-                  {isRecipe ? 'See Recipe' : 'Read More'}
-                </Typography>
-              </Button>
+              />
             </Link>
           </Box>
         </Box>

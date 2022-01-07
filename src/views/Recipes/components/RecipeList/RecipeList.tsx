@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
-import usePagination from './Pagination';
-import { dummyRecipes } from '../../../../utils/dummyRecipes';
+import usePagination from 'utils/usePagination';
+import { dummyRecipes } from 'utils/dummyRecipes';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
@@ -165,6 +165,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
       )}
       {result.length > 0 && (
         <Pagination
+          color={'primary'}
           count={count}
           size="large"
           boundaryCount={0}

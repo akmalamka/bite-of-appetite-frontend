@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { ReactComponent as PageTitle } from '../../../Topbar/components/Icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from '../../../Topbar/components/Icons/page-title-white.svg';
+import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
+import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
 import CloseIcon from '@mui/icons-material/Close';
-import { IconList } from '../../../Topbar/components';
+import { IconList } from 'utils/icons/soclalMedia';
 
 interface Props {
   pages: {
@@ -55,7 +55,11 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           {mode === 'light' ? <PageTitle /> : <PageTitleWhite />}
         </Box>
         <Box>
-          <CloseIcon fontSize="large" onClick={() => onClose()} />
+          <CloseIcon
+            fontSize="large"
+            onClick={() => onClose()}
+            sx={{ color: theme.palette.primary.light }}
+          />
         </Box>
       </Box>
       <Box
@@ -83,15 +87,12 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
               fullWidth
               sx={{
                 justifyContent: 'center',
-                color:
-                  mode === 'light'
-                    ? theme.palette.common.white
-                    : theme.palette.text.primary,
               }}
             >
               <Typography
-                color={mode === 'light' ? 'text.primary' : 'common.white'}
+                color={'text.secondary'}
                 variant="h4"
+                fontWeight={600}
               >
                 {p[0].title}
               </Typography>
