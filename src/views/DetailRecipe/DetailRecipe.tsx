@@ -21,7 +21,7 @@ const DetailRecipe = (): JSX.Element => {
           isRecipe={true}
         />
 
-        <Container>
+        <Container paddingY={2}>
           <RecipeDescription />
         </Container>
         {/* <Box>

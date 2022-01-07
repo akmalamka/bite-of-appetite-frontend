@@ -60,20 +60,23 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   return (
     <Container>
       <Box marginBottom={4}>
-        <Typography
-          variant="h6"
-          data-aos={isMd ? 'fade-up' : 'none'}
-          color="text.primary"
-          align={'center'}
-          gutterBottom
-          sx={{
-            fontFamily: 'Inter',
-            fontWeight: 500,
-            textTransform: 'uppercase',
-          }}
-        >
-          {isHome ? 'Recipes' : 'Try another recipes!'}
-        </Typography>
+        {isHome && (
+          <Typography
+            variant="h6"
+            data-aos={isMd ? 'fade-up' : 'none'}
+            color="text.primary"
+            align={'center'}
+            gutterBottom
+            sx={{
+              fontFamily: 'Inter',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+            }}
+          >
+            Recipes
+          </Typography>
+        )}
+
         <Typography
           variant="h3"
           data-aos={isMd ? 'fade-up' : 'none'}

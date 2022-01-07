@@ -33,7 +33,7 @@ const RecipeDescription = (): JSX.Element => {
   return (
     <Grid container rowSpacing={2} columnSpacing={4} sx={{ paddingX: 2 }}>
       <Grid item xs={12}>
-        <Divider sx={{ marginY: 4 }} />
+        <Divider sx={{ marginY: { xs: 2, md: 4 } }} />
       </Grid>
       <Grid item xs={12}>
         <Typography
@@ -46,7 +46,7 @@ const RecipeDescription = (): JSX.Element => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Divider sx={{ marginY: 4 }} />
+        <Divider sx={{ marginY: { xs: 2, md: 4 } }} />
       </Grid>
       <Grid item xs={12} md={3}>
         <Grid container sx={{ paddingX: 2 }}>
