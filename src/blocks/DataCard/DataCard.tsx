@@ -39,9 +39,6 @@ const DataCard = ({
   onClickWriting,
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true,
-  });
   const { mode } = theme.palette;
   const { url } = useRouteMatch();
 
@@ -80,7 +77,6 @@ const DataCard = ({
               padding: 0,
               maxHeight: 530,
               maxWidth: 705,
-              // borderRadius: 2,
             }}
             onClick={() => {
               isRecipe
@@ -98,7 +94,6 @@ const DataCard = ({
               sx={{
                 objectFit: 'contain',
                 maxHeight: { xs: 530, md: 1 },
-                // borderRadius: 2,
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
               }}
@@ -156,10 +151,7 @@ const DataCard = ({
             fontWeight={700}
             sx={{
               marginY: 2,
-              // display: 'flex',
-              // justifyContent: 'center',
             }}
-            // align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
             align={'center'}
           >
             {title}
@@ -169,12 +161,6 @@ const DataCard = ({
             variant={'subtitle1'}
             color="text.primary"
             fontWeight={500}
-            sx={
-              {
-                // display: 'flex',
-              }
-            }
-            // align={isMd ? (index % 2 === 0 ? 'left' : 'right') : 'center'}
             align={'center'}
           >
             {description}
