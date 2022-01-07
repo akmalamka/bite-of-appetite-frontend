@@ -24,6 +24,9 @@ const Description = ({
   isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
+    defaultMatches: true,
+  });
 
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
@@ -116,7 +119,7 @@ const Description = ({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: 'row',
+                flexDirection: isXs ? 'column' : 'row',
                 columnGap: 2,
                 rowGap: 2,
               }}
@@ -135,7 +138,7 @@ const Description = ({
               >
                 By {isRecipe ? data.recipeBy : data.writingsBy}
               </Typography>
-              {data.inspiredBy && (
+              {!isXs && data.inspiredBy && (
                 <Divider
                   orientation="vertical"
                   sx={{
