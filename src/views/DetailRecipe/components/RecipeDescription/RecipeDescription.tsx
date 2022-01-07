@@ -31,7 +31,7 @@ const RecipeDescription = (): JSX.Element => {
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
   return (
-    <Grid container rowSpacing={2} columnSpacing={4}>
+    <Grid container rowSpacing={2} columnSpacing={4} sx={{ paddingX: 2 }}>
       <Grid item xs={12}>
         <Divider sx={{ marginY: 4 }} />
       </Grid>
@@ -48,7 +48,7 @@ const RecipeDescription = (): JSX.Element => {
       <Grid item xs={12}>
         <Divider sx={{ marginY: 4 }} />
       </Grid>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} md={3}>
         <Grid container sx={{ paddingX: 2 }}>
           <Grid item xs={6}>
             <Typography variant={'h6'} align={'left'}>
@@ -81,6 +81,7 @@ const RecipeDescription = (): JSX.Element => {
                   }}
                   expanded={expandedIngredients === `panel${i}`}
                   onChange={handleChange(`panel${i}`, 'ingredients')}
+                  disableGutters
                 >
                   <AccordionSummary
                     expandIcon={
@@ -101,7 +102,7 @@ const RecipeDescription = (): JSX.Element => {
                   </AccordionSummary>
                   <AccordionDetails>
                     {item.ingredients.map((item, j) => (
-                      <Grid container key={j}>
+                      <Grid container key={j} sx={{ paddingY: 0.5 }}>
                         <Grid item xs={9}>
                           <Typography
                             fontFamily={'Inter'}
@@ -147,8 +148,8 @@ const RecipeDescription = (): JSX.Element => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} sm={9}>
-        <Grid item xs={6}>
+      <Grid item xs={12} md={9}>
+        <Grid item xs={12} sx={{ paddingX: 2 }}>
           <Typography variant={'h6'} align={'left'}>
             Steps
           </Typography>
@@ -167,6 +168,7 @@ const RecipeDescription = (): JSX.Element => {
                 }}
                 expanded={expandedDirections === `panel${i}`}
                 onChange={handleChange(`panel${i}`, 'directions')}
+                disableGutters
               >
                 <AccordionSummary
                   expandIcon={
