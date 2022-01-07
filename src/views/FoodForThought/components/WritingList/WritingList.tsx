@@ -11,10 +11,13 @@ import { dummyWritings } from 'utils/dummyWritings';
 import { DataCard } from 'blocks';
 import { setChosenWriting } from 'redux/actions/writingActions';
 import { PER_PAGE } from 'utils/constants';
-import { isMd } from 'utils/constants';
 const WritingList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const [page, setPage] = React.useState(1);
 
   const count = Math.ceil(dummyWritings.length / PER_PAGE);

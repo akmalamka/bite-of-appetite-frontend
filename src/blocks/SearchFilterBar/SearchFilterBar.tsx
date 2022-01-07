@@ -24,7 +24,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Container from 'components/Container';
 import './placeholder.css';
 import { ButtonComponent } from 'blocks';
-import { isSm, isXs } from 'utils/constants';
 
 interface Filter {
   type: string;
@@ -82,6 +81,13 @@ const SearchFilterBar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
+    defaultMatches: true,
+  });
 
   const menuIndexHandler = (index) => {
     let a = 0;

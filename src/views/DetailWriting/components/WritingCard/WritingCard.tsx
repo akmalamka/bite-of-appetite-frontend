@@ -7,13 +7,15 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { isMd } from 'utils/constants';
 
 const WritingCard = (): JSX.Element => {
   const theme = useTheme();
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
 
   return (
     <Box display={'flex'} flexDirection={'column'}>
