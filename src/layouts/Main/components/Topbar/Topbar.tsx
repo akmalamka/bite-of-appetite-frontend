@@ -70,10 +70,11 @@ const Topbar = ({
               padding: 1,
               // bgcolor: 'rgba(102, 64, 20, .75)',
               borderRadius: 30,
+              p: 2,
             }}
           >
             <MenuIcon
-              // fontSize="large"
+              fontSize="large"
               sx={{ color: theme.palette.primary.light }}
             />
           </Button>

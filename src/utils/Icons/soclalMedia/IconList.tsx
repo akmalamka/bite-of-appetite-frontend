@@ -8,7 +8,6 @@ import {
   MediumButton,
   SpotifyButton,
 } from 'utils/icons/soclalMedia';
-import { isSm } from 'utils/constants';
 
 interface Props {
   isHamburgerOpen?: boolean;
@@ -16,6 +15,9 @@ interface Props {
 
 const IconList = ({ isHamburgerOpen = false }: Props): JSX.Element => {
   const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
   return (
     <Box
       m={2}

@@ -12,7 +12,7 @@ import { dummyRecipes } from 'utils/dummyRecipes';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
-import { PER_PAGE, isMd } from 'utils/constants';
+import { PER_PAGE } from 'utils/constants';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -23,6 +23,10 @@ interface Props {
 const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const [page, setPage] = React.useState(1);
   const [searchFirst, setSearchFirst] = React.useState<boolean>(false);
 

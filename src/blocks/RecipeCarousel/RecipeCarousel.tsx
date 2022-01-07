@@ -14,7 +14,6 @@ import './dotClass.css';
 import { dummyRecipes } from 'utils/dummyRecipes';
 import Container from 'components/Container';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
-import { isSm, isMd } from 'utils/constants';
 
 const responsive = {
   desktop: {
@@ -45,6 +44,12 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
   const chosenRecipeTitle = useSelector(
     (state: any) => state.recipe.recipeTitle,
   );
