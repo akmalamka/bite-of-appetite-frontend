@@ -21,10 +21,13 @@ import { RecipeCarousel } from 'blocks';
 import './accordion.css';
 
 const RecipeDescription = (): JSX.Element => {
-  const [expanded, setExpanded] = useState<any>(false);
+  const [expandedIngredients, setExpandedIngredients] = useState<any>(false);
+  const [expandedDirections, setExpandedDirections] = useState<any>(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleChange = (panel, type) => (event, isExpanded) => {
+    type === 'ingredients'
+      ? setExpandedIngredients(isExpanded ? panel : false)
+      : setExpandedDirections(isExpanded ? panel : false);
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
   return (
@@ -76,16 +79,17 @@ const RecipeDescription = (): JSX.Element => {
                     boxShadow: 'none',
                     width: 1,
                   }}
-                  expanded={expanded === `panel${i}`}
-                  onChange={handleChange(`panel${i}`)}
+                  expanded={expandedIngredients === `panel${i}`}
+                  onChange={handleChange(`panel${i}`, 'ingredients')}
                 >
                   <AccordionSummary
                     expandIcon={
-                      expanded === `panel${i}` ? <RemoveIcon /> : <AddIcon />
+                      expandedIngredients === `panel${i}` ? (
+                        <RemoveIcon />
+                      ) : (
+                        <AddIcon />
+                      )
                     }
-
-                    // aria-controls={"`panel${i}a-content`"}
-                    // id="panel1a-header"
                   >
                     <Typography
                       fontFamily={'Inter'}
@@ -97,32 +101,25 @@ const RecipeDescription = (): JSX.Element => {
                   </AccordionSummary>
                   <AccordionDetails>
                     {item.ingredients.map((item, j) => (
-                      // <Box key={j}>
-                      //   <Typography fontFamily={'Inter'} variant={'subtitle1'}>
-                      //     {item.name}
-                      //   </Typography>
-                      // </Box>
-                      <Box key={j}>
-                        <Grid container>
-                          <Grid item xs={9}>
-                            <Typography
-                              fontFamily={'Inter'}
-                              variant={'subtitle1'}
-                            >
-                              {item.name}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={3}>
-                            <Typography
-                              fontFamily={'Inter'}
-                              variant={'subtitle1'}
-                              align={'right'}
-                            >
-                              {item.measurement} {item.unit}
-                            </Typography>
-                          </Grid>
+                      <Grid container key={j}>
+                        <Grid item xs={9}>
+                          <Typography
+                            fontFamily={'Inter'}
+                            variant={'subtitle1'}
+                          >
+                            {item.name}
+                          </Typography>
                         </Grid>
-                      </Box>
+                        <Grid item xs={3}>
+                          <Typography
+                            fontFamily={'Inter'}
+                            variant={'subtitle1'}
+                            align={'right'}
+                          >
+                            {item.measurement} {item.unit}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     ))}
                   </AccordionDetails>
                 </Accordion>
@@ -158,6 +155,61 @@ const RecipeDescription = (): JSX.Element => {
         </Grid>
         <Grid item xs={12}>
           <Divider sx={{ marginY: 1, border: '1px solid' }} />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container>
+            {chosenRecipe.directions.map((item, i) => (
+              <Accordion
+                key={i}
+                sx={{
+                  boxShadow: 'none',
+                  width: 1,
+                }}
+                expanded={expandedDirections === `panel${i}`}
+                onChange={handleChange(`panel${i}`, 'directions')}
+              >
+                <AccordionSummary
+                  expandIcon={
+                    expandedDirections === `panel${i}` ? (
+                      <RemoveIcon />
+                    ) : (
+                      <AddIcon />
+                    )
+                  }
+                >
+                  <Typography
+                    fontFamily={'Inter'}
+                    variant={'subtitle1'}
+                    align={'left'}
+                    sx={{ fontWeight: 600 }}
+                  >
+                    {i + 1}. {item.title}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container rowSpacing={2}>
+                    <Grid item xs={12}>
+                      <Typography fontFamily={'Inter'} variant={'body1'}>
+                        {item.step}
+                      </Typography>
+                    </Grid>
+                    {item.tips && (
+                      <Grid item xs={12}>
+                        <Typography
+                          fontFamily={'Inter'}
+                          variant={'body1'}
+                          align={'left'}
+                          sx={{ fontWeight: 500 }}
+                        >
+                          Tips: {item.tips}
+                        </Typography>
+                      </Grid>
+                    )}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
