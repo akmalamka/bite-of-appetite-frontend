@@ -165,9 +165,9 @@ export const dummyRecipes = [
         unit: 'cups',
       },
       {
-        name: 'kosher salt, to taste',
-        measurement: 3, // gimana kalo yang to taste
-        unit: 'pinch of',
+        name: 'kosher salt',
+        measurement: null, // gimana kalo yang to taste
+        unit: 'to taste',
       },
     ],
     directions: [

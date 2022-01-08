@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Container from 'components/Container';
 
 const WritingCard = (): JSX.Element => {
   const theme = useTheme();
@@ -18,8 +19,8 @@ const WritingCard = (): JSX.Element => {
   });
 
   return (
-    <Box display={'flex'} flexDirection={'column'}>
-      <Box marginY={2} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+    <Box display={'flex'} justifyContent={'center'}>
+      {/* <Box marginY={2} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <Typography
           variant="h4"
           sx={{
@@ -29,9 +30,9 @@ const WritingCard = (): JSX.Element => {
         >
           {chosenWriting.title}
         </Typography>
-      </Box>
-      <Grid container columnSpacing={4} rowSpacing={2}>
-        <Grid item xs={12} md={6}>
+      </Box> */}
+      {/* <Grid container columnSpacing={4} rowSpacing={2}>
+        <Grid item xs={12}>
           <Typography
             variant={'body1'}
             color="text.primary"
@@ -55,36 +56,27 @@ const WritingCard = (): JSX.Element => {
             {chosenWriting.story}
           </Typography>
         </Grid>
-      </Grid>
-      {/* <Box
+      </Grid> */}
+      <Box
         sx={{
           display: 'flex',
-          width: 1,
+          width: 1 / 2,
           justifyContent: 'center',
           flexDirection: 'row',
+          marginY: { xs: 2, md: 4 },
         }}
       >
         <Typography
           variant={'body1'}
           color="text.primary"
-          // fontWeight={500}
+          fontFamily={'Inter'}
           align={'justify'}
           paragraph
-          sx={{ width: 1 / 2, m: 4 }}
+          sx={{ lineHeight: 1.8 }}
         >
           {chosenWriting.story}
         </Typography>
-        <Typography
-          variant={'subtitle1'}
-          color="text.primary"
-          fontWeight={500}
-          align={'justify'}
-          paragraph
-          sx={{ width: 1 / 2, m: 4 }}
-        >
-          {chosenWriting.story}
-        </Typography>
-      </Box> */}
+      </Box>
     </Box>
   );
 };

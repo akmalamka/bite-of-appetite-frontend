@@ -57,6 +57,10 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const onClickRecipe = (index) => {
     dispatch(setChosenRecipe(dummyRecipes[index]));
   };
+  const dummyRecipeFilter = dummyRecipes.filter(
+    (item) => item.title !== chosenRecipeTitle,
+  );
+
   return (
     <Container>
       <Box marginBottom={4}>
@@ -106,77 +110,75 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         // }
       >
         {(isHome
-          ? dummyRecipes
-          : dummyRecipes.filter((item) => item.title !== chosenRecipeTitle)
-        )
-          // .slice(9) ntar tambahin ini yaa, urusin prettiernya
-          .map((item, i) => (
-            <Box
-              key={i}
-              display="flex"
-              justifyContent="center"
-              alignItems="flex-start"
+          ? dummyRecipes.slice(0, 9)
+          : dummyRecipeFilter.slice(0, 9)
+        ).map((item, i) => (
+          <Box
+            key={i}
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-start"
+          >
+            <Card
+              sx={{
+                width: 0.9,
+                height: 0.9,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                boxShadow: 'none',
+                bgcolor: 'transparent',
+                backgroundImage: 'none',
+              }}
             >
-              <Card
-                sx={{
-                  width: 0.9,
-                  height: 0.9,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  boxShadow: 'none',
-                  bgcolor: 'transparent',
-                  backgroundImage: 'none',
+              <Link
+                to={{
+                  pathname: `/recipes/${item.title
+                    .toLowerCase()
+                    .replaceAll(' ', '-')}`,
                 }}
+                style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <Link
-                  to={{
-                    pathname: `/recipes/${item.title
-                      .toLowerCase()
-                      .replaceAll(' ', '-')}`,
+                <CardMedia
+                  title={item.title}
+                  image={item.image}
+                  onClick={() => {
+                    onClickRecipe(item.index);
                   }}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  sx={{
+                    objectFit: 'contain',
+                    minWidth: 220,
+                    minHeight: { xs: 270, sm: 260 },
+                    height: {
+                      sm: 330,
+                      md: 350,
+                      lg: 480,
+                    },
+                    borderRadius: 2,
+                    filter:
+                      theme.palette.mode === 'dark'
+                        ? 'brightness(0.8)'
+                        : 'none',
+                  }}
+                />
+                <Box
+                  marginTop={2}
+                  display={'flex'}
+                  alignItems={'center'}
+                  justifyContent={'flex-start'}
                 >
-                  <CardMedia
-                    title={item.title}
-                    image={item.image}
-                    onClick={() => {
-                      onClickRecipe(item.index);
-                    }}
-                    sx={{
-                      objectFit: 'contain',
-                      minWidth: 220,
-                      minHeight: { xs: 270, sm: 260 },
-                      height: {
-                        sm: 330,
-                        md: 350,
-                        lg: 480,
-                      },
-                      borderRadius: 2,
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.8)'
-                          : 'none',
-                    }}
-                  />
-                  <Box
-                    marginTop={2}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'flex-start'}
+                  <Typography
+                    color="text.primary"
+                    fontWeight={700}
+                    variant="h5"
                   >
-                    <Typography
-                      color="text.primary"
-                      fontWeight={700}
-                      variant="h5"
-                    >
-                      {item.title}
-                    </Typography>
-                  </Box>
-                </Link>
-              </Card>
-            </Box>
-          ))}
+                    {item.title}
+                  </Typography>
+                </Box>
+              </Link>
+            </Card>
+          </Box>
+        ))}
       </Carousel>
 
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>

@@ -71,18 +71,16 @@ const Description = ({
           >
             {isRecipe ? 'Recipes' : 'Food for Thought'}
           </Typography>
-          {isRecipe && (
-            <Typography
-              color={isRecipe ? 'text.primary' : 'text.secondary'}
-              variant="h2"
-              align={'center'}
-              sx={{
-                fontWeight: 600,
-              }}
-            >
-              {data.title}
-            </Typography>
-          )}
+          <Typography
+            color={isRecipe ? 'text.primary' : 'text.secondary'}
+            variant="h2"
+            align={'center'}
+            sx={{
+              fontWeight: 600,
+            }}
+          >
+            {data.title}
+          </Typography>
           <Typography
             fontFamily={isRecipe ? 'Inter' : 'Recoleta Alt'}
             color={isRecipe ? 'text.primary' : 'text.secondary'}
@@ -94,6 +92,19 @@ const Description = ({
           >
             {data.description}
           </Typography>
+          {isRecipe && (
+            <Typography
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
+              variant="body1"
+              align={'center'}
+              sx={{
+                fontFamily: 'Inter',
+                // textTransform: 'uppercase',
+              }}
+            >
+              Time needed: {data.time}
+            </Typography>
+          )}
           {isRecipe && (
             <Typography
               fontFamily={'Inter'}
@@ -175,6 +186,19 @@ const Description = ({
             >
               {data.date}
             </Typography>
+            {/* {isRecipe && (
+              <Typography
+                color={isRecipe ? 'text.primary' : 'text.secondary'}
+                variant="body1"
+                align={'center'}
+                sx={{
+                  fontFamily: 'Inter',
+                  // textTransform: 'uppercase',
+                }}
+              >
+                Time needed: {data.time}
+              </Typography>
+            )} */}
           </Box>
         </Box>
       )}
