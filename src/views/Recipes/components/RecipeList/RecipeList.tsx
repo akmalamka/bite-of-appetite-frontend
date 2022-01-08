@@ -13,6 +13,7 @@ import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
+import Container from 'components/Container';
 
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
@@ -145,19 +146,33 @@ const RecipeList = (): JSX.Element => {
             ))}
         </Grid>
       ) : (
-        <Box sx={{ mx: 2 }}>
-          <Typography
-            variant={isMd ? 'h5' : 'h6'}
-            sx={{
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-            align="center"
+        <Container>
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            rowGap={2}
           >
-            Oops! Sorry, It looks like there's no such recipe you're looking for
-            :(
-          </Typography>
-        </Box>
+            <Typography
+              color={'text.primary'}
+              variant="h1"
+              component={'h1'}
+              align={'center'}
+              sx={{ fontWeight: 600 }}
+            >
+              Oops!
+            </Typography>
+            <Typography
+              fontFamily={'Inter'}
+              variant="h5"
+              component="p"
+              color="text.primary"
+              align={'center'}
+            >
+              Sorry, It looks like there's no such recipe you're looking for :(
+            </Typography>
+          </Box>
+        </Container>
       )}
       {result.length > 0 && (
         <Pagination
