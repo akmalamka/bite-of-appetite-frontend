@@ -108,7 +108,6 @@ const ContentCard = ({
               }}
               startIcon={<EditIcon />}
               onClick={() => onClickEditContent(index)}
-              // href="/recipes"
             >
               <Typography
                 fontFamily={'Inter'}

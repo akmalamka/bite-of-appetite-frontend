@@ -112,7 +112,9 @@ const SearchFilterBar = ({
   };
 
   const onClickDone = () => {
-    dispatch(setChipdata(chipData));
+    if (!isContent) {
+      dispatch(setChipdata(chipData));
+    }
     onChangeFilterExpanded(false);
   };
 
@@ -122,7 +124,9 @@ const SearchFilterBar = ({
 
   const onClickClearAll = () => {
     onClearAll();
-    dispatch(resetChipdata());
+    if (!isContent) {
+      dispatch(resetChipdata());
+    }
   };
 
   useEffect(() => {
@@ -138,7 +142,7 @@ const SearchFilterBar = ({
             minWidth: {
               xs: 300,
               sm: 400,
-              md: 700,
+              md: isContent ? 570 : 700,
             },
             boxShadow: 'none',
           }}
@@ -219,7 +223,9 @@ const SearchFilterBar = ({
               )}
               {isContent && (
                 <Box width={1} marginRight={1}>
-                  <Typography m={2}>Tags</Typography>
+                  <Typography fontFamily={'Inter'} m={2}>
+                    Tags
+                  </Typography>
                 </Box>
               )}
               <Box sx={{ display: 'flex', alignItems: 'center' }}>

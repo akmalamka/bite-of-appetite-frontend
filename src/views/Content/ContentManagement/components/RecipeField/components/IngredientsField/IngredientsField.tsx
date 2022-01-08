@@ -14,37 +14,31 @@ import './FieldClass.css';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   formik: any;
+  isAddContent: boolean;
 }
 
-const initialIngredientsValueWithoutComponent = {
-  ingredientsWithoutComponent: [
-    {
-      name: '',
-      measurement: '',
-      unit: '',
-    },
-  ],
-};
-
-const initialIngredientsValueWithComponent = {
-  ingredientsWithComponent: [
-    {
-      component: '',
-      ingredients: [
-        {
-          name: '',
-          measurement: '',
-          unit: '',
-        },
-      ],
-    },
-  ],
-};
-const IngredientsField = ({ formik }: Props): JSX.Element => {
+const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
   const [checked, setChecked] = useState(false);
 
   const handleChangeSwitch = (event) => {
     setChecked(event.target.checked);
+  };
+  const initialIngredientsValueWithComponentAdd = {
+    ingredientsWithComponent: [
+      {
+        component: '',
+        ingredients: [
+          {
+            name: '',
+            measurement: '',
+            unit: '',
+          },
+        ],
+      },
+    ],
+  };
+  const initialIngredientsValueWithComponentEdit = {
+    ingredientsWithComponent: formik.values.ingredients,
   };
   return (
     <Box sx={{ my: 4 }}>
@@ -65,13 +59,22 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
           Ingredients
         </Typography>
         <FormControlLabel
-          control={<Switch checked={checked} onChange={handleChangeSwitch} />}
+          control={
+            <Switch
+              checked={checked || formik.values.isIngredientsWithComponent}
+              onChange={handleChangeSwitch}
+            />
+          }
           label={<Typography fontFamily={'Inter'}>with Component</Typography>}
         />
       </Box>
-      {checked ? (
+      {checked || formik.values.isIngredientsWithComponent ? (
         <Formik
-          initialValues={initialIngredientsValueWithComponent}
+          initialValues={
+            isAddContent
+              ? initialIngredientsValueWithComponentAdd
+              : initialIngredientsValueWithComponentEdit
+          }
           onSubmit={async (values) => {
             // await new Promise((r) => setTimeout(r, 500));
             formik.setFieldValue(
@@ -259,7 +262,10 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
           )}
         </Formik>
       ) : (
-        <IngredientsWithoutComponentField formik={formik} />
+        <IngredientsWithoutComponentField
+          formik={formik}
+          isAddContent={isAddContent}
+        />
       )}
     </Box>
   );

@@ -73,9 +73,7 @@ const validationSchema = yup.object({
 const RecipeField = ({ isAddContent }: Props): JSX.Element => {
   const [chipData, setChipData] = useState([]);
 
-  const chosenRecipeData = useSelector(
-    (state: any) => state.recipe.chosenRecipe,
-  );
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
 
   const menuMap = (item) => {
     return item;
@@ -120,7 +118,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     setIsChecked(isChecked.map(() => false));
   };
 
-  const initialEmptyValues = {
+  const initialValuesAdd = {
     image: null,
     title: '',
     description: '',
@@ -139,24 +137,43 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     directions: null,
   };
 
+  const initialValuesEdit = {
+    image: null,
+    title: chosenRecipe.title,
+    description: chosenRecipe.description,
+    tags: chosenRecipe.tags,
+    time: chosenRecipe.time,
+    foodPhotographyBy: chosenRecipe.foodPhotographyBy,
+    foodStylingBy: chosenRecipe.foodStylingBy,
+    recipeBy: chosenRecipe.recipeBy,
+    inspiredByExist: chosenRecipe.inspiredByExist,
+    inspiredBy: chosenRecipe.inspiredByExist ? chosenRecipe.inspiredBy : '',
+    story: chosenRecipe.story,
+    date: chosenRecipe.date,
+    serves: chosenRecipe.serves,
+    isIngredientsWithComponent: chosenRecipe.isIngredientsWithComponent,
+    ingredients: chosenRecipe.ingredients,
+    directions: chosenRecipe.directions,
+  };
+
   const onSubmit = (values) => {
     alert(JSON.stringify(values, null, 2));
-    // return values;
+    console.log(JSON.stringify(values, null, 2));
   };
-  const [initialValues, setinitialValues] = useState(initialEmptyValues);
 
-  useEffect(() => {
-    if (!isAddContent) {
-      setinitialValues(chosenRecipeData);
-    }
-  }, []);
-
+  const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({
     initialValues,
     // validationSchema: validationSchema, nanti dipake yaa
     onSubmit,
   });
 
+  useEffect(() => {
+    if (!isAddContent) {
+      formik.setFieldValue('tags', chosenRecipe.tags);
+      setChipData(chosenRecipe.tags);
+    }
+  }, []);
   useEffect(() => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
@@ -194,7 +211,9 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               margin={'0 auto'}
             >
               <Button size={'large'} variant={'contained'} type={'submit'}>
-                Save Recipe
+                <Typography fontFamily={'Inter'} variant={'button'}>
+                  Save Recipe
+                </Typography>
               </Button>
             </Box>
           </Grid>
@@ -520,7 +539,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
         </Grid>
       </form>
-      <IngredientsField formik={formik} />
+      <IngredientsField formik={formik} isAddContent={isAddContent} />
       <Box sx={{ my: 4 }}>
         <Grid item xs={12}>
           <Box
@@ -540,7 +559,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
             </Typography>
           </Box>
         </Grid>
-        <DirectionField formik={formik} />
+        <DirectionField formik={formik} isAddContent={isAddContent} />
       </Box>
     </Box>
   );

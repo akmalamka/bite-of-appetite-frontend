@@ -18,9 +18,9 @@ interface Props {
 const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
-    isRecipe && isAddContent
-      ? dispatch(resetChosenRecipe())
-      : dispatch(resetChosenWriting());
+    if (isAddContent) {
+      isRecipe ? dispatch(resetChosenRecipe()) : dispatch(resetChosenWriting());
+    }
   }, []);
 
   return (

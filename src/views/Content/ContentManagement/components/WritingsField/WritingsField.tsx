@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
@@ -49,7 +50,10 @@ const validationSchema = yup.object({
 });
 
 const WritingsField = ({ isAddContent }: Props): JSX.Element => {
-  const initialValues = {
+  const chosenWriting = useSelector(
+    (state: any) => state.writing.chosenWriting,
+  );
+  const initialValuesAdd = {
     image: null,
     description: '',
     title: '',
@@ -57,13 +61,23 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     story: '',
     date: '',
   };
+
+  const initialValuesEdit = {
+    image: null,
+    description: chosenWriting.description,
+    title: chosenWriting.title,
+    writingsBy: chosenWriting.writingsBy,
+    story: chosenWriting.story,
+    date: chosenWriting.date,
+  };
+
   const [urlImage, setUrlImage] = useState(null);
 
   const onSubmit = (values) => {
     alert(JSON.stringify(values, null, 2));
     // return values;
   };
-
+  const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({
     initialValues,
     // validationSchema: validationSchema,
@@ -263,7 +277,9 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               margin={'0 auto'}
             >
               <Button size={'large'} variant={'contained'} type={'submit'}>
-                Save Writings
+                <Typography fontFamily={'Inter'} variant={'button'}>
+                  Save Writings
+                </Typography>
               </Button>
             </Box>
           </Grid>

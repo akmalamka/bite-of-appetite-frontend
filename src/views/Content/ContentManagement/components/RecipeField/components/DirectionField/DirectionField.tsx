@@ -11,21 +11,29 @@ import './FieldClass.css';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   formik: any;
+  isAddContent: boolean;
 }
 
-const initialDirectionValue = {
-  directions: [
-    {
-      title: '',
-      step: '',
-      tips: '',
-    },
-  ],
-};
-const DirectionField = ({ formik }: Props): JSX.Element => {
+const DirectionField = ({ formik, isAddContent }: Props): JSX.Element => {
+  const initialDirectionValueAdd = {
+    directions: [
+      {
+        title: '',
+        step: '',
+        tips: '',
+      },
+    ],
+  };
+
+  const initialDirectionValueEdit = {
+    directions: formik.values.directions,
+  };
+
   return (
     <Formik
-      initialValues={initialDirectionValue}
+      initialValues={
+        isAddContent ? initialDirectionValueAdd : initialDirectionValueEdit
+      }
       onSubmit={async (values) => {
         // await new Promise((r) => setTimeout(r, 500));
         formik.setFieldValue('directions', values.directions);

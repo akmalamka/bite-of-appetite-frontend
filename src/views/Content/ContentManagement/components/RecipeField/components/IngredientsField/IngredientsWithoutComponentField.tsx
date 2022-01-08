@@ -11,23 +11,35 @@ import './FieldClass.css';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   formik: any;
+  isAddContent: boolean;
 }
 
-const initialIngredientsValueWithoutComponent = {
-  ingredientsWithoutComponent: [
-    {
-      name: '',
-      measurement: '',
-      unit: '',
-    },
-  ],
-};
+const IngredientsWithoutComponentField = ({
+  formik,
+  isAddContent,
+}: Props): JSX.Element => {
+  const initialIngredientsValueWithoutComponentAdd = {
+    ingredientsWithoutComponent: [
+      {
+        name: '',
+        measurement: '',
+        unit: '',
+      },
+    ],
+  };
 
-const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
+  const initialIngredientsValueWithoutComponentEdit = {
+    ingredientsWithoutComponent: formik.values.ingredients,
+  };
+
   return (
     <Box>
       <Formik
-        initialValues={initialIngredientsValueWithoutComponent}
+        initialValues={
+          isAddContent
+            ? initialIngredientsValueWithoutComponentAdd
+            : initialIngredientsValueWithoutComponentEdit
+        }
         onSubmit={async (values) => {
           // await new Promise((r) => setTimeout(r, 500));
           formik.setFieldValue(
