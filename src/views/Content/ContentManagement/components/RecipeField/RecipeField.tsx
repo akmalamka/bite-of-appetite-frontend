@@ -257,6 +257,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
                 formik.touched.foodPhotographyBy &&
                 formik.errors.foodPhotographyBy
               }
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -281,6 +286,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               helperText={
                 formik.touched.foodStylingBy && formik.errors.foodStylingBy
               }
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -300,6 +310,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -348,6 +363,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               helperText={
                 formik.touched.description && formik.errors.description
               }
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -367,6 +387,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.recipeBy && Boolean(formik.errors.recipeBy)}
               helperText={formik.touched.recipeBy && formik.errors.recipeBy}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -388,6 +413,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
                 formik.touched.inspiredBy && Boolean(formik.errors.inspiredBy)
               }
               helperText={formik.touched.inspiredBy && formik.errors.inspiredBy}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -409,6 +439,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.story && Boolean(formik.errors.story)}
               helperText={formik.touched.story && formik.errors.story}
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -428,6 +463,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.date && Boolean(formik.errors.date)}
               helperText={formik.touched.date && formik.errors.date}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -447,6 +487,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.serves && Boolean(formik.errors.serves)}
               helperText={formik.touched.serves && formik.errors.serves}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -466,6 +511,11 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.time && Boolean(formik.errors.time)}
               helperText={formik.touched.time && formik.errors.time}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
         </Grid>

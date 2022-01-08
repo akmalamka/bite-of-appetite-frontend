@@ -144,6 +144,11 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -164,6 +169,11 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
                 formik.touched.writingsBy && Boolean(formik.errors.writingsBy)
               }
               helperText={formik.touched.writingsBy && formik.errors.writingsBy}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -182,6 +192,11 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.date && Boolean(formik.errors.date)}
               helperText={formik.touched.date && formik.errors.date}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -206,6 +221,11 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               helperText={
                 formik.touched.description && formik.errors.description
               }
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -226,6 +246,11 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.story && Boolean(formik.errors.story)}
               helperText={formik.touched.story && formik.errors.story}
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item container xs={12}>
