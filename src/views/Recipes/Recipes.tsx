@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -9,11 +10,17 @@ import Container from 'components/Container';
 import { RecipeList } from './components';
 import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
+import {
+  resetKeyword,
+  resetChipdata,
+  setChipdata,
+} from 'redux/actions/searchFilterActions';
 
 const Recipes = (): JSX.Element => {
   const theme = useTheme();
-  const [keyword, setKeyword] = React.useState<string>('');
-  const [chipData, setChipData] = React.useState([]);
+  const dispatch = useDispatch();
+  const [keyword, setKeyword] = useState<string>('');
+  const [chipData, setChipData] = useState<string[]>([]);
 
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -53,7 +60,9 @@ const Recipes = (): JSX.Element => {
   };
 
   const handleDelete = (chipToDelete) => {
-    setChipData((chips) => chips.filter((chip) => chip !== chipToDelete));
+    const chipDataTemp = chipData.filter((chip) => chip !== chipToDelete);
+    dispatch(setChipdata(chipDataTemp));
+    setChipData(chipDataTemp);
     const index = menuItems1D.findIndex((element) => element === chipToDelete);
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
   };
@@ -70,6 +79,11 @@ const Recipes = (): JSX.Element => {
   function recipeListLogic() {
     return expanded && !isSm;
   }
+
+  useEffect(() => {
+    dispatch(resetKeyword());
+    dispatch(resetChipdata());
+  }, []);
 
   return (
     <Box>
@@ -117,8 +131,8 @@ const Recipes = (): JSX.Element => {
           <Box>
             <Container>
               <RecipeList
-                keyword={keyword}
-                chipData={expanded ? [] : chipData}
+              // keyword={keyword}
+              // chipData={expanded ? [] : chipData}
               />
             </Container>
           </Box>

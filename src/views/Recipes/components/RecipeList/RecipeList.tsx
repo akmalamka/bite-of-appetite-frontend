@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,21 +14,17 @@ import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  keyword: string;
-  chipData: string[];
-}
-
-const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
+const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
+  const chipData = useSelector((state: any) => state.searchFilter.chipData);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  const [page, setPage] = React.useState(1);
-  const [searchFirst, setSearchFirst] = React.useState<boolean>(false);
+  const [page, setPage] = useState(1);
+  const [searchFirst, setSearchFirst] = useState<boolean>(false);
 
   const optionsSearch = {
     threshold: 0.3,
@@ -36,7 +32,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   };
 
   const optionsFilter = {
-    threshold: 0,
+    threshold: 0.05,
     useExtendedSearch: true,
     keys: ['tags'],
   };

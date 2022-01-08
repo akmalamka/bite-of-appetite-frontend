@@ -71,7 +71,8 @@ const Footer = ({ logoColor }: Props): JSX.Element => {
                 }}
                 gutterBottom
               >
-                &copy; Bite of Appetite. 2021, Muhammad Akmal
+                &copy; Bite of Appetite. {new Date().getFullYear()}, Muhammad
+                Akmal
               </Typography>
               <Typography
                 fontFamily={'Inter'}

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -24,6 +25,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Container from 'components/Container';
 import './placeholder.css';
 import { ButtonComponent } from 'blocks';
+import {
+  setKeyword,
+  setChipdata,
+  resetChipdata,
+} from 'redux/actions/searchFilterActions';
 
 interface Filter {
   type: string;
@@ -81,6 +87,7 @@ const SearchFilterBar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const dispatch = useDispatch();
 
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -103,6 +110,24 @@ const SearchFilterBar = ({
     }
     onChangeFilterExpanded(true);
   };
+
+  const onClickDone = () => {
+    dispatch(setChipdata(chipData));
+    onChangeFilterExpanded(false);
+  };
+
+  const onDeleteChip = (item) => {
+    onChangeDeleteChip(item);
+  };
+
+  const onClickClearAll = () => {
+    onClearAll();
+    dispatch(resetChipdata());
+  };
+
+  useEffect(() => {
+    dispatch(setKeyword(keyword));
+  }, [keyword]);
 
   return (
     <Box>
@@ -147,6 +172,7 @@ const SearchFilterBar = ({
                         border: '0 !important',
                       },
                       input: {
+                        fontFamily: 'Inter',
                         '&::placeholder': {
                           fontFamily: 'Inter',
                           fontSize: {
@@ -229,7 +255,7 @@ const SearchFilterBar = ({
                         {item}
                       </Typography>
                     }
-                    onDelete={() => onChangeDeleteChip(item)}
+                    onDelete={() => onDeleteChip(item)}
                     sx={{ mr: 1, mb: 1 }}
                   />
                 ))}
@@ -240,7 +266,7 @@ const SearchFilterBar = ({
                     </Typography>
                   }
                   sx={{ mr: 1, mb: 1 }}
-                  onClick={onClearAll}
+                  onClick={() => onClickClearAll()}
                 />
               </Box>
             )}
@@ -324,7 +350,7 @@ const SearchFilterBar = ({
                   color={'primary'}
                   isSearchBar={true}
                   text={'Done'}
-                  onClick={() => onChangeFilterExpanded(false)}
+                  onClick={() => onClickDone()}
                 />
                 {isXs && (
                   <ButtonComponent

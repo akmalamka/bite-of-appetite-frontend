@@ -76,7 +76,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
   const chosenRecipeData = useSelector(
     (state: any) => state.recipe.chosenRecipe,
   );
-  console.log('chosenRecipeData ', chosenRecipeData);
 
   const menuMap = (item) => {
     return item;
