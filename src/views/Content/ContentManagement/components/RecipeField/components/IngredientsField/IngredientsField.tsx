@@ -56,12 +56,17 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
           marginY: 2,
         }}
       >
-        <Typography variant={'h5'} sx={{ marginBottom: 2 }} fontWeight={700}>
+        <Typography
+          fontFamily={'Inter'}
+          variant={'h5'}
+          sx={{ marginBottom: 2 }}
+          fontWeight={700}
+        >
           Ingredients
         </Typography>
         <FormControlLabel
           control={<Switch checked={checked} onChange={handleChangeSwitch} />}
-          label="with Component"
+          label={<Typography fontFamily={'Inter'}>with Component</Typography>}
         />
       </Box>
       {checked ? (
@@ -104,6 +109,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                 }}
                               >
                                 <Typography
+                                  fontFamily={'Inter'}
                                   variant={'h6'}
                                   sx={{ marginBottom: 2 }}
                                   fontWeight={600}
@@ -125,6 +131,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                               </Box>
                               <Box>
                                 <Typography
+                                  fontFamily={'Inter'}
                                   variant={'subtitle2'}
                                   sx={{ marginY: 2 }}
                                   fontWeight={700}
@@ -155,6 +162,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                               }}
                                             >
                                               <Typography
+                                                fontFamily={'Inter'}
                                                 variant={'h6'}
                                                 sx={{ marginBottom: 2 }}
                                                 fontWeight={600}
@@ -182,6 +190,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                             >
                                               <Box>
                                                 <Typography
+                                                  fontFamily={'Inter'}
                                                   variant={'subtitle2'}
                                                   sx={{ marginY: 2 }}
                                                   fontWeight={700}
@@ -196,6 +205,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                               </Box>
                                               <Box>
                                                 <Typography
+                                                  fontFamily={'Inter'}
                                                   variant={'subtitle2'}
                                                   sx={{ marginY: 2 }}
                                                   fontWeight={700}
@@ -210,6 +220,7 @@ const IngredientsField = ({ formik }: Props): JSX.Element => {
                                               </Box>
                                               <Box>
                                                 <Typography
+                                                  fontFamily={'Inter'}
                                                   variant={'subtitle2'}
                                                   sx={{ marginY: 2 }}
                                                   fontWeight={700}

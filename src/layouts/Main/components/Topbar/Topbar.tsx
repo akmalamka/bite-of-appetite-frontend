@@ -77,7 +77,12 @@ const Topbar = ({
           >
             <MenuIcon
               // fontSize="large"
-              sx={{ color: theme.palette.primary.light }}
+              sx={{
+                color:
+                  logoColor == 'white'
+                    ? theme.palette.primary.light
+                    : theme.palette.primary.main,
+              }}
             />
           </Button>
         </Box>

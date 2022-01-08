@@ -78,6 +78,7 @@ const ContentCard = ({
             // href="/recipes"
           >
             <Typography
+              fontFamily={'Inter'}
               variant="button"
               color="text.primary"
               sx={{
@@ -110,6 +111,7 @@ const ContentCard = ({
               // href="/recipes"
             >
               <Typography
+                fontFamily={'Inter'}
                 variant="button"
                 color="text.primary"
                 sx={{

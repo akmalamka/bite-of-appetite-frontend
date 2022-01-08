@@ -54,6 +54,7 @@ const AddDirectionButton = ({
         }
       >
         <Typography
+          fontFamily={'Inter'}
           variant="button"
           color="text.primary"
           sx={{

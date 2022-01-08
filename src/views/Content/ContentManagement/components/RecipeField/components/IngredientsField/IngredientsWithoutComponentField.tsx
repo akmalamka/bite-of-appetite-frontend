@@ -61,6 +61,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 }}
                               >
                                 <Typography
+                                  fontFamily={'Inter'}
                                   variant={'h6'}
                                   sx={{ marginBottom: 2 }}
                                   fontWeight={600}
@@ -88,6 +89,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                               >
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -102,6 +104,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 </Box>
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -116,6 +119,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 </Box>
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -143,7 +147,9 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
               )}
             </FieldArray>
             <Button variant={'contained'} type={'submit'}>
-              Save Ingredients to Formik Object
+              <Typography fontFamily={'Inter'} variant={'button'}>
+                Save Ingredients to Formik Object
+              </Typography>
             </Button>
           </Form>
         )}

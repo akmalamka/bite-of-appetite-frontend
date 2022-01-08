@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,7 +14,6 @@ const NotFound = (): JSX.Element => {
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-
   return (
     <Main>
       <Box

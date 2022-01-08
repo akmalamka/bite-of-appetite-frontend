@@ -48,6 +48,7 @@ const DirectionField = ({ formik }: Props): JSX.Element => {
                       >
                         <Box>
                           <Typography
+                            fontFamily={'Inter'}
                             variant={'h6'}
                             sx={{ marginBottom: 2 }}
                             fontWeight={600}
@@ -55,6 +56,7 @@ const DirectionField = ({ formik }: Props): JSX.Element => {
                             Step {index + 1}
                           </Typography>
                           <Typography
+                            fontFamily={'Inter'}
                             variant={'subtitle2'}
                             sx={{ marginY: 2 }}
                             fontWeight={700}
@@ -83,6 +85,7 @@ const DirectionField = ({ formik }: Props): JSX.Element => {
 
                       <Box>
                         <Typography
+                          fontFamily={'Inter'}
                           variant={'subtitle2'}
                           sx={{ marginY: 2 }}
                           fontWeight={700}
@@ -99,6 +102,7 @@ const DirectionField = ({ formik }: Props): JSX.Element => {
 
                       <Box>
                         <Typography
+                          fontFamily={'Inter'}
                           variant={'subtitle2'}
                           sx={{ marginY: 2 }}
                           fontWeight={700}
@@ -119,7 +123,9 @@ const DirectionField = ({ formik }: Props): JSX.Element => {
             )}
           </FieldArray>
           <Button variant={'contained'} type={'submit'}>
-            Save Directions to Formik Object
+            <Typography fontFamily={'Inter'} variant={'button'}>
+              Save Directions to Formik Object
+            </Typography>
           </Button>
         </Form>
       )}

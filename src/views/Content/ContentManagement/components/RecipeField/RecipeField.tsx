@@ -201,6 +201,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           <Grid item xs={12}>
             <div className="form-group">
               <Typography
+                fontFamily={'Inter'}
                 variant={'subtitle2'}
                 sx={{ marginBottom: 2 }}
                 fontWeight={700}
@@ -235,6 +236,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -259,6 +261,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -282,6 +285,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -300,6 +304,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -322,6 +327,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -346,6 +352,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -364,6 +371,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -384,6 +392,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -404,6 +413,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -422,6 +432,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={3}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -440,6 +451,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={3}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -469,6 +481,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
             }}
           >
             <Typography
+              fontFamily={'Inter'}
               variant={'h5'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}

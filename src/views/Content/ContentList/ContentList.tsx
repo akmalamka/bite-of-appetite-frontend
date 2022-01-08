@@ -80,6 +80,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
                   href={`${url}/add`}
                 >
                   <Typography
+                    fontFamily={'Inter'}
                     variant="button"
                     color="text.primary"
                     sx={{

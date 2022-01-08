@@ -80,6 +80,7 @@ const ContentHome = (): JSX.Element => {
                   <Typography
                     variant="button"
                     color="text.primary"
+                    fontFamily={'Inter'}
                     sx={{
                       textTransform: 'uppercase',
                       letterSpacing: 1.2,
@@ -126,6 +127,7 @@ const ContentHome = (): JSX.Element => {
                   href={`${url}/writings`}
                 >
                   <Typography
+                    fontFamily={'Inter'}
                     variant="button"
                     color="text.primary"
                     sx={{

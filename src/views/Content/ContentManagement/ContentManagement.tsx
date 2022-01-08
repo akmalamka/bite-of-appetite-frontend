@@ -27,7 +27,12 @@ const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
     <Main>
       <Page isRecipe={isRecipe} isAddContent={isAddContent}>
         <Box>
-          <Typography variant="h6" gutterBottom fontWeight={700}>
+          <Typography
+            fontFamily={'Inter'}
+            variant="h6"
+            gutterBottom
+            fontWeight={700}
+          >
             It`s time to {isAddContent ? 'add' : 'edit'}{' '}
             {isRecipe ? 'recipe' : 'writing'}! Yeayy
           </Typography>
