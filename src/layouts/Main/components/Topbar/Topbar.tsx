@@ -2,12 +2,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ThemeModeToggler } from '../../components';
-import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
 import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
@@ -22,7 +18,6 @@ interface Props {
   };
   colorInvert?: boolean;
   menuColor?: string;
-  withDivider?: boolean;
   logoColor?: string;
 }
 
@@ -31,11 +26,9 @@ const Topbar = ({
   pages,
   colorInvert = false,
   menuColor,
-  withDivider = false,
   logoColor,
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const { mode } = theme.palette;
   const {
     home: homePages,
     recipes: recipePages,
@@ -60,10 +53,8 @@ const Topbar = ({
           sx={{ justifyContent: { xs: 'space-between', md: 'flex-start' } }}
         >
           <Box component={'a'} href="/">
-            {/* <PageTitle /> */}
             {logoColor == 'white' ? <LogoWhite /> : <Logo />}
           </Box>
-          {/* {mode === 'light' && !colorInvert ? <PageTitle /> : <PageTitleWhite />} */}
           <Button
             onClick={() => onSidebarOpen()}
             aria-label="Menu"
@@ -71,12 +62,10 @@ const Topbar = ({
               display: { xs: 'flex', md: 'none' },
               minWidth: 'auto',
               padding: 1,
-              // bgcolor: 'rgba(102, 64, 20, .75)',
               borderRadius: 30,
             }}
           >
             <MenuIcon
-              // fontSize="large"
               sx={{
                 color:
                   logoColor == 'white'
@@ -121,9 +110,6 @@ const Topbar = ({
         </Box> */}
         </Box>
       </Box>
-      {/* <Box>
-        <Divider sx={{}}/>
-      </Box> */}
     </Box>
   );
 };

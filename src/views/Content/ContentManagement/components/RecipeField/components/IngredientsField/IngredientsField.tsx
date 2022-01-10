@@ -150,7 +150,7 @@ const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
                               <FieldArray
                                 name={`ingredientsWithComponent[${i}].ingredients`}
                               >
-                                {({ insert, remove, push }) => (
+                                {({ remove, push }) => (
                                   <div>
                                     {component.ingredients &&
                                       component.ingredients.length > 0 &&

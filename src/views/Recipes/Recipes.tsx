@@ -121,7 +121,6 @@ const Recipes = (): JSX.Element => {
             filterMenu={filterMenu}
             expanded={expanded}
             onChangeFilterExpanded={handleChangeFilterExpanded}
-            isRecipeList={true}
           />
         </Box>
         <Box>
@@ -130,10 +129,7 @@ const Recipes = (): JSX.Element => {
         {!recipeListLogic() && (
           <Box>
             <Container>
-              <RecipeList
-              // keyword={keyword}
-              // chipData={expanded ? [] : chipData}
-              />
+              <RecipeList />
             </Container>
           </Box>
         )}

@@ -46,7 +46,6 @@ const RecipeList = (): JSX.Element => {
   let result = [];
   const fuseSearch = new Fuse(dummyRecipes, optionsSearch);
   const fuseFilter = new Fuse(dummyRecipes, optionsFilter);
-
   const resultSearch =
     keyword === '' ? dummyRecipes : fuseSearch.search(keyword);
   const resultFilter =

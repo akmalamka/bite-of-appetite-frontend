@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { WritingList } from './components';
-import { SearchFilterBar } from 'blocks';
 
 const FoodForThought = (): JSX.Element => {
   return (

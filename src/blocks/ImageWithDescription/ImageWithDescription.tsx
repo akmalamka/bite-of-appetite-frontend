@@ -1,16 +1,8 @@
 import React from 'react';
-import Typed from 'react-typed';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { alpha, useTheme } from '@mui/material/styles';
 import useWindowDimensions from 'utils/useWindowDimensions';
-import VideoCard from '../VideoCard/VideoCard';
-import Container from 'components/Container';
-import { ButtonComponent } from 'blocks';
 import Description from './Description';
 
 interface Props {

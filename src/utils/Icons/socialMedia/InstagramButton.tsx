@@ -3,14 +3,10 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 interface Props {
-  colorInvert?: boolean;
   isHamburgerOpen: boolean;
 }
 
-const InstagramButton = ({
-  colorInvert = false,
-  isHamburgerOpen,
-}: Props): JSX.Element => {
+const InstagramButton = ({ isHamburgerOpen }: Props): JSX.Element => {
   const theme = useTheme();
 
   return (
@@ -25,8 +21,6 @@ const InstagramButton = ({
       }}
     >
       <svg
-        // width={isHamburgerOpen ? 40 : 24}
-        // height={isHamburgerOpen ? 40 : 24}
         width={24}
         height={24}
         xmlns="http://www.w3.org/2000/svg"

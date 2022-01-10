@@ -4,11 +4,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
@@ -22,7 +20,6 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Badge from '@mui/material/Badge';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Container from 'components/Container';
 import './placeholder.css';
 import { ButtonComponent } from 'blocks';
 import {
@@ -48,7 +45,6 @@ interface Props {
   filterMenu?: Filter[];
   expanded?: boolean;
   onChangeFilterExpanded?: (boolean) => void;
-  isRecipeList: boolean;
   isContent?: boolean;
 }
 interface FilterIconProps {
@@ -82,7 +78,6 @@ const SearchFilterBar = ({
   filterMenu,
   expanded,
   onChangeFilterExpanded,
-  isRecipeList,
   isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();

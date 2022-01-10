@@ -355,7 +355,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               filterMenu={filterMenu}
               expanded={expanded}
               onChangeFilterExpanded={handleChangeFilterExpanded}
-              isRecipeList={true}
               isContent={true}
             />
           </Grid>

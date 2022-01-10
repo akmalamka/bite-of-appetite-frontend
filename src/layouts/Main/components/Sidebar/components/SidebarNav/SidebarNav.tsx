@@ -3,11 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
 import CloseIcon from '@mui/icons-material/Close';
-import { IconList } from 'utils/icons/soclalMedia';
-import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
+import { IconList } from 'utils/icons/socialMedia';
 import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
 interface Props {
@@ -22,7 +19,6 @@ interface Props {
 
 const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
   const theme = useTheme();
-  const { mode } = theme.palette;
   const {
     home: homePages,
     recipes: recipePages,
@@ -54,7 +50,6 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
             justifyContent: 'center',
           }}
         >
-          {/* {mode === 'light' ? <PageTitle /> : <PageTitleWhite />} */}
           <LogoWhite />
         </Box>
         <Box>

@@ -1,13 +1,11 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import {
   InstagramButton,
   SoundcloudButton,
   MediumButton,
   SpotifyButton,
-} from 'utils/icons/soclalMedia';
+} from 'utils/icons/socialMedia';
 
 interface Props {
   isHamburgerOpen?: boolean;
@@ -15,10 +13,6 @@ interface Props {
 }
 
 const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
-  const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
-    defaultMatches: true,
-  });
   return (
     <Box
       m={2}
@@ -40,10 +34,7 @@ const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
           cursor: 'pointer',
         }}
       >
-        <InstagramButton
-          colorInvert={false}
-          isHamburgerOpen={isHamburgerOpen}
-        />
+        <InstagramButton isHamburgerOpen={isHamburgerOpen} />
       </Box>
       <Box
         marginLeft={1}
@@ -55,7 +46,7 @@ const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
           cursor: 'pointer',
         }}
       >
-        <MediumButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
+        <MediumButton isHamburgerOpen={isHamburgerOpen} />
       </Box>
       <Box
         marginLeft={1}
@@ -67,10 +58,7 @@ const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
           cursor: 'pointer',
         }}
       >
-        <SoundcloudButton
-          colorInvert={false}
-          isHamburgerOpen={isHamburgerOpen}
-        />
+        <SoundcloudButton isHamburgerOpen={isHamburgerOpen} />
       </Box>
       <Box
         marginLeft={1}
@@ -82,7 +70,7 @@ const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
           cursor: 'pointer',
         }}
       >
-        <SpotifyButton colorInvert={false} isHamburgerOpen={isHamburgerOpen} />
+        <SpotifyButton isHamburgerOpen={isHamburgerOpen} />
       </Box>
     </Box>
   );

@@ -159,7 +159,6 @@ const RecipeDetail = (): JSX.Element => {
                 paragraph
               >
                 {chosenRecipe.story}
-                {/* kyknya harus dibatesin jumlahnya */}
               </Typography>
             </Box>
             <Tabs

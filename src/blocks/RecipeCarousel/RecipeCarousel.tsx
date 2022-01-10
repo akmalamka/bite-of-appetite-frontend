@@ -98,16 +98,10 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         showDots={isSm ? true : false}
         responsive={responsive}
         removeArrowOnDeviceType={['tablet', 'mobile']}
-        // ssr={true} // means to render carousel on server-side. ini entar ajaa tapi perlu dipikirin
         infinite={true}
         partialVisible={true}
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
-        // dotListClass={
-        //   mode === 'light'
-        //     ? 'react-multi-carousel-dot'
-        //     : 'react-multi-carousel-dot-dark'
-        // }
       >
         {(isHome
           ? dummyRecipes.slice(0, 9)

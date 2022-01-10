@@ -3,14 +3,10 @@ import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 
 interface Props {
-  colorInvert?: boolean;
   isHamburgerOpen: boolean;
 }
 
-const SpotifyButton = ({
-  colorInvert = false,
-  isHamburgerOpen,
-}: Props): JSX.Element => {
+const SpotifyButton = ({ isHamburgerOpen }: Props): JSX.Element => {
   const theme = useTheme();
 
   return (

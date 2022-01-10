@@ -2,14 +2,11 @@ import React from 'react';
 import Typed from 'react-typed';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
-import useWindowDimensions from 'utils/useWindowDimensions';
 import { ButtonComponent } from 'blocks';
 
 interface Props {
@@ -37,8 +34,6 @@ const Description = ({
     <Box
       width={{ xs: 1, md: 1 / 2 }}
       height={1}
-      // height={{ xs: 500, md: 1 }}
-      // minHeight={{ xs: 350, md: 1 }}
       m={{ xs: isContent ? 0 : 4, md: isContent ? 4 : 0 }}
       marginY={{ xs: 4, md: 0 }}
       p={4}
@@ -48,7 +43,6 @@ const Description = ({
         paddingTop: { xs: 0, md: 13 },
       }}
     >
-      {/* {isContent && isRecipe && <Box></Box>} */}
       {isContent && (
         <Box
           display={'flex'}
@@ -99,7 +93,6 @@ const Description = ({
               align={'center'}
               sx={{
                 fontFamily: 'Inter',
-                // textTransform: 'uppercase',
               }}
             >
               Time needed: {data.time}
@@ -111,11 +104,8 @@ const Description = ({
               variant="button"
               color={isRecipe ? 'text.primary' : 'text.secondary'}
               sx={{
-                // letterSpacing: 1.5,
                 fontStyle: 'italic',
                 fontWeight: 400,
-                // fontSize: { xs: 8, sm: 10 },
-                // pt: 1,
               }}
               align="center"
             >
@@ -186,19 +176,6 @@ const Description = ({
             >
               {data.date}
             </Typography>
-            {/* {isRecipe && (
-              <Typography
-                color={isRecipe ? 'text.primary' : 'text.secondary'}
-                variant="body1"
-                align={'center'}
-                sx={{
-                  fontFamily: 'Inter',
-                  // textTransform: 'uppercase',
-                }}
-              >
-                Time needed: {data.time}
-              </Typography>
-            )} */}
           </Box>
         </Box>
       )}

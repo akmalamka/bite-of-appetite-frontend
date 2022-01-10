@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';

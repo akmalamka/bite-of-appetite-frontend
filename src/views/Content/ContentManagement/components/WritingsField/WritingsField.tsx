@@ -75,7 +75,6 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
 
   const onSubmit = (values) => {
     alert(JSON.stringify(values, null, 2));
-    // return values;
   };
   const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({

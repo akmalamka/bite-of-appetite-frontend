@@ -5,9 +5,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { ReactComponent as PageTitle } from 'utils/icons/page-title.svg';
-import { ReactComponent as PageTitleWhite } from 'utils/icons/page-title-white.svg';
-import { IconList } from 'utils/icons/soclalMedia';
+import { IconList } from 'utils/icons/socialMedia';
 import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
@@ -17,7 +15,6 @@ interface Props {
 }
 const Footer = ({ logoColor }: Props): JSX.Element => {
   const theme = useTheme();
-  const { mode } = theme.palette;
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
