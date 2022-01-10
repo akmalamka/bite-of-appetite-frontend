@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -13,22 +13,19 @@ import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
+import Container from 'components/Container';
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  keyword: string;
-  chipData: string[];
-}
-
-const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
+const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
+  const chipData = useSelector((state: any) => state.searchFilter.chipData);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
-  const [page, setPage] = React.useState(1);
-  const [searchFirst, setSearchFirst] = React.useState<boolean>(false);
+  const [page, setPage] = useState(1);
+  const [searchFirst, setSearchFirst] = useState<boolean>(false);
 
   const optionsSearch = {
     threshold: 0.3,
@@ -36,7 +33,7 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   };
 
   const optionsFilter = {
-    threshold: 0,
+    threshold: 0.05,
     useExtendedSearch: true,
     keys: ['tags'],
   };
@@ -49,7 +46,6 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
   let result = [];
   const fuseSearch = new Fuse(dummyRecipes, optionsSearch);
   const fuseFilter = new Fuse(dummyRecipes, optionsFilter);
-
   const resultSearch =
     keyword === '' ? dummyRecipes : fuseSearch.search(keyword);
   const resultFilter =
@@ -149,19 +145,33 @@ const RecipeList = ({ keyword, chipData }: Props): JSX.Element => {
             ))}
         </Grid>
       ) : (
-        <Box sx={{ mx: 2 }}>
-          <Typography
-            variant={isMd ? 'h5' : 'h6'}
-            sx={{
-              fontWeight: 600,
-              color: 'text.primary',
-            }}
-            align="center"
+        <Container>
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            justifyContent={'center'}
+            rowGap={2}
           >
-            Oops! Sorry, It looks like there's no such recipe you're looking for
-            :(
-          </Typography>
-        </Box>
+            <Typography
+              color={'text.primary'}
+              variant="h1"
+              component={'h1'}
+              align={'center'}
+              sx={{ fontWeight: 600 }}
+            >
+              Oops!
+            </Typography>
+            <Typography
+              fontFamily={'Inter'}
+              variant="h5"
+              component="p"
+              color="text.primary"
+              align={'center'}
+            >
+              Sorry, It looks like there's no such recipe you're looking for :(
+            </Typography>
+          </Box>
+        </Container>
       )}
       {result.length > 0 && (
         <Pagination

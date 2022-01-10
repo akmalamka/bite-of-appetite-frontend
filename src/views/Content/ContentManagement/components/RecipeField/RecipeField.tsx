@@ -73,10 +73,7 @@ const validationSchema = yup.object({
 const RecipeField = ({ isAddContent }: Props): JSX.Element => {
   const [chipData, setChipData] = useState([]);
 
-  const chosenRecipeData = useSelector(
-    (state: any) => state.recipe.chosenRecipe,
-  );
-  console.log('chosenRecipeData ', chosenRecipeData);
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
 
   const menuMap = (item) => {
     return item;
@@ -121,7 +118,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     setIsChecked(isChecked.map(() => false));
   };
 
-  const initialEmptyValues = {
+  const initialValuesAdd = {
     image: null,
     title: '',
     description: '',
@@ -140,24 +137,43 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     directions: null,
   };
 
+  const initialValuesEdit = {
+    image: null,
+    title: chosenRecipe.title,
+    description: chosenRecipe.description,
+    tags: chosenRecipe.tags,
+    time: chosenRecipe.time,
+    foodPhotographyBy: chosenRecipe.foodPhotographyBy,
+    foodStylingBy: chosenRecipe.foodStylingBy,
+    recipeBy: chosenRecipe.recipeBy,
+    inspiredByExist: chosenRecipe.inspiredByExist,
+    inspiredBy: chosenRecipe.inspiredByExist ? chosenRecipe.inspiredBy : '',
+    story: chosenRecipe.story,
+    date: chosenRecipe.date,
+    serves: chosenRecipe.serves,
+    isIngredientsWithComponent: chosenRecipe.isIngredientsWithComponent,
+    ingredients: chosenRecipe.ingredients,
+    directions: chosenRecipe.directions,
+  };
+
   const onSubmit = (values) => {
     alert(JSON.stringify(values, null, 2));
-    // return values;
+    console.log(JSON.stringify(values, null, 2));
   };
-  const [initialValues, setinitialValues] = useState(initialEmptyValues);
 
-  useEffect(() => {
-    if (!isAddContent) {
-      setinitialValues(chosenRecipeData);
-    }
-  }, []);
-
+  const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({
     initialValues,
     // validationSchema: validationSchema, nanti dipake yaa
     onSubmit,
   });
 
+  useEffect(() => {
+    if (!isAddContent) {
+      formik.setFieldValue('tags', chosenRecipe.tags);
+      setChipData(chosenRecipe.tags);
+    }
+  }, []);
   useEffect(() => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
@@ -195,13 +211,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               margin={'0 auto'}
             >
               <Button size={'large'} variant={'contained'} type={'submit'}>
-                Save Recipe
+                <Typography fontFamily={'Inter'} variant={'button'}>
+                  Save Recipe
+                </Typography>
               </Button>
             </Box>
           </Grid>
           <Grid item xs={12}>
             <div className="form-group">
               <Typography
+                fontFamily={'Inter'}
                 variant={'subtitle2'}
                 sx={{ marginBottom: 2 }}
                 fontWeight={700}
@@ -236,6 +255,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -256,10 +276,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
                 formik.touched.foodPhotographyBy &&
                 formik.errors.foodPhotographyBy
               }
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -279,10 +305,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               helperText={
                 formik.touched.foodStylingBy && formik.errors.foodStylingBy
               }
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -297,10 +329,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -317,12 +355,12 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               filterMenu={filterMenu}
               expanded={expanded}
               onChangeFilterExpanded={handleChangeFilterExpanded}
-              isRecipeList={true}
               isContent={true}
             />
           </Grid>
           <Grid item xs={12}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -343,10 +381,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               helperText={
                 formik.touched.description && formik.errors.description
               }
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -361,10 +405,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.recipeBy && Boolean(formik.errors.recipeBy)}
               helperText={formik.touched.recipeBy && formik.errors.recipeBy}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -381,10 +431,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
                 formik.touched.inspiredBy && Boolean(formik.errors.inspiredBy)
               }
               helperText={formik.touched.inspiredBy && formik.errors.inspiredBy}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -401,10 +457,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.story && Boolean(formik.errors.story)}
               helperText={formik.touched.story && formik.errors.story}
+              sx={{
+                textarea: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -419,10 +481,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.date && Boolean(formik.errors.date)}
               helperText={formik.touched.date && formik.errors.date}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -437,10 +505,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.serves && Boolean(formik.errors.serves)}
               helperText={formik.touched.serves && formik.errors.serves}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
             <Typography
+              fontFamily={'Inter'}
               variant={'subtitle2'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -455,11 +529,16 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.time && Boolean(formik.errors.time)}
               helperText={formik.touched.time && formik.errors.time}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
             />
           </Grid>
         </Grid>
       </form>
-      <IngredientsField formik={formik} />
+      <IngredientsField formik={formik} isAddContent={isAddContent} />
       <Box sx={{ my: 4 }}>
         <Grid item xs={12}>
           <Box
@@ -470,6 +549,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
             }}
           >
             <Typography
+              fontFamily={'Inter'}
               variant={'h5'}
               sx={{ marginBottom: 2 }}
               fontWeight={700}
@@ -478,7 +558,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
             </Typography>
           </Box>
         </Grid>
-        <DirectionField formik={formik} />
+        <DirectionField formik={formik} isAddContent={isAddContent} />
       </Box>
     </Box>
   );

@@ -18,16 +18,21 @@ interface Props {
 const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
-    isRecipe && isAddContent
-      ? dispatch(resetChosenRecipe())
-      : dispatch(resetChosenWriting());
+    if (isAddContent) {
+      isRecipe ? dispatch(resetChosenRecipe()) : dispatch(resetChosenWriting());
+    }
   }, []);
 
   return (
     <Main>
       <Page isRecipe={isRecipe} isAddContent={isAddContent}>
         <Box>
-          <Typography variant="h6" gutterBottom fontWeight={700}>
+          <Typography
+            fontFamily={'Inter'}
+            variant="h6"
+            gutterBottom
+            fontWeight={700}
+          >
             It`s time to {isAddContent ? 'add' : 'edit'}{' '}
             {isRecipe ? 'recipe' : 'writing'}! Yeayy
           </Typography>

@@ -25,13 +25,10 @@ const saveState = (state) => {
 
 const persistedState = loadState();
 
-// const initialState = {};
-
 const middleware = [thunk];
 
 const store = createStore(
   rootReducer,
-  // initialState,
   persistedState,
   compose(
     applyMiddleware(...middleware),

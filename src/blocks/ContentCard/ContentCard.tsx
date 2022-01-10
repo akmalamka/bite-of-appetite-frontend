@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Swal from 'sweetalert2';
 
 interface Props {
   title: string;
@@ -24,6 +25,10 @@ const ContentCard = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { url } = useRouteMatch();
+
+  const onClickDelete = () => {
+    Swal.fire('Good job!', 'You clicked the button!', 'success');
+  };
 
   return (
     <Grid item xs={4}>
@@ -75,9 +80,10 @@ const ContentCard = ({
               },
             }}
             startIcon={<DeleteIcon />}
-            // href="/recipes"
+            onClick={() => onClickDelete()}
           >
             <Typography
+              fontFamily={'Inter'}
               variant="button"
               color="text.primary"
               sx={{
@@ -107,9 +113,9 @@ const ContentCard = ({
               }}
               startIcon={<EditIcon />}
               onClick={() => onClickEditContent(index)}
-              // href="/recipes"
             >
               <Typography
+                fontFamily={'Inter'}
                 variant="button"
                 color="text.primary"
                 sx={{

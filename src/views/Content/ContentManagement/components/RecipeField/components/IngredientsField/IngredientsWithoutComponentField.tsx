@@ -11,23 +11,35 @@ import './FieldClass.css';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   formik: any;
+  isAddContent: boolean;
 }
 
-const initialIngredientsValueWithoutComponent = {
-  ingredientsWithoutComponent: [
-    {
-      name: '',
-      measurement: '',
-      unit: '',
-    },
-  ],
-};
+const IngredientsWithoutComponentField = ({
+  formik,
+  isAddContent,
+}: Props): JSX.Element => {
+  const initialIngredientsValueWithoutComponentAdd = {
+    ingredientsWithoutComponent: [
+      {
+        name: '',
+        measurement: '',
+        unit: '',
+      },
+    ],
+  };
 
-const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
+  const initialIngredientsValueWithoutComponentEdit = {
+    ingredientsWithoutComponent: formik.values.ingredients,
+  };
+
   return (
     <Box>
       <Formik
-        initialValues={initialIngredientsValueWithoutComponent}
+        initialValues={
+          isAddContent
+            ? initialIngredientsValueWithoutComponentAdd
+            : initialIngredientsValueWithoutComponentEdit
+        }
         onSubmit={async (values) => {
           // await new Promise((r) => setTimeout(r, 500));
           formik.setFieldValue(
@@ -61,6 +73,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 }}
                               >
                                 <Typography
+                                  fontFamily={'Inter'}
                                   variant={'h6'}
                                   sx={{ marginBottom: 2 }}
                                   fontWeight={600}
@@ -88,6 +101,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                               >
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -102,6 +116,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 </Box>
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -116,6 +131,7 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
                                 </Box>
                                 <Box>
                                   <Typography
+                                    fontFamily={'Inter'}
                                     variant={'subtitle2'}
                                     sx={{ marginY: 2 }}
                                     fontWeight={700}
@@ -143,7 +159,9 @@ const IngredientsWithoutComponentField = ({ formik }: Props): JSX.Element => {
               )}
             </FieldArray>
             <Button variant={'contained'} type={'submit'}>
-              Save Ingredients to Formik Object
+              <Typography fontFamily={'Inter'} variant={'button'}>
+                Save Ingredients to Formik Object
+              </Typography>
             </Button>
           </Form>
         )}

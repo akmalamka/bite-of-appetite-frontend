@@ -9,10 +9,6 @@ import {
   DetailWriting as DetailWritingView,
   SignIn as SignInView,
   NotFound as NotFoundView,
-  AccountBilling as AccountBillingView,
-  AccountGeneral as AccountGeneralView,
-  AccountNotifications as AccountNotificationsView,
-  AccountSecurity as AccountSecurityView,
   ContentManagement as ContentManagementView,
   ContentList as ContentListView,
   ContentHome as ContentHomeView,
@@ -54,24 +50,6 @@ const routes = [
   {
     path: '/not-found',
     renderer: (params = {}): JSX.Element => <NotFoundView {...params} />,
-  },
-  {
-    path: '/account-billing',
-    renderer: (params = {}): JSX.Element => <AccountBillingView {...params} />,
-  },
-  {
-    path: '/account-general',
-    renderer: (params = {}): JSX.Element => <AccountGeneralView {...params} />,
-  },
-  {
-    path: '/account-notifications',
-    renderer: (params = {}): JSX.Element => (
-      <AccountNotificationsView {...params} />
-    ),
-  },
-  {
-    path: '/account-security',
-    renderer: (params = {}): JSX.Element => <AccountSecurityView {...params} />,
   },
   {
     path: '/content-management',

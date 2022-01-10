@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
-import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
@@ -21,9 +20,13 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Badge from '@mui/material/Badge';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Container from 'components/Container';
 import './placeholder.css';
 import { ButtonComponent } from 'blocks';
+import {
+  setKeyword,
+  setChipdata,
+  resetChipdata,
+} from 'redux/actions/searchFilterActions';
 
 interface Filter {
   type: string;
@@ -42,7 +45,6 @@ interface Props {
   filterMenu?: Filter[];
   expanded?: boolean;
   onChangeFilterExpanded?: (boolean) => void;
-  isRecipeList: boolean;
   isContent?: boolean;
 }
 interface FilterIconProps {
@@ -76,11 +78,11 @@ const SearchFilterBar = ({
   filterMenu,
   expanded,
   onChangeFilterExpanded,
-  isRecipeList,
   isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const dispatch = useDispatch();
 
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -104,6 +106,28 @@ const SearchFilterBar = ({
     onChangeFilterExpanded(true);
   };
 
+  const onClickDone = () => {
+    if (!isContent) {
+      dispatch(setChipdata(chipData));
+    }
+    onChangeFilterExpanded(false);
+  };
+
+  const onDeleteChip = (item) => {
+    onChangeDeleteChip(item);
+  };
+
+  const onClickClearAll = () => {
+    onClearAll();
+    if (!isContent) {
+      dispatch(resetChipdata());
+    }
+  };
+
+  useEffect(() => {
+    dispatch(setKeyword(keyword));
+  }, [keyword]);
+
   return (
     <Box>
       <ClickAwayListener onClickAway={handleClickAway}>
@@ -113,7 +137,7 @@ const SearchFilterBar = ({
             minWidth: {
               xs: 300,
               sm: 400,
-              md: 700,
+              md: isContent ? 570 : 700,
             },
             boxShadow: 'none',
           }}
@@ -147,6 +171,7 @@ const SearchFilterBar = ({
                         border: '0 !important',
                       },
                       input: {
+                        fontFamily: 'Inter',
                         '&::placeholder': {
                           fontFamily: 'Inter',
                           fontSize: {
@@ -193,7 +218,9 @@ const SearchFilterBar = ({
               )}
               {isContent && (
                 <Box width={1} marginRight={1}>
-                  <Typography m={2}>Tags</Typography>
+                  <Typography fontFamily={'Inter'} m={2}>
+                    Tags
+                  </Typography>
                 </Box>
               )}
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -229,7 +256,7 @@ const SearchFilterBar = ({
                         {item}
                       </Typography>
                     }
-                    onDelete={() => onChangeDeleteChip(item)}
+                    onDelete={() => onDeleteChip(item)}
                     sx={{ mr: 1, mb: 1 }}
                   />
                 ))}
@@ -240,7 +267,7 @@ const SearchFilterBar = ({
                     </Typography>
                   }
                   sx={{ mr: 1, mb: 1 }}
-                  onClick={onClearAll}
+                  onClick={() => onClickClearAll()}
                 />
               </Box>
             )}
@@ -324,7 +351,7 @@ const SearchFilterBar = ({
                   color={'primary'}
                   isSearchBar={true}
                   text={'Done'}
-                  onClick={() => onChangeFilterExpanded(false)}
+                  onClick={() => onClickDone()}
                 />
                 {isXs && (
                   <ButtonComponent

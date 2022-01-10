@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -11,13 +8,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import useWindowDimensions from 'utils/useWindowDimensions';
-import SwipeableViews from 'react-swipeable-views';
-import DetailTabs from './DetailTabs';
-import { TabLabel, a11yProps } from './DetailTabs';
-import { RecipeCarousel } from 'blocks';
 import './accordion.css';
 
 const RecipeDescription = (): JSX.Element => {
@@ -30,6 +20,7 @@ const RecipeDescription = (): JSX.Element => {
       : setExpandedDirections(isExpanded ? panel : false);
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+
   return (
     <Grid container rowSpacing={2} columnSpacing={4} sx={{ paddingX: 2 }}>
       <Grid item xs={12}>
@@ -112,13 +103,24 @@ const RecipeDescription = (): JSX.Element => {
                           </Typography>
                         </Grid>
                         <Grid item xs={3}>
-                          <Typography
-                            fontFamily={'Inter'}
-                            variant={'subtitle1'}
-                            align={'right'}
-                          >
-                            {item.measurement} {item.unit}
-                          </Typography>
+                          {item.measurement && item.unit && (
+                            <Typography
+                              fontFamily={'Inter'}
+                              variant={'subtitle1'}
+                              align={'right'}
+                            >
+                              {item.measurement} {item.unit}
+                            </Typography>
+                          )}
+                          {!item.measurement && item.unit && (
+                            <Typography
+                              fontFamily={'Inter'}
+                              variant={'subtitle1'}
+                              align={'right'}
+                            >
+                              {item.unit}
+                            </Typography>
+                          )}
                         </Grid>
                       </Grid>
                     ))}

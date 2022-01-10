@@ -585,22 +585,12 @@ const DetailTabs = ({
                       size={isMd ? 'medium' : 'small'}
                       sx={{
                         border: i == activeStep ? '1px solid' : 'none',
-                        // '.MuiFab-root': {
-                        //   bgcolor:
-                        //     mode == 'light'
-                        //       ? theme.palette.common.white
-                        //       : theme.palette.primary.dark,
-                        // },
                         backgroundColor:
                           mode == 'light'
                             ? theme.palette.common.white
                             : theme.palette.primary.dark,
                         my: 0.5,
                         boxShadow: 'none',
-                        // color:
-                        //   mode === 'light'
-                        //     ? theme.palette.text.primary
-                        //     : theme.palette.common.white,
                       }}
                     >
                       <Typography variant="button" sx={{ fontWeight: 500 }}>
