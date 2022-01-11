@@ -53,6 +53,7 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
+
   const initialValuesAdd = {
     image: null,
     description: '',

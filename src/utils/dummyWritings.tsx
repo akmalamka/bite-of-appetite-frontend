@@ -41,7 +41,7 @@ export const dummyWritings = [
     writingsBy: 'Bon Appetit',
     story:
       'Here at BA everybody has their favorite banana bread recipe. We made every one of them—14 to be exact—until we came up with a collective favorite. Dark brown sugar is key (keeping the bread ultra tender and moist), and a dollop of mascarpone (which you can sub with sour cream or yogurt if desired) makes for superior tenderness in the crumb. Chocolate and walnuts are optional but encouraged, and if you like an extra crunch, follow former BA test kitchen director and cookbook author Carla Lalli Music’s recommendation and sprinkle the top with raw sugar just before you put the pan in the oven. Serve slices plain or slathered with cream cheese or butter.',
-    date: 'December 3, 2021', // ganti jadi ada dalemnya lagi month, day, year
+    date: 'December 3, 2021',
   },
   {
     image:

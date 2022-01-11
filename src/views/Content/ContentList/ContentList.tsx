@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -13,6 +13,7 @@ import { dummyRecipes } from 'utils/dummyRecipes';
 import { dummyWritings } from 'utils/dummyWritings';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { setChosenWriting } from 'redux/actions/writingActions';
+import api from 'utils/api';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -21,12 +22,38 @@ interface Props {
 const ContentList = ({ isRecipe }: Props): JSX.Element => {
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
+  const [writings, setWritings] = useState([]);
 
-  const onClickEditContent = (index) => {
-    isRecipe
-      ? dispatch(setChosenRecipe(dummyRecipes[index]))
-      : dispatch(setChosenWriting(dummyWritings[index]));
+  const onClickEditContent = (id) => {
+    if (isRecipe) {
+      dispatch(setChosenRecipe(dummyRecipes[id]));
+    } else {
+      api
+        .get(`/writings/${id}`)
+        .then((res) => {
+          if (res.data.code == 200) {
+            const chosen = res.data.data;
+            dispatch(setChosenWriting(chosen));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
+
+  useEffect(() => {
+    api
+      .get('/writings')
+      .then((res) => {
+        if (res.data.code == 200) {
+          setWritings(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <Main>
       <Box
@@ -96,13 +123,13 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
               </Box>
             </Box>
             <Grid container rowSpacing={4} columnSpacing={2}>
-              {(isRecipe ? dummyRecipes : dummyWritings).map((item, i) => (
+              {(isRecipe ? dummyRecipes : writings).map((item, i) => (
                 <ContentCard
                   key={i}
                   title={item.title}
                   image={item.image}
                   onClickEditContent={onClickEditContent}
-                  index={i}
+                  id={item.id}
                 />
               ))}
             </Grid>
