@@ -8,18 +8,30 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
-import { dummyRecipes } from 'utils/dummyRecipes';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 import Container from 'components/Container';
 import api from 'utils/api';
+import { ReactComponent as SearchFilterAsset } from 'utils/search-filter-asset.svg';
 
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    api
+      .get('/recipes')
+      .then((res) => {
+        if (res.data.code == 200) {
+          setRecipes(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
   const chipData = useSelector((state: any) => state.searchFilter.chipData);
@@ -44,7 +56,6 @@ const RecipeList = (): JSX.Element => {
       tags: obj,
     };
   });
-
   let result = [];
   const fuseSearch = new Fuse(recipes, optionsSearch);
   const fuseFilter = new Fuse(recipes, optionsFilter);
@@ -65,6 +76,7 @@ const RecipeList = (): JSX.Element => {
       if (chipData.length == 0) {
         return resultSearch;
       } else {
+        console.log('aaa');
         if (searchFirst) {
           const flattenSearch = resultSearch.map((item) => item.item);
           return new Fuse(flattenSearch, optionsFilter).search({
@@ -113,19 +125,6 @@ const RecipeList = (): JSX.Element => {
     setPage(p);
     _DATA.jump(p);
   };
-
-  useEffect(() => {
-    api
-      .get('/recipes')
-      .then((res) => {
-        if (res.data.code == 200) {
-          setRecipes(res.data.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <Box>
@@ -176,12 +175,24 @@ const RecipeList = (): JSX.Element => {
             justifyContent={'center'}
             rowGap={2}
           >
+            {isMd && (
+              <Box
+                left={'55%'}
+                top={'28%'}
+                position={'absolute'}
+                sx={{
+                  zIndex: 1,
+                }}
+              >
+                <SearchFilterAsset />
+              </Box>
+            )}
             <Typography
               color={'text.primary'}
               variant="h1"
               component={'h1'}
               align={'center'}
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 600, zIndex: 3 }}
             >
               Oops!
             </Typography>
@@ -191,6 +202,7 @@ const RecipeList = (): JSX.Element => {
               component="p"
               color="text.primary"
               align={'center'}
+              sx={{ zIndex: 3 }}
             >
               Sorry, It looks like there's no such recipe you're looking for :(
             </Typography>

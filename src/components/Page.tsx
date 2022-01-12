@@ -11,7 +11,7 @@ export const useDarkMode = (): [string, () => void, boolean] => {
 
   const setMode = (mode: string) => {
     try {
-      window.localStorage.setItem('themeMode', mode);
+      // window.localStorage.setItem('themeMode', mode);
     } catch {
       /* do nothing */
     }
