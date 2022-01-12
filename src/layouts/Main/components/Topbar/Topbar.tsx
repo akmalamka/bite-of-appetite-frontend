@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
-import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
+import { ReactComponent as Logo } from 'utils/logo-chocolate.svg';
+import { ReactComponent as LogoWhite } from 'utils/logo-white.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
