@@ -8,7 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import { ButtonComponent } from 'blocks';
-import { ReactComponent as HomeAsset } from 'utils/icons/asset/home-asset.svg';
+import { ReactComponent as HomeAsset } from 'utils/home-asset.svg';
 
 interface Props {
   imagePosition: string;
