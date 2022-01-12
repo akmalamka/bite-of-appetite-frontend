@@ -67,7 +67,6 @@ const WritingList = (): JSX.Element => {
             <Grid key={i} item xs={12}>
               <DataCard
                 index={i}
-                resultIndex={i}
                 title={item.title}
                 src={item.image}
                 description={item.description}

@@ -16,6 +16,7 @@ interface Props {
   image: string;
   onClickEditContent: (id: number) => void;
   id: number;
+  handleRefreshPage?: (refreshPage: boolean) => void;
 }
 
 const ContentCard = ({
@@ -23,6 +24,7 @@ const ContentCard = ({
   image,
   onClickEditContent,
   id,
+  handleRefreshPage,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { url } = useRouteMatch();
@@ -44,6 +46,7 @@ const ContentCard = ({
           .then((res) => {
             if (res.data.code == 200) {
               Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+              handleRefreshPage(true);
             }
           })
           .catch((err) => {

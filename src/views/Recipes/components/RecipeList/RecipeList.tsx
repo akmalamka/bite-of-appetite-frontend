@@ -14,10 +14,12 @@ import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 import Container from 'components/Container';
+import api from 'utils/api';
 
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const [recipes, setRecipes] = useState([]);
   const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
   const chipData = useSelector((state: any) => state.searchFilter.chipData);
@@ -44,19 +46,18 @@ const RecipeList = (): JSX.Element => {
   });
 
   let result = [];
-  const fuseSearch = new Fuse(dummyRecipes, optionsSearch);
-  const fuseFilter = new Fuse(dummyRecipes, optionsFilter);
-  const resultSearch =
-    keyword === '' ? dummyRecipes : fuseSearch.search(keyword);
+  const fuseSearch = new Fuse(recipes, optionsSearch);
+  const fuseFilter = new Fuse(recipes, optionsFilter);
+  const resultSearch = keyword === '' ? recipes : fuseSearch.search(keyword);
   const resultFilter =
     chipData.length == 0
-      ? dummyRecipes
+      ? recipes
       : fuseFilter.search({ $and: chipDataMapped });
 
   function finalResult() {
     if (keyword === '') {
       if (chipData.length == 0) {
-        return dummyRecipes;
+        return recipes;
       } else {
         return resultFilter;
       }
@@ -77,7 +78,17 @@ const RecipeList = (): JSX.Element => {
     }
   }
   const onClickRecipe = (index) => {
-    dispatch(setChosenRecipe(dummyRecipes[index]));
+    api
+      .get(`/recipes/${recipes[index].id}`)
+      .then((res) => {
+        if (res.data.code == 200) {
+          const chosen = res.data.data;
+          dispatch(setChosenRecipe(chosen));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   result = finalResult();
@@ -103,6 +114,19 @@ const RecipeList = (): JSX.Element => {
     _DATA.jump(p);
   };
 
+  useEffect(() => {
+    api
+      .get('/recipes')
+      .then((res) => {
+        if (res.data.code == 200) {
+          setRecipes(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Box>
       {result.length > 0 ? (
@@ -112,12 +136,12 @@ const RecipeList = (): JSX.Element => {
             .map((item, i) => (
               <Grid key={i} item xs={12}>
                 <DataCard
-                  index={
-                    keyword === '' && chipData.length == 0
-                      ? item.index
-                      : item.item.index
-                  }
-                  resultIndex={i}
+                  // index={
+                  //   keyword === '' && chipData.length == 0
+                  //     ? item.index
+                  //     : item.item.index
+                  // }
+                  index={i}
                   title={
                     keyword === '' && chipData.length == 0
                       ? item.title

@@ -10,7 +10,6 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContentCard } from 'blocks';
 import { dummyRecipes } from 'utils/dummyRecipes';
-import { dummyWritings } from 'utils/dummyWritings';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { setChosenWriting } from 'redux/actions/writingActions';
 import api from 'utils/api';
@@ -23,6 +22,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
   const [writings, setWritings] = useState([]);
+  const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
   const onClickEditContent = (id) => {
     if (isRecipe) {
@@ -53,7 +53,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [refreshPage]);
   return (
     <Main>
       <Box
@@ -130,6 +130,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
                   image={item.image}
                   onClickEditContent={onClickEditContent}
                   id={item.id}
+                  handleRefreshPage={setRefreshPage}
                 />
               ))}
             </Grid>
