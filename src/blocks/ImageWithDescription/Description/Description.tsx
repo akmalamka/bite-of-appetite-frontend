@@ -8,6 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import { ButtonComponent } from 'blocks';
+import { ReactComponent as HomeAsset } from 'utils/icons/asset/home-asset.svg';
 
 interface Props {
   imagePosition: string;
@@ -186,7 +187,24 @@ const Description = ({
           justifyContent={'flex-end'}
           flexDirection={'column'}
         >
-          <Typography variant="h2" color="text.secondary" gutterBottom>
+          <Box
+            // display={'flex'}
+            // width={'50rem'}
+            left={'30%'}
+            top={'55%'}
+            position={'relative'}
+            // marginTop={30}
+            // marginLeft={25}
+            sx={{ zIndex: 1 }}
+          >
+            <HomeAsset />
+          </Box>
+          <Typography
+            variant="h2"
+            color="text.secondary"
+            gutterBottom
+            sx={{ zIndex: 2 }}
+          >
             {imagePosition === 'left' ? 'Welcome to' : 'About'}
             <br /> {imagePosition === 'left' ? 'my food ' : ''}
             {imagePosition === 'left' && (

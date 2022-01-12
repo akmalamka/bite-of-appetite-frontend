@@ -9,25 +9,58 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Swal from 'sweetalert2';
+import api from 'utils/api';
 
 interface Props {
   title: string;
   image: string;
-  onClickEditContent: (index: number) => void;
-  index: number;
+  onClickEditContent: (id: number) => void;
+  id: number;
+  handleRefreshPage: (refreshPage: boolean) => void;
+  isRecipe: boolean;
 }
 
 const ContentCard = ({
   title,
   image,
   onClickEditContent,
-  index,
+  id,
+  handleRefreshPage,
+  isRecipe,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { url } = useRouteMatch();
 
-  const onClickDelete = () => {
-    Swal.fire('Good job!', 'You clicked the button!', 'success');
+  const onClickDelete = (id) => {
+    // Swal.fire('Good job!', 'You clicked the button!', 'success');
+    Swal.fire({
+      title: `Are you sure you wanna delete ${title}?`,
+      text: 'You will not be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api
+          .delete(`/${isRecipe ? 'recipes' : 'writings'}/${id}`)
+          .then((res) => {
+            if (res.data.code == 200) {
+              Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+              handleRefreshPage(true);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+      }
+    });
   };
 
   return (
@@ -80,7 +113,7 @@ const ContentCard = ({
               },
             }}
             startIcon={<DeleteIcon />}
-            onClick={() => onClickDelete()}
+            onClick={() => onClickDelete(id)}
           >
             <Typography
               fontFamily={'Inter'}
@@ -112,7 +145,7 @@ const ContentCard = ({
                 },
               }}
               startIcon={<EditIcon />}
-              onClick={() => onClickEditContent(index)}
+              onClick={() => onClickEditContent(id)}
             >
               <Typography
                 fontFamily={'Inter'}

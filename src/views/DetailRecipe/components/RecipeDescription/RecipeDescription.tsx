@@ -64,7 +64,7 @@ const RecipeDescription = (): JSX.Element => {
         <Grid item xs={12}>
           <Grid container>
             {chosenRecipe.ingredients.map((item, i) =>
-              chosenRecipe.isIngredientsWithComponent ? (
+              chosenRecipe.isIngredientsWithComponent === 'True' ? (
                 <Accordion
                   sx={{
                     boxShadow: 'none',

@@ -14,7 +14,6 @@ import { PER_PAGE } from 'utils/constants';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
-  resultIndex?: number;
   title: string;
   src: string;
   tags?: string[];
@@ -27,7 +26,6 @@ interface Props {
 
 const DataCard = ({
   index,
-  resultIndex,
   title,
   src,
   tags,
@@ -51,7 +49,7 @@ const DataCard = ({
       display={'flex'}
       flexDirection={{
         xs: 'column',
-        md: resultIndex % 2 === 0 ? 'row-reverse' : 'row',
+        md: index % 2 === 0 ? 'row-reverse' : 'row',
       }}
       sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
     >
@@ -79,7 +77,7 @@ const DataCard = ({
             }}
             onClick={() => {
               isRecipe
-                ? onClickRecipe(index)
+                ? onClickRecipe(index + (page - 1) * PER_PAGE) // ko beda ya??
                 : onClickWriting(index + (page - 1) * PER_PAGE);
             }}
           >
