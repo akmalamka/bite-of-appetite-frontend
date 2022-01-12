@@ -22,38 +22,38 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
   const [writings, setWritings] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
   const onClickEditContent = (id) => {
-    if (isRecipe) {
-      dispatch(setChosenRecipe(dummyRecipes[id]));
-    } else {
-      api
-        .get(`/writings/${id}`)
-        .then((res) => {
-          if (res.data.code == 200) {
-            const chosen = res.data.data;
-            dispatch(setChosenWriting(chosen));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    api
+      .get(`/${isRecipe ? 'recipes' : 'writings'}/${id}`)
+      .then((res) => {
+        if (res.data.code == 200) {
+          const chosen = res.data.data;
+          isRecipe
+            ? dispatch(setChosenRecipe(chosen))
+            : dispatch(setChosenWriting(chosen));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     api
-      .get('/writings')
+      .get(`/${isRecipe ? 'recipes' : 'writings'}`)
       .then((res) => {
         if (res.data.code == 200) {
-          setWritings(res.data.data);
+          isRecipe ? setRecipes(res.data.data) : setWritings(res.data.data);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }, [refreshPage]);
+
   return (
     <Main>
       <Box
@@ -123,7 +123,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
               </Box>
             </Box>
             <Grid container rowSpacing={4} columnSpacing={2}>
-              {(isRecipe ? dummyRecipes : writings).map((item, i) => (
+              {(isRecipe ? recipes : writings).map((item, i) => (
                 <ContentCard
                   key={i}
                   title={item.title}
@@ -131,6 +131,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
                   onClickEditContent={onClickEditContent}
                   id={item.id}
                   handleRefreshPage={setRefreshPage}
+                  isRecipe={isRecipe}
                 />
               ))}
             </Grid>

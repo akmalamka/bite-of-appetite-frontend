@@ -151,7 +151,8 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     story: chosenRecipe.story,
     date: chosenRecipe.date,
     serves: chosenRecipe.serves,
-    isIngredientsWithComponent: chosenRecipe.isIngredientsWithComponent,
+    isIngredientsWithComponent:
+      chosenRecipe.isIngredientsWithComponent === 'True' ? true : false,
     ingredients: chosenRecipe.ingredients,
     directions: chosenRecipe.directions,
   };
