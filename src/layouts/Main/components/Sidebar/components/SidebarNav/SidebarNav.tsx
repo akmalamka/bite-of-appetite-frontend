@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
-import IconList from 'utils/icons/IconList';
+import IconList from 'utils/IconList';
 import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
 interface Props {
