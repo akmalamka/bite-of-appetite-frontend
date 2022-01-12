@@ -5,7 +5,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { IconList } from 'utils/icons/socialMedia';
+import IconList from 'utils/icons/IconList';
 import { ReactComponent as Logo } from 'utils/icons/logo/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/icons/logo/logo-white.svg';
 
