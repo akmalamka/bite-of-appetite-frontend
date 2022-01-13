@@ -22,6 +22,7 @@ interface Props {
   page: number;
   onClickRecipe?: (index: number) => void;
   onClickWriting?: (index: number) => void;
+  isContentManagement?: boolean;
 }
 
 const DataCard = ({
@@ -34,6 +35,7 @@ const DataCard = ({
   page,
   onClickRecipe,
   onClickWriting,
+  isContentManagement = false,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -80,6 +82,7 @@ const DataCard = ({
                 ? onClickRecipe(index + (page - 1) * PER_PAGE) // ko beda ya??
                 : onClickWriting(index + (page - 1) * PER_PAGE);
             }}
+            disabled={isContentManagement}
           >
             <Box
               component={LazyLoadImage}
@@ -169,19 +172,26 @@ const DataCard = ({
               justifyContent: 'center',
             }}
           >
-            <Link
-              to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
-              style={{ textDecoration: 'none' }}
-            >
+            {isContentManagement ? (
               <ButtonComponent
                 text={isRecipe ? 'See Recipe' : 'Read More'}
-                onClick={() => {
-                  isRecipe
-                    ? onClickRecipe(index + (page - 1) * PER_PAGE)
-                    : onClickWriting(index + (page - 1) * PER_PAGE);
-                }}
+                disabled
               />
-            </Link>
+            ) : (
+              <Link
+                to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <ButtonComponent
+                  text={isRecipe ? 'See Recipe' : 'Read More'}
+                  onClick={() => {
+                    isRecipe
+                      ? onClickRecipe(index + (page - 1) * PER_PAGE)
+                      : onClickWriting(index + (page - 1) * PER_PAGE);
+                  }}
+                />
+              </Link>
+            )}
           </Box>
         </Box>
       </CardContent>

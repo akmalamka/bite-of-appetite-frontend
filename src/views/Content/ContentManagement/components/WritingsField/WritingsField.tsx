@@ -8,6 +8,9 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { DataCard } from 'blocks';
+import Swal from 'sweetalert2';
+import api from 'utils/api';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -55,7 +58,6 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   );
 
   const initialValuesAdd = {
-    image: null,
     description: '',
     title: '',
     writingsBy: '',
@@ -64,7 +66,6 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   };
 
   const initialValuesEdit = {
-    image: null,
     description: chosenWriting.description,
     title: chosenWriting.title,
     writingsBy: chosenWriting.writingsBy,
@@ -72,10 +73,50 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     date: chosenWriting.date,
   };
 
-  const [urlImage, setUrlImage] = useState(null);
+  const [image, setImage] = useState<any>(chosenWriting.image);
 
+  const onSaveImageWriting = () => {
+    const fd = new FormData();
+    fd.append('image', image);
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    if (image !== chosenWriting.image) {
+      api
+        .post(`/writings/${chosenWriting.id}/image`, fd, config)
+        .then((res) => {
+          if (res.data.code == 200) {
+            Swal.fire('Image Writing Updated', 'Hooraayy', 'success');
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err}`,
+          });
+        });
+    } else {
+      Swal.fire('Really?', 'There is nothing you could save', 'question');
+    }
+  };
   const onSubmit = (values) => {
-    alert(JSON.stringify(values, null, 2));
+    api
+      .put(`/writings/${chosenWriting.id}`, values)
+      .then((res) => {
+        if (res.data.code == 200) {
+          Swal.fire('Writing Updated', 'Hooraayy', 'success');
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${err}`,
+        });
+      });
   };
   const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({
@@ -84,23 +125,17 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     onSubmit,
   });
 
-  useEffect(() => {
-    if (formik.values.image) {
-      const objectUrl = URL.createObjectURL(formik.values.image);
-      setUrlImage(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setUrlImage(undefined);
-      return;
-    }
-  }, [formik.values.image]);
-
   const onSelectFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
-      formik.setFieldValue('image', null);
+      setImage(chosenWriting.image);
       return;
     }
-    formik.setFieldValue('image', event.currentTarget.files[0]);
+    setImage(event.currentTarget.files[0]);
+  };
+
+  const onClearFile = (event) => {
+    event.target.value = null;
+    setImage(chosenWriting.image);
   };
 
   return (
@@ -116,30 +151,34 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               >
                 Image Upload
               </Typography>
-              <input
-                id="file"
-                name="file"
-                type="file"
-                onChange={onSelectFile}
-                className="form-control"
-              />
-              {urlImage}
-              {formik.values.image && (
-                <Box
-                  component={LazyLoadImage}
-                  height={1}
-                  width={1}
-                  src={urlImage}
-                  alt="..."
-                  effect="blur"
-                  my={2}
-                  sx={{
-                    objectFit: 'contain',
-                    maxHeight: { xs: 530, md: 1 },
-                    borderRadius: 2,
-                  }}
+              <form encType="multipart/form-data">
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={onSelectFile}
+                  className="form-control"
                 />
-              )}
+                <Button variant="contained" onClick={onClearFile}>
+                  <Typography fontFamily={'Inter'} variant={'button'}>
+                    Clear File
+                  </Typography>
+                </Button>
+              </form>
+              <DataCard
+                index={0}
+                title={'Title'}
+                src={
+                  image === chosenWriting.image
+                    ? image
+                    : URL.createObjectURL(image)
+                }
+                tags={['tags', 'tag']}
+                description={'Description'}
+                isRecipe={true}
+                isContentManagement={true}
+                page={1}
+              />
             </div>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -275,7 +314,17 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               justifyContent={'flex-end'}
               width={1}
               margin={'0 auto'}
+              columnGap={4}
             >
+              <Button
+                size={'large'}
+                variant={'contained'}
+                onClick={() => onSaveImageWriting()}
+              >
+                <Typography fontFamily={'Inter'} variant={'button'}>
+                  Save Image Writings
+                </Typography>
+              </Button>
               <Button size={'large'} variant={'contained'} type={'submit'}>
                 <Typography fontFamily={'Inter'} variant={'button'}>
                   Save Writings
