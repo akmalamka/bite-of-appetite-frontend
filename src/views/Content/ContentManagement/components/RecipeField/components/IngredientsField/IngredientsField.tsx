@@ -81,6 +81,8 @@ const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
               'ingredients',
               values.ingredientsWithComponent,
             );
+            console.log('aaa');
+            formik.setFieldValue('isIngredientsWithComponent', true);
             alert(JSON.stringify(values, null, 2));
           }}
         >

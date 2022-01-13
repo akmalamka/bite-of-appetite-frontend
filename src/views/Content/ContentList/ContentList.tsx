@@ -9,7 +9,6 @@ import AddIcon from '@mui/icons-material/Add';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContentCard } from 'blocks';
-import { dummyRecipes } from 'utils/dummyRecipes';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { setChosenWriting } from 'redux/actions/writingActions';
 import api from 'utils/api';

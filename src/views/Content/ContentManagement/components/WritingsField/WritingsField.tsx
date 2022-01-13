@@ -83,7 +83,9 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   };
 
   const [image, setImage] = useState<any>(
-    chosenWriting && !isAddContent ? chosenWriting.image : '',
+    typeof chosenWriting === 'object' && !isAddContent
+      ? chosenWriting.image
+      : '',
   );
 
   const onSaveImageWriting = () => {
@@ -94,8 +96,14 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
         'Content-Type': 'multipart/form-data',
       },
     };
+    // console.log('fd ', fd);
+    // console.log('addedId ', addedId);
     api
-      .post(`/writings/${addedId}/image`, fd, config)
+      .post(
+        `/writings/${isAddContent ? addedId : chosenWriting.id}/image`,
+        fd,
+        config,
+      )
       .then((res) => {
         if (res.data.code == 200) {
           Swal.fire('Image Writing Updated', 'Hooraayy', 'success').then(() =>
@@ -170,16 +178,18 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
       setImage(chosenWriting.image);
     }
   };
-  // useEffect(() => {
-  //   setImage(chosenWriting.image);
-  // }, []);
   const srcLogic = () => {
     if (isAddContent) {
       if (image) {
         return URL.createObjectURL(image);
       }
     } else {
-      if (chosenWriting && image == chosenWriting.image) {
+      // console.log('image ', image);
+      // console.log(image === chosenWriting.image);
+      // console.log(typeof chosenWriting === 'object');
+      // console.log(typeof image);
+      if (typeof image === 'string' && image.length > 0) {
+        console.log('ccc');
         return chosenWriting.image;
       } else {
         return URL.createObjectURL(image);
@@ -382,7 +392,7 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
                 }
               >
                 <Typography fontFamily={'Inter'} variant={'button'}>
-                  Save Image Writings
+                  Save Image Writing
                 </Typography>
               </Button>
               <Button size={'large'} variant={'contained'} type={'submit'}>

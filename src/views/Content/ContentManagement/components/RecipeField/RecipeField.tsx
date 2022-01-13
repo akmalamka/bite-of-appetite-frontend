@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
@@ -9,8 +10,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { DirectionField, IngredientsField } from './components';
-import { SearchFilterBar } from 'blocks';
+import { SearchFilterBar, DataCard } from 'blocks';
 import { filterMenu } from 'utils/constants';
+import Swal from 'sweetalert2';
+import api from 'utils/api';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -71,9 +74,15 @@ const validationSchema = yup.object({
 });
 
 const RecipeField = ({ isAddContent }: Props): JSX.Element => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  const history = useHistory();
   const [chipData, setChipData] = useState([]);
 
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  const [successSaveRecipe, setSuccessSaveRecipe] = useState(false);
+  const [addedId, setAddedId] = useState(0);
 
   const menuMap = (item) => {
     return item;
@@ -86,7 +95,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
 
   const [isChecked, setIsChecked] = useState(menuItems1D.slice().fill(false));
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [urlImage, setUrlImage] = useState(null);
 
   const handleChangeFilterExpanded = (isClickAway) => {
     if (isClickAway) {
@@ -138,28 +146,102 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
   };
 
   const initialValuesEdit = {
-    image: null,
-    title: chosenRecipe.title,
-    description: chosenRecipe.description,
-    tags: chosenRecipe.tags,
-    time: chosenRecipe.time,
-    foodPhotographyBy: chosenRecipe.foodPhotographyBy,
-    foodStylingBy: chosenRecipe.foodStylingBy,
-    recipeBy: chosenRecipe.recipeBy,
-    inspiredByExist: chosenRecipe.inspiredByExist,
-    inspiredBy: chosenRecipe.inspiredByExist ? chosenRecipe.inspiredBy : '',
-    story: chosenRecipe.story,
-    date: chosenRecipe.date,
-    serves: chosenRecipe.serves,
+    image: '',
+    title: chosenRecipe ? chosenRecipe.title : '',
+    description: chosenRecipe ? chosenRecipe.description : '',
+    tags: chosenRecipe ? chosenRecipe.tags : [],
+    time: chosenRecipe ? chosenRecipe.time : '',
+    foodPhotographyBy: chosenRecipe ? chosenRecipe.foodPhotographyBy : '',
+    foodStylingBy: chosenRecipe ? chosenRecipe.foodStylingBy : '',
+    recipeBy: chosenRecipe ? chosenRecipe.recipeBy : '',
+    inspiredByExist: chosenRecipe ? chosenRecipe.inspiredByExist : true,
+    inspiredBy:
+      chosenRecipe && chosenRecipe.inspiredByExist
+        ? chosenRecipe.inspiredBy
+        : '',
+    story: chosenRecipe ? chosenRecipe.story : '',
+    date: chosenRecipe ? chosenRecipe.date : '',
+    serves: chosenRecipe ? chosenRecipe.serves : '',
     isIngredientsWithComponent:
-      chosenRecipe.isIngredientsWithComponent === 'True' ? true : false,
-    ingredients: chosenRecipe.ingredients,
-    directions: chosenRecipe.directions,
+      chosenRecipe && chosenRecipe.isIngredientsWithComponent === 'True'
+        ? true
+        : false,
+    ingredients: chosenRecipe ? chosenRecipe.ingredients : [],
+    directions: chosenRecipe ? chosenRecipe.directions : [],
   };
 
+  const [image, setImage] = useState<any>(
+    chosenRecipe && !isAddContent ? chosenRecipe.image : '',
+  );
+
+  const onSaveImageRecipe = () => {
+    const fd = new FormData();
+    fd.append('image', image);
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    api
+      .post(
+        `/recipes/${isAddContent ? addedId : chosenRecipe.id}/image`,
+        fd,
+        config,
+      )
+      .then((res) => {
+        if (res.data.code == 200) {
+          Swal.fire('Image Recipe Updated', 'Hooraayy', 'success').then(() =>
+            history.push('/content-management/recipes'),
+          );
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${err}`,
+        });
+      });
+  };
+
+  console.log('addedId ', addedId);
   const onSubmit = (values) => {
-    alert(JSON.stringify(values, null, 2));
-    console.log(JSON.stringify(values, null, 2));
+    // alert(JSON.stringify(values, null, 2));
+    console.log(values);
+    if (isAddContent) {
+      api
+        .post('/recipes', values)
+        .then((res) => {
+          if (res.data.code == 200) {
+            setSuccessSaveRecipe(true);
+            setAddedId(res.data.data.id);
+            Swal.fire('Recipe Added', 'Hooraayy', 'success');
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err}`,
+          });
+        });
+    } else {
+      api
+        .put(`/recipes/${chosenRecipe.id}`, values)
+        .then((res) => {
+          if (res.data.code == 200) {
+            setSuccessSaveRecipe(true);
+            Swal.fire('Recipe Updated', 'Hooraayy', 'success');
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err}`,
+          });
+        });
+    }
   };
 
   const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
@@ -179,25 +261,42 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     formik.setFieldValue('tags', chipData);
   }, [chipData]);
 
-  useEffect(() => {
-    if (formik.values.image) {
-      const objectUrl = URL.createObjectURL(formik.values.image);
-      setUrlImage(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setUrlImage(undefined);
-      return;
-    }
-  }, [formik.values.image]);
-
   const onSelectFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
-      formik.setFieldValue('image', null);
+      setImage(chosenRecipe.image);
       return;
     }
-    formik.setFieldValue('image', event.currentTarget.files[0]);
+    setImage(event.currentTarget.files[0]);
   };
 
+  const onClearFile = (event) => {
+    event.target.value = null;
+    if (isAddContent) {
+      setImage(null);
+    } else {
+      setImage(chosenRecipe.image);
+    }
+  };
+  const srcLogic = () => {
+    if (isAddContent) {
+      if (image) {
+        return URL.createObjectURL(image);
+      }
+    } else {
+      if (typeof image === 'string' && image.length > 0) {
+        return chosenRecipe.image;
+      } else {
+        return URL.createObjectURL(image);
+      }
+    }
+  };
+  const previewLogic = () => {
+    if (isAddContent) {
+      return image;
+    } else {
+      return true;
+    }
+  };
   return (
     <Box>
       <form onSubmit={formik.handleSubmit}>
@@ -210,7 +309,22 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               justifyContent={'flex-end'}
               width={1}
               margin={'0 auto'}
+              columnGap={4}
             >
+              <Button
+                size={'large'}
+                variant={'contained'}
+                onClick={() => onSaveImageRecipe()}
+                disabled={
+                  !successSaveRecipe ||
+                  (isAddContent && image.length == 0) ||
+                  (chosenRecipe && !isAddContent && image == chosenRecipe.image)
+                }
+              >
+                <Typography fontFamily={'Inter'} variant={'button'}>
+                  Save Image Recipe
+                </Typography>
+              </Button>
               <Button size={'large'} variant={'contained'} type={'submit'}>
                 <Typography fontFamily={'Inter'} variant={'button'}>
                   Save Recipe
@@ -228,28 +342,30 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               >
                 Image Upload
               </Typography>
-              <input
-                id="file"
-                name="file"
-                type="file"
-                onChange={onSelectFile}
-                className="form-control"
-              />
-              {urlImage}
-              {formik.values.image && (
-                <Box
-                  component={LazyLoadImage}
-                  height={1}
-                  width={1}
-                  src={urlImage}
-                  alt="..."
-                  effect="blur"
-                  my={2}
-                  sx={{
-                    objectFit: 'contain',
-                    maxHeight: { xs: 530, md: 1 },
-                    borderRadius: 2,
-                  }}
+              <form encType="multipart/form-data">
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  onChange={onSelectFile}
+                  className="form-control"
+                />
+                <Button variant="contained" onClick={onClearFile}>
+                  <Typography fontFamily={'Inter'} variant={'button'}>
+                    Clear File
+                  </Typography>
+                </Button>
+              </form>
+              {previewLogic() && (
+                <DataCard
+                  index={0}
+                  title={'Title'}
+                  src={srcLogic()}
+                  tags={['tags', 'tag']}
+                  description={'Description'}
+                  isRecipe={true}
+                  isContentManagement={true}
+                  page={1}
                 />
               )}
             </div>

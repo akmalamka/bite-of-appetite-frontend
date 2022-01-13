@@ -71,16 +71,19 @@ const Description = ({
           >
             {isRecipe ? 'Recipes' : 'Food for Thought'}
           </Typography>
-          {/* <Typography
-            color={isRecipe ? 'text.primary' : 'text.secondary'}
-            variant="h2"
-            align={'center'}
-            sx={{
-              fontWeight: 600,
-            }}
-          >
-            {data.title}
-          </Typography> */}
+          {isRecipe && (
+            <Typography
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
+              variant="h2"
+              align={'center'}
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {data.title}
+            </Typography>
+          )}
+
           {isMd && isContent && !isRecipe && (
             <Box
               left={'60%'}

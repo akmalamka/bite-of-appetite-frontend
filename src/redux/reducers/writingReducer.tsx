@@ -1,6 +1,7 @@
 import {
   SET_CHOSEN_WRITING,
   RESET_CHOSEN_WRITING,
+  FETCH_WRITING_STATE,
 } from 'redux/actions/writingActions';
 
 const initialState = {
@@ -18,6 +19,10 @@ const writingReducer = (state = initialState, action: any) => {
       return {
         ...state,
         chosenWriting: undefined,
+      };
+    case FETCH_WRITING_STATE:
+      return {
+        ...state,
       };
     default:
       return state;
