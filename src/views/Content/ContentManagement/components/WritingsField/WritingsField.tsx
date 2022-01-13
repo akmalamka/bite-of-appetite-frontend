@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
@@ -53,11 +54,18 @@ const validationSchema = yup.object({
 });
 
 const WritingsField = ({ isAddContent }: Props): JSX.Element => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  const history = useHistory();
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
+  const [successSaveWriting, setSuccessSaveWriting] = useState(false);
+  const [addedId, setAddedId] = useState(0);
 
   const initialValuesAdd = {
+    image: '',
     description: '',
     title: '',
     writingsBy: '',
@@ -66,14 +74,17 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   };
 
   const initialValuesEdit = {
-    description: chosenWriting.description,
-    title: chosenWriting.title,
-    writingsBy: chosenWriting.writingsBy,
-    story: chosenWriting.story,
-    date: chosenWriting.date,
+    image: '',
+    description: chosenWriting ? chosenWriting.description : '',
+    title: chosenWriting ? chosenWriting.title : '',
+    writingsBy: chosenWriting ? chosenWriting.writingsBy : '',
+    story: chosenWriting ? chosenWriting.story : '',
+    date: chosenWriting ? chosenWriting.date : '',
   };
 
-  const [image, setImage] = useState<any>(chosenWriting.image);
+  const [image, setImage] = useState<any>(
+    chosenWriting && !isAddContent ? chosenWriting.image : '',
+  );
 
   const onSaveImageWriting = () => {
     const fd = new FormData();
@@ -83,12 +94,32 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
         'Content-Type': 'multipart/form-data',
       },
     };
-    if (image !== chosenWriting.image) {
+    api
+      .post(`/writings/${addedId}/image`, fd, config)
+      .then((res) => {
+        if (res.data.code == 200) {
+          Swal.fire('Image Writing Updated', 'Hooraayy', 'success').then(() =>
+            history.push('/content-management/writings'),
+          );
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${err}`,
+        });
+      });
+  };
+  const onSubmit = (values) => {
+    if (isAddContent) {
       api
-        .post(`/writings/${chosenWriting.id}/image`, fd, config)
+        .post('/writings', values)
         .then((res) => {
           if (res.data.code == 200) {
-            Swal.fire('Image Writing Updated', 'Hooraayy', 'success');
+            setSuccessSaveWriting(true);
+            setAddedId(res.data.data.id);
+            Swal.fire('Writing Added', 'Hooraayy', 'success');
           }
         })
         .catch((err) => {
@@ -99,24 +130,22 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
           });
         });
     } else {
-      Swal.fire('Really?', 'There is nothing you could save', 'question');
-    }
-  };
-  const onSubmit = (values) => {
-    api
-      .put(`/writings/${chosenWriting.id}`, values)
-      .then((res) => {
-        if (res.data.code == 200) {
-          Swal.fire('Writing Updated', 'Hooraayy', 'success');
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: `${err}`,
+      api
+        .put(`/writings/${chosenWriting.id}`, values)
+        .then((res) => {
+          if (res.data.code == 200) {
+            setSuccessSaveWriting(true);
+            Swal.fire('Writing Updated', 'Hooraayy', 'success');
+          }
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err}`,
+          });
         });
-      });
+    }
   };
   const initialValues = isAddContent ? initialValuesAdd : initialValuesEdit;
   const formik = useFormik({
@@ -135,9 +164,35 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
 
   const onClearFile = (event) => {
     event.target.value = null;
-    setImage(chosenWriting.image);
+    if (isAddContent) {
+      setImage(null);
+    } else {
+      setImage(chosenWriting.image);
+    }
   };
-
+  // useEffect(() => {
+  //   setImage(chosenWriting.image);
+  // }, []);
+  const srcLogic = () => {
+    if (isAddContent) {
+      if (image) {
+        return URL.createObjectURL(image);
+      }
+    } else {
+      if (chosenWriting && image == chosenWriting.image) {
+        return chosenWriting.image;
+      } else {
+        return URL.createObjectURL(image);
+      }
+    }
+  };
+  const previewLogic = () => {
+    if (isAddContent) {
+      return image;
+    } else {
+      return true;
+    }
+  };
   return (
     <Box>
       <form onSubmit={formik.handleSubmit}>
@@ -165,20 +220,18 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
                   </Typography>
                 </Button>
               </form>
-              <DataCard
-                index={0}
-                title={'Title'}
-                src={
-                  image === chosenWriting.image
-                    ? image
-                    : URL.createObjectURL(image)
-                }
-                tags={['tags', 'tag']}
-                description={'Description'}
-                isRecipe={true}
-                isContentManagement={true}
-                page={1}
-              />
+              {previewLogic() && (
+                <DataCard
+                  index={0}
+                  title={'Title'}
+                  src={srcLogic()}
+                  tags={['tags', 'tag']}
+                  description={'Description'}
+                  isRecipe={true}
+                  isContentManagement={true}
+                  page={1}
+                />
+              )}
             </div>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -320,6 +373,13 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
                 size={'large'}
                 variant={'contained'}
                 onClick={() => onSaveImageWriting()}
+                disabled={
+                  !successSaveWriting ||
+                  (isAddContent && image.length == 0) ||
+                  (chosenWriting &&
+                    !isAddContent &&
+                    image == chosenWriting.image)
+                }
               >
                 <Typography fontFamily={'Inter'} variant={'button'}>
                   Save Image Writings
