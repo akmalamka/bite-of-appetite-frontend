@@ -1,3 +1,4 @@
+// import Yournotes from 'fonts/Yournotes/Yournotes.ttf';
 import Yournotes from 'fonts/Yournotes/Yournotes.ttf';
 
 const YournotesFont = {
