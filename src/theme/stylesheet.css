@@ -12,18 +12,6 @@
 }
 
 @font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Medium.eot');
-  src: local('Recoleta Medium'), local('Recoleta-Medium'),
-    url('fonts/Recoleta/Recoleta-Medium.eot?#iefix') format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Medium.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Medium.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'Recoleta Alt';
   src: url('fonts/Recoleta/RecoletaAlt-SemiBold.eot');
   src: local('Recoleta Alt SemiBold'), local('RecoletaAlt-SemiBold'),
@@ -59,18 +47,6 @@
     url('fonts/Recoleta/RecoletaAlt-Regular.woff') format('woff'),
     url('fonts/Recoleta/RecoletaAlt-Regular.ttf') format('truetype');
   font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Thin.eot');
-  src: local('Recoleta Thin'), local('Recoleta-Thin'),
-    url('fonts/Recoleta/Recoleta-Thin.eot?#iefix') format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Thin.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Thin.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Thin.ttf') format('truetype');
-  font-weight: 100;
   font-style: normal;
 }
 
@@ -114,63 +90,28 @@
 }
 
 @font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-SemiBold.eot');
-  src: local('Recoleta SemiBold'), local('Recoleta-SemiBold'),
-    url('fonts/Recoleta/Recoleta-SemiBold.eot?#iefix')
-      format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-SemiBold.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-SemiBold.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Regular.eot');
-  src: local('Recoleta Regular'), local('Recoleta-Regular'),
-    url('fonts/Recoleta/Recoleta-Regular.eot?#iefix')
-      format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Regular.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Regular.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Regular.ttf') format('truetype');
+  font-family: 'Yournotes';
+  src: local('Yournotes'),
+    url('fonts/Yournotes/Yournotes.ttf') format('truetype'),
+    url('fonts/Yournotes/Yournotes.otf') format('otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Bold.eot');
-  src: local('Recoleta Bold'), local('Recoleta-Bold'),
-    url('fonts/Recoleta/Recoleta-Bold.eot?#iefix') format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Bold.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Bold.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Bold.ttf') format('truetype');
+  font-family: 'Yournotes';
+  src: local('Yournotes Bold'), local('Yournotes-Bold'),
+    url('fonts/Yournotes/Yournotes Bold.ttf') format('truetype'),
+    url('fonts/Yournotes/Yournotes Bold.otf') format('otf');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Black.eot');
-  src: local('Recoleta Black'), local('Recoleta-Black'),
-    url('fonts/Recoleta/Recoleta-Black.eot?#iefix') format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Black.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Black.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Recoleta';
-  src: url('fonts/Recoleta/Recoleta-Light.eot');
-  src: local('Recoleta Light'), local('Recoleta-Light'),
-    url('fonts/Recoleta/Recoleta-Light.eot?#iefix') format('embedded-opentype'),
-    url('fonts/Recoleta/Recoleta-Light.woff2') format('woff2'),
-    url('fonts/Recoleta/Recoleta-Light.woff') format('woff'),
-    url('fonts/Recoleta/Recoleta-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
+  font-family: 'Yournotes';
+  src: local('Yournotes Bold Italic'), local('Yournotes-Bold-Italic'),
+    url('fonts/Yournotes/Yournotes Bold Italic.ttf') format('truetype'),
+    url('fonts/Yournotes/Yournotes Bold Italic.otf') format('otf');
+  font-weight: bold;
+  font-style: italic;
 }
