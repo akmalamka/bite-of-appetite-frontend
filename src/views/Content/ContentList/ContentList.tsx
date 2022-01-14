@@ -54,7 +54,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
   }, [refreshPage]);
 
   return (
-    <Main>
+    <Main isParentPage={true}>
       <Box
         sx={{
           width: 1,

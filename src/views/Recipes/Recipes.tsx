@@ -91,7 +91,7 @@ const Recipes = (): JSX.Element => {
 
   return (
     <Box>
-      <Main colorInvert={false}>
+      <Main colorInvert={false} isParentPage={true}>
         <Box
           display={'flex'}
           m={4}

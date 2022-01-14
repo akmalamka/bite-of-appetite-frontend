@@ -8,7 +8,7 @@ import { WritingList } from './components';
 
 const FoodForThought = (): JSX.Element => {
   return (
-    <Main colorInvert={false}>
+    <Main colorInvert={false} isParentPage={true}>
       <Box display={'flex'} m={4} justifyContent={'space-between'}>
         <Box>
           <Typography

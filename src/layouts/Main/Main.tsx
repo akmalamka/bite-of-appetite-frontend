@@ -12,18 +12,20 @@ interface Props {
   children: React.ReactNode;
   colorInvert?: boolean;
   bgcolor?: string;
-  isTransparent?: boolean;
+  isContent?: boolean;
   menuColor?: string;
   logoColor?: string;
+  isParentPage?: boolean;
 }
 
 const Main = ({
   children,
   colorInvert = false,
   bgcolor = 'transparent',
-  isTransparent = false,
+  isContent = true,
   menuColor = 'text.primary',
   logoColor = 'chocolate',
+  isParentPage = false,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -61,9 +63,9 @@ const Main = ({
         position={'sticky'}
         sx={{
           top: 0,
-          backgroundColor: isTransparent ? 'transparent' : bgColorLogic(),
+          backgroundColor: isContent ? bgColorLogic() : 'transparent',
         }}
-        elevation={isTransparent ? 0 : elevationLogic()}
+        elevation={isContent ? elevationLogic() : 0}
       >
         <Container
           maxWidth={{ sm: 1, md: 1600 }}
@@ -78,6 +80,7 @@ const Main = ({
             menuColor={menuColor}
             logoColor={logoColor}
             trigger={trigger}
+            isParentPage={isParentPage}
           />
         </Container>
       </AppBar>
