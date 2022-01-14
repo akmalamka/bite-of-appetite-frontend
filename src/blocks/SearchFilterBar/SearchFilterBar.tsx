@@ -137,7 +137,7 @@ const SearchFilterBar = ({
             minWidth: {
               xs: 300,
               sm: 400,
-              md: isContent ? 570 : 700,
+              md: isContent ? 570 : 600,
             },
             boxShadow: 'none',
           }}

@@ -22,7 +22,6 @@ const Recipes = (): JSX.Element => {
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState<string>('');
   const [chipData, setChipData] = useState<string[]>([]);
-  // localStorage.removeItem('state'); //coba cari solusi lain
 
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -87,7 +86,6 @@ const Recipes = (): JSX.Element => {
     dispatch(resetChipdata());
     dispatch(fetchRecipeState());
   }, []);
-  console.log('abcd');
 
   return (
     <Box>

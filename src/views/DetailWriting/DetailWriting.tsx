@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
-import { fetchRecipeState } from 'redux/actions/recipeActions';
+import { fetchWritingState } from 'redux/actions/writingActions';
 import { ImageWithDescription } from 'blocks';
 import { WritingCard } from './components';
 
@@ -10,7 +10,7 @@ const DetailWriting = (): JSX.Element => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchRecipeState());
+    dispatch(fetchWritingState());
   }, []);
   return (
     <Box>
