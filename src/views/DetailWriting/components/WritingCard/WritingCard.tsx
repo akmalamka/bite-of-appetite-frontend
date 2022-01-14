@@ -12,9 +12,9 @@ const WritingCard = (): JSX.Element => {
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box
+        width={{ xs: 0.9, sm: 3 / 4, md: 1 / 2 }}
         sx={{
           display: 'flex',
-          width: 1 / 2,
           justifyContent: 'center',
           flexDirection: 'column',
           marginY: { xs: 2, md: 4 },

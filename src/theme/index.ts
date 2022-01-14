@@ -2,6 +2,7 @@ import { Theme, responsiveFontSizes } from '@mui/material';
 import { createTheme, ComponentsOverrides } from '@mui/material/styles';
 import shadows from './shadows';
 import { light, dark } from './palette';
+import Yournotes from './Yournotes';
 
 const getTheme = (mode: string, themeToggler: () => void): Theme =>
   responsiveFontSizes(
@@ -27,6 +28,13 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
+        MuiCssBaseline: {
+          styleOverrides: {
+            '@global': {
+              '@font-face': [...Yournotes],
+            },
+          },
+        },
         MuiButton: {
           styleOverrides: {
             root: {

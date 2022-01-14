@@ -77,6 +77,7 @@ const Main = ({
             colorInvert={trigger ? false : colorInvert}
             menuColor={menuColor}
             logoColor={logoColor}
+            trigger={trigger}
           />
         </Container>
       </AppBar>
