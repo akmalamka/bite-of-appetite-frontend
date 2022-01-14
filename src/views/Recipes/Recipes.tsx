@@ -15,12 +15,14 @@ import {
   resetChipdata,
   setChipdata,
 } from 'redux/actions/searchFilterActions';
+import { fetchRecipeState } from 'redux/actions/recipeActions';
 
 const Recipes = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState<string>('');
   const [chipData, setChipData] = useState<string[]>([]);
+  // localStorage.removeItem('state'); //coba cari solusi lain
 
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
@@ -83,7 +85,9 @@ const Recipes = (): JSX.Element => {
   useEffect(() => {
     dispatch(resetKeyword());
     dispatch(resetChipdata());
+    dispatch(fetchRecipeState());
   }, []);
+  console.log('abcd');
 
   return (
     <Box>

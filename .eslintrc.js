@@ -23,7 +23,6 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react'],
   rules: {
     indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
@@ -31,4 +30,5 @@ module.exports = {
     semi: ['error', 'always'],
     'comma-dangle': ['error', 'only-multiline'],
   },
+  plugins: ['@typescript-eslint', 'react'],
 };

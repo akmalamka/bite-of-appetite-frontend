@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { alpha, useTheme } from '@mui/material/styles';
 import { ButtonComponent } from 'blocks';
 import { ReactComponent as HomeAsset } from 'utils/home-asset.svg';
+import { ReactComponent as AboutAsset } from 'utils/about-asset.svg';
+import { ReactComponent as DetailWritingAsset } from 'utils/detail-writing-asset.svg';
 
 interface Props {
   imagePosition: string;
@@ -23,6 +25,9 @@ const Description = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
+    defaultMatches: true,
+  });
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
@@ -66,16 +71,32 @@ const Description = ({
           >
             {isRecipe ? 'Recipes' : 'Food for Thought'}
           </Typography>
-          <Typography
-            color={isRecipe ? 'text.primary' : 'text.secondary'}
-            variant="h2"
-            align={'center'}
-            sx={{
-              fontWeight: 600,
-            }}
-          >
-            {data.title}
-          </Typography>
+          {isRecipe && (
+            <Typography
+              color={isRecipe ? 'text.primary' : 'text.secondary'}
+              variant="h2"
+              align={'center'}
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {data.title}
+            </Typography>
+          )}
+
+          {isMd && isContent && !isRecipe && (
+            <Box
+              left={'60%'}
+              // top={imagePosition === 'left' ? '10%' : '17%'}
+              position={'absolute'}
+              sx={{
+                zIndex: 1,
+                transform: 'scale(0.8)',
+              }}
+            >
+              <DetailWritingAsset />
+            </Box>
+          )}
           <Typography
             fontFamily={isRecipe ? 'Inter' : 'Recoleta Alt'}
             color={isRecipe ? 'text.primary' : 'text.secondary'}
@@ -83,6 +104,7 @@ const Description = ({
             align={'center'}
             sx={{
               fontWeight: isRecipe ? 500 : 600,
+              zIndex: 2,
             }}
           >
             {data.description}
@@ -187,22 +209,23 @@ const Description = ({
           justifyContent={'flex-end'}
           flexDirection={'column'}
         >
-          <Box
-            // display={'flex'}
-            // width={'50rem'}
-            left={'30%'}
-            top={'55%'}
-            position={'relative'}
-            // marginTop={30}
-            // marginLeft={25}
-            sx={{ zIndex: 1 }}
-          >
-            <HomeAsset />
-          </Box>
+          {isMd && (
+            <Box
+              left={imagePosition === 'left' ? '70%' : '5%'}
+              top={imagePosition === 'left' ? '10%' : '17%'}
+              position={'absolute'}
+              sx={{
+                zIndex: 1,
+              }}
+            >
+              {imagePosition === 'left' ? <HomeAsset /> : <AboutAsset />}
+            </Box>
+          )}
+
           <Typography
             variant="h2"
             color="text.secondary"
-            gutterBottom
+            // gutterBottom
             sx={{ zIndex: 2 }}
           >
             {imagePosition === 'left' ? 'Welcome to' : 'About'}
@@ -243,7 +266,7 @@ const Description = ({
             variant="subtitle1"
             component="p"
             color="text.secondary"
-            sx={{ fontFamily: 'Inter', fontWeight: 400 }}
+            sx={{ fontFamily: 'Inter', fontWeight: 400, zIndex: 2 }}
           >
             {imagePosition === 'left'
               ? 'Food is my way to tell stories and connect with people who share the same passion as I do. Whether its because youre hungry at midnight or trying to learn how to cook, I hope you enjoy watching my content and recipes.'

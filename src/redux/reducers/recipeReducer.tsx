@@ -1,6 +1,7 @@
 import {
   SET_CHOSEN_RECIPE,
   RESET_CHOSEN_RECIPE,
+  FETCH_RECIPE_STATE,
 } from 'redux/actions/recipeActions';
 
 const initialState = {
@@ -21,6 +22,10 @@ const recipeReducer = (state = initialState, action: any) => {
         ...state,
         chosenRecipe: undefined,
         recipeTitle: undefined,
+      };
+    case FETCH_RECIPE_STATE:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -8,18 +8,30 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
-import { dummyRecipes } from 'utils/dummyRecipes';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 import Container from 'components/Container';
 import api from 'utils/api';
+import { ReactComponent as SearchFilterAsset } from 'utils/search-filter-asset.svg';
 
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    api
+      .get('/recipes')
+      .then((res) => {
+        if (res.data.code == 200) {
+          setRecipes(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
   const chipData = useSelector((state: any) => state.searchFilter.chipData);
@@ -44,16 +56,23 @@ const RecipeList = (): JSX.Element => {
       tags: obj,
     };
   });
-
+  console.log('ddd');
   let result = [];
   const fuseSearch = new Fuse(recipes, optionsSearch);
   const fuseFilter = new Fuse(recipes, optionsFilter);
-  const resultSearch = keyword === '' ? recipes : fuseSearch.search(keyword);
+  console.log('hhi');
+  console.log('keyword ', typeof keyword === 'undefined');
+  const resultSearch =
+    keyword === '' || typeof keyword === 'undefined'
+      ? recipes
+      : fuseSearch.search(keyword);
+  console.log('length ', chipData.length);
   const resultFilter =
     chipData.length == 0
       ? recipes
       : fuseFilter.search({ $and: chipDataMapped });
 
+  console.log('xixi');
   function finalResult() {
     if (keyword === '') {
       if (chipData.length == 0) {
@@ -83,6 +102,7 @@ const RecipeList = (): JSX.Element => {
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
+          console.log('chosen ', chosen);
           dispatch(setChosenRecipe(chosen));
         }
       })
@@ -113,19 +133,6 @@ const RecipeList = (): JSX.Element => {
     setPage(p);
     _DATA.jump(p);
   };
-
-  useEffect(() => {
-    api
-      .get('/recipes')
-      .then((res) => {
-        if (res.data.code == 200) {
-          setRecipes(res.data.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <Box>
@@ -176,12 +183,24 @@ const RecipeList = (): JSX.Element => {
             justifyContent={'center'}
             rowGap={2}
           >
+            {isMd && (
+              <Box
+                left={'55%'}
+                top={'28%'}
+                position={'absolute'}
+                sx={{
+                  zIndex: 1,
+                }}
+              >
+                <SearchFilterAsset />
+              </Box>
+            )}
             <Typography
               color={'text.primary'}
               variant="h1"
               component={'h1'}
               align={'center'}
-              sx={{ fontWeight: 600 }}
+              sx={{ fontWeight: 600, zIndex: 3 }}
             >
               Oops!
             </Typography>
@@ -191,6 +210,7 @@ const RecipeList = (): JSX.Element => {
               component="p"
               color="text.primary"
               align={'center'}
+              sx={{ zIndex: 3 }}
             >
               Sorry, It looks like there's no such recipe you're looking for :(
             </Typography>

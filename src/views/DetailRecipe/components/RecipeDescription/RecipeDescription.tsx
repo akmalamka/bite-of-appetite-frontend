@@ -20,6 +20,14 @@ const RecipeDescription = (): JSX.Element => {
       : setExpandedDirections(isExpanded ? panel : false);
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  console.log('chosenRecipe ', chosenRecipe);
+
+  const isIngredientsWithComponentLogic = () => {
+    return (
+      chosenRecipe.isIngredientsWithComponent === '1' ||
+      chosenRecipe.isIngredientsWithComponent === 'True'
+    );
+  };
 
   return (
     <Grid container rowSpacing={2} columnSpacing={4} sx={{ paddingX: 2 }}>
@@ -64,7 +72,7 @@ const RecipeDescription = (): JSX.Element => {
         <Grid item xs={12}>
           <Grid container>
             {chosenRecipe.ingredients.map((item, i) =>
-              chosenRecipe.isIngredientsWithComponent === 'True' ? (
+              isIngredientsWithComponentLogic() ? (
                 <Accordion
                   sx={{
                     boxShadow: 'none',

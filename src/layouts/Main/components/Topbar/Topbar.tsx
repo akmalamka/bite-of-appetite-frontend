@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ReactComponent as Logo } from 'utils/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/logo-white.svg';
@@ -19,6 +20,7 @@ interface Props {
   colorInvert?: boolean;
   menuColor?: string;
   logoColor?: string;
+  trigger: boolean;
 }
 
 const Topbar = ({
@@ -27,8 +29,12 @@ const Topbar = ({
   colorInvert = false,
   menuColor,
   logoColor,
+  trigger,
 }: Props): JSX.Element => {
   const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
   const {
     home: homePages,
     recipes: recipePages,
@@ -52,28 +58,32 @@ const Topbar = ({
           width={{ xs: 1, md: 1 / 2 }}
           sx={{ justifyContent: { xs: 'space-between', md: 'flex-start' } }}
         >
-          <Box component={'a'} href="/">
-            {logoColor == 'white' ? <LogoWhite /> : <Logo />}
-          </Box>
-          <Button
-            onClick={() => onSidebarOpen()}
-            aria-label="Menu"
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              minWidth: 'auto',
-              padding: 1,
-              borderRadius: 30,
-            }}
-          >
-            <MenuIcon
+          {trigger && (
+            <Box component={'a'} href="/">
+              {logoColor == 'white' ? <LogoWhite /> : <Logo />}
+            </Box>
+          )}
+          {trigger && (
+            <Button
+              onClick={() => onSidebarOpen()}
+              aria-label="Menu"
               sx={{
-                color:
-                  logoColor == 'white'
-                    ? theme.palette.primary.light
-                    : theme.palette.primary.main,
+                display: { xs: 'flex', md: 'none' },
+                minWidth: 'auto',
+                padding: 1,
+                borderRadius: 30,
               }}
-            />
-          </Button>
+            >
+              <MenuIcon
+                sx={{
+                  color:
+                    logoColor == 'white'
+                      ? theme.palette.primary.light
+                      : theme.palette.primary.main,
+                }}
+              />
+            </Button>
+          )}
         </Box>
         <Box
           sx={{ display: { xs: 'none', md: 'flex' } }}

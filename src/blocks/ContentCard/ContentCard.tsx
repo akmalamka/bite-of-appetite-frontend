@@ -49,6 +49,7 @@ const ContentCard = ({
             if (res.data.code == 200) {
               Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
               handleRefreshPage(true);
+              handleRefreshPage(false);
             }
           })
           .catch((err) => {

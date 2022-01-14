@@ -12,14 +12,25 @@ const WritingCard = (): JSX.Element => {
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box
+        width={{ xs: 0.9, sm: 3 / 4, md: 1 / 2 }}
         sx={{
           display: 'flex',
-          width: 1 / 2,
           justifyContent: 'center',
-          flexDirection: 'row',
+          flexDirection: 'column',
           marginY: { xs: 2, md: 4 },
         }}
       >
+        <Typography
+          color={'text.primary'}
+          variant="h2"
+          align={'center'}
+          sx={{
+            fontWeight: 600,
+          }}
+          gutterBottom
+        >
+          {chosenWriting.title}
+        </Typography>
         <Typography
           variant={'body1'}
           color="text.primary"

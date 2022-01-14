@@ -46,7 +46,10 @@ const IngredientsWithoutComponentField = ({
             'ingredients',
             values.ingredientsWithoutComponent,
           );
+          console.log('bbb');
+          formik.setFieldValue('isIngredientsWithComponent', false);
           alert(JSON.stringify(values, null, 2));
+          console.log('ccc');
         }}
       >
         {({ values }) => (
