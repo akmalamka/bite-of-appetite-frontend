@@ -8,9 +8,10 @@ const About = (): JSX.Element => {
     <Box sx={{ overflowX: 'hidden' }}>
       <Main
         colorInvert={false}
-        isTransparent={true}
+        isContent={false}
         menuColor={'text.primary'}
         logoColor={'white'}
+        isParentPage={true}
       >
         <ImageWithDescription imagePosition={'right'} />
       </Main>

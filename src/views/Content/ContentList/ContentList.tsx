@@ -30,9 +30,12 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
-          isRecipe
-            ? dispatch(setChosenRecipe(chosen))
-            : dispatch(setChosenWriting(chosen));
+
+          if (isRecipe) {
+            dispatch(setChosenRecipe(chosen));
+          } else {
+            dispatch(setChosenWriting(chosen));
+          }
         }
       })
       .catch((err) => {
@@ -54,7 +57,7 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
   }, [refreshPage]);
 
   return (
-    <Main>
+    <Main isParentPage={true}>
       <Box
         sx={{
           width: 1,

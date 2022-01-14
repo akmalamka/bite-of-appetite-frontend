@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -10,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { DirectionField, IngredientsField } from './components';
+import { fetchRecipeState } from 'redux/actions/recipeActions';
 import { SearchFilterBar, DataCard } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import Swal from 'sweetalert2';
@@ -20,63 +20,69 @@ interface Props {
   isAddContent: boolean;
 }
 
-const validationSchema = yup.object({
-  title: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid title')
-    .max(75, 'Max 75 characters')
-    .required('Please specify the title'),
-  description: yup
-    .string()
-    .trim()
-    .max(190, 'Max 190 characters')
-    .required('Please specify the description'),
-  tags: yup
-    .array()
-    .min(1, 'Minimal 1 tag')
-    .required('Please specify tags'),
-  time: yup
-    .string()
-    .trim()
-    .required('Please specify the time'),
-  foodPhotographyBy: yup
-    .string()
-    .trim()
-    .required('Please specify the food photographer'),
-  foodStylingBy: yup
-    .string()
-    .trim()
-    .required('Please specify the food styler'),
-  recipeBy: yup
-    .string()
-    .trim()
-    .required('Please specify the recipe developer'),
-  inspiredBy: yup.string().trim(),
-  story: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid story')
-    .max(370, 'Max 370 characters')
-    .required('Please specify the story'),
-  date: yup
-    .string()
-    .trim()
-    .required('Please specify the date'),
-  serves: yup
-    .number()
-    .positive('Serves must be positive')
-    .required('Please specify serving'),
-  directions: yup
-    .array()
-    .min(1, 'Minimal 1 directions')
-    .required('Please specify directions'),
-});
+// const validationSchema = yup.object({
+//   title: yup
+//     .string()
+//     .trim()
+//     .min(2, 'Please enter a valid title')
+//     .max(75, 'Max 75 characters')
+//     .required('Please specify the title'),
+//   description: yup
+//     .string()
+//     .trim()
+//     .max(190, 'Max 190 characters')
+//     .required('Please specify the description'),
+//   tags: yup
+//     .array()
+//     .min(1, 'Minimal 1 tag')
+//     .required('Please specify tags'),
+//   time: yup
+//     .string()
+//     .trim()
+//     .required('Please specify the time'),
+//   foodPhotographyBy: yup
+//     .string()
+//     .trim()
+//     .required('Please specify the food photographer'),
+//   foodStylingBy: yup
+//     .string()
+//     .trim()
+//     .required('Please specify the food styler'),
+//   recipeBy: yup
+//     .string()
+//     .trim()
+//     .required('Please specify the recipe developer'),
+//   inspiredBy: yup.string().trim(),
+//   story: yup
+//     .string()
+//     .trim()
+//     .min(2, 'Please enter a valid story')
+//     .max(370, 'Max 370 characters')
+//     .required('Please specify the story'),
+//   date: yup
+//     .string()
+//     .trim()
+//     .required('Please specify the date'),
+//   serves: yup
+//     .number()
+//     .positive('Serves must be positive')
+//     .required('Please specify serving'),
+//   directions: yup
+//     .array()
+//     .min(1, 'Minimal 1 directions')
+//     .required('Please specify directions'),
+// });
 
 const RecipeField = ({ isAddContent }: Props): JSX.Element => {
+  const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchRecipeState());
+  }, []);
+
   const history = useHistory();
   const [chipData, setChipData] = useState([]);
 
@@ -204,10 +210,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
       });
   };
 
-  console.log('addedId ', addedId);
   const onSubmit = (values) => {
-    // alert(JSON.stringify(values, null, 2));
-    console.log(values);
     if (isAddContent) {
       api
         .post('/recipes', values)

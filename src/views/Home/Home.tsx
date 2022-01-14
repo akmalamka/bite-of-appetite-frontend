@@ -10,7 +10,8 @@ const Home = (): JSX.Element => {
     <Box sx={{ overflowX: 'hidden' }}>
       <Main
         colorInvert={false}
-        isTransparent={true}
+        isParentPage={true}
+        isContent={false}
         menuColor={'text.secondary'}
       >
         <ImageWithDescription imagePosition={'left'} />

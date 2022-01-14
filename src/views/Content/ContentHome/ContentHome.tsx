@@ -10,7 +10,7 @@ import Container from 'components/Container';
 const ContentHome = (): JSX.Element => {
   const { url } = useRouteMatch();
   return (
-    <Main>
+    <Main isParentPage={true}>
       <Box
         sx={{
           width: 1,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -11,9 +11,9 @@ import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
-import { dummyRecipes } from 'utils/dummyRecipes';
 import Container from 'components/Container';
 import { setChosenRecipe } from 'redux/actions/recipeActions';
+import api from 'utils/api';
 
 const responsive = {
   desktop: {
@@ -44,20 +44,45 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const [recipes, setRecipes] = useState([]);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
+
+  useEffect(() => {
+    api
+      .get('/recipes')
+      .then((res) => {
+        if (res.data.code == 200) {
+          setRecipes(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const chosenRecipeTitle = useSelector(
     (state: any) => state.recipe.recipeTitle,
   );
 
-  const onClickRecipe = (index) => {
-    dispatch(setChosenRecipe(dummyRecipes[index]));
+  const onClickRecipe = (id) => {
+    api
+      .get(`/recipes/${id}}`)
+      .then((res) => {
+        if (res.data.code == 200) {
+          const chosen = res.data.data;
+          dispatch(setChosenRecipe(chosen));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const dummyRecipeFilter = dummyRecipes.filter(
+  const dummyRecipeFilter = recipes.filter(
     (item) => item.title !== chosenRecipeTitle,
   );
 
@@ -103,76 +128,75 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
       >
-        {(isHome
-          ? dummyRecipes.slice(0, 9)
-          : dummyRecipeFilter.slice(0, 9)
-        ).map((item, i) => (
-          <Box
-            key={i}
-            display="flex"
-            justifyContent="center"
-            alignItems="flex-start"
-          >
-            <Card
-              sx={{
-                width: 0.9,
-                height: 0.9,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                boxShadow: 'none',
-                bgcolor: 'transparent',
-                backgroundImage: 'none',
-              }}
+        {(isHome ? recipes.slice(0, 9) : dummyRecipeFilter.slice(0, 9)).map(
+          (item, i) => (
+            <Box
+              key={i}
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
             >
-              <Link
-                to={{
-                  pathname: `/recipes/${item.title
-                    .toLowerCase()
-                    .replaceAll(' ', '-')}`,
+              <Card
+                sx={{
+                  width: 0.9,
+                  height: 0.9,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  boxShadow: 'none',
+                  bgcolor: 'transparent',
+                  backgroundImage: 'none',
                 }}
-                style={{ textDecoration: 'none', color: 'inherit' }}
               >
-                <CardMedia
-                  title={item.title}
-                  image={item.image}
-                  onClick={() => {
-                    onClickRecipe(item.index);
+                <Link
+                  to={{
+                    pathname: `/recipes/${item.title
+                      .toLowerCase()
+                      .replaceAll(' ', '-')}`,
                   }}
-                  sx={{
-                    objectFit: 'contain',
-                    minWidth: 220,
-                    minHeight: { xs: 270, sm: 260 },
-                    height: {
-                      sm: 330,
-                      md: 350,
-                      lg: 480,
-                    },
-                    borderRadius: 2,
-                    filter:
-                      theme.palette.mode === 'dark'
-                        ? 'brightness(0.8)'
-                        : 'none',
-                  }}
-                />
-                <Box
-                  marginTop={2}
-                  display={'flex'}
-                  alignItems={'center'}
-                  justifyContent={'flex-start'}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <Typography
-                    color="text.primary"
-                    fontWeight={700}
-                    variant="h5"
+                  <CardMedia
+                    title={item.title}
+                    image={item.image}
+                    onClick={() => {
+                      onClickRecipe(item.id);
+                    }}
+                    sx={{
+                      objectFit: 'contain',
+                      minWidth: 220,
+                      minHeight: { xs: 270, sm: 260 },
+                      height: {
+                        sm: 330,
+                        md: 350,
+                        lg: 480,
+                      },
+                      borderRadius: 2,
+                      filter:
+                        theme.palette.mode === 'dark'
+                          ? 'brightness(0.8)'
+                          : 'none',
+                    }}
+                  />
+                  <Box
+                    marginTop={2}
+                    display={'flex'}
+                    alignItems={'center'}
+                    justifyContent={'flex-start'}
                   >
-                    {item.title}
-                  </Typography>
-                </Box>
-              </Link>
-            </Card>
-          </Box>
-        ))}
+                    <Typography
+                      color="text.primary"
+                      fontWeight={700}
+                      variant="h5"
+                    >
+                      {item.title}
+                    </Typography>
+                  </Box>
+                </Link>
+              </Card>
+            </Box>
+          ),
+        )}
       </Carousel>
 
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>

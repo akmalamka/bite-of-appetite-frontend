@@ -20,7 +20,6 @@ const RecipeDescription = (): JSX.Element => {
       : setExpandedDirections(isExpanded ? panel : false);
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
-  console.log('chosenRecipe ', chosenRecipe);
 
   const isIngredientsWithComponentLogic = () => {
     return (

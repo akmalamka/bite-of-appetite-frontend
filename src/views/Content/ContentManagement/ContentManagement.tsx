@@ -24,7 +24,7 @@ const ContentManagement = ({ isRecipe, isAddContent }: Props): JSX.Element => {
   }, []);
 
   return (
-    <Main>
+    <Main isParentPage={true}>
       <Page isRecipe={isRecipe} isAddContent={isAddContent}>
         <Box>
           <Typography

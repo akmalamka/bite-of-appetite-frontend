@@ -7,7 +7,6 @@ import {
   Recipes as RecipesView,
   DetailRecipe as DetailRecipeView,
   DetailWriting as DetailWritingView,
-  SignIn as SignInView,
   NotFound as NotFoundView,
   ContentManagement as ContentManagementView,
   ContentList as ContentListView,
@@ -42,10 +41,6 @@ const routes = [
   {
     path: '/about',
     renderer: (params = {}): JSX.Element => <AboutView {...params} />,
-  },
-  {
-    path: '/sign-in',
-    renderer: (params = {}): JSX.Element => <SignInView {...params} />,
   },
   {
     path: '/not-found',

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -18,40 +17,40 @@ interface Props {
   isAddContent: boolean;
 }
 
-const validationSchema = yup.object({
-  fullName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  bio: yup
-    .string()
-    .trim()
-    .max(500, 'Should be less than 500 chars'),
-  country: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your country name'),
-  city: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(80, 'Please enter a valid name')
-    .required('Please specify your city name'),
-  address: yup
-    .string()
-    .required('Please specify your address')
-    .min(2, 'Please enter a valid address')
-    .max(200, 'Please enter a valid address'),
-});
+// const validationSchema = yup.object({
+//   fullName: yup
+//     .string()
+//     .trim()
+//     .min(2, 'Please enter a valid name')
+//     .max(50, 'Please enter a valid name')
+//     .required('Please specify your first name'),
+//   email: yup
+//     .string()
+//     .trim()
+//     .email('Please enter a valid email address')
+//     .required('Email is required.'),
+//   bio: yup
+//     .string()
+//     .trim()
+//     .max(500, 'Should be less than 500 chars'),
+//   country: yup
+//     .string()
+//     .trim()
+//     .min(2, 'Please enter a valid name')
+//     .max(80, 'Please enter a valid name')
+//     .required('Please specify your country name'),
+//   city: yup
+//     .string()
+//     .trim()
+//     .min(2, 'Please enter a valid name')
+//     .max(80, 'Please enter a valid name')
+//     .required('Please specify your city name'),
+//   address: yup
+//     .string()
+//     .required('Please specify your address')
+//     .min(2, 'Please enter a valid address')
+//     .max(200, 'Please enter a valid address'),
+// });
 
 const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   useEffect(() => {
@@ -96,8 +95,6 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
         'Content-Type': 'multipart/form-data',
       },
     };
-    // console.log('fd ', fd);
-    // console.log('addedId ', addedId);
     api
       .post(
         `/writings/${isAddContent ? addedId : chosenWriting.id}/image`,
@@ -184,10 +181,6 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
         return URL.createObjectURL(image);
       }
     } else {
-      // console.log('image ', image);
-      // console.log(image === chosenWriting.image);
-      // console.log(typeof chosenWriting === 'object');
-      // console.log(typeof image);
       if (typeof image === 'string' && image.length > 0) {
         console.log('ccc');
         return chosenWriting.image;

@@ -56,23 +56,18 @@ const RecipeList = (): JSX.Element => {
       tags: obj,
     };
   });
-  console.log('ddd');
   let result = [];
   const fuseSearch = new Fuse(recipes, optionsSearch);
   const fuseFilter = new Fuse(recipes, optionsFilter);
-  console.log('hhi');
-  console.log('keyword ', typeof keyword === 'undefined');
   const resultSearch =
     keyword === '' || typeof keyword === 'undefined'
       ? recipes
       : fuseSearch.search(keyword);
-  console.log('length ', chipData.length);
   const resultFilter =
     chipData.length == 0
       ? recipes
       : fuseFilter.search({ $and: chipDataMapped });
 
-  console.log('xixi');
   function finalResult() {
     if (keyword === '') {
       if (chipData.length == 0) {
@@ -102,7 +97,6 @@ const RecipeList = (): JSX.Element => {
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
-          console.log('chosen ', chosen);
           dispatch(setChosenRecipe(chosen));
         }
       })
