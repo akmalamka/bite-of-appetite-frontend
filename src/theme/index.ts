@@ -3,7 +3,8 @@ import { createTheme, ComponentsOverrides } from '@mui/material/styles';
 import shadows from './shadows';
 import { light, dark } from './palette';
 import Yournotes from './Yournotes';
-import RecoletaAltRegular from './Recoleta';
+// import RecoletaAltRegular from './Recoleta';
+import './stylesheet.css';
 
 const getTheme = (mode: string, themeToggler: () => void): Theme =>
   responsiveFontSizes(
@@ -29,13 +30,13 @@ const getTheme = (mode: string, themeToggler: () => void): Theme =>
         drawer: 1300,
       },
       components: {
-        MuiCssBaseline: {
-          styleOverrides: {
-            '@global': {
-              '@font-face': RecoletaAltRegular,
-            },
-          },
-        },
+        // MuiCssBaseline: {
+        //   styleOverrides: {
+        //     '@global': {
+        //       '@font-face': RecoletaAltRegular,
+        //     },
+        //   },
+        // },
         MuiButton: {
           styleOverrides: {
             root: {
