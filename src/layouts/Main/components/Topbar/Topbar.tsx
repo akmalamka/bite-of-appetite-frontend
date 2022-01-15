@@ -61,7 +61,7 @@ const Topbar = ({
               {logoColor == 'white' ? <LogoWhite /> : <Logo />}
             </Box>
           )}
-          {trigger && (
+          {(trigger || isParentPage) && (
             <Button
               onClick={() => onSidebarOpen()}
               aria-label="Menu"

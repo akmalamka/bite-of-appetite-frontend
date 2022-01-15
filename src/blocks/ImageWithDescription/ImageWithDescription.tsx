@@ -50,7 +50,7 @@ const ImageWithDescription = ({
                 ? isRecipe
                   ? chosenRecipe.image
                   : chosenWriting.image
-                : 'https://assets.bonappetit.com/photos/61afad39d0b93410e18acd94/1:1/w_2240,c_limit/20211123%20Eggplant%20Biryani%20LEDE.jpg'
+                : 'http://localhost:8080/about-me-1.jpg'
             }
             alt="..."
             effect="blur"
