@@ -20,12 +20,14 @@ const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     api
       .get('/recipes')
       .then((res) => {
         if (res.data.code == 200) {
           setRecipes(res.data.data);
+          // setLoading(false);
         }
       })
       .catch((err) => {
@@ -132,40 +134,47 @@ const RecipeList = (): JSX.Element => {
     <Box>
       {result.length > 0 ? (
         <Grid container spacing={4}>
-          {result
+          {(loading ? Array.from(new Array(PER_PAGE)) : result)
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
             .map((item, i) => (
               <Grid key={i} item xs={12}>
-                <DataCard
-                  // index={
-                  //   keyword === '' && chipData.length == 0
-                  //     ? item.index
-                  //     : item.item.index
-                  // }
-                  index={i}
-                  title={
-                    keyword === '' && chipData.length == 0
-                      ? item.title
-                      : item.item.title
-                  }
-                  src={
-                    keyword === '' && chipData.length == 0
-                      ? item.image
-                      : item.item.image
-                  }
-                  tags={
-                    (keyword === '' && chipData.length == 0 ? item : item.item)
-                      .tags
-                  }
-                  description={
-                    keyword === '' && chipData.length == 0
-                      ? item.description
-                      : item.item.description
-                  }
-                  isRecipe={true}
-                  page={page}
-                  onClickRecipe={onClickRecipe}
-                />
+                {loading ? (
+                  <DataCard
+                    index={i}
+                    isRecipe={true}
+                    page={page}
+                    onClickRecipe={onClickRecipe}
+                    loading
+                  />
+                ) : (
+                  <DataCard
+                    index={i}
+                    title={
+                      keyword === '' && chipData.length == 0
+                        ? item.title
+                        : item.item.title
+                    }
+                    src={
+                      keyword === '' && chipData.length == 0
+                        ? item.image
+                        : item.item.image
+                    }
+                    tags={
+                      (keyword === '' && chipData.length == 0
+                        ? item
+                        : item.item
+                      ).tags
+                    }
+                    description={
+                      keyword === '' && chipData.length == 0
+                        ? item.description
+                        : item.item.description
+                    }
+                    isRecipe={true}
+                    page={page}
+                    onClickRecipe={onClickRecipe}
+                  />
+                )}
               </Grid>
             ))}
         </Grid>

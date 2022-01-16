@@ -4,6 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Box from '@mui/material/Box';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import Description from './Description';
+import { VideoCard } from 'blocks';
 
 interface Props {
   imagePosition: string;
@@ -20,6 +21,7 @@ const ImageWithDescription = ({
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
+  console.log('isContent ', isContent);
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
   function bgColorLogic() {
     return isContent ? 'secondary.main' : 'primary.main';
@@ -40,25 +42,30 @@ const ImageWithDescription = ({
         bgcolor={isRecipe ? ' background.paper' : bgColorLogic()}
         height={{ xs: 1, md: height }}
       >
-        <Box display={'flex'} width={{ xs: 1, md: 1 / 2 }}>
-          <Box
-            component={LazyLoadImage}
-            height={1}
-            width={1}
-            src={
-              isContent
-                ? isRecipe
-                  ? chosenRecipe.image
-                  : chosenWriting.image
-                : 'http://localhost:8080/about-me-1.jpg'
-            }
-            alt="..."
-            effect="blur"
-            sx={{
-              objectFit: 'cover',
-            }}
-          />
-        </Box>
+        {!isContent && imagePosition === 'left' ? (
+          <VideoCard />
+        ) : (
+          <Box display={'flex'} width={{ xs: 1, md: 1 / 2 }}>
+            <Box
+              component={LazyLoadImage}
+              height={1}
+              width={1}
+              src={
+                isContent
+                  ? isRecipe
+                    ? chosenRecipe.image
+                    : chosenWriting.image
+                  : 'http://localhost:8080/about-me-1.jpg'
+              }
+              alt="..."
+              effect="blur"
+              sx={{
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        )}
+
         <Description
           imagePosition={imagePosition}
           isRecipe={isRecipe}

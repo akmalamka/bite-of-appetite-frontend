@@ -87,7 +87,6 @@ const ContentCard = ({
             objectFit: 'contain',
             maxHeight: { xs: 530, md: 1 },
             borderRadius: 2,
-            filter: theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
           }}
         />
         <Typography

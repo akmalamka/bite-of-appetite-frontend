@@ -133,14 +133,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
           ? (loading ? Array.from(new Array(3)) : recipes).slice(0, 9)
           : (loading ? Array.from(new Array(3)) : dummyRecipeFilter).slice(0, 9)
         ).map((item, i) => (
-          <Box
-            key={i}
-            // display="flex"
-            // justifyContent="center"
-            // alignItems="flex-start"
-            flexDirection={'column'}
-            m={{ xs: 2, md: 4 }}
-          >
+          <Box key={i} flexDirection={'column'} m={{ xs: 2, md: 4 }}>
             {item ? (
               <Link
                 to={{
