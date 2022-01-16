@@ -20,14 +20,14 @@ const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     api
       .get('/recipes')
       .then((res) => {
         if (res.data.code == 200) {
           setRecipes(res.data.data);
-          // setLoading(false);
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -132,7 +132,24 @@ const RecipeList = (): JSX.Element => {
 
   return (
     <Box>
-      {result.length > 0 ? (
+      {loading && (
+        <Grid container spacing={4}>
+          {Array.from(new Array(PER_PAGE))
+            .slice(PER_PAGE * (page - 1), PER_PAGE * page)
+            .map((item, i) => (
+              <Grid key={i} item xs={12}>
+                <DataCard
+                  index={i}
+                  isRecipe={true}
+                  page={page}
+                  onClickRecipe={onClickRecipe}
+                  loading
+                />
+              </Grid>
+            ))}
+        </Grid>
+      )}
+      {!loading && result.length > 0 ? (
         <Grid container spacing={4}>
           {(loading ? Array.from(new Array(PER_PAGE)) : result)
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
@@ -180,47 +197,51 @@ const RecipeList = (): JSX.Element => {
         </Grid>
       ) : (
         <Container>
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            justifyContent={'center'}
-            rowGap={2}
-          >
-            {isMd && (
-              <Box
-                left={'55%'}
-                top={'28%'}
-                position={'absolute'}
-                sx={{
-                  zIndex: 1,
-                }}
+          {!loading && (
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              rowGap={2}
+            >
+              {isMd && (
+                <Box
+                  left={'55%'}
+                  top={'28%'}
+                  position={'absolute'}
+                  sx={{
+                    zIndex: 1,
+                  }}
+                >
+                  <SearchFilterAsset />
+                </Box>
+              )}
+              <Typography
+                color={'text.primary'}
+                variant="h1"
+                component={'h1'}
+                align={'center'}
+                sx={{ fontWeight: 600, zIndex: 3 }}
               >
-                <SearchFilterAsset />
-              </Box>
-            )}
-            <Typography
-              color={'text.primary'}
-              variant="h1"
-              component={'h1'}
-              align={'center'}
-              sx={{ fontWeight: 600, zIndex: 3 }}
-            >
-              Oops!
-            </Typography>
-            <Typography
-              fontFamily={'Inter'}
-              variant="h5"
-              component="p"
-              color="text.primary"
-              align={'center'}
-              sx={{ zIndex: 3 }}
-            >
-              Sorry, It looks like there's no such recipe you're looking for :(
-            </Typography>
-          </Box>
+                Oops!
+              </Typography>
+              <Typography
+                fontFamily={'Inter'}
+                variant="h5"
+                component="p"
+                color="text.primary"
+                align={'center'}
+                sx={{ zIndex: 3 }}
+              >
+                Sorry, It looks like there's no such recipe you're looking for
+                :(
+              </Typography>
+            </Box>
+          )}
         </Container>
       )}
-      {result.length > 0 && (
+
+      {!loading && result.length > 0 && (
         <Pagination
           color={'primary'}
           count={count}

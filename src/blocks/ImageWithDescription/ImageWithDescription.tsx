@@ -21,7 +21,6 @@ const ImageWithDescription = ({
   const chosenWriting = useSelector(
     (state: any) => state.writing.chosenWriting,
   );
-  console.log('isContent ', isContent);
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
   function bgColorLogic() {
     return isContent ? 'secondary.main' : 'primary.main';

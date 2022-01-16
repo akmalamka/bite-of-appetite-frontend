@@ -11,8 +11,6 @@ const WritingCard = (): JSX.Element => {
   const splitStory = chosenWriting.story
     .split('\n')
     .filter((item) => item.length > 0);
-  // console.log('chosenwriting ', chosenWriting.story.split('\n'));
-  console.log('splitStory ', splitStory);
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box

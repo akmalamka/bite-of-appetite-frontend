@@ -44,6 +44,14 @@ const DataCard = ({
   const { mode } = theme.palette;
   const { url } = useRouteMatch();
 
+  function flexDirectionLogic() {
+    if (loading) {
+      return index % 2 === 0 ? 'row' : 'row-reverse';
+    } else {
+      return index % 2 === 0 ? 'row-reverse' : 'row';
+    }
+  }
+
   return (
     <Box
       component={Card}
@@ -54,13 +62,10 @@ const DataCard = ({
       display={'flex'}
       flexDirection={{
         xs: 'column',
-        md: index % 2 === 0 ? 'row-reverse' : 'row',
+        md: flexDirectionLogic(),
       }}
       sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
     >
-      {/* <Box>
-        <Skeleton variant={'rectangular'} />
-      </Box> */}
       <Box
         sx={{
           '& .lazy-load-image-loaded': {
@@ -143,9 +148,9 @@ const DataCard = ({
                 marginY: { xs: 1, md: 0 },
               }}
             >
-              {(loading ? Array.from(new Array(3)) : tags).map((item) =>
+              {(loading ? Array.from(new Array(3)) : tags).map((item, j) =>
                 loading ? (
-                  <Skeleton key={index} sx={{ marginX: 1 }} width={50}>
+                  <Skeleton key={j} sx={{ marginX: 1 }} width={50}>
                     <Chip
                       size={'medium'}
                       variant={'outlined'}
@@ -209,6 +214,8 @@ const DataCard = ({
                 text={isRecipe ? 'See Recipe' : 'Read More'}
                 disabled
               />
+            ) : loading ? (
+              <Skeleton />
             ) : (
               <Link
                 to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}

@@ -287,7 +287,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
       }
     } else {
       if (typeof image === 'string' && image.length > 0) {
-        console.log('abc');
         return chosenRecipe.image;
       } else {
         return URL.createObjectURL(image);
