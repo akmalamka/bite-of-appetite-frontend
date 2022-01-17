@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Skeleton from '@mui/material/Skeleton';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { ButtonComponent } from 'blocks';
@@ -14,15 +15,16 @@ import { PER_PAGE } from 'utils/constants';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
-  title: string;
-  src: string;
+  title?: string;
+  src?: string;
   tags?: string[];
-  description: string;
+  description?: string;
   isRecipe: boolean;
   page: number;
   onClickRecipe?: (index: number) => void;
   onClickWriting?: (index: number) => void;
   isContentManagement?: boolean;
+  loading?: boolean;
 }
 
 const DataCard = ({
@@ -36,10 +38,19 @@ const DataCard = ({
   onClickRecipe,
   onClickWriting,
   isContentManagement = false,
+  loading = false,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
   const { url } = useRouteMatch();
+
+  function flexDirectionLogic() {
+    if (loading) {
+      return index % 2 === 0 ? 'row' : 'row-reverse';
+    } else {
+      return index % 2 === 0 ? 'row-reverse' : 'row';
+    }
+  }
 
   return (
     <Box
@@ -51,7 +62,7 @@ const DataCard = ({
       display={'flex'}
       flexDirection={{
         xs: 'column',
-        md: index % 2 === 0 ? 'row-reverse' : 'row',
+        md: flexDirectionLogic(),
       }}
       sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
     >
@@ -62,44 +73,56 @@ const DataCard = ({
           },
         }}
       >
-        <Link
-          to={{
-            pathname: `${url}/${title.toLowerCase().replaceAll(' ', '-')}`,
-          }}
-          style={{ textDecoration: 'none' }}
-        >
-          <Button
-            fullWidth
-            disableRipple={true}
-            disableFocusRipple={true}
+        {loading ? (
+          <Skeleton
+            variant={'rectangular'}
             sx={{
-              padding: 0,
-              maxHeight: 530,
-              maxWidth: 705,
+              height: {
+                sm: 330,
+                md: 350,
+                lg: 480,
+              },
+              borderRadius: 2,
             }}
-            onClick={() => {
-              isRecipe
-                ? onClickRecipe(index + (page - 1) * PER_PAGE) // ko beda ya??
-                : onClickWriting(index + (page - 1) * PER_PAGE);
+          />
+        ) : (
+          <Link
+            to={{
+              pathname: `${url}/${title.toLowerCase().replaceAll(' ', '-')}`,
             }}
-            disabled={isContentManagement}
+            style={{ textDecoration: 'none' }}
           >
-            <Box
-              component={LazyLoadImage}
-              height={1}
-              width={1}
-              src={src}
-              alt="..."
-              effect="blur"
+            <Button
+              fullWidth
+              disableRipple={true}
+              disableFocusRipple={true}
               sx={{
-                objectFit: 'contain',
-                maxHeight: { xs: 530, md: 1 },
-                filter:
-                  theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
+                padding: 0,
+                maxHeight: 530,
+                maxWidth: 705,
               }}
-            />
-          </Button>
-        </Link>
+              onClick={() => {
+                isRecipe
+                  ? onClickRecipe(index + (page - 1) * PER_PAGE) // ko beda ya??
+                  : onClickWriting(index + (page - 1) * PER_PAGE);
+              }}
+              disabled={isContentManagement}
+            >
+              <Box
+                component={LazyLoadImage}
+                height={1}
+                width={1}
+                src={src}
+                alt="..."
+                effect="blur"
+                sx={{
+                  objectFit: 'contain',
+                  maxHeight: { xs: 530, md: 1 },
+                }}
+              ></Box>
+            </Button>
+          </Link>
+        )}
       </Box>
       <CardContent
         sx={{
@@ -125,25 +148,39 @@ const DataCard = ({
                 marginY: { xs: 1, md: 0 },
               }}
             >
-              {tags.map((item) => (
-                <Chip
-                  key={item}
-                  label={item}
-                  component="a"
-                  size={'medium'}
-                  variant={'outlined'}
-                  sx={{
-                    border: '1px solid',
-                    marginRight: index % 2 === 0 ? 1 : 0,
-                    marginLeft: index % 2 === 0 ? 0 : 1,
-                    color:
-                      mode === 'light'
-                        ? theme.palette.text.primary
-                        : theme.palette.common.white,
-                    fontFamily: 'Inter',
-                  }}
-                />
-              ))}
+              {(loading ? Array.from(new Array(3)) : tags).map((item, j) =>
+                loading ? (
+                  <Skeleton key={j} sx={{ marginX: 1 }} width={50}>
+                    <Chip
+                      size={'medium'}
+                      variant={'outlined'}
+                      sx={{
+                        border: '1px solid',
+                        marginRight: index % 2 === 0 ? 1 : 0,
+                        marginLeft: index % 2 === 0 ? 0 : 1,
+                      }}
+                    />
+                  </Skeleton>
+                ) : (
+                  <Chip
+                    key={item}
+                    label={item}
+                    component="a"
+                    size={'medium'}
+                    variant={'outlined'}
+                    sx={{
+                      border: '1px solid',
+                      marginRight: index % 2 === 0 ? 1 : 0,
+                      marginLeft: index % 2 === 0 ? 0 : 1,
+                      color:
+                        mode === 'light'
+                          ? theme.palette.text.primary
+                          : theme.palette.common.white,
+                      fontFamily: 'Inter',
+                    }}
+                  />
+                ),
+              )}
             </Box>
           )}
           <Typography
@@ -154,7 +191,7 @@ const DataCard = ({
             }}
             align={'center'}
           >
-            {title}
+            {loading ? <Skeleton /> : title}
           </Typography>
           <Typography
             fontFamily={'Inter'}
@@ -163,7 +200,7 @@ const DataCard = ({
             fontWeight={500}
             align={'center'}
           >
-            {description}
+            {loading ? <Skeleton /> : description}
           </Typography>
           <Box
             marginTop={2}
@@ -177,6 +214,8 @@ const DataCard = ({
                 text={isRecipe ? 'See Recipe' : 'Read More'}
                 disabled
               />
+            ) : loading ? (
+              <Skeleton />
             ) : (
               <Link
                 to={`${url}/${title.toLowerCase().replaceAll(' ', '-')}`}

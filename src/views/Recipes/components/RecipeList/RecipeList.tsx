@@ -20,12 +20,14 @@ const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     api
       .get('/recipes')
       .then((res) => {
         if (res.data.code == 200) {
           setRecipes(res.data.data);
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -130,88 +132,116 @@ const RecipeList = (): JSX.Element => {
 
   return (
     <Box>
-      {result.length > 0 ? (
+      {loading && (
         <Grid container spacing={4}>
-          {result
+          {Array.from(new Array(PER_PAGE))
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
             .map((item, i) => (
               <Grid key={i} item xs={12}>
                 <DataCard
-                  // index={
-                  //   keyword === '' && chipData.length == 0
-                  //     ? item.index
-                  //     : item.item.index
-                  // }
                   index={i}
-                  title={
-                    keyword === '' && chipData.length == 0
-                      ? item.title
-                      : item.item.title
-                  }
-                  src={
-                    keyword === '' && chipData.length == 0
-                      ? item.image
-                      : item.item.image
-                  }
-                  tags={
-                    (keyword === '' && chipData.length == 0 ? item : item.item)
-                      .tags
-                  }
-                  description={
-                    keyword === '' && chipData.length == 0
-                      ? item.description
-                      : item.item.description
-                  }
                   isRecipe={true}
                   page={page}
                   onClickRecipe={onClickRecipe}
+                  loading
                 />
+              </Grid>
+            ))}
+        </Grid>
+      )}
+      {!loading && result.length > 0 ? (
+        <Grid container spacing={4}>
+          {(loading ? Array.from(new Array(PER_PAGE)) : result)
+            .slice(PER_PAGE * (page - 1), PER_PAGE * page)
+            .map((item, i) => (
+              <Grid key={i} item xs={12}>
+                {loading ? (
+                  <DataCard
+                    index={i}
+                    isRecipe={true}
+                    page={page}
+                    onClickRecipe={onClickRecipe}
+                    loading
+                  />
+                ) : (
+                  <DataCard
+                    index={i}
+                    title={
+                      keyword === '' && chipData.length == 0
+                        ? item.title
+                        : item.item.title
+                    }
+                    src={
+                      keyword === '' && chipData.length == 0
+                        ? item.image
+                        : item.item.image
+                    }
+                    tags={
+                      (keyword === '' && chipData.length == 0
+                        ? item
+                        : item.item
+                      ).tags
+                    }
+                    description={
+                      keyword === '' && chipData.length == 0
+                        ? item.description
+                        : item.item.description
+                    }
+                    isRecipe={true}
+                    page={page}
+                    onClickRecipe={onClickRecipe}
+                  />
+                )}
               </Grid>
             ))}
         </Grid>
       ) : (
         <Container>
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            justifyContent={'center'}
-            rowGap={2}
-          >
-            {isMd && (
-              <Box
-                left={'55%'}
-                top={'28%'}
-                position={'absolute'}
-                sx={{
-                  zIndex: 1,
-                }}
+          {!loading && (
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              justifyContent={'center'}
+              rowGap={2}
+            >
+              {isMd && (
+                <Box
+                  left={'55%'}
+                  top={'28%'}
+                  position={'absolute'}
+                  sx={{
+                    zIndex: 1,
+                  }}
+                >
+                  <SearchFilterAsset />
+                </Box>
+              )}
+              <Typography
+                color={'text.primary'}
+                variant="h1"
+                component={'h1'}
+                align={'center'}
+                sx={{ fontWeight: 600, zIndex: 3 }}
               >
-                <SearchFilterAsset />
-              </Box>
-            )}
-            <Typography
-              color={'text.primary'}
-              variant="h1"
-              component={'h1'}
-              align={'center'}
-              sx={{ fontWeight: 600, zIndex: 3 }}
-            >
-              Oops!
-            </Typography>
-            <Typography
-              fontFamily={'Inter'}
-              variant="h5"
-              component="p"
-              color="text.primary"
-              align={'center'}
-              sx={{ zIndex: 3 }}
-            >
-              Sorry, It looks like there's no such recipe you're looking for :(
-            </Typography>
-          </Box>
+                Oops!
+              </Typography>
+              <Typography
+                fontFamily={'Inter'}
+                variant="h5"
+                component="p"
+                color="text.primary"
+                align={'center'}
+                sx={{ zIndex: 3 }}
+              >
+                Sorry, It looks like there's no such recipe you're looking for
+                :(
+              </Typography>
+            </Box>
+          )}
         </Container>
       )}
-      {result.length > 0 && (
+
+      {!loading && result.length > 0 && (
         <Pagination
           color={'primary'}
           count={count}

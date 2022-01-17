@@ -16,6 +16,7 @@ const WritingList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [writings, setWritings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -51,6 +52,7 @@ const WritingList = (): JSX.Element => {
       .then((res) => {
         if (res.data.code == 200) {
           setWritings(res.data.data);
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -61,36 +63,48 @@ const WritingList = (): JSX.Element => {
   return (
     <Box>
       <Grid container spacing={4}>
-        {writings
+        {(loading ? Array.from(new Array(PER_PAGE)) : writings)
           .slice(PER_PAGE * (page - 1), PER_PAGE * page)
           .map((item, i) => (
             <Grid key={i} item xs={12}>
-              <DataCard
-                index={i}
-                title={item.title}
-                src={item.image}
-                description={item.description}
-                isRecipe={false}
-                page={page}
-                onClickWriting={onClickWriting}
-              />
+              {item ? (
+                <DataCard
+                  index={i}
+                  title={item.title}
+                  src={item.image}
+                  description={item.description}
+                  isRecipe={false}
+                  page={page}
+                  onClickWriting={onClickWriting}
+                />
+              ) : (
+                <DataCard
+                  index={i}
+                  isRecipe={true}
+                  page={page}
+                  onClickRecipe={onClickWriting}
+                  loading
+                />
+              )}
             </Grid>
           ))}
       </Grid>
-      <Pagination
-        color={'primary'}
-        count={count}
-        size="large"
-        boundaryCount={0}
-        siblingCount={isMd ? 1 : 0}
-        page={page}
-        sx={{
-          marginY: 4,
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-        onChange={handleChangePage}
-      />
+      {!loading && (
+        <Pagination
+          color={'primary'}
+          count={count}
+          size="large"
+          boundaryCount={0}
+          siblingCount={isMd ? 1 : 0}
+          page={page}
+          sx={{
+            marginY: 4,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          onChange={handleChangePage}
+        />
+      )}
     </Box>
   );
 };

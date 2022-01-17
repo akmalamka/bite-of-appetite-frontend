@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
 import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -45,6 +45,7 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -58,16 +59,13 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
       .then((res) => {
         if (res.data.code == 200) {
           setRecipes(res.data.data);
+          setLoading(false);
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  const chosenRecipeTitle = useSelector(
-    (state: any) => state.recipe.recipeTitle,
-  );
 
   const onClickRecipe = (id) => {
     api
@@ -82,6 +80,9 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         console.log(err);
       });
   };
+  const chosenRecipeTitle = useSelector(
+    (state: any) => state.recipe.recipeTitle,
+  );
   const dummyRecipeFilter = recipes.filter(
     (item) => item.title !== chosenRecipeTitle,
   );
@@ -128,77 +129,90 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         transitionDuration={600}
         containerClass="react-multi-carousel-list"
       >
-        {(isHome ? recipes.slice(0, 9) : dummyRecipeFilter.slice(0, 9)).map(
-          (item, i) => (
-            <Box
-              key={i}
-              display="flex"
-              justifyContent="center"
-              alignItems="flex-start"
-            >
-              <Card
-                sx={{
-                  width: 0.9,
-                  height: 0.9,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  boxShadow: 'none',
-                  bgcolor: 'transparent',
-                  backgroundImage: 'none',
+        {(isHome
+          ? (loading ? Array.from(new Array(3)) : recipes).slice(0, 9)
+          : (loading ? Array.from(new Array(3)) : dummyRecipeFilter).slice(0, 9)
+        ).map((item, i) => (
+          <Box key={i} flexDirection={'column'} m={{ xs: 2, md: 4 }}>
+            {item ? (
+              <Link
+                to={{
+                  pathname: `/recipes/${item.title
+                    .toLowerCase()
+                    .replaceAll(' ', '-')}`,
+                }}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+                onClick={() => {
+                  onClickRecipe(item.id);
                 }}
               >
-                <Link
-                  to={{
-                    pathname: `/recipes/${item.title
-                      .toLowerCase()
-                      .replaceAll(' ', '-')}`,
+                <Box
+                  component={LazyLoadImage}
+                  height={1}
+                  width={1}
+                  src={item.image}
+                  alt="..."
+                  effect="blur"
+                  sx={{
+                    objectFit: 'cover',
+                    height: {
+                      sm: 330,
+                      md: 350,
+                      lg: 480,
+                    },
+                    borderRadius: 2,
                   }}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  onClick={() => {
+                    onClickRecipe(item.id);
+                  }}
+                />
+              </Link>
+            ) : (
+              <Skeleton
+                variant={'rectangular'}
+                sx={{
+                  height: {
+                    sm: 330,
+                    md: 350,
+                    lg: 480,
+                  },
+                  borderRadius: 2,
+                }}
+              />
+            )}
+            {item ? (
+              <Link
+                to={{
+                  pathname: `/recipes/${item.title
+                    .toLowerCase()
+                    .replaceAll(' ', '-')}`,
+                }}
+                style={{ textDecoration: 'none', color: 'inherit' }}
+                onClick={() => {
+                  onClickRecipe(item.id);
+                }}
+              >
+                <Typography
+                  color="text.primary"
+                  fontWeight={700}
+                  variant="h5"
+                  sx={{
+                    marginTop: 2,
+                    '&:hover': {
+                      textDecoration: 'underline',
+                      cursor: 'pointer',
+                    },
+                  }}
                 >
-                  <CardMedia
-                    title={item.title}
-                    image={item.image}
-                    onClick={() => {
-                      onClickRecipe(item.id);
-                    }}
-                    sx={{
-                      objectFit: 'contain',
-                      minWidth: 220,
-                      minHeight: { xs: 270, sm: 260 },
-                      height: {
-                        sm: 330,
-                        md: 350,
-                        lg: 480,
-                      },
-                      borderRadius: 2,
-                      filter:
-                        theme.palette.mode === 'dark'
-                          ? 'brightness(0.8)'
-                          : 'none',
-                    }}
-                  />
-                  <Box
-                    marginTop={2}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'flex-start'}
-                  >
-                    <Typography
-                      color="text.primary"
-                      fontWeight={700}
-                      variant="h5"
-                    >
-                      {item.title}
-                    </Typography>
-                  </Box>
-                </Link>
-              </Card>
-            </Box>
-          ),
-        )}
+                  {item.title}
+                </Typography>
+              </Link>
+            ) : (
+              <Skeleton sx={{ marginTop: 2 }} />
+            )}
+          </Box>
+        ))}
       </Carousel>
-
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           variant="outlined"

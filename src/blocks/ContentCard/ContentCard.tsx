@@ -3,7 +3,6 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -28,7 +27,6 @@ const ContentCard = ({
   handleRefreshPage,
   isRecipe,
 }: Props): JSX.Element => {
-  const theme = useTheme();
   const { url } = useRouteMatch();
 
   const onClickDelete = (id) => {
@@ -84,10 +82,9 @@ const ContentCard = ({
           alt="..."
           effect="blur"
           sx={{
-            objectFit: 'contain',
-            maxHeight: { xs: 530, md: 1 },
+            objectFit: 'cover',
+            height: 370,
             borderRadius: 2,
-            filter: theme.palette.mode === 'dark' ? 'brightness(0.8)' : 'none',
           }}
         />
         <Typography
