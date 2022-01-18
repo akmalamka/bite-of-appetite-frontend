@@ -36,6 +36,10 @@ const Description = ({
   );
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
   const data = isRecipe ? chosenRecipe : chosenWriting;
+
+  function dividerLogic() {
+    return (!isXs && !isRecipe) || (!isXs && data.inspiredBy);
+  }
   return (
     <Box
       width={{ xs: 1, md: 1 / 2 }}
@@ -87,7 +91,6 @@ const Description = ({
           {isMd && isContent && !isRecipe && (
             <Box
               left={'60%'}
-              // top={imagePosition === 'left' ? '10%' : '17%'}
               position={'absolute'}
               sx={{
                 zIndex: 1,
@@ -162,16 +165,17 @@ const Description = ({
               >
                 By {isRecipe ? data.recipeBy : data.writingsBy}
               </Typography>
-              {!isXs && data.inspiredBy && (
+              {dividerLogic() && (
                 <Divider
                   orientation="vertical"
                   sx={{
                     border: '1px solid',
                     height: '16px',
+                    color: isRecipe ? 'text.primary' : 'text.secondary',
                   }}
                 />
               )}
-              {data.inspiredBy && (
+              {(!isRecipe || data.inspiredBy) && (
                 <Typography
                   color={isRecipe ? 'text.primary' : 'text.secondary'}
                   variant="subtitle2"
@@ -184,7 +188,8 @@ const Description = ({
                     textTransform: 'uppercase',
                   }}
                 >
-                  Inspired By {data.inspiredBy}
+                  {isRecipe ? 'Inspired' : 'Photograph'} By{' '}
+                  {isRecipe ? data.inspiredBy : data.photographBy}
                 </Typography>
               )}
             </Box>
@@ -216,6 +221,7 @@ const Description = ({
               position={'absolute'}
               sx={{
                 zIndex: 1,
+                transform: 'scale(0.9)',
               }}
             >
               {imagePosition === 'left' ? <HomeAsset /> : <AboutAsset />}

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import useWindowDimensions from 'utils/useWindowDimensions';
 import Description from './Description';
 import { VideoCard } from 'blocks';
+import { baseUrl } from 'utils/constants';
 
 interface Props {
   imagePosition: string;
@@ -54,7 +55,7 @@ const ImageWithDescription = ({
                   ? isRecipe
                     ? chosenRecipe.image
                     : chosenWriting.image
-                  : 'http://localhost:8080/about-me-1.jpg'
+                  : `${baseUrl}/about-me-1.jpg`
               }
               alt="..."
               effect="blur"
