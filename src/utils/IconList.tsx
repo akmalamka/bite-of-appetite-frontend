@@ -1,11 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-// import {
-//   InstagramButton,
-//   SoundcloudButton,
-//   MediumButton,
-//   SpotifyButton,
-// } from 'utils/icons/socialMedia';
 import InstagramButton from 'utils/InstagramButton';
 import SoundcloudButton from 'utils/SoundcloudButton';
 import MediumButton from 'utils/MediumButton';

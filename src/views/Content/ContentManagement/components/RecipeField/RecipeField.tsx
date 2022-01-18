@@ -639,7 +639,7 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
               sx={{ marginBottom: 2 }}
               fontWeight={700}
             >
-              Time (in minutes)
+              Time (tambahin minutes atau hours di akhirnya )
             </Typography>
             <TextField
               variant="outlined"
