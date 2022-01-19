@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,23 +8,48 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
 import { DataCard } from 'blocks';
-import { setChosenWriting } from 'redux/actions/writingActions';
+import {
+  fetchWritingList,
+  setChosenWriting,
+} from 'redux/actions/writingActions';
 import { PER_PAGE } from 'utils/constants';
 import api from 'utils/api';
 
 const WritingList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [writings, setWritings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const writings = useSelector((state: any) => state.writing.writingList);
+  const writingListStatus = useSelector(
+    (state: any) => state.writing.writingListStatus,
+  );
+  const [loading, setLoading] = useState(
+    writingListStatus === 'idle' ? true : false,
+  );
+
+  useEffect(() => {
+    if (writingListStatus === 'idle') {
+      api
+        .get('/writings')
+        .then((res) => {
+          if (res.data.code == 200) {
+            dispatch(fetchWritingList(res.data.data));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch, writings, writingListStatus]);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
   const [page, setPage] = React.useState(1);
 
-  const count = Math.ceil(writings.length / PER_PAGE);
-  const _DATA = usePagination(writings, PER_PAGE);
+  const count = Math.ceil(writings ? writings.length / PER_PAGE : 0);
+  const _DATA = usePagination(writings ? writings : [], PER_PAGE);
 
   const handleChangePage = (e, p) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -45,20 +70,6 @@ const WritingList = (): JSX.Element => {
         console.log(err);
       });
   };
-
-  useEffect(() => {
-    api
-      .get('/writings')
-      .then((res) => {
-        if (res.data.code == 200) {
-          setWritings(res.data.data);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <Box>

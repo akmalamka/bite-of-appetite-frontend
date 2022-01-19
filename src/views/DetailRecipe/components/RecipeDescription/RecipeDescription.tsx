@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -19,7 +19,14 @@ const RecipeDescription = (): JSX.Element => {
       ? setExpandedIngredients(isExpanded ? panel : false)
       : setExpandedDirections(isExpanded ? panel : false);
   };
-  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  //ini yang kemaren diubah
+  const [chosenRecipe, setChosenRecipe] = useState<any>([]);
+  useEffect(() => {
+    setChosenRecipe(useSelector((state: any) => state.recipe.chosenRecipe));
+    console.log('aaa');
+  }, []);
+
+  console.log('chosenRecipe ', chosenRecipe);
 
   const isIngredientsWithComponentLogic = () => {
     return (

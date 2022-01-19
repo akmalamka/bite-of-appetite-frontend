@@ -44,7 +44,7 @@ const Description = ({
     <Box
       width={{ xs: 1, md: 1 / 2 }}
       height={1}
-      m={{ xs: isContent ? 0 : 4, md: isContent ? 4 : 0 }}
+      m={{ xs: 0, md: isContent ? 4 : 0 }}
       marginY={{ xs: 4, md: 0 }}
       p={4}
       sx={{
@@ -228,12 +228,7 @@ const Description = ({
             </Box>
           )}
 
-          <Typography
-            variant="h2"
-            color="text.secondary"
-            // gutterBottom
-            sx={{ zIndex: 2 }}
-          >
+          <Typography variant="h2" color="text.secondary" sx={{ zIndex: 2 }}>
             {imagePosition === 'left' ? 'Welcome to' : 'About'}
             <br /> {imagePosition === 'left' ? 'my food ' : ''}
             {imagePosition === 'left' && (

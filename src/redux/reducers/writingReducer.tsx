@@ -2,10 +2,14 @@ import {
   SET_CHOSEN_WRITING,
   RESET_CHOSEN_WRITING,
   FETCH_WRITING_STATE,
+  FETCH_WRITING_LIST,
 } from 'redux/actions/writingActions';
 
 const initialState = {
   chosenWriting: [],
+  writingList: [],
+  writingListStatus: 'idle',
+  chosenWritingStatus: 'idle',
 };
 
 const writingReducer = (state = initialState, action: any) => {
@@ -14,6 +18,7 @@ const writingReducer = (state = initialState, action: any) => {
       return {
         ...state,
         chosenWriting: action.payload,
+        chosenWritingStatus: 'completed',
       };
     case RESET_CHOSEN_WRITING:
       return {
@@ -23,6 +28,12 @@ const writingReducer = (state = initialState, action: any) => {
     case FETCH_WRITING_STATE:
       return {
         ...state,
+      };
+    case FETCH_WRITING_LIST:
+      return {
+        ...state,
+        writingList: action.payload,
+        writingListStatus: 'completed',
       };
     default:
       return state;
