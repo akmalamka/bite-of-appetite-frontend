@@ -12,7 +12,7 @@ const DetailRecipe = (): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchRecipeState());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box>

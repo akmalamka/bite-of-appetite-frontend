@@ -10,7 +10,6 @@ const initialState = {
   chosenRecipe: [],
   recipeList: [],
   recipeListStatus: 'idle',
-  chosenRecipeStatus: 'idle',
   recipeTitle: '',
 };
 
@@ -20,7 +19,6 @@ const recipeReducer = (state = initialState, action: any) => {
       return {
         ...state,
         chosenRecipe: action.payload,
-        chosenRecipeStatus: 'completed',
         recipeTitle: action.payload.title,
       };
     case RESET_CHOSEN_RECIPE:

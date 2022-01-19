@@ -19,14 +19,7 @@ const RecipeDescription = (): JSX.Element => {
       ? setExpandedIngredients(isExpanded ? panel : false)
       : setExpandedDirections(isExpanded ? panel : false);
   };
-  //ini yang kemaren diubah
-  const [chosenRecipe, setChosenRecipe] = useState<any>([]);
-  useEffect(() => {
-    setChosenRecipe(useSelector((state: any) => state.recipe.chosenRecipe));
-    console.log('aaa');
-  }, []);
-
-  console.log('chosenRecipe ', chosenRecipe);
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
 
   const isIngredientsWithComponentLogic = () => {
     return (

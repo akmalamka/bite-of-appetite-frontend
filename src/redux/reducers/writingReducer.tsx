@@ -9,7 +9,6 @@ const initialState = {
   chosenWriting: [],
   writingList: [],
   writingListStatus: 'idle',
-  chosenWritingStatus: 'idle',
 };
 
 const writingReducer = (state = initialState, action: any) => {
@@ -18,7 +17,6 @@ const writingReducer = (state = initialState, action: any) => {
       return {
         ...state,
         chosenWriting: action.payload,
-        chosenWritingStatus: 'completed',
       };
     case RESET_CHOSEN_WRITING:
       return {

@@ -12,7 +12,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
 import Container from 'components/Container';
-import { setChosenRecipe } from 'redux/actions/recipeActions';
+import { setChosenRecipe, fetchRecipeList } from 'redux/actions/recipeActions';
 import api from 'utils/api';
 
 const responsive = {
@@ -44,8 +44,13 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const recipes = useSelector((state: any) => state.recipe.recipeList);
+  const recipeListStatus = useSelector(
+    (state: any) => state.recipe.recipeListStatus,
+  );
+  const [loading, setLoading] = useState(
+    recipeListStatus === 'idle' ? true : false,
+  );
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -54,18 +59,21 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   });
 
   useEffect(() => {
-    api
-      .get('/recipes')
-      .then((res) => {
-        if (res.data.code == 200) {
-          setRecipes(res.data.data);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (recipeListStatus === 'idle') {
+      api
+        .get('/recipes')
+        .then((res) => {
+          if (res.data.code == 200) {
+            dispatch(fetchRecipeList(res.data.data));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch, recipes, recipeListStatus]);
 
   const onClickRecipe = (id) => {
     api
