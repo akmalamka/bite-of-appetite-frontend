@@ -1,6 +1,7 @@
 export const PER_PAGE = 5;
 
-export const baseUrl = 'https://api-biteofappetite.com'; //ntar jadi http://api.biteofappetite.com
+// export const baseUrl = 'http://localhost:8080';
+export const baseUrl = 'https://api-biteofappetite.com';
 export const filterMenu = [
   {
     type: 'Cuisine',
