@@ -68,6 +68,7 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     description: '',
     title: '',
     writingsBy: '',
+    photographBy: '',
     story: '',
     date: '',
   };
@@ -77,6 +78,7 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     description: chosenWriting ? chosenWriting.description : '',
     title: chosenWriting ? chosenWriting.title : '',
     writingsBy: chosenWriting ? chosenWriting.writingsBy : '',
+    photographBy: chosenWriting ? chosenWriting.photographBy : '',
     story: chosenWriting ? chosenWriting.story : '',
     date: chosenWriting ? chosenWriting.date : '',
   };
@@ -300,6 +302,34 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
               onChange={formik.handleChange}
               error={formik.touched.date && Boolean(formik.errors.date)}
               helperText={formik.touched.date && formik.errors.date}
+              sx={{
+                input: {
+                  fontFamily: 'Inter',
+                },
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{ marginBottom: 2 }}
+              fontWeight={700}
+            >
+              Photograph By (tambahin from ... kalau download)
+            </Typography>
+            <TextField
+              variant="outlined"
+              name={'photographBy'}
+              fullWidth
+              value={formik.values.photographBy}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.photographBy &&
+                Boolean(formik.errors.photographBy)
+              }
+              helperText={
+                formik.touched.photographBy && formik.errors.photographBy
+              }
               sx={{
                 input: {
                   fontFamily: 'Inter',

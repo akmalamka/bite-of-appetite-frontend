@@ -42,6 +42,20 @@ const ContentCard = ({
     }).then((result) => {
       if (result.isConfirmed) {
         api
+          .delete(`/${isRecipe ? 'recipes' : 'writings'}/${id}/image`)
+          .then((res) => {
+            if (res.data.code == 200) {
+              Swal.fire(
+                'Deleted!',
+                'Your image file has been deleted.',
+                'success',
+              );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        api
           .delete(`/${isRecipe ? 'recipes' : 'writings'}/${id}`)
           .then((res) => {
             if (res.data.code == 200) {

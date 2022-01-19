@@ -10,7 +10,7 @@ import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
-import { setChosenRecipe } from 'redux/actions/recipeActions';
+import { setChosenRecipe, fetchRecipeList } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 import Container from 'components/Container';
 import api from 'utils/api';
@@ -19,21 +19,31 @@ import { ReactComponent as SearchFilterAsset } from 'utils/search-filter-asset.s
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const recipes = useSelector((state: any) => state.recipe.recipeList);
+  const recipeListStatus = useSelector(
+    (state: any) => state.recipe.recipeListStatus,
+  );
+  const [loading, setLoading] = useState(
+    recipeListStatus === 'idle' ? true : false,
+  );
+
   useEffect(() => {
-    api
-      .get('/recipes')
-      .then((res) => {
-        if (res.data.code == 200) {
-          setRecipes(res.data.data);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (recipeListStatus === 'idle') {
+      api
+        .get('/recipes')
+        .then((res) => {
+          if (res.data.code == 200) {
+            dispatch(fetchRecipeList(res.data.data));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [dispatch, recipes, recipeListStatus]);
+
   const keyword = useSelector((state: any) => state.searchFilter.keyword);
 
   const chipData = useSelector((state: any) => state.searchFilter.chipData);
@@ -121,14 +131,26 @@ const RecipeList = (): JSX.Element => {
     }
   }, [keyword, chipData]);
 
-  const count = Math.ceil(result.length / PER_PAGE);
-  const _DATA = usePagination(result, PER_PAGE);
+  const count = Math.ceil(result ? result.length / PER_PAGE : 0);
+  const _DATA = usePagination(result ? result : [], PER_PAGE);
 
   const handleChangePage = (e, p) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setPage(p);
     _DATA.jump(p);
   };
+
+  function resultLogic(equalZero: boolean) {
+    if (result) {
+      if (equalZero) {
+        return result.length == 0;
+      } else {
+        return result.length > 0;
+      }
+    } else {
+      return false;
+    }
+  }
 
   return (
     <Box>
@@ -149,7 +171,7 @@ const RecipeList = (): JSX.Element => {
             ))}
         </Grid>
       )}
-      {!loading && result.length > 0 ? (
+      {!loading && resultLogic(false) ? (
         <Grid container spacing={4}>
           {(loading ? Array.from(new Array(PER_PAGE)) : result)
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
@@ -197,7 +219,7 @@ const RecipeList = (): JSX.Element => {
         </Grid>
       ) : (
         <Container>
-          {!loading && (
+          {!loading && resultLogic(true) && (
             <Box
               display={'flex'}
               flexDirection={'column'}
@@ -241,7 +263,7 @@ const RecipeList = (): JSX.Element => {
         </Container>
       )}
 
-      {!loading && result.length > 0 && (
+      {!loading && resultLogic(false) && (
         <Pagination
           color={'primary'}
           count={count}
