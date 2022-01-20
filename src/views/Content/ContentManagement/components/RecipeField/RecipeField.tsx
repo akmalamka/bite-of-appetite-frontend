@@ -79,9 +79,9 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchRecipeState());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchRecipeState());
+  // }, []);
 
   const history = useHistory();
   const [chipData, setChipData] = useState([]);

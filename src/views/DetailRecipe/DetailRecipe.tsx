@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
@@ -10,9 +10,13 @@ import { RecipeCarousel, ImageWithDescription } from 'blocks';
 const DetailRecipe = (): JSX.Element => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchRecipeState());
-  }, [dispatch]);
+  dispatch(fetchRecipeState());
+  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  // useEffect(() => {
+  //   dispatch(fetchRecipeState());
+  //   console.log('abcde ', chosenRecipe);
+  //   window.location.reload();
+  // }, []);
 
   return (
     <Box>

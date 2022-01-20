@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = sessionStorage.getItem('state');
     if (serializedState === null) {
       return {};
     }
@@ -17,7 +17,7 @@ const loadState = () => {
 const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    sessionStorage.setItem('state', serializedState);
   } catch (e) {
     // Ignore write errors;
   }
@@ -32,8 +32,8 @@ const store = createStore(
   persistedState,
   compose(
     applyMiddleware(...middleware),
-    // (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    //   (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
   ),
 );
 

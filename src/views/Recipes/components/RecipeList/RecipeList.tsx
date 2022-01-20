@@ -19,6 +19,7 @@ import { ReactComponent as SearchFilterAsset } from 'utils/search-filter-asset.s
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
+
   const recipes = useSelector((state: any) => state.recipe.recipeList);
   const recipeListStatus = useSelector(
     (state: any) => state.recipe.recipeListStatus,
@@ -103,12 +104,14 @@ const RecipeList = (): JSX.Element => {
       }
     }
   }
-  const onClickRecipe = (index) => {
+  const onClickRecipe = (id) => {
+    console.log('xyzzz ', id);
     api
-      .get(`/recipes/${recipes[index].id}`)
+      .get(`/recipes/${id}`)
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
+          sessionStorage.removeItem('state');
           dispatch(setChosenRecipe(chosen));
         }
       })
@@ -188,6 +191,11 @@ const RecipeList = (): JSX.Element => {
                 ) : (
                   <DataCard
                     index={i}
+                    id={
+                      keyword === '' && chipData.length == 0
+                        ? item.id
+                        : item.item.id
+                    }
                     title={
                       keyword === '' && chipData.length == 0
                         ? item.title

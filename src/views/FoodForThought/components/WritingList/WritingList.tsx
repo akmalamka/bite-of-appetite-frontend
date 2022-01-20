@@ -57,12 +57,13 @@ const WritingList = (): JSX.Element => {
     _DATA.jump(p);
   };
 
-  const onClickWriting = (index) => {
+  const onClickWriting = (id) => {
     api
-      .get(`/writings/${writings[index].id}`)
+      .get(`/writings/${id}`)
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
+          sessionStorage.removeItem('state');
           dispatch(setChosenWriting(chosen));
         }
       })
@@ -81,6 +82,7 @@ const WritingList = (): JSX.Element => {
               {item ? (
                 <DataCard
                   index={i}
+                  id={item.id}
                   title={item.title}
                   src={item.image}
                   description={item.description}

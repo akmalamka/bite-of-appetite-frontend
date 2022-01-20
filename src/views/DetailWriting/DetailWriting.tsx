@@ -11,7 +11,7 @@ const DetailWriting = (): JSX.Element => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchWritingState());
-  }, [dispatch]);
+  }, []);
   return (
     <Box>
       <Main colorInvert={true}>

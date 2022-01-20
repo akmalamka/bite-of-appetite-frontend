@@ -5,8 +5,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { fetchRecipeList } from 'redux/actions/recipeActions';
-import api from 'utils/api';
 import { ReactComponent as Logo } from 'utils/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/logo-white.svg';
 
@@ -36,7 +34,6 @@ const Topbar = ({
   isParentPage,
 }: Props): JSX.Element => {
   const theme = useTheme();
-  const dispatch = useDispatch();
   const {
     home: homePages,
     recipes: recipePages,

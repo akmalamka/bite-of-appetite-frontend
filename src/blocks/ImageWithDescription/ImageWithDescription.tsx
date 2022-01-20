@@ -26,6 +26,7 @@ const ImageWithDescription = ({
   function bgColorLogic() {
     return isContent ? 'secondary.main' : 'primary.main';
   }
+  console.log('chosenrecipeimage ', chosenRecipe);
   return (
     <Box
       sx={{

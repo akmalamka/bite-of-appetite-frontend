@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -8,11 +8,13 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+
 import './accordion.css';
 
 const RecipeDescription = (): JSX.Element => {
   const [expandedIngredients, setExpandedIngredients] = useState<any>(false);
   const [expandedDirections, setExpandedDirections] = useState<any>(false);
+  // const dispatch = useDispatch();
 
   const handleChange = (panel, type) => (event, isExpanded) => {
     type === 'ingredients'
@@ -20,6 +22,7 @@ const RecipeDescription = (): JSX.Element => {
       : setExpandedDirections(isExpanded ? panel : false);
   };
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  console.log('chosenRecipe ', chosenRecipe);
 
   const isIngredientsWithComponentLogic = () => {
     return (
@@ -27,6 +30,9 @@ const RecipeDescription = (): JSX.Element => {
       chosenRecipe.isIngredientsWithComponent === 'True'
     );
   };
+  // useEffect(() => {
+  //   dispatch(fetchRecipeState());
+  // }, [dispatch]);
 
   return (
     <Grid container rowSpacing={2} columnSpacing={4} sx={{ paddingX: 2 }}>

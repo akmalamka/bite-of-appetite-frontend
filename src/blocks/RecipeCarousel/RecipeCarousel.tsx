@@ -77,10 +77,11 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
 
   const onClickRecipe = (id) => {
     api
-      .get(`/recipes/${id}}`)
+      .get(`/recipes/${id}`)
       .then((res) => {
         if (res.data.code == 200) {
           const chosen = res.data.data;
+          sessionStorage.removeItem('state');
           dispatch(setChosenRecipe(chosen));
         }
       })
