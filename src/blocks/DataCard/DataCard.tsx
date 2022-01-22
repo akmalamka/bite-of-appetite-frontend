@@ -23,7 +23,7 @@ interface Props {
   isRecipe: boolean;
   page: number;
   onClickRecipe?: (index: number) => void;
-  onClickWriting?: (index: number) => void;
+  onClickWriting?: (title: string) => void;
   isContentManagement?: boolean;
   loading?: boolean;
 }
@@ -104,7 +104,7 @@ const DataCard = ({
                 maxWidth: 705,
               }}
               onClick={() => {
-                isRecipe ? onClickRecipe(id) : onClickWriting(id);
+                isRecipe ? onClickRecipe(id) : onClickWriting(title);
               }}
               disabled={isContentManagement}
             >
@@ -224,7 +224,7 @@ const DataCard = ({
                 <ButtonComponent
                   text={isRecipe ? 'See Recipe' : 'Read More'}
                   onClick={() => {
-                    isRecipe ? onClickRecipe(id) : onClickWriting(id);
+                    isRecipe ? onClickRecipe(id) : onClickWriting(title);
                   }}
                 />
               </Link>

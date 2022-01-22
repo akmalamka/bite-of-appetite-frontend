@@ -3,7 +3,7 @@ import api from 'utils/api';
 
 export const fetchRecipeList = createAsyncThunk(
   'recipes/fetchRecipeList',
-  async (thunkAPI) => {
+  async () => {
     const response = await api.get('/recipes');
     return response.data;
   },
@@ -11,8 +11,16 @@ export const fetchRecipeList = createAsyncThunk(
 
 export const fetchRecipeById = createAsyncThunk(
   'recipes/fetchRecipeById',
-  async (recipeId, thunkAPI) => {
+  async (recipeId) => {
     const response = await api.get(`/recipes/${recipeId}`);
+    return response.data;
+  },
+);
+
+export const fetchRecipeByName = createAsyncThunk(
+  'recipes/fetchRecipeByName',
+  async (recipeName: string) => {
+    const response = await api.get(`/recipes/${recipeName}`);
     return response.data;
   },
 );
@@ -21,61 +29,49 @@ export const recipeSlice = createSlice({
   name: 'recipes',
   initialState: {
     chosenRecipe: [],
+    chosenRecipeId: 0,
     recipeList: [],
-    recipeTitle: '',
+    recipeListLoading: 'idle',
+    chosenRecipeLoading: 'idle',
+    chosenRecipeTitle: '',
   },
 
   reducers: {
     setRecipeTitle: (state, action) => {
-      state.recipeTitle = action.payload;
-      console.log(current(state));
+      state.chosenRecipeTitle = action.payload;
     },
-    // setChosenRecipe: (state, action) => {
-    //   //   const increment = action.payload || 1;
-    //   //   state.count += increment;
-    //   state.chosenRecipe = action.payload;
-    //   state.recipeTitle = action.payload.title;
-    //   // return {
-    //   //   ...state,
-    //   //   chosenRecipe: action.payload,
-    //   //   recipeTitle: action.payload.title,
-    //   // };
-    // },
     resetChosenRecipe: (state) => {
-      //   const decrement = action.payload || 1;
-      //   state.count -= decrement;
       state.chosenRecipe = undefined;
-      state.recipeTitle = undefined;
+      state.chosenRecipeTitle = undefined;
     },
-    // setRecipeList: (state, action) => {
-    //   //   const decrement = action.payload || 1;
-    //   //   state.count -= decrement;
-    //   state.recipeList = action.payload;
-    //   // return {
-    //   //   ...state,
-    //   //   recipeList: action.payload,
-    //   // };
-    // },
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchRecipeList.pending, (state) => {
+      if (state.recipeListLoading === 'idle') {
+        state.recipeListLoading = 'pending';
+      }
+    });
+    builder.addCase(fetchRecipeByName.pending, (state) => {
+      if (state.chosenRecipeLoading === 'idle') {
+        state.chosenRecipeLoading = 'pending';
+      }
+    });
     builder.addCase(fetchRecipeList.fulfilled, (state, action) => {
-      // Add user to the state array
       state.recipeList = action.payload.data;
-      console.log('abccc');
-      console.log(current(state));
+      state.recipeListLoading = 'fulfilled';
     });
     builder.addCase(fetchRecipeById.fulfilled, (state, action) => {
-      // Add user to the state array
       state.chosenRecipe = action.payload.data;
+    });
+    builder.addCase(fetchRecipeByName.fulfilled, (state, action) => {
+      if (action.payload.data.id !== state.chosenRecipeLoading) {
+        state.chosenRecipeLoading = action.payload.data.id;
+        state.chosenRecipe = action.payload.data;
+        state.chosenRecipeLoading = 'fulfilled';
+      }
     });
   },
 });
 
-export const {
-  setRecipeTitle,
-  // setChosenRecipe,
-  resetChosenRecipe,
-  // setRecipeList,
-} = recipeSlice.actions;
+export const { setRecipeTitle, resetChosenRecipe } = recipeSlice.actions;
 export default recipeSlice.reducer;

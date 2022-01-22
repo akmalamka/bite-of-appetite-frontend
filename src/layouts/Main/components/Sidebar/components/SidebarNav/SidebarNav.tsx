@@ -60,6 +60,7 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           />
         </Box>
       </Box>
+
       <Box
         paddingX={2}
         paddingY={2}
@@ -74,6 +75,7 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           <Box
             key={index}
             sx={{
+              zIndex: 2,
               '&:hover': {
                 opacity: [0.9, 0.8, 0.7],
               },

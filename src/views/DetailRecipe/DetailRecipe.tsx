@@ -12,11 +12,6 @@ const DetailRecipe = (): JSX.Element => {
   const dispatch = useDispatch();
   dispatch(fetchRecipeState());
   const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
-  // useEffect(() => {
-  //   dispatch(fetchRecipeState());
-  //   console.log('abcde ', chosenRecipe);
-  //   window.location.reload();
-  // }, []);
 
   return (
     <Box>

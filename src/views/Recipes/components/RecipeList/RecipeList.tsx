@@ -105,7 +105,6 @@ const RecipeList = (): JSX.Element => {
     }
   }
   const onClickRecipe = (id) => {
-    console.log('xyzzz ', id);
     api
       .get(`/recipes/${id}`)
       .then((res) => {

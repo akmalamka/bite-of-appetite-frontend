@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,40 +9,23 @@ import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
 import { DataCard } from 'blocks';
-import {
-  fetchWritingList,
-  setChosenWriting,
-} from 'redux/actions/writingActions';
 import { PER_PAGE } from 'utils/constants';
-import api from 'utils/api';
+import {
+  selectAllWritings,
+  selectWritingListLoading,
+  fetchWritingList,
+} from 'redux-toolkit/slices/writingSlice';
 
 const WritingList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const writings = useSelector((state: any) => state.writing.writingList);
-  const writingListStatus = useSelector(
-    (state: any) => state.writing.writingListStatus,
-  );
-  const [loading, setLoading] = useState(
-    writingListStatus === 'idle' ? true : false,
-  );
-
+  const history = useHistory();
   useEffect(() => {
-    if (writingListStatus === 'idle') {
-      api
-        .get('/writings')
-        .then((res) => {
-          if (res.data.code == 200) {
-            dispatch(fetchWritingList(res.data.data));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [dispatch, writings, writingListStatus]);
+    dispatch(fetchWritingList());
+  }, []);
+
+  const writings = useSelector(selectAllWritings);
+  const writingListLoading = useSelector(selectWritingListLoading);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -57,25 +41,17 @@ const WritingList = (): JSX.Element => {
     _DATA.jump(p);
   };
 
-  const onClickWriting = (id) => {
-    api
-      .get(`/writings/${id}`)
-      .then((res) => {
-        if (res.data.code == 200) {
-          const chosen = res.data.data;
-          sessionStorage.removeItem('state');
-          dispatch(setChosenWriting(chosen));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const onClickWriting = (writingName) => {
+    history.push(`${writingName.toLowerCase().replaceAll(' ', '-')}`);
   };
 
   return (
     <Box>
       <Grid container spacing={4}>
-        {(loading ? Array.from(new Array(PER_PAGE)) : writings)
+        {(writingListLoading === 'pending'
+          ? Array.from(new Array(PER_PAGE))
+          : writings
+        )
           .slice(PER_PAGE * (page - 1), PER_PAGE * page)
           .map((item, i) => (
             <Grid key={i} item xs={12}>
@@ -95,14 +71,14 @@ const WritingList = (): JSX.Element => {
                   index={i}
                   isRecipe={true}
                   page={page}
-                  onClickRecipe={onClickWriting}
+                  onClickWriting={onClickWriting}
                   loading
                 />
               )}
             </Grid>
           ))}
       </Grid>
-      {!loading && (
+      {writingListLoading === 'fulfilled' && (
         <Pagination
           color={'primary'}
           count={count}

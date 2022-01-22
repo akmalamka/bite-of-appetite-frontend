@@ -1,19 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ImageWithDescription, RecipeCarousel } from 'blocks';
-import {
-  setRecipeTitle,
-  fetchRecipeList,
-} from 'redux-toolkit/slices/recipeSlice';
 
 const Home = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const set = () => dispatch(fetchRecipeList());
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       <Main
@@ -43,7 +35,6 @@ const Home = (): JSX.Element => {
           <Typography color={'text.secondary'} variant={'h5'} align={'center'}>
             Nhat Hanh
           </Typography>
-          <Button onClick={set}>aaaa</Button>
         </Box>
       </Main>
     </Box>
