@@ -23,10 +23,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './placeholder.css';
 import { ButtonComponent } from 'blocks';
 import {
+  setChipList,
+  resetChipList,
   setKeyword,
-  setChipdata,
-  resetChipdata,
-} from 'redux/actions/searchFilterActions';
+} from 'redux-toolkit/slices/searchFilterSlice';
 
 interface Filter {
   type: string;
@@ -108,7 +108,7 @@ const SearchFilterBar = ({
 
   const onClickDone = () => {
     if (!isContent) {
-      dispatch(setChipdata(chipData));
+      dispatch(setChipList(chipData));
     }
     onChangeFilterExpanded(false);
   };
@@ -120,7 +120,7 @@ const SearchFilterBar = ({
   const onClickClearAll = () => {
     onClearAll();
     if (!isContent) {
-      dispatch(resetChipdata());
+      dispatch(resetChipList());
     }
   };
 
@@ -280,7 +280,7 @@ const SearchFilterBar = ({
           <AccordionDetails
             sx={{
               position: { xs: 'static', sm: 'absolute' },
-              zIndex: 1,
+              zIndex: 3,
               backgroundColor: 'background.paper',
               border: { xs: 'none', sm: '2px solid' },
               borderRadius: 2,

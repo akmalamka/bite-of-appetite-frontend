@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -10,44 +11,32 @@ import Pagination from '@mui/material/Pagination';
 import usePagination from 'utils/usePagination';
 import { DataCard } from 'blocks';
 import Fuse from 'fuse.js';
-import { setChosenRecipe, fetchRecipeList } from 'redux/actions/recipeActions';
 import { PER_PAGE } from 'utils/constants';
 import Container from 'components/Container';
-import api from 'utils/api';
 import { ReactComponent as SearchFilterAsset } from 'utils/search-filter-asset.svg';
+import {
+  fetchRecipeList,
+  selectAllRecipes,
+  selectRecipeListLoading,
+} from 'redux-toolkit/slices/recipeSlice';
+import {
+  selectChipData,
+  selectKeyword,
+} from 'redux-toolkit/slices/searchFilterSlice';
 
 const RecipeList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-
-  const recipes = useSelector((state: any) => state.recipe.recipeList);
-  const recipeListStatus = useSelector(
-    (state: any) => state.recipe.recipeListStatus,
-  );
-  const [loading, setLoading] = useState(
-    recipeListStatus === 'idle' ? true : false,
-  );
+  const history = useHistory();
+  const recipes = useSelector(selectAllRecipes);
+  const recipeListLoading = useSelector(selectRecipeListLoading);
+  const keyword = useSelector(selectKeyword);
+  const chipData = useSelector(selectChipData);
 
   useEffect(() => {
-    if (recipeListStatus === 'idle') {
-      api
-        .get('/recipes')
-        .then((res) => {
-          if (res.data.code == 200) {
-            dispatch(fetchRecipeList(res.data.data));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [dispatch, recipes, recipeListStatus]);
+    dispatch(fetchRecipeList());
+  }, []);
 
-  const keyword = useSelector((state: any) => state.searchFilter.keyword);
-
-  const chipData = useSelector((state: any) => state.searchFilter.chipData);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -104,19 +93,8 @@ const RecipeList = (): JSX.Element => {
       }
     }
   }
-  const onClickRecipe = (id) => {
-    api
-      .get(`/recipes/${id}`)
-      .then((res) => {
-        if (res.data.code == 200) {
-          const chosen = res.data.data;
-          sessionStorage.removeItem('state');
-          dispatch(setChosenRecipe(chosen));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const onClickRecipe = (recipeName) => {
+    history.push(`${recipeName.toLowerCase().replaceAll(' ', '-')}`);
   };
 
   result = finalResult();
@@ -156,7 +134,7 @@ const RecipeList = (): JSX.Element => {
 
   return (
     <Box>
-      {loading && (
+      {recipeListLoading === 'pending' && (
         <Grid container spacing={4}>
           {Array.from(new Array(PER_PAGE))
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
@@ -165,7 +143,6 @@ const RecipeList = (): JSX.Element => {
                 <DataCard
                   index={i}
                   isRecipe={true}
-                  page={page}
                   onClickRecipe={onClickRecipe}
                   loading
                 />
@@ -173,28 +150,25 @@ const RecipeList = (): JSX.Element => {
             ))}
         </Grid>
       )}
-      {!loading && resultLogic(false) ? (
+      {recipeListLoading === 'fulfilled' && resultLogic(false) ? (
         <Grid container spacing={4}>
-          {(loading ? Array.from(new Array(PER_PAGE)) : result)
+          {(recipeListLoading === 'fulfilled'
+            ? result
+            : Array.from(new Array(PER_PAGE))
+          )
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
             .map((item, i) => (
               <Grid key={i} item xs={12}>
-                {loading ? (
+                {recipeListLoading === 'pending' ? (
                   <DataCard
                     index={i}
                     isRecipe={true}
-                    page={page}
                     onClickRecipe={onClickRecipe}
                     loading
                   />
                 ) : (
                   <DataCard
                     index={i}
-                    id={
-                      keyword === '' && chipData.length == 0
-                        ? item.id
-                        : item.item.id
-                    }
                     title={
                       keyword === '' && chipData.length == 0
                         ? item.title
@@ -217,7 +191,6 @@ const RecipeList = (): JSX.Element => {
                         : item.item.description
                     }
                     isRecipe={true}
-                    page={page}
                     onClickRecipe={onClickRecipe}
                   />
                 )}
@@ -226,7 +199,7 @@ const RecipeList = (): JSX.Element => {
         </Grid>
       ) : (
         <Container>
-          {!loading && resultLogic(true) && (
+          {recipeListLoading === 'fulfilled' && resultLogic(true) && (
             <Box
               display={'flex'}
               flexDirection={'column'}
@@ -236,7 +209,7 @@ const RecipeList = (): JSX.Element => {
               {isMd && (
                 <Box
                   left={'55%'}
-                  top={'28%'}
+                  top={chipData.length > 0 ? '37%' : '28%'}
                   position={'absolute'}
                   sx={{
                     zIndex: 1,
@@ -250,7 +223,7 @@ const RecipeList = (): JSX.Element => {
                 variant="h1"
                 component={'h1'}
                 align={'center'}
-                sx={{ fontWeight: 600, zIndex: 3 }}
+                sx={{ fontWeight: 600, zIndex: 2 }}
               >
                 Oops!
               </Typography>
@@ -260,7 +233,7 @@ const RecipeList = (): JSX.Element => {
                 component="p"
                 color="text.primary"
                 align={'center'}
-                sx={{ zIndex: 3 }}
+                sx={{ zIndex: 2 }}
               >
                 Sorry, It looks like there's no such recipe you're looking for
                 :(
@@ -269,8 +242,7 @@ const RecipeList = (): JSX.Element => {
           )}
         </Container>
       )}
-
-      {!loading && resultLogic(false) && (
+      {recipeListLoading === 'fulfilled' && resultLogic(false) && (
         <Pagination
           color={'primary'}
           count={count}

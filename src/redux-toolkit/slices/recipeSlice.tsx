@@ -64,14 +64,27 @@ export const recipeSlice = createSlice({
       state.chosenRecipe = action.payload.data;
     });
     builder.addCase(fetchRecipeByName.fulfilled, (state, action) => {
-      if (action.payload.data.id !== state.chosenRecipeLoading) {
-        state.chosenRecipeLoading = action.payload.data.id;
+      if (action.payload.data.id !== state.chosenRecipeId) {
+        state.chosenRecipeId = action.payload.data.id;
         state.chosenRecipe = action.payload.data;
         state.chosenRecipeLoading = 'fulfilled';
       }
     });
   },
 });
+
+export const selectAllRecipes = (state) => state.recipe.recipeList;
+
+export const selectChosenRecipe = (state) => state.recipe.chosenRecipe;
+
+export const selectChosenRecipeLoading = (state) =>
+  state.recipe.chosenRecipeLoading;
+
+export const selectChosenRecipeTitle = (state) =>
+  state.recipe.chosenRecipeTitle;
+
+export const selectRecipeListLoading = (state) =>
+  state.recipe.recipeListLoading;
 
 export const { setRecipeTitle, resetChosenRecipe } = recipeSlice.actions;
 export default recipeSlice.reducer;

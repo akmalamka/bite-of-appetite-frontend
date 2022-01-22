@@ -58,19 +58,16 @@ const WritingList = (): JSX.Element => {
               {item ? (
                 <DataCard
                   index={i}
-                  id={item.id}
                   title={item.title}
                   src={item.image}
                   description={item.description}
                   isRecipe={false}
-                  page={page}
                   onClickWriting={onClickWriting}
                 />
               ) : (
                 <DataCard
                   index={i}
                   isRecipe={true}
-                  page={page}
                   onClickWriting={onClickWriting}
                   loading
                 />

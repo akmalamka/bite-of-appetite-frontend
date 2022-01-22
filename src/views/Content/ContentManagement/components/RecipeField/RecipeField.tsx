@@ -368,7 +368,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
                   description={'Description'}
                   isRecipe={true}
                   isContentManagement={true}
-                  page={1}
                 />
               )}
             </div>

@@ -12,10 +12,9 @@ import { SearchFilterBar } from 'blocks';
 import { filterMenu } from 'utils/constants';
 import {
   resetKeyword,
-  resetChipdata,
-  setChipdata,
-} from 'redux/actions/searchFilterActions';
-import { fetchRecipeState } from 'redux/actions/recipeActions';
+  resetChipList,
+  setChipList,
+} from 'redux-toolkit/slices/searchFilterSlice';
 
 const Recipes = (): JSX.Element => {
   const theme = useTheme();
@@ -62,7 +61,7 @@ const Recipes = (): JSX.Element => {
 
   const handleDelete = (chipToDelete) => {
     const chipDataTemp = chipData.filter((chip) => chip !== chipToDelete);
-    dispatch(setChipdata(chipDataTemp));
+    dispatch(setChipList(chipDataTemp)); //kalau ada apa2 cek kesini!msoalnya setChipDatanya ada 2
     setChipData(chipDataTemp);
     const index = menuItems1D.findIndex((element) => element === chipToDelete);
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));
@@ -83,8 +82,7 @@ const Recipes = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(resetKeyword());
-    dispatch(resetChipdata());
-    dispatch(fetchRecipeState());
+    dispatch(resetChipList());
   }, []);
 
   return (

@@ -15,14 +15,12 @@ import { ButtonComponent } from 'blocks';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
-  id?: number;
   title?: string;
   src?: string;
   tags?: string[];
   description?: string;
   isRecipe: boolean;
-  page: number;
-  onClickRecipe?: (index: number) => void;
+  onClickRecipe?: (title: string) => void;
   onClickWriting?: (title: string) => void;
   isContentManagement?: boolean;
   loading?: boolean;
@@ -30,13 +28,11 @@ interface Props {
 
 const DataCard = ({
   index,
-  id,
   title,
   src,
   tags,
   description,
   isRecipe,
-  page,
   onClickRecipe,
   onClickWriting,
   isContentManagement = false,
@@ -104,7 +100,7 @@ const DataCard = ({
                 maxWidth: 705,
               }}
               onClick={() => {
-                isRecipe ? onClickRecipe(id) : onClickWriting(title);
+                isRecipe ? onClickRecipe(title) : onClickWriting(title);
               }}
               disabled={isContentManagement}
             >
@@ -224,7 +220,7 @@ const DataCard = ({
                 <ButtonComponent
                   text={isRecipe ? 'See Recipe' : 'Read More'}
                   onClick={() => {
-                    isRecipe ? onClickRecipe(id) : onClickWriting(title);
+                    isRecipe ? onClickRecipe(title) : onClickWriting(title);
                   }}
                 />
               </Link>

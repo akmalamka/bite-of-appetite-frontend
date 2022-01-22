@@ -7,10 +7,6 @@ const Routes = (): JSX.Element => {
       {viewsRoutes.map((item, i) => (
         <Route key={i} exact path={item.path} render={() => item.renderer()} />
       ))}
-      {/* <Route
-        path="food-for-thought/:writingTitle"
-        render={() => <DetailWritingView />}
-      /> */}
       <Redirect to={'/not-found'} />
     </Switch>
   );
