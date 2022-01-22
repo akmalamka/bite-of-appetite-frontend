@@ -25,6 +25,21 @@ export const fetchRecipeByName = createAsyncThunk(
   },
 );
 
+export const deleteRecipeById = createAsyncThunk(
+  'recipes/deleteRecipeById',
+  async (recipeId) => {
+    const response = await api.delete(`/recipes/${recipeId}`);
+    return response.data;
+  },
+);
+export const deleteRecipeByIdImage = createAsyncThunk(
+  'recipes/deleteRecipeByIdImage',
+  async (recipeId) => {
+    const response = await api.delete(`/recipes/${recipeId}/image`);
+    return response.data;
+  },
+);
+
 export const recipeSlice = createSlice({
   name: 'recipes',
   initialState: {
@@ -41,8 +56,8 @@ export const recipeSlice = createSlice({
       state.chosenRecipeTitle = action.payload;
     },
     resetChosenRecipe: (state) => {
-      state.chosenRecipe = undefined;
-      state.chosenRecipeTitle = undefined;
+      state.chosenRecipe = [];
+      state.chosenRecipeTitle = '';
     },
   },
   extraReducers: (builder) => {

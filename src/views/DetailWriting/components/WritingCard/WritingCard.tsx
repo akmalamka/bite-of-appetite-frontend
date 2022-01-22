@@ -31,7 +31,7 @@ const WritingCard = (): JSX.Element => {
           }}
           gutterBottom
         >
-          {chosenWriting.title}
+          {chosenWritingLoading === 'fulfilled' ? chosenWriting.title : ''}
         </Typography>
         {(chosenWritingLoading === 'fulfilled' ? chosenWriting.story : '')
           .split('\n')

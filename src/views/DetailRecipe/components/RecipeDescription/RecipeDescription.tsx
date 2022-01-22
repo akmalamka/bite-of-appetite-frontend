@@ -39,14 +39,20 @@ const RecipeDescription = (): JSX.Element => {
         <Divider sx={{ marginY: { xs: 2, md: 4 } }} />
       </Grid>
       <Grid item xs={12}>
-        <Typography
-          fontFamily={'Inter'}
-          variant={'body1'}
-          align={'center'}
-          sx={{ p: 4 }}
-        >
-          {chosenRecipeLoading === 'fulfilled' ? chosenRecipe.story : ''}
-        </Typography>
+        {(chosenRecipeLoading === 'fulfilled' ? chosenRecipe.story : '')
+          .split('\n')
+          .filter((item) => item.length > 0)
+          .map((item, i) => (
+            <Typography
+              key={i}
+              fontFamily={'Inter'}
+              variant={'body1'}
+              align={'center'}
+              sx={{ p: 4 }}
+            >
+              {item}
+            </Typography>
+          ))}
       </Grid>
       <Grid item xs={12}>
         <Divider sx={{ marginY: { xs: 2, md: 4 } }} />

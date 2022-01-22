@@ -13,7 +13,7 @@ import api from 'utils/api';
 interface Props {
   title: string;
   image: string;
-  onClickEditContent: (id: number) => void;
+  onClickEditContent: (title: string) => void;
   id: number;
   handleRefreshPage: (refreshPage: boolean) => void;
   isRecipe: boolean;
@@ -71,7 +71,7 @@ const ContentCard = ({
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
-        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+        Swal.fire('Cancelled', 'Your file is safe :)', 'error');
       }
     });
   };
@@ -157,7 +157,7 @@ const ContentCard = ({
                 },
               }}
               startIcon={<EditIcon />}
-              onClick={() => onClickEditContent(id)}
+              onClick={() => onClickEditContent(title)}
             >
               <Typography
                 fontFamily={'Inter'}

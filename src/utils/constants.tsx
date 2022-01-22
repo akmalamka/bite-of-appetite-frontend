@@ -2,6 +2,11 @@ export const PER_PAGE = 5;
 
 // export const baseUrl = 'http://localhost:8080';
 export const baseUrl = 'https://api-biteofappetite.com';
+
+export function validURL(str: string) {
+  const url = str.slice(0, 30);
+  return url === baseUrl;
+}
 export const filterMenu = [
   {
     type: 'Cuisine',

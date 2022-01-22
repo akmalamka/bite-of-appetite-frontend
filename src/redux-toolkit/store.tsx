@@ -10,7 +10,7 @@ const store = configureStore({
     writing: writingSlice.reducer,
     searchFilter: searchFilterSlice.reducer,
   },
-  devTools: true,
+  devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
 });
 

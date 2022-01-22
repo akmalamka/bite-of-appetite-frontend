@@ -38,11 +38,8 @@ export const writingSlice = createSlice({
 
   reducers: {
     resetChosenWriting: (state) => {
-      return {
-        ...state,
-        chosenWriting: undefined,
-        chosenWritingTitle: undefined,
-      };
+      state.chosenWriting = [];
+      state.chosenWritingTitle = '';
     },
   },
   extraReducers: (builder) => {
