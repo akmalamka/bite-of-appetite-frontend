@@ -54,7 +54,9 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const chosenRecipeTitle = useSelector(selectChosenRecipeTitle);
 
   useEffect(() => {
-    dispatch(fetchRecipeList());
+    if (recipeListLoading === 'idle') {
+      dispatch(fetchRecipeList());
+    }
   }, []);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -69,13 +71,13 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
 
   function carouselLogic(command: string) {
     if (command === 'recipes') {
-      return recipeListLoading === 'pending'
-        ? Array.from(new Array(3))
-        : recipes;
+      return recipeListLoading === 'fulfilled'
+        ? recipes
+        : Array.from(new Array(3));
     } else {
-      return recipeListLoading === 'pending'
-        ? Array.from(new Array(3))
-        : recipeFilter;
+      return recipeListLoading === 'fulfilled'
+        ? recipeFilter
+        : Array.from(new Array(3));
     }
   }
 

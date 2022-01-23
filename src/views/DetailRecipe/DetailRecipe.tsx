@@ -17,7 +17,11 @@ const DetailRecipe = (): JSX.Element => {
   const { recipeTitle } = useParams<{ recipeTitle: string }>();
   const recentChosenRecipeTitle = useSelector(selectChosenRecipeTitle);
   useEffect(() => {
-    dispatch(fetchRecipeByName(recipeTitle));
+    if (
+      recentChosenRecipeTitle.toLowerCase() !== recipeTitle.replaceAll('-', ' ')
+    ) {
+      dispatch(fetchRecipeByName(recipeTitle));
+    }
   }, []);
 
   return (
