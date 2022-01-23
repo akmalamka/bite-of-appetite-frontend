@@ -59,7 +59,7 @@ export const recipeSlice = createSlice({
     });
     builder.addCase(fetchRecipeList.fulfilled, (state, action) => {
       state.recipeList = action.payload.data;
-      state.recipeListLoading = 'fulfilled';
+      state.recipeListLoading = 'idle';
     });
     builder.addCase(fetchRecipeById.fulfilled, (state, action) => {
       state.chosenRecipe = action.payload.data;

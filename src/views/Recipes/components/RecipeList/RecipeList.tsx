@@ -34,9 +34,7 @@ const RecipeList = (): JSX.Element => {
   const chipData = useSelector(selectChipData);
 
   useEffect(() => {
-    if (recipeListLoading === 'idle') {
-      dispatch(fetchRecipeList());
-    }
+    dispatch(fetchRecipeList());
   }, []);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -152,12 +150,9 @@ const RecipeList = (): JSX.Element => {
             ))}
         </Grid>
       )}
-      {recipeListLoading === 'fulfilled' && resultLogic(false) ? (
+      {recipes.length > 0 && resultLogic(false) ? (
         <Grid container spacing={4}>
-          {(recipeListLoading === 'fulfilled'
-            ? result
-            : Array.from(new Array(PER_PAGE))
-          )
+          {(recipes.length > 0 ? result : Array.from(new Array(PER_PAGE)))
             .slice(PER_PAGE * (page - 1), PER_PAGE * page)
             .map((item, i) => (
               <Grid key={i} item xs={12}>
@@ -201,7 +196,7 @@ const RecipeList = (): JSX.Element => {
         </Grid>
       ) : (
         <Container>
-          {recipeListLoading === 'fulfilled' && resultLogic(true) && (
+          {recipes.length > 0 && resultLogic(true) && (
             <Box
               display={'flex'}
               flexDirection={'column'}
@@ -244,7 +239,7 @@ const RecipeList = (): JSX.Element => {
           )}
         </Container>
       )}
-      {recipeListLoading === 'fulfilled' && resultLogic(false) && (
+      {recipes.length > 0 && resultLogic(false) && (
         <Pagination
           color={'primary'}
           count={count}

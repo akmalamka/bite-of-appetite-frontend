@@ -257,7 +257,7 @@ const Description = ({
       {!isContent && (
         <Box
           height={1 / 2}
-          width={{ xs: 2 / 3, md: imagePosition === 'left' ? 1 / 2 : 2 / 3 }}
+          width={{ xs: 2 / 3, md: imagePosition === 'left' ? '60%' : 2 / 3 }}
           display={'flex'}
           justifyContent={imagePosition === 'left' ? 'flex-end' : 'flex-start'}
           flexDirection={'column'}
