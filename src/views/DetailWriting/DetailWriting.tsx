@@ -16,7 +16,12 @@ const DetailWriting = (): JSX.Element => {
   const { writingTitle } = useParams<{ writingTitle: string }>();
   const recentChosenWritingTitle = useSelector(selectChosenWritingTitle);
   useEffect(() => {
-    dispatch(fetchWritingByName(writingTitle));
+    if (
+      recentChosenWritingTitle.toLowerCase() !==
+      writingTitle.replaceAll('-', ' ')
+    ) {
+      dispatch(fetchWritingByName(writingTitle));
+    }
   }, []);
 
   return (

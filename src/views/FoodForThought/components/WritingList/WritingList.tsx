@@ -24,7 +24,9 @@ const WritingList = (): JSX.Element => {
   const writingListLoading = useSelector(selectWritingListLoading);
 
   useEffect(() => {
-    dispatch(fetchWritingList());
+    if (writingListLoading === 'idle') {
+      dispatch(fetchWritingList());
+    }
   }, []);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -75,7 +77,7 @@ const WritingList = (): JSX.Element => {
             </Grid>
           ))}
       </Grid>
-      {writings.length > 0 && (
+      {writingListLoading === 'fulfilled' && (
         <Pagination
           color={'primary'}
           count={count}
