@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -25,17 +25,20 @@ const DirectionField = ({ formik, isAddContent }: Props): JSX.Element => {
     ],
   };
 
-  const initialDirectionValueEdit = {
+  const [initialDirectionValueEdit, setinitialDirectionValueEdit] = useState({
     directions: formik.values.directions,
-  };
+  });
+  useEffect(() => {
+    setinitialDirectionValueEdit(formik.values.directions);
+  }, []);
 
+  console.log('directions ', formik.values.directions);
   return (
     <Formik
       initialValues={
         isAddContent ? initialDirectionValueAdd : initialDirectionValueEdit
       }
       onSubmit={async (values) => {
-        // await new Promise((r) => setTimeout(r, 500));
         formik.setFieldValue('directions', values.directions);
         alert(JSON.stringify(values, null, 2));
       }}

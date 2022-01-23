@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 import api from 'utils/api';
 
 export const fetchWritingList = createAsyncThunk(
@@ -20,7 +20,8 @@ export const fetchWritingById = createAsyncThunk(
 export const fetchWritingByName = createAsyncThunk(
   'writings/fetchWritingByName',
   async (writingName: string) => {
-    const response = await api.get(`/writings/${writingName}`);
+    const title = writingName.replaceAll('-', ' ');
+    const response = await api.get(`/writings/${title}`);
     return response.data;
   },
 );
@@ -61,11 +62,11 @@ export const writingSlice = createSlice({
       state.chosenWriting = action.payload.data;
     });
     builder.addCase(fetchWritingByName.fulfilled, (state, action) => {
-      if (action.payload.data.id !== state.chosenWritingId) {
-        state.chosenWritingId = action.payload.data.id;
-        state.chosenWriting = action.payload.data;
-        state.chosenWritingLoading = 'fulfilled';
-      }
+      const { id, title } = action.payload.data;
+      state.chosenWritingId = id;
+      state.chosenWritingTitle = title;
+      state.chosenWriting = action.payload.data;
+      state.chosenWritingLoading = 'idle';
     });
   },
 });
@@ -78,6 +79,8 @@ export const selectChosenWritingLoading = (state) =>
 
 export const selectChosenWritingTitle = (state) =>
   state.writing.chosenWritingTitle;
+
+export const selectChosenWritingId = (state) => state.writing.chosenWritingId;
 
 export const selectWritingListLoading = (state) =>
   state.writing.writingListLoading;

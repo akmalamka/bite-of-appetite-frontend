@@ -20,12 +20,14 @@ const WritingList = (): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    dispatch(fetchWritingList());
-  }, []);
-
   const writings = useSelector(selectAllWritings);
   const writingListLoading = useSelector(selectWritingListLoading);
+
+  useEffect(() => {
+    if (writingListLoading === 'idle') {
+      dispatch(fetchWritingList());
+    }
+  }, []);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,

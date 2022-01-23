@@ -5,12 +5,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {
   selectChosenWriting,
-  selectChosenWritingLoading,
+  selectChosenWritingId,
 } from 'redux-toolkit/slices/writingSlice';
 
 const WritingCard = (): JSX.Element => {
   const chosenWriting = useSelector(selectChosenWriting);
-  const chosenWritingLoading = useSelector(selectChosenWritingLoading);
+  const chosenWritingId = useSelector(selectChosenWritingId);
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box
@@ -31,9 +31,9 @@ const WritingCard = (): JSX.Element => {
           }}
           gutterBottom
         >
-          {chosenWritingLoading === 'fulfilled' ? chosenWriting.title : ''}
+          {chosenWritingId !== 0 ? chosenWriting.title : ''}
         </Typography>
-        {(chosenWritingLoading === 'fulfilled' ? chosenWriting.story : '')
+        {(chosenWritingId !== 0 ? chosenWriting.story : '')
           .split('\n')
           .filter((item) => item.length > 0)
           .map((item, i) => (

@@ -14,7 +14,6 @@ const initialState = {
 };
 
 const recipeReducer = (state = initialState, action: any) => {
-  // Object.assign(state);
   const newState = Object.assign(state);
   switch (action.type) {
     case SET_CHOSEN_RECIPE:

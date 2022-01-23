@@ -10,13 +10,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import {
   selectChosenRecipe,
-  selectChosenRecipeLoading,
+  selectChosenRecipeId,
 } from 'redux-toolkit/slices/recipeSlice';
 import './accordion.css';
 
 const RecipeDescription = (): JSX.Element => {
   const chosenRecipe = useSelector(selectChosenRecipe);
-  const chosenRecipeLoading = useSelector(selectChosenRecipeLoading);
+  const chosenRecipeId = useSelector(selectChosenRecipeId);
   const [expandedIngredients, setExpandedIngredients] = useState<any>(false);
   const [expandedDirections, setExpandedDirections] = useState<any>(false);
 
@@ -39,7 +39,7 @@ const RecipeDescription = (): JSX.Element => {
         <Divider sx={{ marginY: { xs: 2, md: 4 } }} />
       </Grid>
       <Grid item xs={12}>
-        {(chosenRecipeLoading === 'fulfilled' ? chosenRecipe.story : '')
+        {(chosenRecipeId !== 0 ? chosenRecipe.story : '')
           .split('\n')
           .filter((item) => item.length > 0)
           .map((item, i) => (
@@ -72,8 +72,7 @@ const RecipeDescription = (): JSX.Element => {
               variant={'overline'}
               sx={{ fontWeight: 600 }}
             >
-              Serves{' '}
-              {chosenRecipeLoading === 'fulfilled' ? chosenRecipe.serves : 0}
+              Serves {chosenRecipeId !== 0 ? chosenRecipe.serves : 0}
             </Typography>
           </Grid>
         </Grid>
@@ -81,7 +80,7 @@ const RecipeDescription = (): JSX.Element => {
           <Divider sx={{ marginY: 1, border: '1px solid' }} />
         </Grid>
         <Grid item xs={12}>
-          {chosenRecipeLoading === 'fulfilled' && (
+          {chosenRecipeId !== 0 && (
             <Grid container>
               {chosenRecipe.ingredients.map((item, i) =>
                 isIngredientsWithComponentLogic() ? (
@@ -181,7 +180,7 @@ const RecipeDescription = (): JSX.Element => {
           <Divider sx={{ marginY: 1, border: '1px solid' }} />
         </Grid>
         <Grid item xs={12}>
-          {chosenRecipeLoading === 'fulfilled' && (
+          {chosenRecipeId !== 0 && (
             <Grid container>
               {chosenRecipe.directions.map((item, i) => (
                 <Accordion

@@ -34,7 +34,9 @@ const RecipeList = (): JSX.Element => {
   const chipData = useSelector(selectChipData);
 
   useEffect(() => {
-    dispatch(fetchRecipeList());
+    if (recipeListLoading === 'idle') {
+      dispatch(fetchRecipeList());
+    }
   }, []);
 
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {

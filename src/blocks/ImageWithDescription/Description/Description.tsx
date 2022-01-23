@@ -11,6 +11,8 @@ import { ButtonComponent } from 'blocks';
 import { ReactComponent as HomeAsset } from 'utils/home-asset.svg';
 import { ReactComponent as AboutAsset } from 'utils/about-asset.svg';
 import { ReactComponent as DetailWritingAsset } from 'utils/detail-writing-asset.svg';
+import { selectChosenWriting } from 'redux-toolkit/slices/writingSlice';
+import { selectChosenRecipe } from 'redux-toolkit/slices/recipeSlice';
 
 interface Props {
   imagePosition: string;
@@ -31,10 +33,8 @@ const Description = ({
     defaultMatches: true,
   });
 
-  const chosenWriting = useSelector(
-    (state: any) => state.writing.chosenWriting,
-  );
-  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  const chosenWriting = useSelector(selectChosenWriting);
+  const chosenRecipe = useSelector(selectChosenRecipe);
   const data = isRecipe ? chosenRecipe : chosenWriting;
 
   function dividerLogic() {

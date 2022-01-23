@@ -61,7 +61,7 @@ const Recipes = (): JSX.Element => {
 
   const handleDelete = (chipToDelete) => {
     const chipDataTemp = chipData.filter((chip) => chip !== chipToDelete);
-    dispatch(setChipList(chipDataTemp)); //kalau ada apa2 cek kesini!msoalnya setChipDatanya ada 2
+    dispatch(setChipList(chipDataTemp));
     setChipData(chipDataTemp);
     const index = menuItems1D.findIndex((element) => element === chipToDelete);
     setIsChecked(isChecked.map((v, i) => (i === index ? !v : v)));

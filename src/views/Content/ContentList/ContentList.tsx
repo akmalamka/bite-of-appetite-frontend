@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -9,16 +9,11 @@ import AddIcon from '@mui/icons-material/Add';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import { ContentCard } from 'blocks';
-import { setChosenRecipe } from 'redux/actions/recipeActions';
-import { setChosenWriting } from 'redux/actions/writingActions';
-import api from 'utils/api';
 import {
-  fetchWritingByName,
   fetchWritingList,
   selectAllWritings,
 } from 'redux-toolkit/slices/writingSlice';
 import {
-  fetchRecipeByName,
   fetchRecipeList,
   selectAllRecipes,
 } from 'redux-toolkit/slices/recipeSlice';
@@ -34,37 +29,8 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
   const recipes = useSelector(selectAllRecipes);
   const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
-  const onClickEditContent = (title) => {
-    // dispatch(isRecipe ? fetchRecipeByName(title) : fetchWritingByName(title));
-    // api
-    //   .get(`/${isRecipe ? 'recipes' : 'writings'}/${id}`)
-    //   .then((res) => {
-    //     if (res.data.code == 200) {
-    //       const chosen = res.data.data;
-    //       if (isRecipe) {
-    //         dispatch(setChosenRecipe(chosen));
-    //       } else {
-    //         dispatch(setChosenWriting(chosen));
-    //       }
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
   useEffect(() => {
     dispatch(isRecipe ? fetchRecipeList() : fetchWritingList());
-    // api
-    //   .get(`/${isRecipe ? 'recipes' : 'writings'}`)
-    //   .then((res) => {
-    //     if (res.data.code == 200) {
-    //       isRecipe ? setRecipes(res.data.data) : setWritings(res.data.data);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, [refreshPage]);
 
   return (
@@ -141,7 +107,6 @@ const ContentList = ({ isRecipe }: Props): JSX.Element => {
                   key={i}
                   title={item.title}
                   image={item.image}
-                  onClickEditContent={onClickEditContent}
                   id={item.id}
                   handleRefreshPage={setRefreshPage}
                   isRecipe={isRecipe}

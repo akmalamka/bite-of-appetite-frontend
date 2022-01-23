@@ -14,9 +14,10 @@ import api from 'utils/api';
 import {
   fetchWritingByName,
   selectChosenWriting,
+  selectChosenWritingId,
   selectChosenWritingLoading,
 } from 'redux-toolkit/slices/writingSlice';
-import { baseUrl, validURL } from 'utils/constants';
+import { validURL } from 'utils/constants';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -61,6 +62,7 @@ interface Props {
 const WritingsField = ({ isAddContent }: Props): JSX.Element => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { writingTitle } = useParams<{ writingTitle: string }>();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,9 +71,10 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
 
   const chosenWriting = useSelector(selectChosenWriting);
   const chosenWritingLoading = useSelector(selectChosenWritingLoading);
+  const chosenWritingId = useSelector(selectChosenWritingId);
   const [successSaveWriting, setSuccessSaveWriting] = useState(false);
   const [addedId, setAddedId] = useState(0);
-  const { writingTitle } = useParams<{ writingTitle: string }>();
+  const [image, setImage] = useState<any>('');
 
   const initialValues = {
     image: '',
@@ -82,10 +85,9 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
     story: '',
     date: '',
   };
-  const [image, setImage] = useState<any>('');
 
   useEffect(() => {
-    if (chosenWritingLoading === 'fulfilled' && !isAddContent) {
+    if (chosenWritingId !== 0 && !isAddContent) {
       formik.setValues({
         image: '',
         description: chosenWriting.description,
@@ -202,25 +204,18 @@ const WritingsField = ({ isAddContent }: Props): JSX.Element => {
       } else {
         return URL.createObjectURL(image);
       }
-      // if (typeof image === 'string' && image.length > 0) {
-      //   return chosenWriting.image;
-      // } else if (validURL(image)) {
-      //   return image;
-      // } else {
-      //   return URL.createObjectURL(image);
-      // }
     }
   };
   const previewLogic = () => {
     if (isAddContent) {
       return image;
     } else {
-      return chosenWritingLoading === 'fulfilled';
+      return chosenWritingId !== 0;
     }
   };
   return (
     <Box>
-      {(chosenWritingLoading === 'fulfilled' || isAddContent) && (
+      {(chosenWritingId !== 0 || isAddContent) && (
         <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={4}>
             <Grid item xs={12}>

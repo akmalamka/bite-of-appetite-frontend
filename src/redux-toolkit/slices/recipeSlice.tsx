@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from 'utils/api';
 
 export const fetchRecipeList = createAsyncThunk(
@@ -20,22 +20,8 @@ export const fetchRecipeById = createAsyncThunk(
 export const fetchRecipeByName = createAsyncThunk(
   'recipes/fetchRecipeByName',
   async (recipeName: string) => {
-    const response = await api.get(`/recipes/${recipeName}`);
-    return response.data;
-  },
-);
-
-export const deleteRecipeById = createAsyncThunk(
-  'recipes/deleteRecipeById',
-  async (recipeId) => {
-    const response = await api.delete(`/recipes/${recipeId}`);
-    return response.data;
-  },
-);
-export const deleteRecipeByIdImage = createAsyncThunk(
-  'recipes/deleteRecipeByIdImage',
-  async (recipeId) => {
-    const response = await api.delete(`/recipes/${recipeId}/image`);
+    const title = recipeName.replaceAll('-', ' ');
+    const response = await api.get(`/recipes/${title}`);
     return response.data;
   },
 );
@@ -79,11 +65,11 @@ export const recipeSlice = createSlice({
       state.chosenRecipe = action.payload.data;
     });
     builder.addCase(fetchRecipeByName.fulfilled, (state, action) => {
-      if (action.payload.data.id !== state.chosenRecipeId) {
-        state.chosenRecipeId = action.payload.data.id;
-        state.chosenRecipe = action.payload.data;
-        state.chosenRecipeLoading = 'fulfilled';
-      }
+      const { id, title } = action.payload.data;
+      state.chosenRecipeId = id;
+      state.chosenRecipeTitle = title;
+      state.chosenRecipe = action.payload.data;
+      state.chosenRecipeLoading = 'idle';
     });
   },
 });
@@ -97,6 +83,8 @@ export const selectChosenRecipeLoading = (state) =>
 
 export const selectChosenRecipeTitle = (state) =>
   state.recipe.chosenRecipeTitle;
+
+export const selectChosenRecipeId = (state) => state.recipe.chosenRecipeId;
 
 export const selectRecipeListLoading = (state) =>
   state.recipe.recipeListLoading;

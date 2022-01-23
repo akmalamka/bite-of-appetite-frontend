@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
@@ -13,7 +12,6 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
 import Container from 'components/Container';
-import api from 'utils/api';
 import {
   fetchRecipeList,
   selectAllRecipes,
@@ -50,19 +48,16 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const history = useHistory();
-  useEffect(() => {
-    dispatch(fetchRecipeList());
-  }, []);
+
   const recipes = useSelector(selectAllRecipes);
   const recipeListLoading = useSelector(selectRecipeListLoading);
   const chosenRecipeTitle = useSelector(selectChosenRecipeTitle);
-  // const recipeListStatus = useSelector(
-  //   (state: any) => state.recipe.recipeListStatus,
-  // );
-  // const [loading, setLoading] = useState(
-  //   recipeListStatus === 'idle' ? true : false,
-  // );
+
+  useEffect(() => {
+    if (recipeListLoading === 'idle') {
+      dispatch(fetchRecipeList());
+    }
+  }, []);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -70,42 +65,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
     defaultMatches: true,
   });
 
-  // useEffect(() => {
-  //   if (recipeListStatus === 'idle') {
-  //     api
-  //       .get('/recipes')
-  //       .then((res) => {
-  //         if (res.data.code == 200) {
-  //           dispatch(fetchRecipeList(res.data.data));
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // }, [dispatch, recipes, recipeListStatus]);
-
-  const onClickRecipe = (recipeName) => {
-    history.push(`/recipes/${recipeName.toLowerCase().replaceAll(' ', '-')}`);
-
-    // api
-    //   .get(`/recipes/${id}`)
-    //   .then((res) => {
-    //     if (res.data.code == 200) {
-    //       const chosen = res.data.data;
-    //       sessionStorage.removeItem('state');
-    //       dispatch(setChosenRecipe(chosen));
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-  // const chosenRecipeTitle = useSelector(
-  //   (state: any) => state.recipe.recipeTitle,
-  // );
   const recipeFilter = recipes.filter(
     (item) => item.title !== chosenRecipeTitle,
   );
@@ -177,9 +136,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     .replaceAll(' ', '-')}`,
                 }}
                 style={{ textDecoration: 'none', color: 'inherit' }}
-                // onClick={() => {
-                //   onClickRecipe(item.title);
-                // }}
               >
                 <Box
                   component={LazyLoadImage}
@@ -197,9 +153,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     },
                     borderRadius: 2,
                   }}
-                  // onClick={() => {
-                  //   onClickRecipe(item.title);
-                  // }}
                 />
               </Link>
             ) : (
@@ -223,9 +176,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     .replaceAll(' ', '-')}`,
                 }}
                 style={{ textDecoration: 'none', color: 'inherit' }}
-                // onClick={() => {
-                //   onClickRecipe(item.title);
-                // }}
               >
                 <Typography
                   color="text.primary"
