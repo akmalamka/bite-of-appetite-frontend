@@ -25,8 +25,8 @@ export const useDarkMode = (): [string, () => void, boolean] => {
 
   useEffect(() => {
     try {
-      const localTheme = window.localStorage.getItem('themeMode');
-      localTheme ? setTheme(localTheme) : setMode('light');
+      // const localTheme = window.localStorage.getItem('themeMode');
+      // localTheme ? setTheme(localTheme) : setMode('light');
     } catch {
       setMode('light');
     }
