@@ -11,6 +11,7 @@ import {
 const WritingCard = (): JSX.Element => {
   const chosenWriting = useSelector(selectChosenWriting);
   const chosenWritingId = useSelector(selectChosenWritingId);
+  console.log(chosenWriting);
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box
