@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
@@ -12,8 +12,12 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './dotClass.css';
 import Container from 'components/Container';
-import { setChosenRecipe, fetchRecipeList } from 'redux/actions/recipeActions';
-import api from 'utils/api';
+import {
+  fetchRecipeList,
+  selectAllRecipes,
+  selectChosenRecipeTitle,
+  selectRecipeListLoading,
+} from 'redux-toolkit/slices/recipeSlice';
 
 const responsive = {
   desktop: {
@@ -44,13 +48,16 @@ interface Props {
 const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const recipes = useSelector((state: any) => state.recipe.recipeList);
-  const recipeListStatus = useSelector(
-    (state: any) => state.recipe.recipeListStatus,
-  );
-  const [loading, setLoading] = useState(
-    recipeListStatus === 'idle' ? true : false,
-  );
+
+  const recipes = useSelector(selectAllRecipes);
+  const recipeListLoading = useSelector(selectRecipeListLoading);
+  const chosenRecipeTitle = useSelector(selectChosenRecipeTitle);
+
+  useEffect(() => {
+    if (recipeListLoading === 'idle') {
+      dispatch(fetchRecipeList());
+    }
+  }, []);
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
@@ -58,42 +65,21 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
     defaultMatches: true,
   });
 
-  useEffect(() => {
-    if (recipeListStatus === 'idle') {
-      api
-        .get('/recipes')
-        .then((res) => {
-          if (res.data.code == 200) {
-            dispatch(fetchRecipeList(res.data.data));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [dispatch, recipes, recipeListStatus]);
-
-  const onClickRecipe = (id) => {
-    api
-      .get(`/recipes/${id}}`)
-      .then((res) => {
-        if (res.data.code == 200) {
-          const chosen = res.data.data;
-          dispatch(setChosenRecipe(chosen));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const chosenRecipeTitle = useSelector(
-    (state: any) => state.recipe.recipeTitle,
-  );
-  const dummyRecipeFilter = recipes.filter(
+  const recipeFilter = recipes.filter(
     (item) => item.title !== chosenRecipeTitle,
   );
+
+  function carouselLogic(command: string) {
+    if (command === 'recipes') {
+      return recipeListLoading === 'fulfilled'
+        ? recipes
+        : Array.from(new Array(3));
+    } else {
+      return recipeListLoading === 'fulfilled'
+        ? recipeFilter
+        : Array.from(new Array(3));
+    }
+  }
 
   return (
     <Container>
@@ -138,8 +124,8 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         containerClass="react-multi-carousel-list"
       >
         {(isHome
-          ? (loading ? Array.from(new Array(3)) : recipes).slice(0, 9)
-          : (loading ? Array.from(new Array(3)) : dummyRecipeFilter).slice(0, 9)
+          ? carouselLogic('recipes').slice(0, 9)
+          : carouselLogic('recipeFilter').slice(0, 9)
         ).map((item, i) => (
           <Box key={i} flexDirection={'column'} m={{ xs: 2, md: 4 }}>
             {item ? (
@@ -150,9 +136,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     .replaceAll(' ', '-')}`,
                 }}
                 style={{ textDecoration: 'none', color: 'inherit' }}
-                onClick={() => {
-                  onClickRecipe(item.id);
-                }}
               >
                 <Box
                   component={LazyLoadImage}
@@ -169,9 +152,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                       lg: 480,
                     },
                     borderRadius: 2,
-                  }}
-                  onClick={() => {
-                    onClickRecipe(item.id);
                   }}
                 />
               </Link>
@@ -196,9 +176,6 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
                     .replaceAll(' ', '-')}`,
                 }}
                 style={{ textDecoration: 'none', color: 'inherit' }}
-                onClick={() => {
-                  onClickRecipe(item.id);
-                }}
               >
                 <Typography
                   color="text.primary"

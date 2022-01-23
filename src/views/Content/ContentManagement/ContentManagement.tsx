@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import { Page, WritingsField } from './components';
 import RecipeField from './components/RecipeField';
 import Main from 'layouts/Main';
-import { resetChosenRecipe } from 'redux/actions/recipeActions';
-import { resetChosenWriting } from 'redux/actions/writingActions';
+import { resetChosenRecipe } from 'redux-toolkit/slices/recipeSlice';
+import { resetChosenWriting } from 'redux-toolkit/slices/writingSlice';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types

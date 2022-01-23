@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -28,9 +28,18 @@ const IngredientsWithoutComponentField = ({
     ],
   };
 
-  const initialIngredientsValueWithoutComponentEdit = {
+  const [
+    initialIngredientsValueWithoutComponentEdit,
+    setinitialIngredientsValueWithoutComponentEdit,
+  ] = useState({
     ingredientsWithoutComponent: formik.values.ingredients,
-  };
+  });
+  console.log('add ', isAddContent);
+  useEffect(() => {
+    if (!formik.values.isIngredientsWithComponent) {
+      setinitialIngredientsValueWithoutComponentEdit(formik.values.ingredients);
+    }
+  }, []);
 
   return (
     <Box>
@@ -41,7 +50,6 @@ const IngredientsWithoutComponentField = ({
             : initialIngredientsValueWithoutComponentEdit
         }
         onSubmit={async (values) => {
-          // await new Promise((r) => setTimeout(r, 500));
           formik.setFieldValue(
             'ingredients',
             values.ingredientsWithoutComponent,

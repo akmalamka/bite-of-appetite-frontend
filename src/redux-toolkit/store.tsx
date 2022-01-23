@@ -1,6 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from './reducers';
+import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+import { recipeSlice } from './slices/recipeSlice';
+import { searchFilterSlice } from './slices/searchFilterSlice';
+import { writingSlice } from './slices/writingSlice';
 
 const loadState = () => {
   try {
@@ -22,20 +24,18 @@ const saveState = (state) => {
     // Ignore write errors;
   }
 };
-
 const persistedState = loadState();
 
-const middleware = [thunk];
-
-const store = createStore(
-  rootReducer,
-  persistedState,
-  compose(
-    applyMiddleware(...middleware),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+const store = configureStore({
+  reducer: {
+    recipe: recipeSlice.reducer,
+    writing: writingSlice.reducer,
+    searchFilter: searchFilterSlice.reducer,
+  },
+  devTools: process.env.NODE_ENV !== 'production',
+  preloadedState: persistedState,
+  middleware: [thunk],
+});
 
 store.subscribe(() => {
   saveState(store.getState());

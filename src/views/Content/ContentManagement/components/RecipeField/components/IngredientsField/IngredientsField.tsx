@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, FieldArray } from 'formik';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -37,9 +37,19 @@ const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
       },
     ],
   };
-  const initialIngredientsValueWithComponentEdit = {
+  const [
+    initialIngredientsValueWithComponentEdit,
+    setinitialIngredientsValueWithComponentEdit,
+  ] = useState({
     ingredientsWithComponent: formik.values.ingredients,
-  };
+  });
+  useEffect(() => {
+    if (formik.values.isIngredientsWithComponent) {
+      setinitialIngredientsValueWithComponentEdit(formik.values.ingredients);
+    }
+  }, []);
+
+  console.log('ingredients', formik.values.ingredientsWithComponent);
   return (
     <Box sx={{ my: 4 }}>
       <Box
@@ -76,7 +86,6 @@ const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
               : initialIngredientsValueWithComponentEdit
           }
           onSubmit={async (values) => {
-            // await new Promise((r) => setTimeout(r, 500));
             formik.setFieldValue(
               'ingredients',
               values.ingredientsWithComponent,

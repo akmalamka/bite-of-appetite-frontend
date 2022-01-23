@@ -3,14 +3,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import {
+  selectChosenWriting,
+  selectChosenWritingId,
+} from 'redux-toolkit/slices/writingSlice';
 
 const WritingCard = (): JSX.Element => {
-  const chosenWriting = useSelector(
-    (state: any) => state.writing.chosenWriting,
-  );
-  const splitStory = chosenWriting.story
-    .split('\n')
-    .filter((item) => item.length > 0);
+  const chosenWriting = useSelector(selectChosenWriting);
+  const chosenWritingId = useSelector(selectChosenWritingId);
   return (
     <Box display={'flex'} justifyContent={'center'}>
       <Box
@@ -31,21 +31,24 @@ const WritingCard = (): JSX.Element => {
           }}
           gutterBottom
         >
-          {chosenWriting.title}
+          {chosenWritingId !== 0 ? chosenWriting.title : ''}
         </Typography>
-        {splitStory.map((item, i) => (
-          <Typography
-            key={i}
-            variant={'body1'}
-            color="text.primary"
-            fontFamily={'Inter'}
-            align={'justify'}
-            paragraph
-            sx={{ lineHeight: 1.8 }}
-          >
-            {item}
-          </Typography>
-        ))}
+        {(chosenWritingId !== 0 ? chosenWriting.story : '')
+          .split('\n')
+          .filter((item) => item.length > 0)
+          .map((item, i) => (
+            <Typography
+              key={i}
+              variant={'body1'}
+              color="text.primary"
+              fontFamily={'Inter'}
+              align={'justify'}
+              paragraph
+              sx={{ lineHeight: 1.8 }}
+            >
+              {item}
+            </Typography>
+          ))}
       </Box>
     </Box>
   );

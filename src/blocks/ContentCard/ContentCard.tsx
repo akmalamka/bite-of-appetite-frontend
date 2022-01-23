@@ -13,7 +13,6 @@ import api from 'utils/api';
 interface Props {
   title: string;
   image: string;
-  onClickEditContent: (id: number) => void;
   id: number;
   handleRefreshPage: (refreshPage: boolean) => void;
   isRecipe: boolean;
@@ -22,7 +21,6 @@ interface Props {
 const ContentCard = ({
   title,
   image,
-  onClickEditContent,
   id,
   handleRefreshPage,
   isRecipe,
@@ -30,7 +28,6 @@ const ContentCard = ({
   const { url } = useRouteMatch();
 
   const onClickDelete = (id) => {
-    // Swal.fire('Good job!', 'You clicked the button!', 'success');
     Swal.fire({
       title: `Are you sure you wanna delete ${title}?`,
       text: 'You will not be able to revert this!',
@@ -71,7 +68,7 @@ const ContentCard = ({
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
       ) {
-        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+        Swal.fire('Cancelled', 'Your file is safe :)', 'error');
       }
     });
   };
@@ -157,7 +154,6 @@ const ContentCard = ({
                 },
               }}
               startIcon={<EditIcon />}
-              onClick={() => onClickEditContent(id)}
             >
               <Typography
                 fontFamily={'Inter'}

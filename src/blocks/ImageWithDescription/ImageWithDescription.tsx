@@ -6,6 +6,8 @@ import useWindowDimensions from 'utils/useWindowDimensions';
 import Description from './Description';
 import { VideoCard } from 'blocks';
 import { baseUrl } from 'utils/constants';
+import { selectChosenWriting } from 'redux-toolkit/slices/writingSlice';
+import { selectChosenRecipe } from 'redux-toolkit/slices/recipeSlice';
 
 interface Props {
   imagePosition: string;
@@ -19,10 +21,8 @@ const ImageWithDescription = ({
   isRecipe,
 }: Props): JSX.Element => {
   const { height } = useWindowDimensions();
-  const chosenWriting = useSelector(
-    (state: any) => state.writing.chosenWriting,
-  );
-  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  const chosenWriting = useSelector(selectChosenWriting);
+  const chosenRecipe = useSelector(selectChosenRecipe);
   function bgColorLogic() {
     return isContent ? 'secondary.main' : 'primary.main';
   }

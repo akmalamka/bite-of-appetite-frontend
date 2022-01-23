@@ -11,7 +11,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import { ButtonComponent } from 'blocks';
-import { PER_PAGE } from 'utils/constants';
+
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   index: number;
@@ -20,9 +20,8 @@ interface Props {
   tags?: string[];
   description?: string;
   isRecipe: boolean;
-  page: number;
-  onClickRecipe?: (index: number) => void;
-  onClickWriting?: (index: number) => void;
+  onClickRecipe?: (title: string) => void;
+  onClickWriting?: (title: string) => void;
   isContentManagement?: boolean;
   loading?: boolean;
 }
@@ -34,7 +33,6 @@ const DataCard = ({
   tags,
   description,
   isRecipe,
-  page,
   onClickRecipe,
   onClickWriting,
   isContentManagement = false,
@@ -102,9 +100,7 @@ const DataCard = ({
                 maxWidth: 705,
               }}
               onClick={() => {
-                isRecipe
-                  ? onClickRecipe(index + (page - 1) * PER_PAGE) // ko beda ya??
-                  : onClickWriting(index + (page - 1) * PER_PAGE);
+                isRecipe ? onClickRecipe(title) : onClickWriting(title);
               }}
               disabled={isContentManagement}
             >
@@ -224,9 +220,7 @@ const DataCard = ({
                 <ButtonComponent
                   text={isRecipe ? 'See Recipe' : 'Read More'}
                   onClick={() => {
-                    isRecipe
-                      ? onClickRecipe(index + (page - 1) * PER_PAGE)
-                      : onClickWriting(index + (page - 1) * PER_PAGE);
+                    isRecipe ? onClickRecipe(title) : onClickWriting(title);
                   }}
                 />
               </Link>

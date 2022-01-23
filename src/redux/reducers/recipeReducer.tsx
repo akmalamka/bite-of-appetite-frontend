@@ -14,31 +14,32 @@ const initialState = {
 };
 
 const recipeReducer = (state = initialState, action: any) => {
+  const newState = Object.assign(state);
   switch (action.type) {
     case SET_CHOSEN_RECIPE:
       return {
-        ...state,
+        ...newState,
         chosenRecipe: action.payload,
         recipeTitle: action.payload.title,
       };
     case RESET_CHOSEN_RECIPE:
       return {
-        ...state,
+        ...newState,
         chosenRecipe: undefined,
         recipeTitle: undefined,
       };
     case FETCH_RECIPE_STATE:
       return {
-        ...state,
+        ...newState,
       };
     case FETCH_RECIPE_LIST:
       return {
-        ...state,
+        ...newState,
         recipeList: action.payload,
         recipeListStatus: 'completed',
       };
     default:
-      return state;
+      return newState;
   }
 };
 

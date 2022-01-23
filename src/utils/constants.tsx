@@ -2,20 +2,50 @@ export const PER_PAGE = 5;
 
 // export const baseUrl = 'http://localhost:8080';
 export const baseUrl = 'https://api-biteofappetite.com';
+
+export function validURL(str: string) {
+  const url = str.slice(0, 30);
+  return url === baseUrl;
+}
 export const filterMenu = [
   {
     type: 'Cuisine',
-    choice: ['Indonesian', 'Japanese', 'Korean', 'Italian', 'Fusion'],
+    choice: [
+      'Indonesian',
+      'Japanese',
+      'Korean',
+      'Italian',
+      'Fusion',
+      'Chinese',
+      'Western',
+    ],
   },
   {
     type: 'Food Type',
-    choice: ['Appetizer', 'Main Course', 'Dessert', 'Snacks'],
+    choice: [
+      'Condiment',
+      'Appetizer',
+      'Main Course',
+      'Dessert',
+      'Snacks',
+      'Breakfast',
+    ],
   },
   {
     type: 'Main Ingredient',
-    choice: ['Chicken', 'Beef', 'Seafood', 'Egg', 'Rice', 'Mango'],
+    choice: [
+      'Poultry',
+      'Beef',
+      'Seafood',
+      'Egg',
+      'Rice',
+      'Fruits',
+      'Vegetables',
+      'Chocolate',
+      'Pasta',
+    ],
   },
-  { type: 'Difficulty', choice: ['Easy', 'Medium', 'Hard'] },
+  { type: 'Difficulty', choice: ['Rookie', 'Easy', 'Medium', 'Hard'] },
 ];
 
 export const decimalMap = [

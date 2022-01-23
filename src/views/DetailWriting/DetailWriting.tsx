@@ -1,17 +1,29 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
-import { fetchWritingState } from 'redux/actions/writingActions';
 import { ImageWithDescription } from 'blocks';
 import { WritingCard } from './components';
+import {
+  fetchWritingByName,
+  selectChosenWritingTitle,
+} from 'redux-toolkit/slices/writingSlice';
 
 const DetailWriting = (): JSX.Element => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   const dispatch = useDispatch();
+  const { writingTitle } = useParams<{ writingTitle: string }>();
+  const recentChosenWritingTitle = useSelector(selectChosenWritingTitle);
   useEffect(() => {
-    dispatch(fetchWritingState());
-  }, [dispatch]);
+    if (
+      recentChosenWritingTitle.toLowerCase() !==
+      writingTitle.replaceAll('-', ' ')
+    ) {
+      dispatch(fetchWritingByName(writingTitle));
+    }
+  }, []);
+
   return (
     <Box>
       <Main colorInvert={true}>

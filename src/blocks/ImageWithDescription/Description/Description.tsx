@@ -11,6 +11,8 @@ import { ButtonComponent } from 'blocks';
 import { ReactComponent as HomeAsset } from 'utils/home-asset.svg';
 import { ReactComponent as AboutAsset } from 'utils/about-asset.svg';
 import { ReactComponent as DetailWritingAsset } from 'utils/detail-writing-asset.svg';
+import { selectChosenWriting } from 'redux-toolkit/slices/writingSlice';
+import { selectChosenRecipe } from 'redux-toolkit/slices/recipeSlice';
 
 interface Props {
   imagePosition: string;
@@ -31,10 +33,8 @@ const Description = ({
     defaultMatches: true,
   });
 
-  const chosenWriting = useSelector(
-    (state: any) => state.writing.chosenWriting,
-  );
-  const chosenRecipe = useSelector((state: any) => state.recipe.chosenRecipe);
+  const chosenWriting = useSelector(selectChosenWriting);
+  const chosenRecipe = useSelector(selectChosenRecipe);
   const data = isRecipe ? chosenRecipe : chosenWriting;
 
   function dividerLogic() {
@@ -270,8 +270,8 @@ const Description = ({
             sx={{ fontFamily: 'Inter', fontWeight: 400, zIndex: 2 }}
           >
             {imagePosition === 'left'
-              ? 'Food is my way to tell stories and connect with people who share the same passion as I do. Whether its because youre hungry at midnight or trying to learn how to cook, I hope you enjoy watching my content and recipes.'
-              : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
+              ? 'For me, food is not just to fill my belly, but also a piece of art and my second language. Even though we’re far far away, i hope you could still acknowledge, entertain and enjoy my food story and pronounciation in this virtual recipe book :’)'
+              : 'Hi! It’s me, Akmal. I’m not a chef, content creator or food photographer (yet hehee). I’m just a young boy who’s really love everything about food from how you get your food until how to make a really nice dish with my ingredients. I believe food has great power not just to fulfill our body, but more than that, whether to open up a deep talk conversation, mood booster from your everyday life or to really make us grateful of what we have. '}
           </Typography>
           {imagePosition === 'right' && (
             <Link
