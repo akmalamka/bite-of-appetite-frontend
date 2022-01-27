@@ -9,7 +9,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { DirectionField, IngredientsField } from './components';
-import { fetchRecipeState } from 'redux/actions/recipeActions';
 import { SearchFilterBar, DataCard } from 'blocks';
 import { filterMenu, validURL } from 'utils/constants';
 import Swal from 'sweetalert2';
@@ -312,7 +311,6 @@ const RecipeField = ({ isAddContent }: Props): JSX.Element => {
     }
   };
   const srcLogic = () => {
-    console.log('image = ', image);
     if (isAddContent) {
       if (image) {
         return URL.createObjectURL(image);

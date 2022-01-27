@@ -35,7 +35,7 @@ export const filterMenu = [
     type: 'Main Ingredient',
     choice: [
       'Poultry',
-      'Beef',
+      'Meat',
       'Seafood',
       'Egg',
       'Rice',

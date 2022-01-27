@@ -32,7 +32,6 @@ const DirectionField = ({ formik, isAddContent }: Props): JSX.Element => {
     setinitialDirectionValueEdit(formik.values.directions);
   }, []);
 
-  console.log('directions ', formik.values.directions);
   return (
     <Formik
       initialValues={

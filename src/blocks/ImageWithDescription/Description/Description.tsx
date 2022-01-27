@@ -270,8 +270,8 @@ const Description = ({
             sx={{ fontFamily: 'Inter', fontWeight: 400, zIndex: 2 }}
           >
             {imagePosition === 'left'
-              ? 'For me, food is not just to fill my belly, but also a piece of art and my second language. Even though we’re far far away, i hope you could still acknowledge, entertain and enjoy my food story and pronounciation in this virtual recipe book :’)'
-              : 'Hi! It’s me, Akmal. I’m not a chef, content creator or food photographer (yet hehee). I’m just a young boy who’s really love everything about food from how you get your food until how to make a really nice dish with my ingredients. I believe food has great power not just to fulfill our body, but more than that, whether to open up a deep talk conversation, mood booster from your everyday life or to really make us grateful of what we have. '}
+              ? 'For me, food is not just to fill my belly, but also a piece of art and my second language. Even though we’re far far away, I hope you could find delightfulness and enjoyment in every dish you made and every bite you eat through this virtual recipe book :’)'
+              : 'Hi! It’s me, Akmal. I’m not a chef, content creator or food photographer (yet hehee). I’m just a young boy who really loves everything about food from how to source food to how to make a really nice dish from it. I believe food has great power not just to fulfill our body, but more than that, whether to open up a deep conversation, mood booster from your everyday life or to really make us grateful for what we have. For any inquiries, feel free to contact me!'}
           </Typography>
           {imagePosition === 'right' && (
             <Link
