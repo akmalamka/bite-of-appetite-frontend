@@ -4,6 +4,7 @@ import InstagramButton from 'utils/InstagramButton';
 import SoundcloudButton from 'utils/SoundcloudButton';
 import MediumButton from 'utils/MediumButton';
 import SpotifyButton from 'utils/SpotifyButton';
+import LinkedInButton from 'utils/LinkedInButton';
 
 interface Props {
   isHamburgerOpen?: boolean;
@@ -22,6 +23,18 @@ const IconList = ({ isHamburgerOpen = false, ...rest }: Props): JSX.Element => {
       }}
       {...rest}
     >
+      <Box
+        marginLeft={1}
+        title="Instagram"
+        sx={{
+          '&:hover': {
+            opacity: [0.9, 0.8, 0.7],
+          },
+          cursor: 'pointer',
+        }}
+      >
+        <LinkedInButton isHamburgerOpen={isHamburgerOpen} />
+      </Box>
       <Box
         marginLeft={1}
         title="Instagram"
