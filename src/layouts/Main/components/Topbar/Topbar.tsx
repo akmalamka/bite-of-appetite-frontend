@@ -2,10 +2,12 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import { ReactComponent as Logo } from 'utils/logo-chocolate.svg';
 import { ReactComponent as LogoWhite } from 'utils/logo-white.svg';
+import { ReactComponent as LogoOrange } from 'utils/logo-orange.svg';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -21,6 +23,7 @@ interface Props {
   logoColor?: string;
   trigger: boolean;
   isParentPage: boolean;
+  isContent?: boolean;
 }
 
 const Topbar = ({
@@ -31,6 +34,7 @@ const Topbar = ({
   logoColor,
   trigger,
   isParentPage,
+  isContent,
 }: Props): JSX.Element => {
   const theme = useTheme();
   const {
@@ -39,7 +43,12 @@ const Topbar = ({
     foodforthought: foodForThoughtPages,
     about: aboutPages,
   } = pages;
+  const isHome = isParentPage && !isContent && menuColor === 'text.secondary';
   const pagesArray = [homePages, recipePages, foodForThoughtPages, aboutPages];
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'), {
+    defaultMatches: true,
+  });
+
   function menuColorLogic() {
     return menuColor ? menuColor : 'text.primary';
   }
@@ -59,7 +68,13 @@ const Topbar = ({
         >
           {(trigger || isParentPage) && (
             <Box component={'a'} href="/">
-              {logoColor == 'white' ? <LogoWhite /> : <Logo />}
+              {logoColor == 'white' ? (
+                <LogoWhite />
+              ) : isHome && isXs ? (
+                <LogoOrange />
+              ) : (
+                <Logo />
+              )}
             </Box>
           )}
           {(trigger || isParentPage) && (

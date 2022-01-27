@@ -81,6 +81,7 @@ const Main = ({
             logoColor={logoColor}
             trigger={trigger}
             isParentPage={isParentPage}
+            isContent={isContent}
           />
         </Container>
       </AppBar>
