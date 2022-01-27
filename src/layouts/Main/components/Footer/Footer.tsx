@@ -68,7 +68,7 @@ const Footer = ({ logoColor }: Props): JSX.Element => {
                 }}
                 gutterBottom
               >
-                Branding and Design by{' '}
+                Branding and design by{' '}
                 <Link
                   underline="none"
                   component="a"

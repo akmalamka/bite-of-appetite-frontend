@@ -4,6 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { baseUrl } from 'utils/constants';
+import './videoCardClass.css';
 
 const VideoCard = (): JSX.Element => {
   const theme = useTheme();
