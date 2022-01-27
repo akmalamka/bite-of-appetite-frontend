@@ -34,7 +34,6 @@ const IngredientsWithoutComponentField = ({
   ] = useState({
     ingredientsWithoutComponent: formik.values.ingredients,
   });
-  console.log('add ', isAddContent);
   useEffect(() => {
     if (!formik.values.isIngredientsWithComponent) {
       setinitialIngredientsValueWithoutComponentEdit(formik.values.ingredients);

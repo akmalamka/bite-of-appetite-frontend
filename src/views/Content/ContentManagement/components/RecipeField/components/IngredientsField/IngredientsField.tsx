@@ -49,7 +49,6 @@ const IngredientsField = ({ formik, isAddContent }: Props): JSX.Element => {
     }
   }, []);
 
-  console.log('ingredients', formik.values.ingredientsWithComponent);
   return (
     <Box sx={{ my: 4 }}>
       <Box
