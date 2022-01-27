@@ -52,7 +52,7 @@ const Footer = ({ logoColor }: Props): JSX.Element => {
                 variant={'subtitle2'}
                 color="text.secondary"
                 sx={{
-                  lineHeight: 1,
+                  lineHeight: 1.5,
                 }}
                 gutterBottom
               >
@@ -64,7 +64,28 @@ const Footer = ({ logoColor }: Props): JSX.Element => {
                 variant={'subtitle2'}
                 color="text.secondary"
                 sx={{
-                  lineHeight: 1,
+                  lineHeight: 1.5,
+                }}
+                gutterBottom
+              >
+                Branding and Design by{' '}
+                <Link
+                  underline="none"
+                  component="a"
+                  href="https://www.instagram.com/alnauval_/"
+                  color="text.secondary"
+                  sx={{ '&:hover': { textDecoration: 'underline' } }}
+                >
+                  Muhammad Alnauval
+                </Link>
+              </Typography>
+              <Typography
+                fontFamily={'Inter'}
+                align={isSm ? 'left' : 'center'}
+                variant={'subtitle2'}
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1.5,
                 }}
                 gutterBottom
               >
@@ -77,7 +98,7 @@ const Footer = ({ logoColor }: Props): JSX.Element => {
                 variant={'subtitle2'}
                 color="text.secondary"
                 sx={{
-                  lineHeight: 1,
+                  lineHeight: 1.5,
                 }}
                 gutterBottom
               >

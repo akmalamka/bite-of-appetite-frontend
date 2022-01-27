@@ -226,7 +226,7 @@ const RecipeDescription = (): JSX.Element => {
                             align={'left'}
                             sx={{ fontWeight: 500 }}
                           >
-                            Tips: {item.tips}
+                            {item.tips}
                           </Typography>
                         </Grid>
                       )}

@@ -43,8 +43,6 @@ const SidebarNav = ({ pages, onClose }: Props): JSX.Element => {
           display={'flex'}
           component="a"
           href="/"
-          paddingX={2}
-          paddingY={1}
           title="Bite of Appetite"
           sx={{
             justifyContent: 'center',

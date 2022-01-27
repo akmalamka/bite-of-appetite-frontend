@@ -22,8 +22,8 @@ const VideoCard = (): JSX.Element => {
         sx={{ objectFit: 'cover' }}
       >
         <source src={`${baseUrl}/pasta-eat.mp4`} type="video/mp4" />
-        <source src={`${baseUrl}/pasta-eat.mp4`} type="video/webm" />
-        <source src={`${baseUrl}/pasta-eat.mp4`} type="video/ogg" />
+        <source src={`${baseUrl}/pasta-eat.webm`} type="video/webm" />
+        <source src={`${baseUrl}/pasta-eat.ogg`} type="video/ogg" />
         Your browser do not support HTML5 video.
       </Box>
     </Box>
