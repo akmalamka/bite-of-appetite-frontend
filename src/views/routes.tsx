@@ -46,50 +46,50 @@ const routes = [
     path: '/not-found',
     renderer: (params = {}): JSX.Element => <NotFoundView {...params} />,
   },
-  // {
-  //   path: '/content-management',
-  //   renderer: (params = {}): JSX.Element => <ContentHomeView {...params} />,
-  // },
-  // {
-  //   path: '/content-management/recipes',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentListView isRecipe={true} {...params} />
-  //   ),
-  // },
-  // {
-  //   path: '/content-management/writings',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentListView isRecipe={false} {...params} />
-  //   ),
-  // },
-  // {
-  //   path: '/content-management/recipes/add',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentManagementView isRecipe={true} isAddContent={true} {...params} />
-  //   ),
-  // },
-  // {
-  //   path: '/content-management/writings/add',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentManagementView isRecipe={false} isAddContent={true} {...params} />
-  //   ),
-  // },
-  // {
-  //   path: '/content-management/recipes/edit/:recipeTitle',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentManagementView isRecipe={true} isAddContent={false} {...params} />
-  //   ),
-  // },
-  // {
-  //   path: '/content-management/writings/edit/:writingTitle',
-  //   renderer: (params = {}): JSX.Element => (
-  //     <ContentManagementView
-  //       isRecipe={false}
-  //       isAddContent={false}
-  //       {...params}
-  //     />
-  //   ),
-  // },
+  {
+    path: '/content-management',
+    renderer: (params = {}): JSX.Element => <ContentHomeView {...params} />,
+  },
+  {
+    path: '/content-management/recipes',
+    renderer: (params = {}): JSX.Element => (
+      <ContentListView isRecipe={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings',
+    renderer: (params = {}): JSX.Element => (
+      <ContentListView isRecipe={false} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/recipes/add',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView isRecipe={true} isAddContent={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings/add',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView isRecipe={false} isAddContent={true} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/recipes/edit/:recipeTitle',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView isRecipe={true} isAddContent={false} {...params} />
+    ),
+  },
+  {
+    path: '/content-management/writings/edit/:writingTitle',
+    renderer: (params = {}): JSX.Element => (
+      <ContentManagementView
+        isRecipe={false}
+        isAddContent={false}
+        {...params}
+      />
+    ),
+  },
 ];
 
 export default routes;
