@@ -18,6 +18,7 @@ import {
   selectChosenRecipeTitle,
   selectRecipeListLoading,
 } from 'redux-toolkit/slices/recipeSlice';
+import { RECIPE_SLICE } from 'utils/constants';
 
 const responsive = {
   desktop: {
@@ -124,10 +125,10 @@ const RecipeCarousel = ({ isHome }: Props): JSX.Element => {
         containerClass="react-multi-carousel-list"
       >
         {(isHome
-          ? carouselLogic('recipes').slice(0, 9)
-          : carouselLogic('recipeFilter').slice(0, 9)
+          ? carouselLogic('recipes').slice(0, RECIPE_SLICE)
+          : carouselLogic('recipeFilter').slice(0, RECIPE_SLICE)
         ).map((item, i) => (
-          <Box key={i} flexDirection={'column'} m={{ xs: 2, md: 4 }}>
+          <Box key={i} flexDirection={'column'} m={2}>
             {item ? (
               <Link
                 to={{
