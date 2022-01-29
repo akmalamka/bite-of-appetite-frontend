@@ -122,7 +122,7 @@ const RecipeDescription = (): JSX.Element => {
                             </Typography>
                           </Grid>
                           <Grid item xs={3}>
-                            {item.measurement && item.unit && (
+                            {(item.measurement || item.unit) && (
                               <Typography
                                 fontFamily={'Inter'}
                                 variant={'subtitle1'}
