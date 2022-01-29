@@ -44,7 +44,6 @@ const Description = ({
     );
   }
 
-  // console.log('abc', data.photographBy.length);
   return (
     <Box
       width={{ xs: 1, md: 1 / 2 }}
