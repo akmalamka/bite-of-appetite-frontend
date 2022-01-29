@@ -175,7 +175,7 @@ const Description = ({
                   }}
                 />
               )}
-              {(!isRecipe || data.inspiredBy) && (
+              {(!isRecipe || data.photographBy.length > 0) && (
                 <Typography
                   color={isRecipe ? 'text.primary' : 'text.secondary'}
                   variant="subtitle2"
@@ -188,8 +188,7 @@ const Description = ({
                     textTransform: 'uppercase',
                   }}
                 >
-                  {isRecipe ? 'Inspired' : 'Photograph'} By{' '}
-                  {isRecipe ? data.inspiredBy : data.photographBy}
+                  Photograph By {data.photographBy}
                 </Typography>
               )}
             </Box>

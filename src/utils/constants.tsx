@@ -1,4 +1,5 @@
 export const PER_PAGE = 5;
+export const RECIPE_SLICE = 3;
 
 // export const baseUrl = 'http://localhost:8080';
 export const baseUrl = 'https://api-biteofappetite.com';
@@ -55,5 +56,6 @@ export const decimalMap = [
   { decimal: '0.66', fraction: '⅔' },
   { decimal: '0.75', fraction: '¾' },
 ];
+
 //buat ambil desimalnya
 // const decimal = n - Math.floor(n)
