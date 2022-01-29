@@ -12,17 +12,29 @@ import {
 } from 'redux-toolkit/slices/recipeSlice';
 
 const DetailRecipe = (): JSX.Element => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
   const dispatch = useDispatch();
   const { recipeTitle } = useParams<{ recipeTitle: string }>();
   const recentChosenRecipeTitle = useSelector(selectChosenRecipeTitle);
+  function refresh() {
+    setTimeout(function() {
+      window.location.reload();
+    }, 1000);
+  }
+
+  function scrollUp() {
+    setTimeout(function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 100);
+  }
   useEffect(() => {
     if (
       recentChosenRecipeTitle.toLowerCase() !== recipeTitle.replaceAll('-', ' ')
     ) {
       dispatch(fetchRecipeByName(recipeTitle));
+      // refresh();
+      scrollUp();
     }
-  }, []);
+  }, [recipeTitle]);
 
   return (
     <Box>

@@ -68,7 +68,7 @@ const Main = ({
         elevation={isContent ? elevationLogic() : 0}
       >
         <Container
-          maxWidth={{ sm: 1, md: 1600 }}
+          maxWidth={{ sm: 1, md: 1600, lg: 2560 }}
           paddingY={{ xs: 2, md: 1 }}
           paddingX={{ xs: 2, md: 4 }}
           margin={'0'}
