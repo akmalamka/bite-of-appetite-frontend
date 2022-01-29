@@ -38,8 +38,12 @@ const Description = ({
   const data = isRecipe ? chosenRecipe : chosenWriting;
 
   function dividerLogic() {
-    return (!isXs && !isRecipe) || (!isXs && data.inspiredBy);
+    return (
+      (!isXs && !isRecipe && data.photographBy.length > 0) ||
+      (!isXs && data.inspiredBy)
+    );
   }
+
   return (
     <Box
       width={{ xs: 1, md: 1 / 2 }}
@@ -175,7 +179,7 @@ const Description = ({
                   }}
                 />
               )}
-              {(!isRecipe || data.photographBy.length > 0) && (
+              {!isRecipe && data.photographBy.length > 0 && (
                 <Typography
                   color={isRecipe ? 'text.primary' : 'text.secondary'}
                   variant="subtitle2"
@@ -189,6 +193,22 @@ const Description = ({
                   }}
                 >
                   Photograph By {data.photographBy}
+                </Typography>
+              )}
+              {isRecipe && data.inspiredBy && (
+                <Typography
+                  color={isRecipe ? 'text.primary' : 'text.secondary'}
+                  variant="subtitle2"
+                  align={'center'}
+                  display={'flex'}
+                  justifyContent={'center'}
+                  sx={{
+                    fontFamily: 'Inter',
+                    fontWeight: 400,
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Inspired By {data.inspiredBy}
                 </Typography>
               )}
             </Box>
